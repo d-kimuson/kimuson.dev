@@ -10,32 +10,35 @@ import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 
 import { rhythm } from "../utils/typography"
+import { BioQuery } from "../../types/graphql-types"
 
-const Bio = () => {
-  const data = useStaticQuery(graphql`
-    query BioQuery {
-      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
-        childImageSharp {
-          fixed(width: 50, height: 50) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      site {
-        siteMetadata {
-          author {
-            name
-            summary
-          }
-          social {
-            twitter
-          }
-        }
+const query = graphql`
+query Bio {
+  avatar: file(absolutePath: { regex: "/gatsby-icon.png/" }) {
+    childImageSharp {
+      fixed(width: 50, height: 50) {
+        ...GatsbyImageSharpFixed
       }
     }
-  `)
+  }
+  site {
+    siteMetadata {
+      author {
+        name
+        summary
+      }
+      social {
+        twitter
+      }
+    }
+  }
+}
+`
 
+const Bio: React.FC = () => {
+  const data: BioQuery = useStaticQuery(query)
   const { author, social } = data.site.siteMetadata
+
   return (
     <div
       style={{
