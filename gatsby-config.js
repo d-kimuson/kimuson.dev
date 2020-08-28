@@ -1,14 +1,14 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Kimuson Blog`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Kaito Kimura`,
+      summary: `ソフトウェアエンジニアです.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `技術ブログです.`,
+    siteUrl: `https://kimuson.dev/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `_kimuemon`,
     },
   },
   plugins: [
@@ -76,8 +76,14 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    // typescript
+    'gatsby-plugin-typescript',
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        codegen: process.env.IS_CODEGEN === 'true',
+        fileName: 'types/graphql-types.d.ts'
+      }
+    }
   ],
 }
