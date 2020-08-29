@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .l-main-container {
@@ -26,6 +27,13 @@
 
 .l-sidebar-container {
   width: l.$sidebar-width;
+}
+
+.l-main-sticky-area,
+.l-sidebar-sticky-area {
+  position: sticky;
+  top: 50px;
+  width: 100%;
 }
 
 @media screen and (max-width: (l.$main-width + l.$sidebar-width + l.$page-x-padding * 2 + l.$space-between-main-side)) {

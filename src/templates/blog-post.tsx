@@ -6,6 +6,7 @@ import Layout from "../components/layout"
 import Head from "../components/head"
 import Toc from "../components///sidebar/toc"
 import Bio from "../components/bio"
+import styles from "./blog-post.module.scss"
 
 interface AroundNav {
   fields: {
@@ -44,7 +45,10 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
           <main role="main">
             <article>
               <h1>{title}</h1>
-              <div dangerouslySetInnerHTML={{ __html: html }} />
+              <div
+                className={styles.articleBody}
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
             </article>
           </main>
 
@@ -69,7 +73,11 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
           <p>さいどばー</p>
           <Bio />
 
-          <Toc htmlAst={post?.htmlAst} />
+          <div className="l-sidebar-sticky-area">
+            <Toc htmlAst={post?.htmlAst} />
+
+            <p>hoge</p>
+          </div>
         </div>
 
       </Layout>
