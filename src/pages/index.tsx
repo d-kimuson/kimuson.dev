@@ -5,7 +5,6 @@ import { IndexQuery } from "../../types/graphql-types"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Head from "../components/head"
-import { rhythm } from "../utils/typography"
 
 interface IndexProps extends PageProps {
   data: IndexQuery;
@@ -27,12 +26,8 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
                 return (
                   <section key={node.fields.slug}>
                     <header>
-                      <h3
-                        style={{
-                          marginBottom: rhythm(1 / 4),
-                        }}
-                      >
-                        <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                      <h3>
+                        <Link to={node.fields.slug}>
                           {title}
                         </Link>
                       </h3>
