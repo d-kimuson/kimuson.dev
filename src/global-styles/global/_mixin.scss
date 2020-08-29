@@ -6,11 +6,11 @@
 // xl: 〜 デスクトップ
 
 $-breakpoints: (
-  'zero': 0,
-  'sm': 600px,
-  'md': 960px,
-  'lg': 1264px,
-  'xl': 2000px,
+  "zero": 0,
+  "sm": 600px,
+  "md": 960px,
+  "lg": 1264px,
+  "xl": 2000px,
 ) !default;
 
 @mixin mq($from, $to) {

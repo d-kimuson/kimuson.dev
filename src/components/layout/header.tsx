@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <Link to="/">
-        <h1>{data.site?.siteMetadata?.title || "No Title"}</h1>
+        <h1>{data.site?.siteMetadata?.title || `No Title`}</h1>
       </Link>
 
       <Navigation />

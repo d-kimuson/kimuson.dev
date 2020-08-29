@@ -8,11 +8,11 @@ import Bio from "../components/bio"
 
 interface AroundNav {
   fields: {
-    slug: string
+    slug: string;
   };
   frontmatter: {
-    title: string
-  }
+    title: string;
+  };
 }
 
 interface BlogPostTemplateProps extends PageProps {
@@ -20,23 +20,23 @@ interface BlogPostTemplateProps extends PageProps {
   pageContext: {
     previous: AroundNav | null;
     next: AroundNav | null;
-  }
+  };
 }
 
 const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
   { data, pageContext }: BlogPostTemplateProps
 ) => {
   const post = data.markdownRemark
-  const title = post?.frontmatter?.title || ""
-  const html = post?.html || ""
+  const title = post?.frontmatter?.title || ``
+  const html = post?.html || ``
 
   const { previous, next } = pageContext
 
   return (
     <>
       <Head
-        title={post?.frontmatter?.title || ""}
-        description={post?.frontmatter?.description || post?.excerpt || ""}
+        title={post?.frontmatter?.title || ``}
+        description={post?.frontmatter?.description || post?.excerpt || ``}
       />
       <Layout>
         <div className="l-main-container">

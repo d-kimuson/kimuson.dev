@@ -11,7 +11,7 @@ interface LayoutProps {
   children?: any;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div>
       <Header />

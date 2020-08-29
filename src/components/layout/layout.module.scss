@@ -2,19 +2,19 @@
 $-header-height: 150px;
 $-footer-height: 150px;
 .header {
-    height: $-header-height;
-    background-color: g.$theme-color;
-    color: g.$theme-text-color;
+  height: $-header-height;
+  background-color: g.$theme-color;
+  color: g.$theme-text-color;
 }
 
 .content {
-    min-height: calc(100vh - (#{$-header-height} + #{$-footer-height}));
-    background-color: g.$white-weak;
+  min-height: calc(100vh - (#{$-header-height} + #{$-footer-height}));
+  background-color: g.$white-weak;
 }
 
 .footer {
-    height: $-footer-height;
-    width: 100%;
-    background-color: g.$theme-color;
-    color: g.$theme-text-color;
+  height: $-footer-height;
+  width: 100%;
+  background-color: g.$theme-color;
+  color: g.$theme-text-color;
 }
