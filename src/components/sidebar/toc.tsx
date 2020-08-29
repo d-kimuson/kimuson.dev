@@ -16,8 +16,6 @@ interface TocProps {
 const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
   const headings: Heading[] = [];
 
-  console.log(htmlAst);
-
   const targetTags = htmlAst.children
     .filter(ast => ast.type === `element`)
     .filter(ast => [`h2`, `h3`].includes(ast.tagName || ``))

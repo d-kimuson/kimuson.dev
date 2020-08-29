@@ -3,6 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 
 import { HeaderQuery } from "../../../types/graphql-types"
 import Navigation from "./navigation"
+import Search from "./search"
 import styles from "./layout.module.scss"
 
 const query = graphql`
@@ -25,6 +26,7 @@ const Header: React.FC = () => {
       </Link>
 
       <Navigation />
+      <Search />
     </header>
   )
 }
