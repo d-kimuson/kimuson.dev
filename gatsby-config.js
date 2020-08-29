@@ -101,5 +101,29 @@ module.exports = {
         ]
       }
     },
+    // linting
+    {
+      resolve: "gatsby-plugin-prettier-eslint",
+      options: {
+        watch: true,
+        eslint: {
+          patterns: ["src/**/*.{ts,tsx}"],
+          customOptions: {
+            fix: true,
+            cache: true,
+          },
+        },
+      },
+    },
+    {
+      resolve: "@danbruegge/gatsby-plugin-stylelint",
+      options: {
+        fix: true,
+        syntax: 'scss',
+        files: [
+          "**/*.s?(a|c)ss",
+        ]
+      }
+    }
   ],
 }

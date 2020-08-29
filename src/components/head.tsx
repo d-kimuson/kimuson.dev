@@ -22,8 +22,8 @@ interface HeadProps {
   title?: string;    // TOPページのみ不要
   description?: string;  // TOPページのみ不要
   meta?: {
-    name: string,
-    content: string
+    name: string;
+    content: string;
   }[];
 }
 
@@ -31,25 +31,25 @@ const Head: React.FC<HeadProps> = ({
   title,
   description,
   meta = []
-}) => {
+}: HeadProps) => {
   const { site }: HeadQuery = useStaticQuery(query)
   // == 空文字だと困るのでテストで落とす ==
-  const siteTitle = site?.siteMetadata?.title || "";
-  const siteDescription = site?.siteMetadata?.description || "";
+  const siteTitle = site?.siteMetadata?.title || ``;
+  const siteDescription = site?.siteMetadata?.description || ``;
   // =================================
 
-  const pageTitle = typeof title === 'undefined'
+  const pageTitle = typeof title === `undefined`
     ? siteTitle
     : `${title} | ${siteTitle}`
 
-  const pageDescription = typeof description === 'undefined'
+  const pageDescription = typeof description === `undefined`
     ? siteDescription
     : description
 
   return (
     <Helmet
       htmlAttributes={{
-        lang: 'ja',
+        lang: `ja`,
       }}
       title={pageTitle}
       meta={[
@@ -63,7 +63,7 @@ const Head: React.FC<HeadProps> = ({
         },
         {
           name: `twitter:creator`,
-          content: site?.siteMetadata?.social?.twitter || "",
+          content: site?.siteMetadata?.social?.twitter || ``,
         },
         {
           name: `twitter:title`,

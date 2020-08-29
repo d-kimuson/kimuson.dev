@@ -3,8 +3,8 @@ import { Link } from "gatsby"
 
 const navRoutes = [
   {
-    to: "/",
-    text: "TOP"
+    to: `/`,
+    text: `TOP`
   }
 ]
 
@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
     <nav role="navigation">
       <ul>
         {navRoutes.map(route => (
-          <li>
+          <li key={route.text}>
             <Link to={route.to}>{route.text}</Link>
           </li>
         ))}

@@ -5,8 +5,8 @@ import Layout from "../components/layout"
 import Head from "../components/head"
 
 const NotFoundPage: React.FC<PageProps> = () => {
-  const title = "404: Not Found"
-  const description = "ページが見つかりません。"
+  const title = `404: Not Found`
+  const description = `ページが見つかりません。`
 
   return (
     <>

@@ -22,7 +22,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
           <main role="main">
             <section>
               {posts.map(({ node }) => {
-                const title = node.frontmatter?.title || "No Title"
+                const title = node.frontmatter?.title || `No Title`
 
                 return (
                   <section key={node.fields.slug}>
