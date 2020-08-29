@@ -18,33 +18,43 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
     <>
       <Head />
       <Layout>
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <article key={node.fields.slug}>
-              <header>
-                <h3
-                  style={{
-                    marginBottom: rhythm(1 / 4),
-                  }}
-                >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                    {title}
-                  </Link>
-                </h3>
-                <small>{node.frontmatter.date}</small>
-              </header>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                />
-              </section>
-            </article>
-          )
-        })}
+        <div className="l-main-container">
+          <main role="main">
+            <section>
+              {posts.map(({ node }) => {
+                const title = node.frontmatter?.title || "No Title"
+
+                return (
+                  <section key={node.fields.slug}>
+                    <header>
+                      <h3
+                        style={{
+                          marginBottom: rhythm(1 / 4),
+                        }}
+                      >
+                        <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                          {title}
+                        </Link>
+                      </h3>
+                      <small>{node.frontmatter.date}</small>
+                    </header>
+                    <section>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: node.frontmatter.description || node.excerpt,
+                        }}
+                      />
+                    </section>
+                  </section>
+                )
+              })}
+            </section>
+          </main>
+        </div>
+        <div className="l-sidebar-container">
+          <p>さいどばー</p>
+          <Bio />
+        </div>
       </Layout>
     </>
   )
