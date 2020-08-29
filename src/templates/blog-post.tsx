@@ -4,6 +4,7 @@ import { Link, graphql, PageProps } from "gatsby"
 import { BlogPostBySlugQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
 import Head from "../components/head"
+import Toc from "../components///sidebar/toc"
 import Bio from "../components/bio"
 
 interface AroundNav {
@@ -67,6 +68,8 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
         <div className="l-sidebar-container">
           <p>さいどばー</p>
           <Bio />
+
+          <Toc htmlAst={post?.htmlAst} />
         </div>
 
       </Layout>
@@ -82,10 +85,13 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      htmlAst
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        category
+        tags
       }
     }
   }
