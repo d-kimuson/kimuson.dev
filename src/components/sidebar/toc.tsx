@@ -14,23 +14,14 @@ interface TocProps {
 }
 
 const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
-  const headings: Heading[] = [];
-
-  const targetTags = htmlAst.children
-    .filter(ast => ast.type === `element`)
-    .filter(ast => [`h2`, `h3`].includes(ast.tagName || ``))
-
-  let tag;
-  for (tag of targetTags) {
-    const id = tag.properties?.id
-
-    if (typeof tag.tagName === `string` && typeof id === `string`) {
-      headings.push({
-        tag: tag.tagName,
-        id: tag.properties?.id
-      })
-    }
-  }
+  const headings = htmlAst.children
+    .filter(node => node.type === `element`)
+    .filter(node => [`h2`, `h3`].includes(node.tagName || ``))
+    .map(node => ({
+      tag: node.tagName,
+      id: node.properties?.id
+    }))
+    .filter((h): h is Heading => typeof (h.tag && h.id) !== `undefined`)
 
   return (
     <section className={styles.tocWrapper}>
