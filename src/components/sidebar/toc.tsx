@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 import { HtmlAst } from "../../../types/declaration"
+import styles from "./sidebar.module.scss"
 
 interface Heading {
   tag: string;
@@ -34,9 +35,9 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
   }
 
   return (
-    <section>
-      <h1>この記事の見出し</h1>
-      <ul>
+    <section className={styles.tocWrapper}>
+      <h1 className={styles.tocTitle}>この記事の見出し</h1>
+      <ul className={styles.toc}>
         {headings.map((h) => (
           <li key={h.id} className={`toc-${h.tag}`}>
             <Link to={`#${h.id}`}>{h.id}</Link>

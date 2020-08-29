@@ -1,0 +1,33 @@
+@use "sass:color";
+@use "../../global-styles/global/" as g;
+
+.toc-wrapper {
+  width: 100%;
+  border: solid 2px color.scale(g.$black, $lightness: 70%);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.toc-title {
+  font-size: 1rem;
+}
+
+.toc {
+  list-style: none;
+  li {
+    a {
+      text-decoration: none;
+      color: inherit;
+      padding: 5px 10px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: color.scale(g.$black-weak, $lightness: 70%);
+        transition: 0.5s;
+      }
+    }
+  }
+  li[class="toc-h3"] {
+    margin-inline-start: 20px;
+  }
+}
