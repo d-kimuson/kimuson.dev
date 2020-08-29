@@ -4,6 +4,7 @@ import { Link, graphql, PageProps } from "gatsby"
 import { BlogPostBySlugQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
 import Head from "../components/head"
+import Bio from "../components/bio"
 
 interface AroundNav {
   fields: {
@@ -38,27 +39,34 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
         description={post?.frontmatter?.description || post?.excerpt || ""}
       />
       <Layout>
-        <main role="main">
-          <article>
-            <h1>{title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
-          </article>
-        </main>
+        <div className="l-main-container">
+          <main role="main">
+            <article>
+              <h1>{title}</h1>
+              <div dangerouslySetInnerHTML={{ __html: html }} />
+            </article>
+          </main>
 
-        <div>
-          {previous === null
-            ? <div></div>
-            : <Link to={previous.fields.slug}>
-              {previous.frontmatter.title}
-            </Link>
-          }
+          <div>
+            {previous === null
+              ? <div></div>
+              : <Link to={previous.fields.slug}>
+                {previous.frontmatter.title}
+              </Link>
+            }
 
-          {next === null
-            ? <div></div>
-            : <Link to={next.fields.slug}>
-              {next.frontmatter.title}
-            </Link>
-          }
+            {next === null
+              ? <div></div>
+              : <Link to={next.fields.slug}>
+                {next.frontmatter.title}
+              </Link>
+            }
+          </div>
+        </div>
+
+        <div className="l-sidebar-container">
+          <p>さいどばー</p>
+          <Bio />
         </div>
 
       </Layout>
