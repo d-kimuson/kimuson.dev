@@ -84,6 +84,22 @@ module.exports = {
         codegen: process.env.IS_CODEGEN === 'true',
         fileName: 'types/graphql-types.d.ts'
       }
-    }
+    },
+    // StyleSheets
+    {
+      resolve: "gatsby-plugin-sass",
+      options: {
+        implementation: require("sass"),
+        sassRuleTest: /\.scss$/,
+        sassRuleModulesTest: /\.module\.scss$/,
+        postCssPlugins: [
+          require('autoprefixer')({
+            grid: "autoplace"
+          }),
+          require('postcss-flexbugs-fixes')({}),
+          require('cssnano')({ preset: 'default' })
+        ]
+      }
+    },
   ],
 }

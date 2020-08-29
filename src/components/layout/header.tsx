@@ -1,7 +1,9 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
+import { HeaderQuery } from "../../../types/graphql-types"
 import Navigation from "./navigation"
+import styles from "./layout.module.scss"
 
 const query = graphql`
   query Header {
@@ -14,14 +16,15 @@ const query = graphql`
 `
 
 const Header: React.FC = () => {
-  const data = useStaticQuery(query)
+  const data: HeaderQuery = useStaticQuery(query)
 
   return (
-    <header>
+    <header className={styles.header}>
       <Link to="/">
-        <h1>{data.site.siteMetadata.title}</h1>
-        <Navigation />
+        <h1>{data.site?.siteMetadata?.title || "No Title"}</h1>
       </Link>
+
+      <Navigation />
     </header>
   )
 }
