@@ -19,6 +19,7 @@ exports.createPages = async ({ graphql, actions }) => {
               }
               frontmatter {
                 title
+                draft
               }
             }
           }
@@ -33,6 +34,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Create blog posts pages.
   const posts = result.data.allMarkdownRemark.edges
+    .filter(post => process.env.NODE_ENV === 'development' || !post.frontmatter.draft)
 
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
@@ -61,4 +63,51 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
   }
+}
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createFieldExtension, createTypes } = actions
+
+  createFieldExtension({
+    name: 'fileByDataPath',
+    extend: () => ({
+      resolve: function (src, args, context, info) {
+        const partialPath = src.thumbnail
+          if (!partialPath) {
+            return null
+          }
+
+        const filePath = path.join(__dirname, 'content/assets', partialPath)
+        const fileNode = context.nodeModel.runQuery({
+          firstOnly: true,
+          type: 'File',
+          query: {
+            filter: {
+              absolutePath: {
+                eq: filePath
+              }
+            }
+          }
+        })
+
+        if (!fileNode) {
+          return null
+        }
+
+        return fileNode
+      }
+    })
+  })
+
+  const typeDefs = `
+    type Frontmatter @infer {
+      thumbnail: File @fileByDataPath
+    }
+
+    type MarkdownRemark implements Node @infer {
+      frontmatter: Frontmatter
+    }
+  `
+
+  createTypes(typeDefs)
 }

@@ -1,10 +1,12 @@
 import React from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 
 import { IndexQuery } from "../../types/graphql-types"
+import { Article } from "../../types/declaration"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Head from "../components/head"
+import ArticleList from "../components/article-list"
 
 interface IndexProps extends PageProps {
   data: IndexQuery;
@@ -12,6 +14,21 @@ interface IndexProps extends PageProps {
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const posts = data.allMarkdownRemark.edges
+    .map(e => ({
+      slug: e.node.fields?.slug,
+      title: e.node.frontmatter?.title || `No Title`,
+      description: e.node.frontmatter?.description || e.node.excerpt || ``,
+      date: e.node.frontmatter?.date,
+      thumbnail: e.node.frontmatter?.thumbnail?.childImageSharp?.fluid,
+      draft: e.node.frontmatter?.draft || true,
+      category: e.node.frontmatter?.category,
+      tags: e.node.frontmatter?.tags?.map(tag => String(tag)) || []
+    }))
+    .filter((post): post is Article => (
+      typeof post.slug === `string` &&
+      typeof post.date === `string` &&
+      typeof post.category === `string`
+    ))
 
   return (
     <>
@@ -20,29 +37,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
         <div className="l-main-container">
           <main role="main">
             <section>
-              {posts.map(({ node }) => {
-                const title = node.frontmatter?.title || `No Title`
-
-                return (
-                  <section key={node.fields.slug}>
-                    <header>
-                      <h3>
-                        <Link to={node.fields.slug}>
-                          {title}
-                        </Link>
-                      </h3>
-                      <small>{node.frontmatter.date}</small>
-                    </header>
-                    <section>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: node.frontmatter.description || node.excerpt,
-                        }}
-                      />
-                    </section>
-                  </section>
-                )
-              })}
+              <ArticleList articles={posts} />
             </section>
           </main>
         </div>
@@ -67,9 +62,19 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
             title
             description
+            date(formatString: "MMMM DD, YYYY")
+            draft
+            category
+            tags
+            thumbnail {
+              childImageSharp {
+                fluid(maxWidth: 300) {
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                }
+              }
+            }
           }
         }
       }
