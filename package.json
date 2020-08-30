@@ -73,7 +73,7 @@
     "dev:codegen": "IS_CODEGEN=true gatsby develop",
     "codegen": "graphql-codegen --config codegen.yml",
     "build": "gatsby build",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "try:prod": "yarn build && npx http-server public",
     "start": "npm run develop",
     "clean": "gatsby clean"
   }
