@@ -6,6 +6,8 @@ tags:
   - Markdown
   - Blog
 date: "2015-05-28T22:40:32.169Z"
+thumbnail: 'thumbnails/blog.png'
+draft: true
 ---
 
 マークダウンで記事を書くことができます.

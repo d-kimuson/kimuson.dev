@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, graphql, PageProps } from "gatsby"
+import Image from "gatsby-image"
 
 import { BlogPostBySlugQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
@@ -30,21 +31,36 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
 ) => {
   const post = data.markdownRemark
   const title = post?.frontmatter?.title || ``
+  const description = post?.frontmatter?.description || post?.excerpt || ``
+  const maybeThumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const html = post?.html || ``
+
+  console.log(post)
 
   const { previous, next } = pageContext
 
   return (
     <>
       <Head
-        title={post?.frontmatter?.title || ``}
-        description={post?.frontmatter?.description || post?.excerpt || ``}
+        title={title}
+        description={description}
       />
       <Layout>
         <div className="l-main-container">
           <main role="main">
             <article>
-              <h1>{title}</h1>
+              <h1>{
+                post?.frontmatter?.draft
+                  ? `[非公開]`
+                  : ``}{title}
+              </h1>
+              {typeof maybeThumbnail !== `undefined`
+                ? <Image
+                  fluid={maybeThumbnail}
+                  backgroundColor="#000"
+                />
+                : null
+              }
               <div
                 className={styles.articleBody}
                 dangerouslySetInnerHTML={{ __html: html }}
@@ -100,6 +116,14 @@ export const pageQuery = graphql`
         description
         category
         tags
+        draft
+        thumbnail {
+          childImageSharp {
+            fluid(maxWidth: 590) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
       }
     }
   }
