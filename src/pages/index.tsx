@@ -1,12 +1,13 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { IndexQuery } from "../../types/graphql-types"
+import { IndexQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
 import { Article } from "../../types/declaration"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Head from "../components/head"
 import ArticleList from "../components/article-list"
+import { filterDraft } from "../utils/draft"
 
 interface IndexProps extends PageProps {
   data: IndexQuery;
@@ -14,6 +15,8 @@ interface IndexProps extends PageProps {
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const posts = data.allMarkdownRemark.edges
+    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
+    .filter(filterDraft)
     .map(e => ({
       slug: e.node.fields?.slug,
       title: e.node.frontmatter?.title || `No Title`,
