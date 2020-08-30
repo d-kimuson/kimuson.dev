@@ -1,6 +1,48 @@
+@use "sass:color";
 @use "../global-styles/global/" as g;
+@use "../global-styles/styles/variable" as l;
+.article {
+  // ⇓ コードブロックにて, 折り返す(white-space)のために, 画面幅を明示する必要あり
+  width: l.$main-width;
+  @media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
+    width: calc(100vw - #{l.$page-x-padding} * 2);
+  }
+}
 
+.thumbnail {
+  height: 40vh;
+  max-height: 400px;
+}
+
+// 記事スタイル
 .article-body {
+  h2 {
+    font-size: 1.5rem;
+    line-height: 3.5rem;
+    padding: 0 0.5rem;
+    margin: 2.5rem 0;
+    border-block-end: solid 2px g.$black-thin;
+  }
+  h3 {
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+    margin: 1.5rem 0;
+    padding: 0 0 0 0.8rem;
+    border-inline-start: solid 8px g.$theme-color;
+    box-shadow: 0 0 0 color.scale(g.$bg-color, $lightness: -30%);
+  }
+  h4 {
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    margin: 1.2rem 0;
+  }
+  // anchor link の無効化
+  h2,
+  h3 {
+    a[class="anchor before"] {
+      display: none;
+    }
+  }
   a {
     position: relative;
     &::before {
@@ -18,6 +60,126 @@
     &:hover {
       &::before {
         width: 100%;
+      }
+    }
+  }
+  p {
+    font-size: 1rem;
+    line-height: 2.2rem;
+  }
+  img,
+  ul,
+  ol,
+  table,
+  blockquote {
+    margin: 25px 5px;
+  }
+  ul {
+    li {
+      margin: 5px 0;
+      & > ul {
+        margin: 0;
+      }
+    }
+  }
+  table {
+    border-collapse: collapse;
+    box-shadow: 0 0 8px 1px g.$black-thin;
+    th,
+    td {
+      border: solid 1px g.$black-thin;
+      padding: 0.5rem 1rem;
+      font-weight: 400;
+    }
+    th {
+      background-color: g.$theme-color;
+      color: g.$theme-text-color;
+    }
+  }
+  blockquote {
+    $-quote-color: color.scale(g.$text-color, $lightness: 50%);
+
+    border-inline-start: solid 4px color.scale($-quote-color, $lightness: 45%);
+    margin: 1rem 0;
+    p {
+      margin: 0 0 0 1.2rem;
+      line-height: 2rem;
+      color: $-quote-color;
+    }
+  }
+  // for `example`
+  :not(pre) > code {
+    background-color: g.$white-weak;
+    height: 100%;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+  }
+  hr {
+    display: block;
+    background-color: g.$black-thin;
+    height: 1px;
+    border: none;
+    margin: 1.2rem 0;
+  }
+  .anchor {
+    &,
+    &:hover {
+      display: none !important;
+    }
+  }
+  // prismjs
+  // [WARN] ピクセル数は, prismjs.css からもらってきてるものもあるので変更には注意
+  $-code-block-y-margin: 20px;
+  // Code Title
+  div[class="gatsby-code-title"] {
+    // outer layout
+    margin: $-code-block-y-margin 0 0 20px;
+    // inner layout
+    display: inline-block;
+    text-align: center;
+    padding: 2px 15px;
+    border-radius: 5px 5px 0 0;
+    // style
+    background: g.$theme-color;
+    color: g.$theme-text-color;
+  }
+  // Copy Button
+  div[class="gatsby-code-button-container"] {
+    top: 0;
+  }
+  div[class="gatsby-code-button"] {
+    position: absolute;
+    top: 17px;
+    right: 15px;
+    &::after {
+      // 謎の hover エフェクトがあるので, 上書き
+      display: none !important;
+    }
+
+    svg {
+      // calculated by https://codepen.io/sosuke/pen/Pjoqqp
+      // あまり良くない対処なので, Fontawesome等への置き換えを検討
+      filter: invert(98%) sepia(5%) saturate(983%) hue-rotate(178deg)
+        brightness(95%) contrast(99%);
+      opacity: 0.9;
+    }
+  }
+  :not([class="gatsby-code-title"])
+    + div[class="gatsby-code-button-container"] {
+    // code title なしの場合に, titleの代わりに上マージンを設置
+    margin-block-start: $-code-block-y-margin;
+  }
+
+  // Codeblock
+  pre[class*="language-"] {
+    // code block
+    margin: 0 0 $-code-block-y-margin 0;
+    span[class="line-numbers-rows"] {
+      padding: 16px 0; // [変更不可] code block と統一
+      span::before {
+        display: flex;
+        justify-content: center;
+        padding-left: 0.8em; // [変更不可] padding-rightと統一
       }
     }
   }

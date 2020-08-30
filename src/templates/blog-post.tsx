@@ -35,8 +35,6 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
   const maybeThumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const html = post?.html || ``
 
-  console.log(post)
-
   const { previous, next } = pageContext
 
   return (
@@ -48,19 +46,20 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
       <Layout>
         <div className="l-main-container">
           <main role="main">
-            <article>
+            <article className={styles.article}>
+              {typeof maybeThumbnail !== `undefined`
+                ? <Image
+                  fluid={maybeThumbnail}
+                  backgroundColor="#000"
+                  className={styles.thumbnail}
+                />
+                : null
+              }
               <h1>{
                 post?.frontmatter?.draft
                   ? `[非公開]`
                   : ``}{title}
               </h1>
-              {typeof maybeThumbnail !== `undefined`
-                ? <Image
-                  fluid={maybeThumbnail}
-                  backgroundColor="#000"
-                />
-                : null
-              }
               <div
                 className={styles.articleBody}
                 dangerouslySetInnerHTML={{ __html: html }}

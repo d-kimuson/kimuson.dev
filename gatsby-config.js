@@ -30,15 +30,21 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          "gatsby-remark-code-titles",
           {
-            resolve: "gatsby-remark-code-titles",
-            options: {},
+            resolve: "gatsby-remark-code-buttons",
+            options: {
+              toasterText: 'Copied'
+            }
           },
           {
             resolve: "gatsby-remark-prismjs",
             options: {
               classPrefix: "language-",
+              inlineCodeMarker: null,
+              aliases: {},
               showLineNumbers: true,
+              noInlineHighlight: true,
               prompt: {
                 user: "root",
                 host: "localhost",
@@ -50,12 +56,6 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 590
-            },
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
           `gatsby-remark-copy-linked-files`,

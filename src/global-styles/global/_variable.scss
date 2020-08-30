@@ -11,6 +11,7 @@ $skyblue: #00b0ff !default;
 // color
 $theme-color: color.scale($black, $lightness: 20%) !default;
 $theme-text-color: $white;
+$bg-color: $white-weak;
 $text-color: $black !default;
 $link-color: $skyblue !default;
 $success-color: $green !default;
