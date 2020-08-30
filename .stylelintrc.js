@@ -19,6 +19,7 @@ module.exports = {
     "declaration-block-no-shorthand-property-overrides": [true, { "severity": "warning" }],
     "block-no-empty": [true, { "severity": "warning" }],
     "no-duplicate-selectors": [true, { "severity": "warning" }],
+    "no-descending-specificity": [true, { "severity": "warning" }],
     "prettier/prettier": true,
   }
 }

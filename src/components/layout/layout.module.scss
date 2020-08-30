@@ -9,7 +9,7 @@ $-footer-height: 150px;
 
 .content {
   min-height: calc(100vh - (#{$-header-height} + #{$-footer-height}));
-  background-color: g.$white-weak;
+  background-color: g.$bg-color;
 }
 
 .footer {

@@ -23,7 +23,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
       description: e.node.frontmatter?.description || e.node.excerpt || ``,
       date: e.node.frontmatter?.date,
       thumbnail: e.node.frontmatter?.thumbnail?.childImageSharp?.fluid,
-      draft: e.node.frontmatter?.draft || true,
+      draft: e.node.frontmatter?.draft || false,
       category: e.node.frontmatter?.category,
       tags: e.node.frontmatter?.tags?.map(tag => String(tag)) || []
     }))

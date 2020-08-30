@@ -17,7 +17,7 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles }: ArticleListProps)
             <li key={article.slug}>
               <Link to={article.slug}>
                 <Image fluid={article.thumbnail} />
-                <p>{article.title}</p>
+                <p>{article.draft ? `[非公開]` : ``}{article.title}</p>
                 <p>{article.description}</p>
                 <time>{article.date}</time>
               </Link>

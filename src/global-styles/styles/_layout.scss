@@ -1,3 +1,4 @@
+@use "sass:color";
 @use '../global/' as g;
 @use 'variable' as l;
 // content レイアウト
@@ -13,7 +14,6 @@
 .l-main-container,
 .l-sidebar-container {
   border-radius: 3px;
-  box-shadow: 0 0 0 5px transparentize(g.$white-weak, $amount: 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +36,7 @@
   width: 100%;
 }
 
+// 1カラムレイアウトへのブレークポイント
 @media screen and (max-width: (l.$main-width + l.$sidebar-width + l.$page-x-padding * 2 + l.$space-between-main-side)) {
   .l-main-container {
     margin: 0;
@@ -51,8 +52,8 @@
   }
 }
 
-@media screen and (max-width: l.$main-width) {
+@media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
   .l-main-container {
-    width: 100%;
+    width: calc(100vw - #{l.$page-x-padding} * 2);
   }
 }
