@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Fuse from "fuse.js"
 
-import { SearchQuery } from "../../../types/graphql-types"
+import { SearchQuery, MarkdownRemarkEdge } from "../../../types/graphql-types"
+import { filterDraft } from "../../utils/draft"
 
 interface Page {
   title: string;
@@ -16,6 +17,7 @@ const query = graphql`
           node {
             frontmatter {
               title
+              draft
             }
             fields {
               slug
@@ -29,6 +31,8 @@ const query = graphql`
 const Search: React.FC = () => {
   const data: SearchQuery = useStaticQuery(query)
   const targets = data.allMarkdownRemark.edges
+    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
+    .filter(e => filterDraft(e))
     .map(e => ({
       title: e.node.frontmatter?.title,
       slug: e.node.fields?.slug

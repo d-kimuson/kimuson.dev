@@ -34,7 +34,12 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Create blog posts pages.
   const posts = result.data.allMarkdownRemark.edges
-    .filter(post => process.env.NODE_ENV === 'development' || !post.frontmatter.draft)
+    .filter(post => (
+      process.env.NODE_ENV === 'development' ||
+      (typeof post.node.frontmatter.draft === 'boolean'
+        && !post.node.frontmatter.draft
+      )
+    ))
 
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
@@ -73,9 +78,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     extend: () => ({
       resolve: function (src, args, context, info) {
         const partialPath = src.thumbnail
-          if (!partialPath) {
-            return null
-          }
+        if (!partialPath) {
+          return null
+        }
 
         const filePath = path.join(__dirname, 'content/assets', partialPath)
         const fileNode = context.nodeModel.runQuery({
