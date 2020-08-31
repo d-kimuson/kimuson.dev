@@ -96,6 +96,7 @@ module.exports = {
       }
     },
     // StyleSheets
+    "gatsby-plugin-fontawesome-css",
     {
       resolve: "gatsby-plugin-sass",
       options: {

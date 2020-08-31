@@ -2,7 +2,8 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import { TagPageQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
-import Bio from "../components/bio"
+import Bio from "../components/sidebar/bio"
+import CommonSidebar from "../components/sidebar/common-sidebar"
 import Layout from "../components/layout"
 import Head from "../components/head"
 import ArticleList from "../components/article-list"
@@ -18,8 +19,6 @@ const BlogPostTemplate: React.FC<TagPageProps> = (
   const posts = edgeListToArticleList(edges)
   const tag = pageContext.tag || `No Tag`
 
-  console.log(posts)
-
   return (
     <>
       <Head />
@@ -27,7 +26,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = (
         <div className="l-main-container">
           <main role="main">
             <section>
-              <h1>タグ: { tag }</h1>
+              <h1 className="m-page-title">タグ: { tag }</h1>
               <ArticleList articles={posts} />
             </section>
           </main>
@@ -35,6 +34,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = (
         <div className="l-sidebar-container">
           <p>さいどばー</p>
           <Bio />
+          <CommonSidebar />
         </div>
       </Layout>
     </>

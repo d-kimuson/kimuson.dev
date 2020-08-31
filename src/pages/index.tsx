@@ -2,7 +2,8 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import { IndexQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
-import Bio from "../components/bio"
+import Bio from "../components/sidebar/bio"
+import CommonSidebar from "../components/sidebar/common-sidebar"
 import Layout from "../components/layout"
 import Head from "../components/head"
 import ArticleList from "../components/article-list"
@@ -25,7 +26,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
         <div className="l-main-container">
           <main role="main">
             <section>
-              <h1>{title}</h1>
+              <h1 className="m-page-title">{title}</h1>
               <ArticleList articles={posts} />
             </section>
           </main>
@@ -33,6 +34,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
         <div className="l-sidebar-container">
           <p>さいどばー</p>
           <Bio />
+          <CommonSidebar />
         </div>
       </Layout>
     </>

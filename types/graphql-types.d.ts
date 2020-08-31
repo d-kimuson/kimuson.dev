@@ -3532,6 +3532,26 @@ export type SearchQuery = (
   ) }
 );
 
+export type CommonSidebarQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CommonSidebarQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'category' | 'tags' | 'draft'>
+        )> }
+      ) }
+    )> }
+  ) }
+);
+
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3653,7 +3673,7 @@ export type TagPageQuery = (
           & Pick<MarkdownRemarkFields, 'slug'>
         )>, frontmatter?: Maybe<(
           { __typename?: 'Frontmatter' }
-          & Pick<Frontmatter, 'draft' | 'description' | 'date' | 'title' | 'tags'>
+          & Pick<Frontmatter, 'category' | 'draft' | 'description' | 'date' | 'title' | 'tags'>
           & { thumbnail?: Maybe<(
             { __typename?: 'File' }
             & { childImageSharp?: Maybe<(
