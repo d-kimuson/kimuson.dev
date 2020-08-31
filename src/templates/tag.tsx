@@ -1,22 +1,24 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { IndexQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
+import { TagPageQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Head from "../components/head"
 import ArticleList from "../components/article-list"
 import { edgeListToArticleList } from "../utils/article"
 
-interface IndexProps extends PageProps {
-  data: IndexQuery;
-}
+type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 
-const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
+const BlogPostTemplate: React.FC<TagPageProps> = (
+  { data, pageContext }: TagPageProps
+) => {
   const edges = data.allMarkdownRemark.edges
     .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
   const posts = edgeListToArticleList(edges)
-  const title = data.site?.siteMetadata?.title || `No Title`
+  const tag = pageContext.tag || `No Tag`
+
+  console.log(posts)
 
   return (
     <>
@@ -25,7 +27,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
         <div className="l-main-container">
           <main role="main">
             <section>
-              <h1>{title}</h1>
+              <h1>タグ: { tag }</h1>
               <ArticleList articles={posts} />
             </section>
           </main>
@@ -39,39 +41,32 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )
 }
 
-export default Index
+export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query Index {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+  query TagPage($tag: String!) {
+    allMarkdownRemark(filter: {frontmatter: {tags: { in: [$tag] }}}) {
       edges {
         node {
-          excerpt
           fields {
             slug
           }
           frontmatter {
-            title
-            description
-            date(formatString: "MMMM DD, YYYY")
-            draft
             category
+            draft
+            description
+            date
+            title
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxWidth: 300) {
+                fluid(maxWidth: 590) {
                   ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
             }
           }
         }
-      }
-    }
-    site {
-      id
-      siteMetadata {
-        title
       }
     }
   }

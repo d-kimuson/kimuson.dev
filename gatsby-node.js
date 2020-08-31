@@ -20,6 +20,8 @@ exports.createPages = async ({ graphql, actions }) => {
               frontmatter {
                 title
                 draft
+                category
+                tags
               }
             }
           }
@@ -53,6 +55,37 @@ exports.createPages = async ({ graphql, actions }) => {
         previous,
         next,
       },
+    })
+  })
+
+
+  // カテゴリページ
+  const categories = posts
+    .filter(post => typeof post.node.frontmatter.category !== 'undefined')
+    .map(post => post.node.frontmatter.category)
+
+  Array.from(new Set(categories)).forEach((category, index) => {
+    createPage({
+      path: `/categories/${category}/`,
+      component: path.resolve('./src/templates/category.tsx'),
+      context: {
+        category: category
+      }
+    })
+  })
+
+  // タグページ
+  const tags = posts
+    .filter(post => typeof post.node.frontmatter.tags !== 'undefined')
+    .flatMap(post => post.node.frontmatter.tags)
+
+  Array.from(new Set(tags)).forEach((tag, index) => {
+    createPage({
+      path: `/tags/${tag}/`,
+      component: path.resolve('./src/templates/tag.tsx'),
+      context: {
+        tag: tag
+      }
     })
   })
 }

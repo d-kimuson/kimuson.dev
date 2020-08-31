@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import Fuse from "fuse.js"
 
 import { SearchQuery, MarkdownRemarkEdge } from "../../../types/graphql-types"
-import { filterDraft } from "../../utils/draft"
+import { filterDraft } from "../../utils/article"
 
 interface Page {
   title: string;
