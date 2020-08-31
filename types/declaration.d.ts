@@ -1,7 +1,3 @@
-import { FluidObject } from "gatsby-image"
-
-import { ImageSharpFluid } from "./graphql-types"
-
 export interface HtmlAst {
   type: string;
   value?: string;

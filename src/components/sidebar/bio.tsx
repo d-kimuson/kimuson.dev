@@ -2,7 +2,7 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 
-import { BioQuery } from "../../types/graphql-types"
+import { BioQuery } from "../../../types/graphql-types"
 
 const query = graphql`
 query Bio {

@@ -1,0 +1,13 @@
+@use "../global-styles/global/" as g;
+.category {
+  background-color: g.$theme-color;
+  color: g.$theme-text-color;
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin: 5px;
+  font-size: 1rem;
+
+  svg {
+    margin: 0 5px 0 0;
+  }
+}

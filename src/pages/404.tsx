@@ -14,7 +14,7 @@ const NotFoundPage: React.FC<PageProps> = () => {
       <Layout>
         <main role="main">
           <section>
-            <h1>404 Not Found</h1>
+            <h1 className="m-page-title">404 Not Found</h1>
             <p>ページが見つかりません。</p>
           </section>
         </main>

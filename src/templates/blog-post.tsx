@@ -6,7 +6,8 @@ import { BlogPostBySlugQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
 import Head from "../components/head"
 import Toc from "../components///sidebar/toc"
-import Bio from "../components/bio"
+import Bio from "../components/sidebar/bio"
+import CommonSidebar from "../components/sidebar/common-sidebar"
 import styles from "./blog-post.module.scss"
 
 interface AroundNav {
@@ -55,7 +56,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
                 />
                 : null
               }
-              <h1>{
+              <h1 className="m-page-title">{
                 post?.frontmatter?.draft
                   ? `[非公開]`
                   : ``}{title}
@@ -90,8 +91,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
 
           <div className="l-sidebar-sticky-area">
             <Toc htmlAst={post?.htmlAst} />
-
-            <p>hoge</p>
+            <CommonSidebar />
           </div>
         </div>
 
