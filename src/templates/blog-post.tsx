@@ -12,24 +12,25 @@ import styles from "./blog-post.module.scss"
 
 interface AroundNav {
   fields: {
-    slug: string;
-  };
+    slug: string
+  }
   frontmatter: {
-    title: string;
-  };
+    title: string
+  }
 }
 
 interface BlogPostTemplateProps extends PageProps {
-  data: BlogPostBySlugQuery;
+  data: BlogPostBySlugQuery
   pageContext: {
-    previous: AroundNav | null;
-    next: AroundNav | null;
-  };
+    previous: AroundNav | null
+    next: AroundNav | null
+  }
 }
 
-const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
-  { data, pageContext }: BlogPostTemplateProps
-) => {
+const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
+  data,
+  pageContext,
+}: BlogPostTemplateProps) => {
   const post = data.markdownRemark
   const title = post?.frontmatter?.title || ``
   const description = post?.frontmatter?.description || post?.excerpt || ``
@@ -40,26 +41,21 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
 
   return (
     <>
-      <Head
-        title={title}
-        description={description}
-      />
+      <Head title={title} description={description} />
       <Layout>
         <div className="l-main-container">
           <main role="main">
             <article className={styles.article}>
-              {typeof maybeThumbnail !== `undefined`
-                ? <Image
+              {typeof maybeThumbnail !== `undefined` ? (
+                <Image
                   fluid={maybeThumbnail}
                   backgroundColor="#000"
                   className={styles.thumbnail}
                 />
-                : null
-              }
-              <h1 className="m-page-title">{
-                post?.frontmatter?.draft
-                  ? `[非公開]`
-                  : ``}{title}
+              ) : null}
+              <h1 className="m-page-title">
+                {post?.frontmatter?.draft ? `[非公開]` : ``}
+                {title}
               </h1>
               <div
                 className={styles.articleBody}
@@ -69,19 +65,19 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
           </main>
 
           <div>
-            {previous === null
-              ? <div></div>
-              : <Link to={previous.fields.slug}>
+            {previous === null ? (
+              <div></div>
+            ) : (
+              <Link to={previous.fields.slug}>
                 {previous.frontmatter.title}
               </Link>
-            }
+            )}
 
-            {next === null
-              ? <div></div>
-              : <Link to={next.fields.slug}>
-                {next.frontmatter.title}
-              </Link>
-            }
+            {next === null ? (
+              <div></div>
+            ) : (
+              <Link to={next.fields.slug}>{next.frontmatter.title}</Link>
+            )}
           </div>
         </div>
 
@@ -94,7 +90,6 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = (
             <CommonSidebar />
           </div>
         </div>
-
       </Layout>
     </>
   )

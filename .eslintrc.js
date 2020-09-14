@@ -6,8 +6,11 @@ module.exports = {
     }
   },
   extends: [
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/react",
   ],
   plugins: ["@typescript-eslint"],
   parserOptions: {
@@ -33,5 +36,13 @@ module.exports = {
     react: {
       version: "detect"
     }
-  }
+  },
+  ignorePatterns: [
+    "gatsby-browser.js",
+    "gatsby-config.js",
+    "gatsby-node.js",
+    ".eslintrc.js",
+    ".stylelintrc.js",
+    "types/graphql-types.d.ts"
+  ],
 }

@@ -5,26 +5,26 @@ import Image from "gatsby-image"
 import { BioQuery } from "../../../types/graphql-types"
 
 const query = graphql`
-query Bio {
-  avatar: file(absolutePath: { regex: "/gatsby-icon.png/" }) {
-    childImageSharp {
-      fixed(width: 50, height: 50) {
-        ...GatsbyImageSharpFixed
+  query Bio {
+    avatar: file(absolutePath: { regex: "/gatsby-icon.png/" }) {
+      childImageSharp {
+        fixed(width: 50, height: 50) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    site {
+      siteMetadata {
+        author {
+          name
+          summary
+        }
+        social {
+          twitter
+        }
       }
     }
   }
-  site {
-    siteMetadata {
-      author {
-        name
-        summary
-      }
-      social {
-        twitter
-      }
-    }
-  }
-}
 `
 
 const Bio: React.FC = () => {
@@ -33,10 +33,7 @@ const Bio: React.FC = () => {
 
   return (
     <div>
-      <Image
-        fixed={data.avatar.childImageSharp.fixed}
-        alt={author.name}
-      />
+      <Image fixed={data.avatar.childImageSharp.fixed} alt={author.name} />
       <p>
         Written by <strong>{author.name}</strong> {author.summary}
         {` `}

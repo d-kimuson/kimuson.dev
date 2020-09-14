@@ -6,24 +6,24 @@ import { SearchQuery, MarkdownRemarkEdge } from "../../../types/graphql-types"
 import { filterDraft } from "../../utils/article"
 
 interface Page {
-  title: string;
-  slug: string;
+  title: string
+  slug: string
 }
 
 const query = graphql`
   query Search {
     allMarkdownRemark {
-        edges {
-          node {
-            frontmatter {
-              title
-              draft
-            }
-            fields {
-              slug
-            }
+      edges {
+        node {
+          frontmatter {
+            title
+            draft
+          }
+          fields {
+            slug
           }
         }
+      }
     }
   }
 `
@@ -35,21 +35,22 @@ const Search: React.FC = () => {
     .filter(e => filterDraft(e))
     .map(e => ({
       title: e.node.frontmatter?.title,
-      slug: e.node.fields?.slug
+      slug: e.node.fields?.slug,
     }))
     .filter((p): p is Page => typeof (p.title && p.slug) !== `undefined`)
 
   const fuse = new Fuse(targets, {
-    keys: [`title`]
+    keys: [`title`],
   })
 
   const [results, setResults] = useState<Page[]>([])
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    setResults(fuse
-      .search(event.currentTarget.value)
-      .map(_ => _.item)
-      .slice(0, 10)
+    setResults(
+      fuse
+        .search(event.currentTarget.value)
+        .map(_ => _.item)
+        .slice(0, 10)
     )
   }
 

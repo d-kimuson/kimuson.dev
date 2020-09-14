@@ -10,12 +10,13 @@ import ArticleList from "../components/article-list"
 import { edgeListToArticleList } from "../utils/article"
 
 interface IndexProps extends PageProps {
-  data: IndexQuery;
+  data: IndexQuery
 }
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
-  const edges = data.allMarkdownRemark.edges
-    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
+  const edges = data.allMarkdownRemark.edges.filter(
+    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  )
   const posts = edgeListToArticleList(edges)
   const title = data.site?.siteMetadata?.title || `No Title`
 
