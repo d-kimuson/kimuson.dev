@@ -1,13 +1,11 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-import {
-  CommonSidebarQuery,
-  MarkdownRemarkEdge,
-} from "../../../types/graphql-types"
+import { CommonSidebarQuery, MarkdownRemarkEdge } from "@graphql-types"
 import CategoryList from "../category-list"
 import TagList from "../tag-list"
 import { filterDraft } from "../../utils/article"
+// @ts-ignore
 import styles from "./sidebar.module.scss"
 
 const query = graphql`

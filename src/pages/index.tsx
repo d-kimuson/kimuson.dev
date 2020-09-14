@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { IndexQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
+import { IndexQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
 import Layout from "../components/layout"

@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTag } from "@fortawesome/free-solid-svg-icons"
 
+// @ts-ignore
 import styles from "./tag.module.scss"
 
 interface TagProps {

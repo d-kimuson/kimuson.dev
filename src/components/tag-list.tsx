@@ -1,6 +1,7 @@
 import React from "react"
 
 import Tag from "./tag"
+// @ts-ignore
 import styles from "./tag-list.module.scss"
 
 interface TagListProps {

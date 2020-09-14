@@ -1,9 +1,10 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
-import { HeaderQuery } from "../../../types/graphql-types"
+import { HeaderQuery } from "@graphql-types"
 import Navigation from "./navigation"
 import Search from "./search"
+// @ts-ignore
 import styles from "./layout.module.scss"
 
 const query = graphql`

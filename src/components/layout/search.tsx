@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Fuse from "fuse.js"
 
-import { SearchQuery, MarkdownRemarkEdge } from "../../../types/graphql-types"
+import { SearchQuery, MarkdownRemarkEdge } from "@graphql-types"
 import { filterDraft } from "../../utils/article"
 
 interface Page {

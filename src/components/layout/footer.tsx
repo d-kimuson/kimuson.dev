@@ -1,5 +1,6 @@
 import React from "react"
 
+// @ts-ignore
 import styles from "./layout.module.scss"
 
 const Footer: React.FC = () => {

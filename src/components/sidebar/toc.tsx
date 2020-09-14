@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 import { HtmlAst } from "../../../types/declaration"
+// @ts-ignore
 import styles from "./sidebar.module.scss"
 
 interface Heading {
