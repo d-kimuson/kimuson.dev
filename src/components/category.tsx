@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
+// @ts-ignore
 import styles from "./category.module.scss"
 
 interface CategoryProps {

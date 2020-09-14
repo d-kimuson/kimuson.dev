@@ -2,6 +2,7 @@ import React from "react"
 
 import Header from "./header"
 import Footer from "./footer"
+// @ts-ignore
 import styles from "./layout.module.scss"
 
 interface LayoutProps {

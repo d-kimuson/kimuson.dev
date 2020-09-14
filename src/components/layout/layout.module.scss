@@ -1,4 +1,4 @@
-@use "../../global-styles/global/" as g;
+@use "@styles/global" as g;
 $-header-height: 150px;
 $-footer-height: 150px;
 .header {

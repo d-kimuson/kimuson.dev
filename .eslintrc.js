@@ -23,6 +23,8 @@ module.exports = {
   },
   rules: {
     quotes: "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/quotes": [
       2,
       "backtick",

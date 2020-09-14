@@ -1,6 +1,7 @@
 import React from "react"
 
 import Category from "./category"
+// @ts-ignore
 import styles from "./category-list.module.scss"
 
 interface CategoryListProps {
