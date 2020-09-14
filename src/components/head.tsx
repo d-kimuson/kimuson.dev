@@ -5,46 +5,44 @@ import { useStaticQuery, graphql } from "gatsby"
 import { HeadQuery } from "../../types/graphql-types"
 
 const query = graphql`
-query Head {
-  site {
-    siteMetadata {
-      title
-      description
-      social {
-        twitter
+  query Head {
+    site {
+      siteMetadata {
+        title
+        description
+        social {
+          twitter
+        }
       }
     }
   }
-}
 `
 
 interface HeadProps {
-  title?: string;    // TOPページのみ不要
-  description?: string;  // TOPページのみ不要
+  title?: string // TOPページのみ不要
+  description?: string // TOPページのみ不要
   meta?: {
-    name: string;
-    content: string;
-  }[];
+    name: string
+    content: string
+  }[]
 }
 
 const Head: React.FC<HeadProps> = ({
   title,
   description,
-  meta = []
+  meta = [],
 }: HeadProps) => {
   const { site }: HeadQuery = useStaticQuery(query)
   // == 空文字だと困るのでテストで落とす ==
-  const siteTitle = site?.siteMetadata?.title || ``;
-  const siteDescription = site?.siteMetadata?.description || ``;
+  const siteTitle = site?.siteMetadata?.title || ``
+  const siteDescription = site?.siteMetadata?.description || ``
   // =================================
 
-  const pageTitle = typeof title === `undefined`
-    ? siteTitle
-    : `${title} | ${siteTitle}`
+  const pageTitle =
+    typeof title === `undefined` ? siteTitle : `${title} | ${siteTitle}`
 
-  const pageDescription = typeof description === `undefined`
-    ? siteDescription
-    : description
+  const pageDescription =
+    typeof description === `undefined` ? siteDescription : description
 
   return (
     <Helmet

@@ -1,7 +1,10 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { CategoryPageQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
+import {
+  CategoryPageQuery,
+  MarkdownRemarkEdge,
+} from "../../types/graphql-types"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
 import Layout from "../components/layout"
@@ -11,11 +14,13 @@ import { edgeListToArticleList } from "../utils/article"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
-const BlogPostTemplate: React.FC<CategoryPageProps> = (
-  { data, pageContext }: CategoryPageProps
-) => {
-  const edges = data.allMarkdownRemark.edges
-    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
+const BlogPostTemplate: React.FC<CategoryPageProps> = ({
+  data,
+  pageContext,
+}: CategoryPageProps) => {
+  const edges = data.allMarkdownRemark.edges.filter(
+    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  )
   const posts = edgeListToArticleList(edges)
   const category = pageContext.category || `No Category`
 
@@ -26,7 +31,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = (
         <div className="l-main-container">
           <main role="main">
             <section>
-              <h1 className="m-page-title">カテゴリ: { category }</h1>
+              <h1 className="m-page-title">カテゴリ: {category}</h1>
               <ArticleList articles={posts} />
             </section>
           </main>
@@ -45,7 +50,9 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query CategoryPage($category: String!) {
-    allMarkdownRemark(filter: {frontmatter: {category: { eq: $category }}}) {
+    allMarkdownRemark(
+      filter: { frontmatter: { category: { eq: $category } } }
+    ) {
       edges {
         node {
           fields {

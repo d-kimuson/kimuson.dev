@@ -98,41 +98,34 @@ module.exports = {
     // StyleSheets
     "gatsby-plugin-fontawesome-css",
     {
-      resolve: "gatsby-plugin-sass",
+      resolve: `gatsby-plugin-sass`,
       options: {
-        implementation: require("sass"),
+        implementation: require(`sass`),
         sassRuleTest: /\.scss$/,
         sassRuleModulesTest: /\.module\.scss$/,
         postCssPlugins: [
-          require('autoprefixer')({
-            grid: "autoplace"
+          require(`autoprefixer`)({
+            grid: `autoplace`
           }),
-          require('postcss-flexbugs-fixes')({}),
-          require('cssnano')({ preset: 'default' })
+          require(`postcss-flexbugs-fixes`)({}),
+          require(`cssnano`)({ preset: `default` })
         ]
       }
     },
-    // linting
+    "gatsby-transformer-typescript-css-modules",
+    // Linter
     {
-      resolve: "gatsby-plugin-prettier-eslint",
+      resolve: `gatsby-plugin-eslint`,
       options: {
-        watch: true,
-        eslint: {
-          patterns: ["src/**/*.{ts,tsx}"],
-          customOptions: {
-            fix: true,
-            cache: true,
-          },
-        },
-      },
+        test: /\.ts$|\.tsx$|\.js$|\.jsx$/,
+      }
     },
     {
-      resolve: "@danbruegge/gatsby-plugin-stylelint",
+      resolve: `gatsby-plugin-stylelint`,
       options: {
-        fix: true,
-        syntax: 'scss',
+        syntax: `scss`,
         files: [
-          "**/*.s?(a|c)ss",
+          `**/*.scss`,
         ]
       }
     }

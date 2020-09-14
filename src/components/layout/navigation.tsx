@@ -4,8 +4,8 @@ import { Link } from "gatsby"
 const navRoutes = [
   {
     to: `/`,
-    text: `TOP`
-  }
+    text: `TOP`,
+  },
 ]
 
 const Navigation: React.FC = () => {
