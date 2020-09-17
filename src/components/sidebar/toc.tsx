@@ -25,7 +25,7 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
     .filter((h): h is Heading => typeof (h.tag && h.id) !== `undefined`)
 
   return (
-    <section className={styles.tocWrapper}>
+    <section className={`${styles.tocWrapper} m-card`}>
       <h1 className={styles.tocTitle}>この記事の見出し</h1>
       <ul className={styles.toc}>
         {headings.map(h => (

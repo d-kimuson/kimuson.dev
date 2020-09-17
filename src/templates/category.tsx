@@ -28,7 +28,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
     <>
       <Head />
       <Layout>
-        <div className="l-main-container">
+        <div className="l-main-wrapper">
           <main role="main">
             <section>
               <h1 className="m-page-title">カテゴリ: {category}</h1>
@@ -37,7 +37,6 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
           </main>
         </div>
         <div className="l-sidebar-container">
-          <p>さいどばー</p>
           <Bio />
           <CommonSidebar />
         </div>
