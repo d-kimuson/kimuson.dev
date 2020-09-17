@@ -28,6 +28,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
           <main role="main">
             <section>
               <h1 className="m-page-title">{title}</h1>
+
               <ArticleList articles={posts} />
             </section>
           </main>
