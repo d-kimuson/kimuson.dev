@@ -4,18 +4,19 @@
 // toc
 .toc-wrapper {
   width: 100%;
-  border: solid 2px color.scale(g.$black, $lightness: 70%);
-  border-radius: 5px;
-  padding: 10px;
+  padding: 15px 0;
 }
 
 .toc-title {
-  font-size: 1rem;
+  margin-inline-start: 10px;
+  margin-block-end: 10px;
+  font-size: 1.2rem;
 }
 
 .toc {
   list-style: none;
   li {
+    margin: 5px 0;
     a {
       text-decoration: none;
       color: inherit;
@@ -31,4 +32,9 @@
   li[class="toc-h3"] {
     margin-inline-start: 20px;
   }
+}
+
+// bio
+.bio {
+  width: 100%;
 }

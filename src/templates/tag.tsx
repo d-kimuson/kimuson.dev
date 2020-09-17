@@ -25,7 +25,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
     <>
       <Head />
       <Layout>
-        <div className="l-main-container">
+        <div className="l-main-wrapper">
           <main role="main">
             <section>
               <h1 className="m-page-title">タグ: {tag}</h1>

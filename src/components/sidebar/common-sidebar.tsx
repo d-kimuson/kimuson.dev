@@ -5,8 +5,6 @@ import { CommonSidebarQuery, MarkdownRemarkEdge } from "@graphql-types"
 import CategoryList from "../category-list"
 import TagList from "../tag-list"
 import { filterDraft } from "../../utils/article"
-// @ts-ignore
-import styles from "./sidebar.module.scss"
 
 const query = graphql`
   query CommonSidebar {
@@ -44,11 +42,11 @@ const CommonSidebar: React.FC = () => {
 
   return (
     <>
-      <section>
+      <section className="m-card">
         <h1 className="m-section-title">CATEGORIES</h1>
         <CategoryList categories={categories} />
       </section>
-      <section>
+      <section className="m-card">
         <h1 className="m-section-title">TAGS</h1>
         <TagList tags={tags} isLink={true} />
       </section>

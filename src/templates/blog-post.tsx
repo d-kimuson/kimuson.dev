@@ -43,9 +43,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
     <>
       <Head title={title} description={description} />
       <Layout>
-        <div className="l-main-container">
+        <div className="l-main-wrapper">
           <main role="main">
-            <article className={styles.article}>
+            <article className={`${styles.article} m-card`}>
               {typeof maybeThumbnail !== `undefined` ? (
                 <Image
                   fluid={maybeThumbnail}
@@ -82,7 +82,6 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
         </div>
 
         <div className="l-sidebar-container">
-          <p>さいどばー</p>
           <Bio />
 
           <div className="l-sidebar-sticky-area">

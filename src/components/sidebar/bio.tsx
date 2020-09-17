@@ -3,12 +3,14 @@ import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 
 import { BioQuery } from "@graphql-types"
+// @ts-ignore
+import styles from "./sidebar.module.scss"
 
 const query = graphql`
   query Bio {
     avatar: file(absolutePath: { regex: "/gatsby-icon.png/" }) {
       childImageSharp {
-        fixed(width: 50, height: 50) {
+        fixed(width: 250, height: 250) {
           ...GatsbyImageSharpFixed
         }
       }
@@ -19,9 +21,6 @@ const query = graphql`
           name
           summary
         }
-        social {
-          twitter
-        }
       }
     }
   }
@@ -29,19 +28,19 @@ const query = graphql`
 
 const Bio: React.FC = () => {
   const data: BioQuery = useStaticQuery(query)
-  const { author, social } = data.site.siteMetadata
+  const author = data.site?.siteMetadata?.author
+  const avatarImage = data.avatar?.childImageSharp?.fixed
 
   return (
-    <div>
-      <Image fixed={data.avatar.childImageSharp.fixed} alt={author.name} />
-      <p>
-        Written by <strong>{author.name}</strong> {author.summary}
-        {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
-      </p>
-    </div>
+    <section className={`m-card ${styles.bio}`}>
+      {typeof avatarImage === `undefined` ? (
+        <div style={{ height: `250px`, width: `250px` }} />
+      ) : (
+        <Image fixed={avatarImage} />
+      )}
+      <h1 className="name">{author?.name || `No Name`}</h1>
+      <p className="summary">{author?.summary || `No Introduction`}</p>
+    </section>
   )
 }
 

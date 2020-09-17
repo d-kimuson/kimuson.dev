@@ -18,23 +18,21 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
     (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
   )
   const posts = edgeListToArticleList(edges)
-  const title = data.site?.siteMetadata?.title || `No Title`
 
   return (
     <>
       <Head />
       <Layout>
-        <div className="l-main-container">
+        <div className="l-main-wrapper">
           <main role="main">
             <section>
-              <h1 className="m-page-title">{title}</h1>
+              <h1 className="m-page-title">Latest Posts</h1>
 
               <ArticleList articles={posts} />
             </section>
           </main>
         </div>
         <div className="l-sidebar-container">
-          <p>さいどばー</p>
           <Bio />
           <CommonSidebar />
         </div>

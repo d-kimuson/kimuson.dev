@@ -11,7 +11,7 @@
   padding: 70px l.$page-x-padding;
 }
 
-.l-main-container,
+.l-main-wrapper,
 .l-sidebar-container {
   border-radius: 3px;
   display: flex;
@@ -20,7 +20,7 @@
   position: relative;
 }
 
-.l-main-container {
+.l-main-wrapper {
   width: l.$main-width;
   margin: 0 l.$space-between-main-side 0 0;
 }
@@ -38,7 +38,7 @@
 
 // 1カラムレイアウトへのブレークポイント
 @media screen and (max-width: (l.$main-width + l.$sidebar-width + l.$page-x-padding * 2 + l.$space-between-main-side)) {
-  .l-main-container {
+  .l-main-wrapper {
     margin: 0;
   }
   .l-sidebar-container {
@@ -53,7 +53,7 @@
 }
 
 @media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
-  .l-main-container {
+  .l-main-wrapper {
     width: calc(100vw - #{l.$page-x-padding} * 2);
   }
 }
