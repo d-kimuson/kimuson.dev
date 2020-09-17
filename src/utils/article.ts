@@ -1,5 +1,5 @@
-import { Article } from "../../types/declaration"
-import { MarkdownRemarkEdge } from "../../types/graphql-types"
+import { Article } from "@declaration"
+import { MarkdownRemarkEdge } from "@graphql-types"
 
 export const filterDraft = (e: MarkdownRemarkEdge): boolean =>
   process.env.NODE_ENV === `development` ||

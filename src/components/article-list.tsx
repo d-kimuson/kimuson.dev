@@ -1,8 +1,9 @@
 import React from "react"
-import { Link } from "gatsby"
-import Image from "gatsby-image"
 
 import { Article } from "@declaration"
+import ArticlePreview from "./article-preview"
+// @ts-ignore
+import styles from "./article-list.module.scss"
 
 interface ArticleListProps {
   articles: Article[]
@@ -14,18 +15,10 @@ const ArticleList: React.FC<ArticleListProps> = ({
   return (
     <div>
       {articles.length > 0 ? (
-        <ul>
+        <ul className={styles.articleList}>
           {articles.map(article => (
             <li key={article.slug}>
-              <Link to={article.slug}>
-                <Image fluid={article.thumbnail} />
-                <p>
-                  {article.draft ? `[非公開]` : ``}
-                  {article.title}
-                </p>
-                <p>{article.description}</p>
-                <time>{article.date}</time>
-              </Link>
+              <ArticlePreview article={article} />
             </li>
           ))}
         </ul>
