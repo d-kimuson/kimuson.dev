@@ -60,6 +60,7 @@ const Search: React.FC = () => {
     <div className={styles.headerSearch}>
       <input
         type="text"
+        name="keyword"
         onKeyUp={handleKeyUp}
         placeholder="記事を検索する"
         className={styles.searchField}
