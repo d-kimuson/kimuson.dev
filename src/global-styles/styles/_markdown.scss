@@ -48,8 +48,8 @@ $-code-block-y-margin: 20px;
 }
 
 // Codeblock
+$-code-height: 20px;
 pre[class*="language-"] {
-  // code block
   margin: 0 0 $-code-block-y-margin 0;
   span[class="line-numbers-rows"] {
     padding: 16px 0; // [変更不可] code block と統一
@@ -58,6 +58,12 @@ pre[class*="language-"] {
       justify-content: center;
       padding-left: 0.8em; // [変更不可] padding-rightと統一
     }
+  }
+
+  .line-numbers-rows > span::before,
+  .token {
+    font-family: g.$code-fonts, monospace !important;
+    font-size: 1.2rem;
   }
 }
 
@@ -80,4 +86,9 @@ $-copy-toaster-height: 100px;
   .gatsby-code-button-toaster-text {
     color: g.$white;
   }
+}
+
+.gatsby-code-title,
+.gatsby-code-button-toaster-text {
+  font-family: g.$code-fonts, monospace !important;
 }
