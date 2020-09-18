@@ -3,6 +3,8 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import Fuse from "fuse.js"
 
 import { SearchQuery, MarkdownRemarkEdge } from "@graphql-types"
+// @ts-ignore
+import styles from "./layout.module.scss"
 import { filterDraft } from "../../utils/article"
 
 interface Page {
@@ -55,12 +57,19 @@ const Search: React.FC = () => {
   }
 
   return (
-    <div>
-      <input type="text" onKeyUp={handleKeyUp} />
-      <ul>
+    <div className={styles.headerSearch}>
+      <input
+        type="text"
+        onKeyUp={handleKeyUp}
+        placeholder="記事を検索する"
+        className={styles.searchField}
+      />
+      <ul className={styles.searchResultList}>
         {results.map(result => (
           <li key={result.slug}>
-            <Link to={result.slug}>{result.title}</Link>
+            <Link to={result.slug} className="m-remove-a-decoration">
+              {result.title}
+            </Link>
           </li>
         ))}
       </ul>
