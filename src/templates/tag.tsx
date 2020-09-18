@@ -34,7 +34,6 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
           </main>
         </div>
         <div className="l-sidebar-container">
-          <p>さいどばー</p>
           <Bio />
           <CommonSidebar />
         </div>
