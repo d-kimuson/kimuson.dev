@@ -1,0 +1,83 @@
+@use "sass:color";
+@use "../global/" as g;
+@import "~prismjs/themes/prism-okaidia";
+@import "~prismjs/plugins/line-numbers/prism-line-numbers.css";
+
+// prismjs
+// [WARN] ピクセル数は, prismjs.css からもらってきてるものもあるので変更には注意
+$-code-block-y-margin: 20px;
+// Code Title
+.gatsby-code-title {
+  // outer layout
+  margin: $-code-block-y-margin 0 0 20px;
+  // inner layout
+  display: inline-block;
+  text-align: center;
+  padding: 2px 15px;
+  border-radius: 5px 5px 0 0;
+  // style
+  background: g.$theme-color;
+  color: g.$theme-text-color;
+}
+// Copy Button
+.gatsby-code-button-container {
+  position: relative;
+  top: 0;
+}
+.gatsby-code-button {
+  position: absolute;
+  top: 17px;
+  right: 15px;
+  z-index: 100;
+  &::after {
+    // 謎の hover エフェクトがあるので, 上書き
+    display: none !important;
+  }
+
+  svg {
+    // calculated by https://codepen.io/sosuke/pen/Pjoqqp
+    // あまり良くない対処なので, Fontawesome等への置き換えを検討
+    filter: invert(98%) sepia(5%) saturate(983%) hue-rotate(178deg)
+      brightness(95%) contrast(99%);
+    opacity: 0.9;
+  }
+}
+:not([class="gatsby-code-title"]) + .gatsby-code-button-container {
+  // code title なしの場合に, titleの代わりに上マージンを設置
+  margin-block-start: $-code-block-y-margin;
+}
+
+// Codeblock
+pre[class*="language-"] {
+  // code block
+  margin: 0 0 $-code-block-y-margin 0;
+  span[class="line-numbers-rows"] {
+    padding: 16px 0; // [変更不可] code block と統一
+    span::before {
+      display: flex;
+      justify-content: center;
+      padding-left: 0.8em; // [変更不可] padding-rightと統一
+    }
+  }
+}
+
+$-copy-toaster-height: 100px;
+.gatsby-code-button-toaster {
+  // outer layout
+  position: fixed;
+  top: calc(50vh - #{$-copy-toaster-height} / 2);
+  left: 0;
+  z-index: 999;
+  height: $-copy-toaster-height;
+  width: 100%;
+  // inner layout
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // style
+  background-color: transparentize($color: g.$black, $amount: 0.2);
+
+  .gatsby-code-button-toaster-text {
+    color: g.$white;
+  }
+}
