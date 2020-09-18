@@ -22,7 +22,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <Link to="/">
+      <Link to="/" className={`${styles.headerTitle} m-remove-a-decoration`}>
         <h1>{data.site?.siteMetadata?.title || `No Title`}</h1>
       </Link>
 
