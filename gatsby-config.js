@@ -34,7 +34,8 @@ module.exports = {
           {
             resolve: "gatsby-remark-code-buttons",
             options: {
-              toasterText: 'Copied'
+              toasterText: 'コピーされました。',
+              toasterDuration: 500
             }
           },
           {

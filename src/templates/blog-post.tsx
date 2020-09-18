@@ -3,12 +3,13 @@ import { Link, graphql, PageProps } from "gatsby"
 import Image from "gatsby-image"
 
 import { BlogPostBySlugQuery } from "../../types/graphql-types"
+// @ts-ignore
+import styles from "./blog-post.module.scss"
 import Layout from "../components/layout"
 import Head from "../components/head"
-import Toc from "../components///sidebar/toc"
+import Toc from "../components/sidebar/toc"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
-import styles from "./blog-post.module.scss"
 
 interface AroundNav {
   fields: {
