@@ -10,6 +10,7 @@ import Head from "../components/head"
 import Toc from "../components/sidebar/toc"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
+import TagList from "../components/tag-list"
 
 interface AroundNav {
   fields: {
@@ -35,6 +36,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   const post = data.markdownRemark
   const title = post?.frontmatter?.title || ``
   const description = post?.frontmatter?.description || post?.excerpt || ``
+  const tags = (post?.frontmatter?.tags || []).filter(
+    (tag): tag is string => typeof tag === `string`
+  )
   const maybeThumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const html = post?.html || ``
 
@@ -54,22 +58,26 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   className={styles.thumbnail}
                 />
               ) : null}
-              <h1 className="m-page-title">
-                {post?.frontmatter?.draft ? `[非公開]` : ``}
-                {title}
-              </h1>
-              <div
-                className={styles.articleBody}
-                dangerouslySetInnerHTML={{ __html: html }}
-              />
+              <div className={styles.contentContainer}>
+                <h1 className="m-page-title">
+                  {post?.frontmatter?.draft ? `[非公開]` : ``}
+                  {title}
+                </h1>
+                <time>{post?.frontmatter?.date}</time>
+                <TagList tags={tags} isLink={true} />
+                <div
+                  className={styles.articleBody}
+                  dangerouslySetInnerHTML={{ __html: html }}
+                />
+              </div>
             </article>
           </main>
 
-          <div>
+          <div className={styles.navArticleContainer}>
             {previous === null ? (
               <div></div>
             ) : (
-              <Link to={previous.fields.slug}>
+              <Link to={previous.fields.slug} className={styles.navPrevious}>
                 {previous.frontmatter.title}
               </Link>
             )}
@@ -77,7 +85,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             {next === null ? (
               <div></div>
             ) : (
-              <Link to={next.fields.slug}>{next.frontmatter.title}</Link>
+              <Link to={next.fields.slug} className={styles.navNext}>
+                {next.frontmatter.title}
+              </Link>
             )}
           </div>
         </div>
@@ -106,7 +116,7 @@ export const pageQuery = graphql`
       htmlAst
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "YYYY年MM月DD日")
         description
         category
         tags
