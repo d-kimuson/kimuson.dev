@@ -1,10 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import {
-  CategoryPageQuery,
-  MarkdownRemarkEdge,
-} from "../../types/graphql-types"
+import { CategoryPageQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
 import Layout from "../components/layout"
@@ -23,10 +20,15 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
   )
   const posts = edgeListToArticleList(edges)
   const category = pageContext.category || `No Category`
+  const siteTitle = data.site?.siteMetadata?.title || ``
 
   return (
     <>
-      <Head />
+      <Head
+        title={`${category}カテゴリ`}
+        description={`${siteTitle}の${category}カテゴリページです。${category}カテゴリの記事を探すことができます。`}
+        slug={`/categories/${category}/`}
+      />
       <Layout>
         <div className="l-main-wrapper">
           <main role="main">
@@ -61,7 +63,7 @@ export const pageQuery = graphql`
             category
             draft
             description
-            date
+            date(formatString: "YYYY年MM月DD日")
             title
             tags
             thumbnail {
@@ -73,6 +75,11 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+    }
+    site {
+      siteMetadata {
+        title
       }
     }
   }

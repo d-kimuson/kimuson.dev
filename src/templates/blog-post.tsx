@@ -2,7 +2,7 @@ import React from "react"
 import { Link, graphql, PageProps } from "gatsby"
 import Image from "gatsby-image"
 
-import { BlogPostBySlugQuery } from "../../types/graphql-types"
+import { BlogPostBySlugQuery } from "@graphql-types"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
 import Layout from "../components/layout"
@@ -46,7 +46,11 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
 
   return (
     <>
-      <Head title={title} description={description} />
+      <Head
+        title={title}
+        description={description}
+        slug={post?.fields?.slug || ``}
+      />
       <Layout>
         <div className="l-main-wrapper">
           <main role="main">
@@ -114,6 +118,9 @@ export const pageQuery = graphql`
       excerpt(pruneLength: 160)
       html
       htmlAst
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "YYYY年MM月DD日")

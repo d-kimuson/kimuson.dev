@@ -7,6 +7,7 @@ import styles from "./layout.module.scss"
 
 interface LayoutProps {
   // 参考: https://github.com/Microsoft/TypeScript/issues/6471
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children?: any
 }
 

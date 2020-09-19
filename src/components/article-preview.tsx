@@ -14,12 +14,11 @@ interface ArticlePreviewProps {
 const ArticlePreview: React.FC<ArticlePreviewProps> = ({
   article,
 }: ArticlePreviewProps) => {
-  console.log(article)
   return (
     <Link to={article.slug} className={`${styles.article} m-card`}>
       <Image fluid={article.thumbnail} className={styles.image} />
       <div className={styles.infoContiainer}>
-        <h2 className="title">
+        <h2 className={`title ${article.draft ? styles.draft : ``}`}>
           {article.draft ? `[非公開]` : ``}
           {article.title}
         </h2>
