@@ -8,6 +8,7 @@ import styles from "./sidebar.module.scss"
 interface Heading {
   tag: string
   id: string
+  value: string
 }
 
 interface TocProps {
@@ -21,8 +22,11 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
     .map(node => ({
       tag: node.tagName,
       id: node.properties?.id,
+      value: node.children.find(item => item.type == `text`)?.value,
     }))
-    .filter((h): h is Heading => typeof (h.tag && h.id) !== `undefined`)
+    .filter(
+      (h): h is Heading => typeof (h.tag && h.id && h.value) !== `undefined`
+    )
 
   return (
     <section className={`${styles.tocWrapper} m-card`}>
@@ -30,7 +34,7 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
       <ul className={styles.toc}>
         {headings.map(h => (
           <li key={h.id} className={`toc-${h.tag}`}>
-            <Link to={`#${h.id}`}>{h.id}</Link>
+            <Link to={`#${h.id}`}>{h.value}</Link>
           </li>
         ))}
       </ul>
