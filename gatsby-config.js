@@ -1,12 +1,17 @@
+const siteName = `きむそん.dev`;
+const siteDomain = `kimuson.dev`;
+const siteUrl = `https://${siteDomain}`;
+const description = `技術ブログです。特にWebについて書いています.`;
+
 module.exports = {
   siteMetadata: {
-    title: `Kimuson Blog`,
+    title: siteName,
     author: {
       name: `Kaito Kimura`,
-      summary: `ソフトウェアエンジニアです.`,
+      summary: `会津大学の学部4年生です。Webに興味があります。`,
     },
-    description: `技術ブログです.`,
-    siteUrl: `https://kimuson.dev/`,
+    description: description,
+    siteUrl: siteUrl,
     social: {
       twitter: `_kimuemon`,
     },
@@ -70,20 +75,20 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
+        trackingId: `UA-178458800-1`,
       },
     },
     `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: siteName,
+        short_name: siteName,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/icon.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
