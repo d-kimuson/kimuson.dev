@@ -1,5 +1,5 @@
 import React from "react"
-import { Helmet } from "react-helmet"
+import { GatsbySeo } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
 import { HeadQuery } from "@graphql-types"
@@ -10,6 +10,7 @@ const query = graphql`
       siteMetadata {
         title
         description
+        siteUrl
         social {
           twitter
         }
@@ -21,22 +22,14 @@ const query = graphql`
 interface HeadProps {
   title?: string // TOPページのみ不要
   description?: string // TOPページのみ不要
-  meta?: {
-    name: string
-    content: string
-  }[]
+  slug?: string // TOPページのみ不要
 }
 
-const Head: React.FC<HeadProps> = ({
-  title,
-  description,
-  meta = [],
-}: HeadProps) => {
+const Head: React.FC<HeadProps> = ({ title, description, slug }: HeadProps) => {
   const { site }: HeadQuery = useStaticQuery(query)
-  // == 空文字だと困るのでテストで落とす ==
   const siteTitle = site?.siteMetadata?.title || ``
   const siteDescription = site?.siteMetadata?.description || ``
-  // =================================
+  const siteUrl = site?.siteMetadata?.siteUrl || ``
 
   const pageTitle =
     typeof title === `undefined` ? siteTitle : `${title} | ${siteTitle}`
@@ -44,34 +37,34 @@ const Head: React.FC<HeadProps> = ({
   const pageDescription =
     typeof description === `undefined` ? siteDescription : description
 
+  const siteDomain = siteUrl.split(`//`)[1].split(`/`)[0]
+
+  const pageUrl =
+    typeof siteUrl === `string`
+      ? `https://${siteDomain}${slug || ``}`
+      : undefined
+
+  console.log(pageTitle, pageDescription, pageUrl)
+  console.log(
+    `title: ${pageTitle}` +
+      `description: ${pageDescription}` +
+      `url: ${pageUrl}`
+  )
+
   return (
-    <Helmet
-      htmlAttributes={{
-        lang: `ja`,
-      }}
+    <GatsbySeo
       title={pageTitle}
-      meta={[
-        {
-          name: `description`,
-          content: pageDescription,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site?.siteMetadata?.social?.twitter || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: pageTitle,
-        },
-        {
-          name: `twitter:description`,
-          content: pageDescription,
-        },
-      ].concat(meta)}
+      description={pageDescription}
+      language="ja"
+      canonical={siteUrl}
+      openGraph={{
+        url: pageUrl,
+        title: pageTitle,
+        description: pageDescription,
+        // eslint のルールと引数定義が競合するので無効にする
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        site_name: siteTitle,
+      }}
     />
   )
 }

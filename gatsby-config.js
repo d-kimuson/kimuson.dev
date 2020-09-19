@@ -91,7 +91,6 @@ module.exports = {
         icon: `content/assets/icon.png`,
       },
     },
-    `gatsby-plugin-react-helmet`,
     // typescript
     'gatsby-plugin-typescript',
     {
@@ -99,6 +98,12 @@ module.exports = {
       options: {
         codegen: process.env.IS_CODEGEN === 'true',
         fileName: 'types/graphql-types.d.ts'
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-remove-console',
+      options: {
+        exclude: ['error', 'warn'],
       }
     },
     // StyleSheets
@@ -134,6 +139,37 @@ module.exports = {
           `**/*.scss`,
         ]
       }
+    },
+    // SEO
+    {
+      resolve: 'gatsby-plugin-next-seo',
+      options: {
+        openGraph: {
+          type: 'website',
+          locale: 'ja_JP',
+          url: siteUrl,
+          site_name: siteName,
+        }
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        output: '/sitemap.xml',
+        exclude: []
+      }
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: siteUrl,
+        sitemap: `${siteUrl}/sitemap.xml`,
+        env: {
+          production: {
+            policy: [{ userAgent: "*", allow: "/" }],
+          },
+        },
+      },
     }
   ],
 }

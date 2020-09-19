@@ -8,7 +8,7 @@ import styles from "./sidebar.module.scss"
 
 const query = graphql`
   query Bio {
-    avatar: file(absolutePath: { regex: "/gatsby-icon.png/" }) {
+    avatar: file(absolutePath: { regex: "/icon.png/" }) {
       childImageSharp {
         fixed(width: 250, height: 250) {
           ...GatsbyImageSharpFixed

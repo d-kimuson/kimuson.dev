@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { TagPageQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
+import { TagPageQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
 import Layout from "../components/layout"
@@ -21,9 +21,15 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
   const posts = edgeListToArticleList(edges)
   const tag = pageContext.tag || `No Tag`
 
+  const siteTitle = data.site?.siteMetadata?.title || ``
+
   return (
     <>
-      <Head />
+      <Head
+        title={`${tag}タグ`}
+        description={`${siteTitle}の${tag}タグページです。｢${tag}｣に関連する記事を探すことができます。`}
+        slug={`/tags/${tag}/`}
+      />
       <Layout>
         <div className="l-main-wrapper">
           <main role="main">
@@ -56,7 +62,7 @@ export const pageQuery = graphql`
             category
             draft
             description
-            date
+            date(formatString: "YYYY年MM月DD日")
             title
             tags
             thumbnail {
@@ -68,6 +74,11 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+    }
+    site {
+      siteMetadata {
+        title
       }
     }
   }
