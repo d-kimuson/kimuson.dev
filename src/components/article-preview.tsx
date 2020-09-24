@@ -5,6 +5,7 @@ import Image from "gatsby-image"
 import { Article } from "@declaration"
 // @ts-ignore
 import styles from "./article-preview.module.scss"
+import Date from "./util/date"
 import TagList from "./tag-list"
 
 interface ArticlePreviewProps {
@@ -15,14 +16,23 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
   article,
 }: ArticlePreviewProps) => {
   return (
-    <Link to={article.slug} className={`${styles.article} m-card`}>
-      <Image fluid={article.thumbnail} className={styles.image} />
-      <div className={styles.infoContiainer}>
-        <h2 className={`title ${article.draft ? styles.draft : ``}`}>
-          {article.draft ? `[非公開]` : ``}
+    <Link
+      to={article.slug}
+      className={`${styles.article} m-card l-main-width m-remove-a-decoration`}
+    >
+      <Image
+        fluid={article.thumbnail}
+        className={styles.image}
+        imgStyle={{ height: `200px`, width: `250px` }}
+      />
+      <div className={styles.infoContainer}>
+        <h2 className={`${styles.title} ${article.draft ? styles.draft : ``}`}>
+          {article.draft ? `[非公開] ` : ``}
           {article.title}
         </h2>
-        <time>{article.date}</time>
+        <div className={styles.date}>
+          <Date date={article.date} />
+        </div>
         <TagList tags={article.tags} isLink={false} />
         <p className="description">{article.description}</p>
       </div>

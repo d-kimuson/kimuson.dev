@@ -1,7 +1,7 @@
 @use "sass:color";
 @use '../global/' as g;
 @use 'variable' as l;
-// content レイアウト
+// 全体のレイアウト
 .l-page-container {
   // outer layout
   display: flex;
@@ -21,10 +21,15 @@
 }
 
 .l-main-wrapper {
-  width: l.$main-width;
   margin: 0 l.$space-between-main-side 0 0;
 }
 
+.l-main-width,
+.l-main-wrapper {
+  width: l.$main-width;
+}
+
+.l-sidebar-width,
 .l-sidebar-container {
   width: l.$sidebar-width;
 }
@@ -32,27 +37,38 @@
 .l-main-sticky-area,
 .l-sidebar-sticky-area {
   position: sticky;
-  top: 50px;
+  top: 20px;
   width: 100%;
 }
 
-// 1カラムレイアウトへのブレークポイント
-@media screen and (max-width: (l.$main-width + l.$sidebar-width + l.$page-x-padding * 2 + l.$space-between-main-side)) {
+// breakpoints & media queries
+$-required-2-column-width: l.$sidebar-width + l.$page-x-padding * 2 +
+  l.$space-between-main-side;
+$-required-1-column-width: l.$page-x-padding * 2 + l.$space-between-main-side;
+
+@media screen and (min-width: l.$main-min-width + $-required-2-column-width) and (max-width: l.$main-width + $-required-2-column-width) {
+  // main area の縮小 (2カラムは維持)
+  .l-main-width,
+  .l-main-wrapper {
+    width: calc(100vw - #{$-required-2-column-width});
+  }
+}
+
+@media screen and (max-width: (l.$main-min-width + $-required-2-column-width)) {
+  // 1カラムレイアウトへ
+  .l-main-width,
   .l-main-wrapper {
     margin: 0;
+    width: l.$main-width;
   }
   .l-sidebar-container {
     display: none;
   }
 }
 
-@media screen and (max-width: l.$smartphone-breakpoint) {
-  .l-page-container {
-    padding: 70px 20px;
-  }
-}
-
 @media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
+  // 1カラムレイアウト & main area の縮小
+  .l-main-width,
   .l-main-wrapper {
     width: calc(100vw - #{l.$page-x-padding} * 2);
   }

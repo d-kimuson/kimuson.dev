@@ -1,5 +1,8 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTag } from "@fortawesome/free-solid-svg-icons"
+import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
 import { CommonSidebarQuery, MarkdownRemarkEdge } from "@graphql-types"
 import CategoryList from "../category-list"
@@ -42,13 +45,23 @@ const CommonSidebar: React.FC = () => {
 
   return (
     <>
-      <section className="m-card">
-        <h1 className="m-section-title">CATEGORIES</h1>
-        <CategoryList categories={categories} />
+      <section className="m-card l-sidebar-width">
+        <h1 className="m-card__title">
+          <FontAwesomeIcon icon={faFolder} />
+          ALL CATEGORIES
+        </h1>
+        <div className="m-card__content">
+          <CategoryList categories={categories} />
+        </div>
       </section>
-      <section className="m-card">
-        <h1 className="m-section-title">TAGS</h1>
-        <TagList tags={tags} isLink={true} />
+      <section className="m-card l-sidebar-width">
+        <h1 className="m-card__title">
+          <FontAwesomeIcon icon={faTag} style={{ transform: `scale(0.9)` }} />
+          ALL TAGS
+        </h1>
+        <div className="m-card__content">
+          <TagList tags={tags} isLink={true} />
+        </div>
       </section>
     </>
   )

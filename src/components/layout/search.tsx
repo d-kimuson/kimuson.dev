@@ -48,6 +48,7 @@ const Search: React.FC = () => {
   const [results, setResults] = useState<Page[]>([])
 
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    console.log(event.currentTarget.value)
     setResults(
       fuse
         .search(event.currentTarget.value)
@@ -58,22 +59,24 @@ const Search: React.FC = () => {
 
   return (
     <div className={styles.headerSearch}>
-      <input
-        type="text"
-        name="keyword"
-        onKeyUp={handleKeyUp}
-        placeholder="記事を検索する"
-        className={styles.searchField}
-      />
-      <ul className={styles.searchResultList}>
-        {results.map(result => (
-          <li key={result.slug}>
-            <Link to={result.slug} className="m-remove-a-decoration">
-              {result.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className={styles.searchField}>
+        <input
+          type="text"
+          name="keyword"
+          onKeyUp={handleKeyUp}
+          placeholder="記事を検索する"
+          autoComplete="off"
+        />
+        <ul className={styles.searchResultList}>
+          {results.map(result => (
+            <li key={result.slug}>
+              <Link to={result.slug} className="m-remove-a-decoration">
+                {result.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }

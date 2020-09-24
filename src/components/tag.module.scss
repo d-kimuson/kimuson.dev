@@ -2,14 +2,19 @@
 @use "../global-styles/global/" as g;
 
 .tag {
-  background-color: g.$skyblue;
-  color: g.$white;
-  border-radius: 0 10px 0 10px;
-  padding: 2px 5px;
   margin: 5px;
-  font-size: 1rem;
+  padding: 4px 12px;
+  // style
+  border-radius: 15px;
+  background-color: g.$theme-color;
+  color: g.$theme-text-color;
+  font-size: 0.8rem;
+  // animation
+  transition: 300ms ease;
+}
 
-  svg {
-    margin: 0 5px 0 0;
+.tag-link {
+  &:hover > .tag {
+    background-color: g.$link-color;
   }
 }

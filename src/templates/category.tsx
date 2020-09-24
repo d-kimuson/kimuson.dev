@@ -34,6 +34,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
           <main role="main">
             <section>
               <h1 className="m-page-title">カテゴリ: {category}</h1>
+
               <ArticleList articles={posts} />
             </section>
           </main>
@@ -68,7 +69,7 @@ export const pageQuery = graphql`
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxWidth: 590) {
+                fluid(maxHeight: 200) {
                   ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }

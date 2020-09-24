@@ -4,18 +4,12 @@
 // toc
 .toc-wrapper {
   width: 100%;
-  padding: 15px 0;
-}
-
-.toc-title {
-  margin-inline-start: 10px;
-  margin-block-end: 10px;
-  font-size: 1.2rem;
-  text-align: center;
 }
 
 .toc {
   list-style: none;
+  font-size: 0.9rem;
+  color: g.$black-weak;
   li {
     margin: 5px 0;
     a {
@@ -32,10 +26,17 @@
   }
   li[class="toc-h3"] {
     margin-inline-start: 20px;
+    font-size: 0.8rem;
   }
 }
 
 // bio
 .bio {
   width: 100%;
+}
+
+.bio-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -11,6 +11,7 @@ import Toc from "../components/sidebar/toc"
 import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
 import TagList from "../components/tag-list"
+import Date from "../components/util/date"
 
 interface AroundNav {
   fields: {
@@ -54,7 +55,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
       <Layout>
         <div className="l-main-wrapper">
           <main role="main">
-            <article className={`${styles.article} m-card`}>
+            <article className={`m-card l-main-width`}>
               {typeof maybeThumbnail !== `undefined` ? (
                 <Image
                   fluid={maybeThumbnail}
@@ -67,7 +68,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   {post?.frontmatter?.draft ? `[非公開]` : ``}
                   {title}
                 </h1>
-                <time>{post?.frontmatter?.date}</time>
+                <Date date={post?.frontmatter?.date} />
                 <TagList tags={tags} isLink={true} />
                 <div
                   className={styles.articleBody}
@@ -77,7 +78,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             </article>
           </main>
 
-          <div className={styles.navArticleContainer}>
+          <div className={`${styles.navArticleContainer} l-main-width`}>
             {previous === null ? (
               <div></div>
             ) : (
@@ -85,6 +86,8 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                 {previous.frontmatter.title}
               </Link>
             )}
+
+            <div className="nav-margin"></div>
 
             {next === null ? (
               <div></div>

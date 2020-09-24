@@ -1,6 +1,6 @@
 import React from "react"
+import { Link } from "gatsby"
 
-import Category from "./category"
 // @ts-ignore
 import styles from "./category-list.module.scss"
 
@@ -13,8 +13,10 @@ const CategoryList: React.FC<CategoryListProps> = ({
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
     {categories.map(category => (
-      <li key={category}>
-        <Category category={category} isLink={true} />
+      <li key={category} className={styles.category}>
+        <Link to={`/categories/${category}`} className="m-remove-a-decoration">
+          {category}
+        </Link>
       </li>
     ))}
   </ul>
