@@ -1,22 +1,48 @@
 @use "@styles/global" as g;
 @use "@styles/styles/_variable" as var;
 
+// 最適化したサイズを配信するために, 変更時は graphql も変更すること
+$-image-height: 200px;
+$-image-width: 250px;
+
 .article {
   display: grid;
   grid-template: "image description" 1fr;
-  grid-template-columns: 250px 1fr;
-  height: 250px;
-  width: var.$main-width;
+  grid-template-columns: $-image-width 1fr;
+  height: $-image-height;
   margin: 10px 0;
+
+  &:hover {
+    .title {
+      color: g.$link-color;
+    }
+
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.title,
+.date {
+  margin: 7px 0;
 }
 
 .image {
   grid-area: image;
+  height: $-image-height;
+  width: $-image-width;
+  overflow: hidden;
+
+  img {
+    transition: 300ms ease !important; // inline-style で書かれているのでやむを得ず
+  }
 }
 
 .info-container {
   grid-area: description;
-  width: calc(100% - 250px);
+  width: 100%;
+  padding: 10px 10px;
   // style
   color: g.$text-color;
   text-decoration: none;

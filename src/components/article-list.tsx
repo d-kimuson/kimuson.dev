@@ -13,7 +13,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
   articles,
 }: ArticleListProps) => {
   return (
-    <div>
+    <section>
       {articles.length > 0 ? (
         <ul className={styles.articleList}>
           {articles.map(article => (
@@ -25,7 +25,7 @@ const ArticleList: React.FC<ArticleListProps> = ({
       ) : (
         <p>記事がありません。</p>
       )}
-    </div>
+    </section>
   )
 }
 

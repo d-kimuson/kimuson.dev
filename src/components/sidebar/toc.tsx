@@ -30,14 +30,16 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
 
   return (
     <section className={`${styles.tocWrapper} m-card`}>
-      <h1 className={styles.tocTitle}>この記事の見出し</h1>
-      <ul className={styles.toc}>
-        {headings.map(h => (
-          <li key={h.id} className={`toc-${h.tag}`}>
-            <Link to={`#${h.id}`}>{h.value}</Link>
-          </li>
-        ))}
-      </ul>
+      <h1 className="m-card__title">この記事の見出し</h1>
+      <div className="m-card__content">
+        <ul className={styles.toc}>
+          {headings.map(h => (
+            <li key={h.id} className={`toc-${h.tag}`}>
+              <Link to={`#${h.id}`}>{h.value}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

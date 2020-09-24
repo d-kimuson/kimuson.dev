@@ -61,7 +61,8 @@ pre[class*="language-"] {
   }
 
   .line-numbers-rows > span::before,
-  .token {
+  .token,
+  code {
     font-family: g.$code-fonts, monospace !important;
     font-size: 1.2rem;
   }

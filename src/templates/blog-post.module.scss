@@ -1,13 +1,6 @@
 @use "sass:color";
 @use "../global-styles/global/" as g;
 @use "../global-styles/styles/variable" as l;
-.article {
-  width: l.$main-width;
-  // ⇓ コードブロックにて, 折り返す(white-space)のために, 画面幅を明示する必要あり
-  @media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
-    width: calc(100vw - #{l.$page-x-padding} * 2);
-  }
-}
 
 .contentContainer {
   padding: 10px 20px;
@@ -21,6 +14,10 @@
 
   .nav-previous {
     grid-area: prev;
+  }
+
+  .nav-margin {
+    grid-area: margin;
   }
 
   .nav-next {

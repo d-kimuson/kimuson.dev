@@ -5,6 +5,7 @@ import Image from "gatsby-image"
 import { BioQuery } from "@graphql-types"
 // @ts-ignore
 import styles from "./sidebar.module.scss"
+import { toGatsbyImageFixedArg } from "../../functions/image"
 
 const query = graphql`
   query Bio {
@@ -26,6 +27,8 @@ const query = graphql`
   }
 `
 
+const imageStyle = { height: `250px`, width: `250px` }
+
 const Bio: React.FC = () => {
   const data: BioQuery = useStaticQuery(query)
   const author = data.site?.siteMetadata?.author
@@ -33,13 +36,21 @@ const Bio: React.FC = () => {
 
   return (
     <section className={`m-card ${styles.bio}`}>
-      {typeof avatarImage === `undefined` ? (
-        <div style={{ height: `250px`, width: `250px` }} />
-      ) : (
-        <Image fixed={avatarImage} />
-      )}
-      <h1 className="name">{author?.name || `No Name`}</h1>
-      <p className="summary">{author?.summary || `No Introduction`}</p>
+      <h1 className="m-card__title">{author?.name || `No Name`}</h1>
+      <div className="m-card__content">
+        <div className={styles.bioImageWrapper}>
+          {typeof avatarImage === `object` && avatarImage !== null ? (
+            <Image
+              fixed={toGatsbyImageFixedArg(avatarImage)}
+              style={imageStyle}
+            />
+          ) : (
+            <div style={imageStyle} />
+          )}
+        </div>
+
+        <p>{author?.summary || `No Introduction`}</p>
+      </div>
     </section>
   )
 }

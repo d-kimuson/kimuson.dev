@@ -59,18 +59,28 @@ $-search-field-width: 250px;
   }
 }
 
-$-search-field-height: 30px;
-.searchField {
-  border-radius: 10px;
-  padding: 5px 10px;
+.search-field {
   height: $-search-field-height;
   width: $-search-field-width;
+  position: relative;
+
+  input {
+    border-radius: 10px;
+    padding: 0 10px;
+  }
 }
 
-.searchResultList {
+.search-result-list {
   list-style: none;
-  position: fixed;
-  top: $-header-height;
-  right: 0;
+  position: absolute;
+  top: $-search-field-height;
+  left: 0;
+  width: $-search-field-width;
   background: g.$black;
+
+  li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
