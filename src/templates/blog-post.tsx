@@ -12,6 +12,7 @@ import Bio from "../components/sidebar/bio"
 import CommonSidebar from "../components/sidebar/common-sidebar"
 import TagList from "../components/tag-list"
 import Date from "../components/util/date"
+import { toGatsbyImageFluidArg } from "../functions/image"
 
 interface AroundNav {
   fields: {
@@ -40,7 +41,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   const tags = (post?.frontmatter?.tags || []).filter(
     (tag): tag is string => typeof tag === `string`
   )
-  const maybeThumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
+  const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const html = post?.html || ``
 
   const { previous, next } = pageContext
@@ -56,13 +57,15 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
         <div className="l-main-wrapper">
           <main role="main">
             <article className={`m-card l-main-width`}>
-              {typeof maybeThumbnail !== `undefined` ? (
+              {typeof thumbnail === `object` && thumbnail !== null ? (
                 <Image
-                  fluid={maybeThumbnail}
+                  fluid={toGatsbyImageFluidArg(thumbnail)}
                   backgroundColor="#000"
                   className={styles.thumbnail}
                 />
-              ) : null}
+              ) : (
+                <div />
+              )}
               <div className={styles.contentContainer}>
                 <h1 className="m-page-title">
                   {post?.frontmatter?.draft ? `[非公開]` : ``}
@@ -77,6 +80,13 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
               </div>
             </article>
           </main>
+
+          <section className="m-card l-main-width">
+            <h1 className="m-card__title-reverse">
+              この辺にも興味あるんじゃない?
+            </h1>
+            <div className="m-card__content"></div>
+          </section>
 
           <div className={`${styles.navArticleContainer} l-main-width`}>
             {previous === null ? (
