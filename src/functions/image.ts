@@ -7,7 +7,17 @@ function toArg<T>(prop: T | null | undefined): T | undefined {
 }
 
 export function toGatsbyImageFixedArg(
-  image: ImageSharpFixed,
+  image: Pick<
+    ImageSharpFixed,
+    | "width"
+    | "height"
+    | "src"
+    | "srcSet"
+    | "base64"
+    | "tracedSVG"
+    | "srcWebp"
+    | "srcSetWebp"
+  >,
   media?: string
 ): FixedObject {
   return {
@@ -25,8 +35,18 @@ export function toGatsbyImageFixedArg(
 }
 
 export function toGatsbyImageFluidArg(
-  image: ImageSharpFluid,
-  media: string
+  image: Pick<
+    ImageSharpFluid,
+    | "aspectRatio"
+    | "src"
+    | "srcSet"
+    | "sizes"
+    | "base64"
+    | "tracedSVG"
+    | "srcWebp"
+    | "srcSetWebp"
+  >,
+  media?: string
 ): FluidObject {
   return {
     aspectRatio: image.aspectRatio,
