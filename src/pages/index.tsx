@@ -51,7 +51,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             description
-            date(formatString: "YYYY年MM月DD日")
+            date
             draft
             category
             tags
