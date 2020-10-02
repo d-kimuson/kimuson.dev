@@ -16,6 +16,9 @@
       ],
       "@styles/*": [
         "src/global-styles/*"
+      ],
+      "@funcs/*": [
+        "./src/helper-functions/*"
       ]
     },
     "module": "esnext",

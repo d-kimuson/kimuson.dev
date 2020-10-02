@@ -4,8 +4,8 @@ import Image from "gatsby-image"
 
 import { BioQuery } from "@graphql-types"
 // @ts-ignore
-import styles from "./sidebar.module.scss"
-import { toGatsbyImageFixedArg } from "../../functions/image"
+import styles from "./bio.module.scss"
+import { toGatsbyImageFixedArg } from "@funcs/image"
 
 const query = graphql`
   query Bio {

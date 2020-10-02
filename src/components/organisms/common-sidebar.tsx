@@ -5,9 +5,9 @@ import { faTag } from "@fortawesome/free-solid-svg-icons"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
 import { CommonSidebarQuery, MarkdownRemarkEdge } from "@graphql-types"
-import CategoryList from "../category-list"
-import TagList from "../tag-list"
-import { filterDraft } from "../../utils/article"
+import CategoryList from "../../components/molecules/category-list"
+import TagList from "../../components/molecules/tag-list"
+import { filterDraft } from "@funcs/article"
 
 const query = graphql`
   query CommonSidebar {

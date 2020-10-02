@@ -5,14 +5,12 @@ import Image from "gatsby-image"
 import { BlogPostBySlugQuery } from "@graphql-types"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
-import Layout from "../components/layout"
-import Head from "../components/head"
-import Toc from "../components/sidebar/toc"
-import Bio from "../components/sidebar/bio"
-import CommonSidebar from "../components/sidebar/common-sidebar"
-import TagList from "../components/tag-list"
-import Date from "../components/util/date"
-import { toGatsbyImageFluidArg } from "../functions/image"
+import Layout from "../components/templates/layout"
+import Head from "../components/templates/head"
+import Sidebar from "../components/templates/sidebar"
+import TagList from "../components/molecules/tag-list"
+import Date from "../components/atoms/date"
+import { toGatsbyImageFluidArg } from "@funcs/image"
 
 interface AroundNav {
   fields: {
@@ -109,14 +107,11 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
           </div>
         </div>
 
-        <div className="l-sidebar-container">
-          <Bio />
-
-          <div className="l-sidebar-sticky-area">
-            <Toc htmlAst={post?.htmlAst} />
-            <CommonSidebar />
-          </div>
-        </div>
+        <Sidebar
+          bio={true}
+          toc={{ htmlAst: post?.htmlAst }}
+          commonSidebar={true}
+        />
       </Layout>
     </>
   )

@@ -2,12 +2,11 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import { CategoryPageQuery, MarkdownRemarkEdge } from "@graphql-types"
-import Bio from "../components/sidebar/bio"
-import CommonSidebar from "../components/sidebar/common-sidebar"
-import Layout from "../components/layout"
-import Head from "../components/head"
-import ArticleList from "../components/article-list"
-import { edgeListToArticleList } from "../utils/article"
+import Sidebar from "../components/templates/sidebar"
+import Layout from "../components/templates/layout"
+import Head from "../components/templates/head"
+import ArticleList from "../components/molecules/article-list"
+import { edgeListToArticleList } from "@funcs/article"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
@@ -39,10 +38,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
             </section>
           </main>
         </div>
-        <div className="l-sidebar-container">
-          <Bio />
-          <CommonSidebar />
-        </div>
+        <Sidebar bio={true} commonSidebar={true} />
       </Layout>
     </>
   )

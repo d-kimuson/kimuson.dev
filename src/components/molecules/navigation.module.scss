@@ -1,0 +1,14 @@
+.nav-link-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  &:not(:root) {
+    padding: 0 100px;
+  }
+
+  a[aria-current="page"] {
+    font-weight: bold;
+  }
+}
