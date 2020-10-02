@@ -60,7 +60,7 @@ export const pageQuery = graphql`
             category
             draft
             description
-            date(formatString: "YYYY年MM月DD日")
+            date
             title
             tags
             thumbnail {
