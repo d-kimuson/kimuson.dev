@@ -1,7 +1,7 @@
 import React from "react"
 
-import Header from "./header"
-import Footer from "./footer"
+import Header from "../organisms/header"
+import Footer from "../organisms/footer"
 // @ts-ignore
 import styles from "./layout.module.scss"
 
@@ -13,13 +13,15 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
-    <div>
-      <Header />
-      <div className={styles.content}>
+    <>
+      <Header className={styles.headerWrapper} />
+
+      <div className={styles.contentWrapper}>
         <div className="l-page-container">{children}</div>
       </div>
-      <Footer />
-    </div>
+
+      <Footer className={styles.footerWrapper} />
+    </>
   )
 }
 

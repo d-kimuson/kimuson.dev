@@ -12,6 +12,10 @@ $-image-width: 250px;
   height: $-image-height;
   margin: 10px 0;
 
+  .title {
+    font-size: 1.2rem;
+  }
+
   &:hover {
     .title {
       color: g.$link-color;

@@ -1,11 +1,14 @@
 const path = require(`path`)
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
+      plugins: [new TsconfigPathsPlugin()],
       alias: {
         "@styles": path.resolve(__dirname, `src/global-styles`),
+        "@modules": path.resolve(__dirname, `src/css-modules`)
       }
     }
   })

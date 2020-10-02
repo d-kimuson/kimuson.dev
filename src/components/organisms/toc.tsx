@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 import { HtmlAst } from "@declaration"
 // @ts-ignore
-import styles from "./sidebar.module.scss"
+import styles from "./toc.module.scss"
 
 interface Heading {
   tag: string

@@ -1,0 +1,30 @@
+@use "@styles/global" as g;
+
+$-search-field-height: 30px;
+$-search-field-width: 250px;
+
+.search-field {
+  height: $-search-field-height;
+  width: $-search-field-width;
+  position: relative;
+
+  input {
+    border-radius: 10px;
+    padding: 0 10px;
+  }
+}
+
+.search-result-list {
+  list-style: none;
+  position: absolute;
+  top: $-search-field-height;
+  left: 0;
+  width: $-search-field-width;
+  background: g.$black;
+
+  li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

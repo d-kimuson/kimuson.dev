@@ -3,9 +3,9 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import Fuse from "fuse.js"
 
 import { SearchQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { filterDraft } from "@funcs/article"
 // @ts-ignore
-import styles from "./layout.module.scss"
-import { filterDraft } from "../../utils/article"
+import styles from "./search.module.scss"
 
 interface Page {
   title: string
@@ -30,7 +30,11 @@ const query = graphql`
   }
 `
 
-const Search: React.FC = () => {
+interface SearchProps {
+  className?: string
+}
+
+const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   const data: SearchQuery = useStaticQuery(query)
   const targets = data.allMarkdownRemark.edges
     .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
@@ -58,7 +62,7 @@ const Search: React.FC = () => {
   }
 
   return (
-    <div className={styles.headerSearch}>
+    <div className={className ? className : ``}>
       <div className={styles.searchField}>
         <input
           type="text"

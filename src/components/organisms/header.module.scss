@@ -1,0 +1,25 @@
+@use "@styles/global" as g;
+
+.header {
+  background-color: g.$theme-color;
+  color: g.$theme-text-color;
+  display: grid;
+  grid-template:
+    "title title" 70%
+    "nav search" 1fr / 1fr 250px;
+
+  .headerTitle {
+    grid-area: title;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .headerNavArea {
+    grid-area: nav;
+  }
+
+  .headerSearchArea {
+    grid-area: search;
+  }
+}

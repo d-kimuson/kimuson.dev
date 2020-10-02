@@ -2,10 +2,10 @@ import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
 import { HeaderQuery } from "@graphql-types"
-import Navigation from "./navigation"
-import Search from "./search"
+import Navigation from "../molecules/navigation"
+import Search from "../molecules/search"
 // @ts-ignore
-import styles from "./layout.module.scss"
+import styles from "./header.module.scss"
 
 const query = graphql`
   query Header {
@@ -17,17 +17,25 @@ const query = graphql`
   }
 `
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  className?: string
+}
+
+const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
   const data: HeaderQuery = useStaticQuery(query)
 
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${
+        typeof className === `string` ? className : ``
+      }`}
+    >
       <Link to="/" className={`${styles.headerTitle} m-remove-a-decoration`}>
         <h1>{data.site?.siteMetadata?.title || `No Title`}</h1>
       </Link>
 
-      <Navigation />
-      <Search />
+      <Navigation className={styles.headerNavArea} />
+      <Search className={styles.headerSearchArea} />
     </header>
   )
 }

@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Article } from "@declaration"
-import ArticlePreview from "./article-preview"
+import ArticlePreview from "../molecules/article-preview"
 // @ts-ignore
 import styles from "./article-list.module.scss"
 
