@@ -1,18 +1,21 @@
+@use "sass:map";
 @use "@styles/global" as g;
-$-header-height: 150px;
-$-footer-height: 150px;
 
 .headerWrapper {
-  height: $-header-height;
+  height: g.$header-height;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: map.get(g.$z-index-weighs, "lg");
 }
 
 .contentWrapper {
-  min-height: calc(100vh - (#{$-header-height} + #{$-footer-height}));
+  min-height: calc(100vh - (#{g.$header-height} + #{g.$footer-height}));
   background-color: g.$bg-color;
 }
 
 .footerWrapper {
-  height: $-footer-height;
+  height: g.$footer-height;
 }
 
 .headerWrapper,

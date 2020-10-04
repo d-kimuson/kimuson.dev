@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 @use "../global-styles/global/" as g;
 @use "../global-styles/styles/variable" as l;
 
@@ -68,7 +69,7 @@
       left: 0;
       height: 100%;
       width: 0%;
-      z-index: 10;
+      z-index: map.get(g.$z-index-weighs, "sm");
       background-color: g.$link-color;
       opacity: 0.2;
       transition: 0.2s;

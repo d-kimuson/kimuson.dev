@@ -37,7 +37,7 @@
 .l-main-sticky-area,
 .l-sidebar-sticky-area {
   position: sticky;
-  top: 20px;
+  top: g.$header-height + 20px;
   width: 100%;
 }
 

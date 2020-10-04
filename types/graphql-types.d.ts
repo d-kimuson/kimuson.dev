@@ -3635,6 +3635,47 @@ export type HeadQuery = (
   )> }
 );
 
+export type BlogPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogPageQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & Pick<MarkdownRemark, 'excerpt'>
+        & { fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+              )> }
+            )> }
+          )> }
+        )> }
+      ) }
+    )> }
+  ), site?: Maybe<(
+    { __typename?: 'Site' }
+    & Pick<Site, 'id'>
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title'>
+    )> }
+  )> }
+);
+
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
 
 

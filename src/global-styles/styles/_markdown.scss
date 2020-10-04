@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 @use "../global/" as g;
 @import "~prismjs/themes/prism-okaidia";
 @import "~prismjs/plugins/line-numbers/prism-line-numbers.css";
@@ -28,7 +29,7 @@ $-code-block-y-margin: 20px;
   position: absolute;
   top: 17px;
   right: 15px;
-  z-index: 100;
+  z-index: map.get(g.$z-index-weighs, "sm");
   &::after {
     // 謎の hover エフェクトがあるので, 上書き
     display: none !important;
@@ -74,7 +75,7 @@ $-copy-toaster-height: 100px;
   position: fixed;
   top: calc(50vh - #{$-copy-toaster-height} / 2);
   left: 0;
-  z-index: 999;
+  z-index: map.get(g.$z-index-weighs, "infty");
   height: $-copy-toaster-height;
   width: 100%;
   // inner layout

@@ -17,3 +17,14 @@ $link-color: $skyblue !default;
 $success-color: $green !default;
 // font
 $code-fonts: "SourceHanCodeJP-Regular", "Migu 1M", "Ricty Diminished" !default;
+// layout
+$header-height: 60px !default;
+$footer-height: 150px !default;
+// z-index
+$z-index-weighs: (
+  "sm": 10,
+  "md": 20,
+  "lg": 30,
+  "xl": 40,
+  "infty": 9999,
+) !default;

@@ -1,35 +1,46 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { getCategoryLink } from "@funcs/links"
 // @ts-ignore
 import styles from "./navigation.module.scss"
-
-const categoryNavs = [`フロントエンド`, `ブログ`].map(category => ({
-  to: getCategoryLink(category),
-  text: category,
-}))
 
 const navRoutes = [
   {
     to: `/`,
     text: `TOP`,
   },
-].concat(categoryNavs)
+  {
+    to: `/blog/`,
+    text: `Blog`,
+  },
+  {
+    to: `/about/`,
+    text: `About`,
+  },
+]
 
 interface NavigationProps {
+  id?: string
   className?: string
+  "aria-hidden"?: boolean
 }
 
-const Navigation: React.FC<NavigationProps> = ({
-  className,
-}: NavigationProps) => {
+const Navigation: React.FC<NavigationProps> = (props: NavigationProps) => {
+  const { className, id } = props
   return (
-    <nav role="navigation" className={className ? className : ``}>
+    <nav
+      id={id ? id : ``}
+      role="navigation"
+      className={className ? className : ``}
+      aria-hidden={props[`aria-hidden`]}
+    >
       <ul className={styles.navLinkList}>
         {navRoutes.map(route => (
-          <li key={route.text}>
-            <Link to={route.to} className="m-remove-a-decoration">
+          <li key={route.to}>
+            <Link
+              to={route.to}
+              className={`m-remove-a-decoration ${styles.navLink}`}
+            >
               {route.text}
             </Link>
           </li>
