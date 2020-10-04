@@ -14,7 +14,7 @@ interface TagInnerProps {
 }
 
 const TagInner: React.FC<TagInnerProps> = ({ tag }: TagInnerProps) => (
-  <div className={styles.tag}>{tag}</div>
+  <div className={styles.tag}># {tag}</div>
 )
 
 const Tag: React.FC<TagProps> = ({ tag, isLink }: TagProps) =>
