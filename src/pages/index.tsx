@@ -18,6 +18,8 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )
   const posts = edgeListToArticleList(edges)
 
+  console.log(data)
+
   return (
     <>
       <Head />
