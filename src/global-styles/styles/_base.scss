@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "../global/" as g;
 @import "~modern-css-reset";
+@import "~animate.css";
 
 // OSにプログラミングフォントがインストール済みなら読み込む
 @each $font in g.$code-fonts {

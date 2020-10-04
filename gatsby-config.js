@@ -123,6 +123,13 @@ module.exports = {
         ]
       }
     },
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true,
+        ignore: ['/src']
+      }
+    },
     "gatsby-transformer-typescript-css-modules",
     // Linter
     {
