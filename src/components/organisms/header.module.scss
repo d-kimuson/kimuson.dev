@@ -17,9 +17,11 @@
 
   .headerNavArea {
     grid-area: nav;
+    height: 100%;
   }
 
   .headerSearchArea {
     grid-area: search;
+    height: 100%;
   }
 }

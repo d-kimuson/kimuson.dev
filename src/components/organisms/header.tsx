@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 
 import { HeaderQuery } from "@graphql-types"
 import Navigation from "../molecules/navigation"
-import Search from "../molecules/search"
+import Search from "../molecules/mini-search"
 // @ts-ignore
 import styles from "./header.module.scss"
 
