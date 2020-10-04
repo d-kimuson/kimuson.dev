@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
+import { getTagLink } from "@funcs/links"
 // @ts-ignore
 import styles from "./tag.module.scss"
 
@@ -20,7 +21,7 @@ const TagInner: React.FC<TagInnerProps> = ({ tag }: TagInnerProps) => (
 const Tag: React.FC<TagProps> = ({ tag, isLink }: TagProps) =>
   isLink ? (
     <Link
-      to={`/tags/${tag}`}
+      to={getTagLink(tag)}
       className={`m-remove-a-decoration ${styles.tagLink}`}
     >
       <TagInner tag={tag} />

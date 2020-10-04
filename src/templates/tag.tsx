@@ -7,6 +7,7 @@ import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import ArticleList from "../components/molecules/article-list"
 import { edgeListToArticleList } from "@funcs/article"
+import { getTagLink } from "@funcs/links"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 
@@ -27,7 +28,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
       <Head
         title={`${tag}タグ`}
         description={`${siteTitle}の${tag}タグページです。｢${tag}｣に関連する記事を探すことができます。`}
-        slug={`/tags/${tag}/`}
+        slug={getTagLink(tag)}
       />
       <Layout>
         <div className="l-main-wrapper">
