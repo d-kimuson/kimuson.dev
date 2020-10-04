@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  z-index: map.get(g.$z-index-weighs, "lg");
+  z-index: map.get(g.$z-index-weights, "lg");
 }
 
 .contentWrapper {

@@ -3744,6 +3744,12 @@ export type BlogPostBySlugQuery = (
         )> }
       )> }
     )> }
+  )>, site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'siteUrl'>
+    )> }
   )> }
 );
 
