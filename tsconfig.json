@@ -6,6 +6,21 @@
       "dom",
       "esnext"
     ],
+    "baseUrl": "./",
+    "paths": {
+      "@declaration": [
+        "types/declaration.d.ts"
+      ],
+      "@graphql-types": [
+        "types/graphql-types.d.ts"
+      ],
+      "@styles/*": [
+        "src/global-styles/*"
+      ],
+      "@funcs/*": [
+        "./src/helper-functions/*"
+      ]
+    },
     "module": "esnext",
     "moduleResolution": "node",
     "target": "esnext",

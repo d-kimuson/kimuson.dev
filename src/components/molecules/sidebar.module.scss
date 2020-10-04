@@ -1,20 +1,17 @@
 @use "sass:color";
 @use "../../global-styles/global/" as g;
 
+// toc
 .toc-wrapper {
   width: 100%;
-  border: solid 2px color.scale(g.$black, $lightness: 70%);
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.toc-title {
-  font-size: 1rem;
 }
 
 .toc {
   list-style: none;
+  font-size: 0.9rem;
+  color: g.$black-weak;
   li {
+    margin: 5px 0;
     a {
       text-decoration: none;
       color: inherit;
@@ -29,5 +26,17 @@
   }
   li[class="toc-h3"] {
     margin-inline-start: 20px;
+    font-size: 0.8rem;
   }
+}
+
+// bio
+.bio {
+  width: 100%;
+}
+
+.bio-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

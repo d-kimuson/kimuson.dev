@@ -2461,10 +2461,88 @@ export type SitePageConnectionGroupArgs = {
 export type SitePageContext = {
   __typename?: 'SitePageContext';
   slug?: Maybe<Scalars['String']>;
+  previous?: Maybe<SitePageContextPrevious>;
+  next?: Maybe<SitePageContextNext>;
+  category?: Maybe<Scalars['String']>;
+  tag?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextFilterInput = {
   slug?: Maybe<StringQueryOperatorInput>;
+  previous?: Maybe<SitePageContextPreviousFilterInput>;
+  next?: Maybe<SitePageContextNextFilterInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  tag?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextNext = {
+  __typename?: 'SitePageContextNext';
+  fields?: Maybe<SitePageContextNextFields>;
+  frontmatter?: Maybe<SitePageContextNextFrontmatter>;
+};
+
+export type SitePageContextNextFields = {
+  __typename?: 'SitePageContextNextFields';
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextNextFieldsFilterInput = {
+  slug?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextNextFilterInput = {
+  fields?: Maybe<SitePageContextNextFieldsFilterInput>;
+  frontmatter?: Maybe<SitePageContextNextFrontmatterFilterInput>;
+};
+
+export type SitePageContextNextFrontmatter = {
+  __typename?: 'SitePageContextNextFrontmatter';
+  title?: Maybe<Scalars['String']>;
+  draft?: Maybe<Scalars['Boolean']>;
+  category?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePageContextNextFrontmatterFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  draft?: Maybe<BooleanQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextPrevious = {
+  __typename?: 'SitePageContextPrevious';
+  fields?: Maybe<SitePageContextPreviousFields>;
+  frontmatter?: Maybe<SitePageContextPreviousFrontmatter>;
+};
+
+export type SitePageContextPreviousFields = {
+  __typename?: 'SitePageContextPreviousFields';
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextPreviousFieldsFilterInput = {
+  slug?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextPreviousFilterInput = {
+  fields?: Maybe<SitePageContextPreviousFieldsFilterInput>;
+  frontmatter?: Maybe<SitePageContextPreviousFrontmatterFilterInput>;
+};
+
+export type SitePageContextPreviousFrontmatter = {
+  __typename?: 'SitePageContextPreviousFrontmatter';
+  title?: Maybe<Scalars['String']>;
+  draft?: Maybe<Scalars['Boolean']>;
+  category?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePageContextPreviousFrontmatterFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  draft?: Maybe<BooleanQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -2568,6 +2646,18 @@ export enum SitePageFieldsEnum {
   InternalType = 'internal___type',
   IsCreatedByStatefulCreatePages = 'isCreatedByStatefulCreatePages',
   ContextSlug = 'context___slug',
+  ContextPreviousFieldsSlug = 'context___previous___fields___slug',
+  ContextPreviousFrontmatterTitle = 'context___previous___frontmatter___title',
+  ContextPreviousFrontmatterDraft = 'context___previous___frontmatter___draft',
+  ContextPreviousFrontmatterCategory = 'context___previous___frontmatter___category',
+  ContextPreviousFrontmatterTags = 'context___previous___frontmatter___tags',
+  ContextNextFieldsSlug = 'context___next___fields___slug',
+  ContextNextFrontmatterTitle = 'context___next___frontmatter___title',
+  ContextNextFrontmatterDraft = 'context___next___frontmatter___draft',
+  ContextNextFrontmatterCategory = 'context___next___frontmatter___category',
+  ContextNextFrontmatterTags = 'context___next___frontmatter___tags',
+  ContextCategory = 'context___category',
+  ContextTag = 'context___tag',
   PluginCreatorId = 'pluginCreator___id',
   PluginCreatorParentId = 'pluginCreator___parent___id',
   PluginCreatorParentParentId = 'pluginCreator___parent___parent___id',
@@ -2619,13 +2709,16 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsPluginsPluginFilepath = 'pluginCreator___pluginOptions___plugins___pluginFilepath',
   PluginCreatorPluginOptionsPath = 'pluginCreator___pluginOptions___path',
   PluginCreatorPluginOptionsName = 'pluginCreator___pluginOptions___name',
+  PluginCreatorPluginOptionsToasterText = 'pluginCreator___pluginOptions___toasterText',
+  PluginCreatorPluginOptionsToasterDuration = 'pluginCreator___pluginOptions___toasterDuration',
   PluginCreatorPluginOptionsClassPrefix = 'pluginCreator___pluginOptions___classPrefix',
   PluginCreatorPluginOptionsShowLineNumbers = 'pluginCreator___pluginOptions___showLineNumbers',
+  PluginCreatorPluginOptionsNoInlineHighlight = 'pluginCreator___pluginOptions___noInlineHighlight',
   PluginCreatorPluginOptionsPromptUser = 'pluginCreator___pluginOptions___prompt___user',
   PluginCreatorPluginOptionsPromptHost = 'pluginCreator___pluginOptions___prompt___host',
   PluginCreatorPluginOptionsPromptGlobal = 'pluginCreator___pluginOptions___prompt___global',
   PluginCreatorPluginOptionsMaxWidth = 'pluginCreator___pluginOptions___maxWidth',
-  PluginCreatorPluginOptionsWrapperStyle = 'pluginCreator___pluginOptions___wrapperStyle',
+  PluginCreatorPluginOptionsTrackingId = 'pluginCreator___pluginOptions___trackingId',
   PluginCreatorPluginOptionsShortName = 'pluginCreator___pluginOptions___short_name',
   PluginCreatorPluginOptionsStartUrl = 'pluginCreator___pluginOptions___start_url',
   PluginCreatorPluginOptionsBackgroundColor = 'pluginCreator___pluginOptions___background_color',
@@ -2639,12 +2732,17 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsCacheDigest = 'pluginCreator___pluginOptions___cacheDigest',
   PluginCreatorPluginOptionsCodegen = 'pluginCreator___pluginOptions___codegen',
   PluginCreatorPluginOptionsFileName = 'pluginCreator___pluginOptions___fileName',
+  PluginCreatorPluginOptionsExclude = 'pluginCreator___pluginOptions___exclude',
   PluginCreatorPluginOptionsImplementationInfo = 'pluginCreator___pluginOptions___implementation___info',
-  PluginCreatorPluginOptionsWatch = 'pluginCreator___pluginOptions___watch',
-  PluginCreatorPluginOptionsEslintPatterns = 'pluginCreator___pluginOptions___eslint___patterns',
-  PluginCreatorPluginOptionsFix = 'pluginCreator___pluginOptions___fix',
   PluginCreatorPluginOptionsSyntax = 'pluginCreator___pluginOptions___syntax',
   PluginCreatorPluginOptionsFiles = 'pluginCreator___pluginOptions___files',
+  PluginCreatorPluginOptionsOpenGraphType = 'pluginCreator___pluginOptions___openGraph___type',
+  PluginCreatorPluginOptionsOpenGraphLocale = 'pluginCreator___pluginOptions___openGraph___locale',
+  PluginCreatorPluginOptionsOpenGraphUrl = 'pluginCreator___pluginOptions___openGraph___url',
+  PluginCreatorPluginOptionsOpenGraphSiteName = 'pluginCreator___pluginOptions___openGraph___site_name',
+  PluginCreatorPluginOptionsOutput = 'pluginCreator___pluginOptions___output',
+  PluginCreatorPluginOptionsHost = 'pluginCreator___pluginOptions___host',
+  PluginCreatorPluginOptionsSitemap = 'pluginCreator___pluginOptions___sitemap',
   PluginCreatorPluginOptionsPathCheck = 'pluginCreator___pluginOptions___pathCheck',
   PluginCreatorNodeApIs = 'pluginCreator___nodeAPIs',
   PluginCreatorBrowserApIs = 'pluginCreator___browserAPIs',
@@ -2843,22 +2941,27 @@ export enum SitePluginFieldsEnum {
   PluginOptionsPluginsId = 'pluginOptions___plugins___id',
   PluginOptionsPluginsName = 'pluginOptions___plugins___name',
   PluginOptionsPluginsVersion = 'pluginOptions___plugins___version',
+  PluginOptionsPluginsPluginOptionsToasterText = 'pluginOptions___plugins___pluginOptions___toasterText',
+  PluginOptionsPluginsPluginOptionsToasterDuration = 'pluginOptions___plugins___pluginOptions___toasterDuration',
   PluginOptionsPluginsPluginOptionsClassPrefix = 'pluginOptions___plugins___pluginOptions___classPrefix',
   PluginOptionsPluginsPluginOptionsShowLineNumbers = 'pluginOptions___plugins___pluginOptions___showLineNumbers',
+  PluginOptionsPluginsPluginOptionsNoInlineHighlight = 'pluginOptions___plugins___pluginOptions___noInlineHighlight',
   PluginOptionsPluginsPluginOptionsMaxWidth = 'pluginOptions___plugins___pluginOptions___maxWidth',
-  PluginOptionsPluginsPluginOptionsWrapperStyle = 'pluginOptions___plugins___pluginOptions___wrapperStyle',
   PluginOptionsPluginsBrowserApIs = 'pluginOptions___plugins___browserAPIs',
   PluginOptionsPluginsSsrApIs = 'pluginOptions___plugins___ssrAPIs',
   PluginOptionsPluginsPluginFilepath = 'pluginOptions___plugins___pluginFilepath',
   PluginOptionsPath = 'pluginOptions___path',
   PluginOptionsName = 'pluginOptions___name',
+  PluginOptionsToasterText = 'pluginOptions___toasterText',
+  PluginOptionsToasterDuration = 'pluginOptions___toasterDuration',
   PluginOptionsClassPrefix = 'pluginOptions___classPrefix',
   PluginOptionsShowLineNumbers = 'pluginOptions___showLineNumbers',
+  PluginOptionsNoInlineHighlight = 'pluginOptions___noInlineHighlight',
   PluginOptionsPromptUser = 'pluginOptions___prompt___user',
   PluginOptionsPromptHost = 'pluginOptions___prompt___host',
   PluginOptionsPromptGlobal = 'pluginOptions___prompt___global',
   PluginOptionsMaxWidth = 'pluginOptions___maxWidth',
-  PluginOptionsWrapperStyle = 'pluginOptions___wrapperStyle',
+  PluginOptionsTrackingId = 'pluginOptions___trackingId',
   PluginOptionsShortName = 'pluginOptions___short_name',
   PluginOptionsStartUrl = 'pluginOptions___start_url',
   PluginOptionsBackgroundColor = 'pluginOptions___background_color',
@@ -2872,14 +2975,18 @@ export enum SitePluginFieldsEnum {
   PluginOptionsCacheDigest = 'pluginOptions___cacheDigest',
   PluginOptionsCodegen = 'pluginOptions___codegen',
   PluginOptionsFileName = 'pluginOptions___fileName',
+  PluginOptionsExclude = 'pluginOptions___exclude',
   PluginOptionsImplementationInfo = 'pluginOptions___implementation___info',
-  PluginOptionsWatch = 'pluginOptions___watch',
-  PluginOptionsEslintPatterns = 'pluginOptions___eslint___patterns',
-  PluginOptionsEslintCustomOptionsFix = 'pluginOptions___eslint___customOptions___fix',
-  PluginOptionsEslintCustomOptionsCache = 'pluginOptions___eslint___customOptions___cache',
-  PluginOptionsFix = 'pluginOptions___fix',
   PluginOptionsSyntax = 'pluginOptions___syntax',
   PluginOptionsFiles = 'pluginOptions___files',
+  PluginOptionsOpenGraphType = 'pluginOptions___openGraph___type',
+  PluginOptionsOpenGraphLocale = 'pluginOptions___openGraph___locale',
+  PluginOptionsOpenGraphUrl = 'pluginOptions___openGraph___url',
+  PluginOptionsOpenGraphSiteName = 'pluginOptions___openGraph___site_name',
+  PluginOptionsOutput = 'pluginOptions___output',
+  PluginOptionsHost = 'pluginOptions___host',
+  PluginOptionsSitemap = 'pluginOptions___sitemap',
+  PluginOptionsEnvProductionPolicy = 'pluginOptions___env___production___policy',
   PluginOptionsPathCheck = 'pluginOptions___pathCheck',
   NodeApIs = 'nodeAPIs',
   BrowserApIs = 'browserAPIs',
@@ -3006,11 +3113,14 @@ export type SitePluginPluginOptions = {
   plugins?: Maybe<Array<Maybe<SitePluginPluginOptionsPlugins>>>;
   path?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  toasterText?: Maybe<Scalars['String']>;
+  toasterDuration?: Maybe<Scalars['Int']>;
   classPrefix?: Maybe<Scalars['String']>;
   showLineNumbers?: Maybe<Scalars['Boolean']>;
+  noInlineHighlight?: Maybe<Scalars['Boolean']>;
   prompt?: Maybe<SitePluginPluginOptionsPrompt>;
   maxWidth?: Maybe<Scalars['Int']>;
-  wrapperStyle?: Maybe<Scalars['String']>;
+  trackingId?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
@@ -3024,46 +3134,63 @@ export type SitePluginPluginOptions = {
   cacheDigest?: Maybe<Scalars['String']>;
   codegen?: Maybe<Scalars['Boolean']>;
   fileName?: Maybe<Scalars['String']>;
+  exclude?: Maybe<Array<Maybe<Scalars['String']>>>;
   implementation?: Maybe<SitePluginPluginOptionsImplementation>;
-  watch?: Maybe<Scalars['Boolean']>;
-  eslint?: Maybe<SitePluginPluginOptionsEslint>;
-  fix?: Maybe<Scalars['Boolean']>;
   syntax?: Maybe<Scalars['String']>;
   files?: Maybe<Array<Maybe<Scalars['String']>>>;
+  openGraph?: Maybe<SitePluginPluginOptionsOpenGraph>;
+  output?: Maybe<Scalars['String']>;
+  host?: Maybe<Scalars['String']>;
+  sitemap?: Maybe<Scalars['String']>;
+  env?: Maybe<SitePluginPluginOptionsEnv>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
-export type SitePluginPluginOptionsEslint = {
-  __typename?: 'SitePluginPluginOptionsEslint';
-  patterns?: Maybe<Array<Maybe<Scalars['String']>>>;
-  customOptions?: Maybe<SitePluginPluginOptionsEslintCustomOptions>;
+export type SitePluginPluginOptionsEnv = {
+  __typename?: 'SitePluginPluginOptionsEnv';
+  production?: Maybe<SitePluginPluginOptionsEnvProduction>;
 };
 
-export type SitePluginPluginOptionsEslintCustomOptions = {
-  __typename?: 'SitePluginPluginOptionsEslintCustomOptions';
-  fix?: Maybe<Scalars['Boolean']>;
-  cache?: Maybe<Scalars['Boolean']>;
+export type SitePluginPluginOptionsEnvFilterInput = {
+  production?: Maybe<SitePluginPluginOptionsEnvProductionFilterInput>;
 };
 
-export type SitePluginPluginOptionsEslintCustomOptionsFilterInput = {
-  fix?: Maybe<BooleanQueryOperatorInput>;
-  cache?: Maybe<BooleanQueryOperatorInput>;
+export type SitePluginPluginOptionsEnvProduction = {
+  __typename?: 'SitePluginPluginOptionsEnvProduction';
+  policy?: Maybe<Array<Maybe<SitePluginPluginOptionsEnvProductionPolicy>>>;
 };
 
-export type SitePluginPluginOptionsEslintFilterInput = {
-  patterns?: Maybe<StringQueryOperatorInput>;
-  customOptions?: Maybe<SitePluginPluginOptionsEslintCustomOptionsFilterInput>;
+export type SitePluginPluginOptionsEnvProductionFilterInput = {
+  policy?: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterListInput>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicy = {
+  __typename?: 'SitePluginPluginOptionsEnvProductionPolicy';
+  userAgent?: Maybe<Scalars['String']>;
+  allow?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicyFilterInput = {
+  userAgent?: Maybe<StringQueryOperatorInput>;
+  allow?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicyFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterInput>;
 };
 
 export type SitePluginPluginOptionsFilterInput = {
   plugins?: Maybe<SitePluginPluginOptionsPluginsFilterListInput>;
   path?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
+  toasterText?: Maybe<StringQueryOperatorInput>;
+  toasterDuration?: Maybe<IntQueryOperatorInput>;
   classPrefix?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
+  noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
-  wrapperStyle?: Maybe<StringQueryOperatorInput>;
+  trackingId?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
@@ -3077,12 +3204,15 @@ export type SitePluginPluginOptionsFilterInput = {
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   codegen?: Maybe<BooleanQueryOperatorInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
+  exclude?: Maybe<StringQueryOperatorInput>;
   implementation?: Maybe<SitePluginPluginOptionsImplementationFilterInput>;
-  watch?: Maybe<BooleanQueryOperatorInput>;
-  eslint?: Maybe<SitePluginPluginOptionsEslintFilterInput>;
-  fix?: Maybe<BooleanQueryOperatorInput>;
   syntax?: Maybe<StringQueryOperatorInput>;
   files?: Maybe<StringQueryOperatorInput>;
+  openGraph?: Maybe<SitePluginPluginOptionsOpenGraphFilterInput>;
+  output?: Maybe<StringQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
+  sitemap?: Maybe<StringQueryOperatorInput>;
+  env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
 
@@ -3093,6 +3223,21 @@ export type SitePluginPluginOptionsImplementation = {
 
 export type SitePluginPluginOptionsImplementationFilterInput = {
   info?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsOpenGraph = {
+  __typename?: 'SitePluginPluginOptionsOpenGraph';
+  type?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  site_name?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsOpenGraphFilterInput = {
+  type?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  site_name?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPlugins = {
@@ -3124,19 +3269,23 @@ export type SitePluginPluginOptionsPluginsFilterListInput = {
 
 export type SitePluginPluginOptionsPluginsPluginOptions = {
   __typename?: 'SitePluginPluginOptionsPluginsPluginOptions';
+  toasterText?: Maybe<Scalars['String']>;
+  toasterDuration?: Maybe<Scalars['Int']>;
   classPrefix?: Maybe<Scalars['String']>;
   showLineNumbers?: Maybe<Scalars['Boolean']>;
+  noInlineHighlight?: Maybe<Scalars['Boolean']>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPrompt>;
   maxWidth?: Maybe<Scalars['Int']>;
-  wrapperStyle?: Maybe<Scalars['String']>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
+  toasterText?: Maybe<StringQueryOperatorInput>;
+  toasterDuration?: Maybe<IntQueryOperatorInput>;
   classPrefix?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
+  noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
-  wrapperStyle?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsPrompt = {
@@ -3351,6 +3500,63 @@ export type GatsbyImageSharpSizes_WithWebp_NoBase64Fragment = (
   & Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>
 );
 
+export type MiniSearchQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MiniSearchQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'draft' | 'tags'>
+        )>, fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )> }
+      ) }
+    )> }
+  ) }
+);
+
+export type SearchQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SearchQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & Pick<MarkdownRemark, 'excerpt'>
+        & { fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+              )> }
+            )> }
+          )> }
+        )> }
+      ) }
+    )> }
+  ) }
+);
+
 export type BioQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3372,30 +3578,29 @@ export type BioQuery = (
       & { author?: Maybe<(
         { __typename?: 'SiteSiteMetadataAuthor' }
         & Pick<SiteSiteMetadataAuthor, 'name' | 'summary'>
-      )>, social?: Maybe<(
-        { __typename?: 'SiteSiteMetadataSocial' }
-        & Pick<SiteSiteMetadataSocial, 'twitter'>
       )> }
     )> }
   )> }
 );
 
-export type HeadQueryVariables = Exact<{ [key: string]: never; }>;
+export type CommonSidebarQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HeadQuery = (
+export type CommonSidebarQuery = (
   { __typename?: 'Query' }
-  & { site?: Maybe<(
-    { __typename?: 'Site' }
-    & { siteMetadata?: Maybe<(
-      { __typename?: 'SiteSiteMetadata' }
-      & Pick<SiteSiteMetadata, 'title' | 'description'>
-      & { social?: Maybe<(
-        { __typename?: 'SiteSiteMetadataSocial' }
-        & Pick<SiteSiteMetadataSocial, 'twitter'>
-      )> }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'category' | 'tags' | 'draft'>
+        )> }
+      ) }
     )> }
-  )> }
+  ) }
 );
 
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3412,27 +3617,22 @@ export type HeaderQuery = (
   )> }
 );
 
-export type SearchQueryVariables = Exact<{ [key: string]: never; }>;
+export type HeadQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SearchQuery = (
+export type HeadQuery = (
   { __typename?: 'Query' }
-  & { allMarkdownRemark: (
-    { __typename?: 'MarkdownRemarkConnection' }
-    & { edges: Array<(
-      { __typename?: 'MarkdownRemarkEdge' }
-      & { node: (
-        { __typename?: 'MarkdownRemark' }
-        & { frontmatter?: Maybe<(
-          { __typename?: 'Frontmatter' }
-          & Pick<Frontmatter, 'title' | 'draft'>
-        )>, fields?: Maybe<(
-          { __typename?: 'MarkdownRemarkFields' }
-          & Pick<MarkdownRemarkFields, 'slug'>
-        )> }
-      ) }
+  & { site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title' | 'description' | 'siteUrl'>
+      & { social?: Maybe<(
+        { __typename?: 'SiteSiteMetadataSocial' }
+        & Pick<SiteSiteMetadataSocial, 'twitter'>
+      )> }
     )> }
-  ) }
+  )> }
 );
 
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3466,7 +3666,14 @@ export type IndexQuery = (
         )> }
       ) }
     )> }
-  ) }
+  ), site?: Maybe<(
+    { __typename?: 'Site' }
+    & Pick<Site, 'id'>
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title'>
+    )> }
+  )> }
 );
 
 export type BlogPostBySlugQueryVariables = Exact<{
@@ -3479,7 +3686,10 @@ export type BlogPostBySlugQuery = (
   & { markdownRemark?: Maybe<(
     { __typename?: 'MarkdownRemark' }
     & Pick<MarkdownRemark, 'id' | 'excerpt' | 'html' | 'htmlAst'>
-    & { frontmatter?: Maybe<(
+    & { fields?: Maybe<(
+      { __typename?: 'MarkdownRemarkFields' }
+      & Pick<MarkdownRemarkFields, 'slug'>
+    )>, frontmatter?: Maybe<(
       { __typename?: 'Frontmatter' }
       & Pick<Frontmatter, 'title' | 'date' | 'description' | 'category' | 'tags' | 'draft'>
       & { thumbnail?: Maybe<(
@@ -3492,6 +3702,88 @@ export type BlogPostBySlugQuery = (
           )> }
         )> }
       )> }
+    )> }
+  )> }
+);
+
+export type CategoryPageQueryVariables = Exact<{
+  category: Scalars['String'];
+}>;
+
+
+export type CategoryPageQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'category' | 'draft' | 'description' | 'date' | 'title' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+              )> }
+            )> }
+          )> }
+        )> }
+      ) }
+    )> }
+  ), site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title'>
+    )> }
+  )> }
+);
+
+export type TagPageQueryVariables = Exact<{
+  tag: Scalars['String'];
+}>;
+
+
+export type TagPageQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'category' | 'draft' | 'description' | 'date' | 'title' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+              )> }
+            )> }
+          )> }
+        )> }
+      ) }
+    )> }
+  ), site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title'>
     )> }
   )> }
 );

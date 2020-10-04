@@ -1,0 +1,21 @@
+@use "@styles/global/" as g;
+
+.category-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  color: g.$black-weak;
+
+  li + li {
+    margin-top: 10px;
+  }
+
+  .category {
+    margin-left: 20px;
+    font-weight: bold;
+
+    &:hover {
+      color: g.$link-color;
+    }
+  }
+}

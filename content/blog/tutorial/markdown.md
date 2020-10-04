@@ -4,7 +4,7 @@ description: マークダウンのチートシートです。
 category: フロントエンド
 tags:
   - Markdown
-  - Blog
+  - ブログ
 date: "2015-05-28T22:40:32.169Z"
 thumbnail: 'thumbnails/blog.png'
 draft: true
@@ -73,7 +73,7 @@ example_linkという文字でリンクが貼られて、遷移先が `http:///e
 $ touch hoge.txt
 ```
 
-``` js:hello.js
+``` js:title=hello.js
 console.log('hello world');
 ```
 

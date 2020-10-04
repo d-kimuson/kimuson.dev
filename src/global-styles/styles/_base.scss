@@ -1,6 +1,15 @@
 @use "sass:color";
 @use "../global/" as g;
 @import "~modern-css-reset";
+
+// OSにプログラミングフォントがインストール済みなら読み込む
+@each $font in g.$code-fonts {
+  @font-face {
+    font-family: $font;
+    src: local($font);
+  }
+}
+
 body {
   color: g.$text-color;
 }

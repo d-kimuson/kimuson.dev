@@ -1,0 +1,26 @@
+{
+  // ESLint
+  "eslint.enable": true,
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.alwaysShowStatus": true,
+  // Stylelint
+  "stylelint.enable": true,
+  // Lint On Save
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
+  },
+  // Invalidate other formatters
+  "css.validate": false,
+  "scss.validate": false,
+}

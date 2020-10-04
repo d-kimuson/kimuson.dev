@@ -1,53 +1,37 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { IndexQuery, MarkdownRemarkEdge } from "../../types/graphql-types"
-import { Article } from "../../types/declaration"
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Head from "../components/head"
-import ArticleList from "../components/article-list"
-import { filterDraft } from "../utils/draft"
+import { IndexQuery, MarkdownRemarkEdge } from "@graphql-types"
+import Sidebar from "../components/templates/sidebar"
+import Layout from "../components/templates/layout"
+import Head from "../components/templates/head"
+import ArticleList from "../components/molecules/article-list"
+import { edgeListToArticleList } from "@funcs/article"
 
 interface IndexProps extends PageProps {
-  data: IndexQuery;
+  data: IndexQuery
 }
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
-  const posts = data.allMarkdownRemark.edges
-    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
-    .filter(filterDraft)
-    .map(e => ({
-      slug: e.node.fields?.slug,
-      title: e.node.frontmatter?.title || `No Title`,
-      description: e.node.frontmatter?.description || e.node.excerpt || ``,
-      date: e.node.frontmatter?.date,
-      thumbnail: e.node.frontmatter?.thumbnail?.childImageSharp?.fluid,
-      draft: e.node.frontmatter?.draft || true,
-      category: e.node.frontmatter?.category,
-      tags: e.node.frontmatter?.tags?.map(tag => String(tag)) || []
-    }))
-    .filter((post): post is Article => (
-      typeof post.slug === `string` &&
-      typeof post.date === `string` &&
-      typeof post.category === `string`
-    ))
+  const edges = data.allMarkdownRemark.edges.filter(
+    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  )
+  const posts = edgeListToArticleList(edges)
 
   return (
     <>
       <Head />
       <Layout>
-        <div className="l-main-container">
+        <div className="l-main-wrapper">
           <main role="main">
             <section>
+              <h1 className="m-page-title">Latest Posts</h1>
+
               <ArticleList articles={posts} />
             </section>
           </main>
         </div>
-        <div className="l-sidebar-container">
-          <p>さいどばー</p>
-          <Bio />
-        </div>
+        <Sidebar bio={true} commonSidebar={true} />
       </Layout>
     </>
   )
@@ -67,19 +51,25 @@ export const pageQuery = graphql`
           frontmatter {
             title
             description
-            date(formatString: "MMMM DD, YYYY")
+            date
             draft
             category
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxWidth: 300) {
+                fluid(maxHeight: 200) {
                   ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
             }
           }
         }
+      }
+    }
+    site {
+      id
+      siteMetadata {
+        title
       }
     }
   }

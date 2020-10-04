@@ -1,0 +1,30 @@
+@use "sass:color";
+@use "@styles/global" as g;
+
+$-input-width: 85%;
+
+.searchForm {
+  width: 100%;
+  border-bottom: solid 1px g.$black-weak;
+  padding: 0 0 10px 0;
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.searchInput {
+  width: $-input-width;
+  border: none;
+}
+
+.searchButton {
+  width: 100% - $-input-width;
+  border: none;
+}
+
+.searchForm,
+.searchButton,
+.searchInput {
+  color: g.$black-weak;
+  background: inherit;
+}
