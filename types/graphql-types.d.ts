@@ -2732,6 +2732,7 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsCacheDigest = 'pluginCreator___pluginOptions___cacheDigest',
   PluginCreatorPluginOptionsCodegen = 'pluginCreator___pluginOptions___codegen',
   PluginCreatorPluginOptionsFileName = 'pluginCreator___pluginOptions___fileName',
+  PluginCreatorPluginOptionsExclude = 'pluginCreator___pluginOptions___exclude',
   PluginCreatorPluginOptionsImplementationInfo = 'pluginCreator___pluginOptions___implementation___info',
   PluginCreatorPluginOptionsSyntax = 'pluginCreator___pluginOptions___syntax',
   PluginCreatorPluginOptionsFiles = 'pluginCreator___pluginOptions___files',
@@ -2974,6 +2975,7 @@ export enum SitePluginFieldsEnum {
   PluginOptionsCacheDigest = 'pluginOptions___cacheDigest',
   PluginOptionsCodegen = 'pluginOptions___codegen',
   PluginOptionsFileName = 'pluginOptions___fileName',
+  PluginOptionsExclude = 'pluginOptions___exclude',
   PluginOptionsImplementationInfo = 'pluginOptions___implementation___info',
   PluginOptionsSyntax = 'pluginOptions___syntax',
   PluginOptionsFiles = 'pluginOptions___files',
@@ -3132,6 +3134,7 @@ export type SitePluginPluginOptions = {
   cacheDigest?: Maybe<Scalars['String']>;
   codegen?: Maybe<Scalars['Boolean']>;
   fileName?: Maybe<Scalars['String']>;
+  exclude?: Maybe<Array<Maybe<Scalars['String']>>>;
   implementation?: Maybe<SitePluginPluginOptionsImplementation>;
   syntax?: Maybe<Scalars['String']>;
   files?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -3201,6 +3204,7 @@ export type SitePluginPluginOptionsFilterInput = {
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   codegen?: Maybe<BooleanQueryOperatorInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
+  exclude?: Maybe<StringQueryOperatorInput>;
   implementation?: Maybe<SitePluginPluginOptionsImplementationFilterInput>;
   syntax?: Maybe<StringQueryOperatorInput>;
   files?: Maybe<StringQueryOperatorInput>;
@@ -3496,36 +3500,27 @@ export type GatsbyImageSharpSizes_WithWebp_NoBase64Fragment = (
   & Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>
 );
 
-export type HeadQueryVariables = Exact<{ [key: string]: never; }>;
+export type MiniSearchQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type HeadQuery = (
+export type MiniSearchQuery = (
   { __typename?: 'Query' }
-  & { site?: Maybe<(
-    { __typename?: 'Site' }
-    & { siteMetadata?: Maybe<(
-      { __typename?: 'SiteSiteMetadata' }
-      & Pick<SiteSiteMetadata, 'title' | 'description' | 'siteUrl'>
-      & { social?: Maybe<(
-        { __typename?: 'SiteSiteMetadataSocial' }
-        & Pick<SiteSiteMetadataSocial, 'twitter'>
-      )> }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'draft' | 'tags'>
+        )>, fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )> }
+      ) }
     )> }
-  )> }
-);
-
-export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type HeaderQuery = (
-  { __typename?: 'Query' }
-  & { site?: Maybe<(
-    { __typename?: 'Site' }
-    & { siteMetadata?: Maybe<(
-      { __typename?: 'SiteSiteMetadata' }
-      & Pick<SiteSiteMetadata, 'title'>
-    )> }
-  )> }
+  ) }
 );
 
 export type SearchQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3539,12 +3534,23 @@ export type SearchQuery = (
       { __typename?: 'MarkdownRemarkEdge' }
       & { node: (
         { __typename?: 'MarkdownRemark' }
-        & { frontmatter?: Maybe<(
-          { __typename?: 'Frontmatter' }
-          & Pick<Frontmatter, 'title' | 'draft'>
-        )>, fields?: Maybe<(
+        & Pick<MarkdownRemark, 'excerpt'>
+        & { fields?: Maybe<(
           { __typename?: 'MarkdownRemarkFields' }
           & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+              )> }
+            )> }
+          )> }
         )> }
       ) }
     )> }
@@ -3595,6 +3601,38 @@ export type CommonSidebarQuery = (
       ) }
     )> }
   ) }
+);
+
+export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HeaderQuery = (
+  { __typename?: 'Query' }
+  & { site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title'>
+    )> }
+  )> }
+);
+
+export type HeadQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HeadQuery = (
+  { __typename?: 'Query' }
+  & { site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & Pick<SiteSiteMetadata, 'title' | 'description' | 'siteUrl'>
+      & { social?: Maybe<(
+        { __typename?: 'SiteSiteMetadataSocial' }
+        & Pick<SiteSiteMetadataSocial, 'twitter'>
+      )> }
+    )> }
+  )> }
 );
 
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;

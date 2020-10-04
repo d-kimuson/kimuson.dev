@@ -1,0 +1,46 @@
+@use "@styles/global" as g;
+
+$-search-field-height: 30px;
+$-search-field-width: 250px;
+
+.searchField {
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchForm {
+  height: $-search-field-height;
+  width: $-search-field-width;
+  padding: 0 10px;
+  border-bottom: solid 1px g.$white;
+}
+
+.searchInput,
+.searchButton {
+  border: none;
+}
+
+.searchForm,
+.searchInput,
+.searchButton {
+  color: g.$white;
+  background: inherit;
+}
+
+.search-result-list {
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: $-search-field-width;
+  background: g.$black;
+
+  li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

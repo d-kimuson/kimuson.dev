@@ -1,28 +1,39 @@
-import React, { useState } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import React, { useState, useEffect } from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import Fuse from "fuse.js"
 
 import { SearchQuery, MarkdownRemarkEdge } from "@graphql-types"
-import { filterDraft } from "@funcs/article"
+import { Article } from "@declaration"
+import { edgeListToArticleList } from "@funcs/article"
+import ArticleList from "./article-list"
 // @ts-ignore
 import styles from "./search.module.scss"
-
-interface Page {
-  title: string
-  slug: string
-}
 
 const query = graphql`
   query Search {
     allMarkdownRemark {
       edges {
         node {
-          frontmatter {
-            title
-            draft
-          }
+          excerpt
           fields {
             slug
+          }
+          frontmatter {
+            title
+            description
+            date
+            draft
+            category
+            tags
+            thumbnail {
+              childImageSharp {
+                fluid(maxHeight: 200) {
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                }
+              }
+            }
           }
         }
       }
@@ -32,56 +43,67 @@ const query = graphql`
 
 interface SearchProps {
   className?: string
+  initKeyword?: string
 }
 
-const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
-  const data: SearchQuery = useStaticQuery(query)
-  const targets = data.allMarkdownRemark.edges
-    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
-    .filter(e => filterDraft(e))
-    .map(e => ({
-      title: e.node.frontmatter?.title,
-      slug: e.node.fields?.slug,
-    }))
-    .filter((p): p is Page => typeof (p.title && p.slug) !== `undefined`)
+interface ArticleForFuse extends Article {
+  tagsString: string
+}
 
-  const fuse = new Fuse(targets, {
-    keys: [`title`],
+const Search: React.FC<SearchProps> = ({
+  className,
+  initKeyword = ``,
+}: SearchProps) => {
+  const data: SearchQuery = useStaticQuery(query)
+  const edges = data.allMarkdownRemark.edges.filter(
+    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  )
+  const articles: ArticleForFuse[] = edgeListToArticleList(edges).map(
+    article => ({
+      ...article,
+      tagsString: article.tags.reduce((s, t) => `${s} ${t}`),
+    })
+  )
+
+  const fuse = new Fuse(articles, {
+    keys: [`title`, `tagsString`],
   })
 
-  const [results, setResults] = useState<Page[]>([])
+  const [keyword, setKeyword] = useState<string>(initKeyword)
+  const [results, setResults] = useState<Article[]>([])
 
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    console.log(event.currentTarget.value)
+  useEffect(() => {
     setResults(
       fuse
-        .search(event.currentTarget.value)
+        .search(keyword)
         .map(_ => _.item)
         .slice(0, 10)
     )
-  }
+  }, [keyword])
 
   return (
-    <div className={className ? className : ``}>
-      <div className={styles.searchField}>
+    <section className={className ? className : ``}>
+      <form
+        className={styles.searchForm}
+        onSubmit={(e): void => e.preventDefault()}
+      >
         <input
           type="text"
           name="keyword"
-          onKeyUp={handleKeyUp}
+          className={styles.searchInput}
+          onChange={(e): void => setKeyword(e.target.value)}
+          value={keyword}
           placeholder="記事を検索する"
           autoComplete="off"
+          autoFocus={true}
         />
-        <ul className={styles.searchResultList}>
-          {results.map(result => (
-            <li key={result.slug}>
-              <Link to={result.slug} className="m-remove-a-decoration">
-                {result.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+        <button className={styles.searchButton}>
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+      </form>
+
+      <ArticleList articles={results} />
+    </section>
   )
 }
 
