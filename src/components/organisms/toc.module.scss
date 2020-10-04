@@ -6,6 +6,8 @@
 }
 
 .toc {
+  max-height: 40vh;
+  overflow-y: scroll;
   list-style: none;
   font-size: 0.9rem;
   color: g.$black-weak;
