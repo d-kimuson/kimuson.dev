@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "@styles/global" as g;
 
 $-search-field-height: 30px;
@@ -36,11 +37,13 @@ $-search-field-width: 250px;
   top: 100%;
   left: 0;
   width: $-search-field-width;
-  background: g.$black;
+  background: g.$theme-color;
 
   li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding: 4px 10px;
+    border-bottom: solid 1px g.$white;
   }
 }

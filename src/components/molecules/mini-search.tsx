@@ -6,6 +6,7 @@ import Fuse from "fuse.js"
 
 import { MiniSearchQuery, MarkdownRemarkEdge } from "@graphql-types"
 import { filterDraft } from "@funcs/article"
+import { getArticleLink } from "@funcs/links"
 // @ts-ignore
 import styles from "./mini-search.module.scss"
 
@@ -103,7 +104,10 @@ const MiniSearch: React.FC<MiniSearchProps> = ({
         <ul className={styles.searchResultList}>
           {results.map(result => (
             <li key={result.slug}>
-              <Link to={result.slug} className="m-remove-a-decoration">
+              <Link
+                to={getArticleLink(result.slug)}
+                className="m-remove-a-decoration"
+              >
                 {result.title}
               </Link>
             </li>
