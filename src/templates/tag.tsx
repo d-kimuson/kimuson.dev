@@ -50,7 +50,10 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query TagPage($tag: String!) {
-    allMarkdownRemark(filter: { frontmatter: { tags: { in: [$tag] } } }) {
+    allMarkdownRemark(
+      filter: { frontmatter: { tags: { in: [$tag] } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
       edges {
         node {
           fields {

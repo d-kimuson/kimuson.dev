@@ -51,6 +51,7 @@ export const pageQuery = graphql`
   query CategoryPage($category: String!) {
     allMarkdownRemark(
       filter: { frontmatter: { category: { eq: $category } } }
+      sort: { fields: [frontmatter___date], order: DESC }
     ) {
       edges {
         node {
