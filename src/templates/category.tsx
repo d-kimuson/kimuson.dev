@@ -7,6 +7,7 @@ import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import ArticleList from "../components/molecules/article-list"
 import { edgeListToArticleList } from "@funcs/article"
+import { getCategoryLink } from "@funcs/links"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
@@ -26,7 +27,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
       <Head
         title={`${category}カテゴリ`}
         description={`${siteTitle}の${category}カテゴリページです。${category}カテゴリの記事を探すことができます。`}
-        slug={`/categories/${category}/`}
+        slug={getCategoryLink(category)}
       />
       <Layout>
         <div className="l-main-wrapper">
@@ -50,6 +51,7 @@ export const pageQuery = graphql`
   query CategoryPage($category: String!) {
     allMarkdownRemark(
       filter: { frontmatter: { category: { eq: $category } } }
+      sort: { fields: [frontmatter___date], order: DESC }
     ) {
       edges {
         node {

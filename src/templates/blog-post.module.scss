@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 @use "../global-styles/global/" as g;
 @use "../global-styles/styles/variable" as l;
 
@@ -36,7 +37,7 @@
     font-size: 1.5rem;
     line-height: 3.5rem;
     padding: 0 0.5rem;
-    margin: 2.5rem 0;
+    margin: 1.8rem 0;
     border-block-end: solid 2px g.$black-thin;
   }
   h3 {
@@ -68,7 +69,7 @@
       left: 0;
       height: 100%;
       width: 0%;
-      z-index: 10;
+      z-index: map.get(g.$z-index-weights, "sm");
       background-color: g.$link-color;
       opacity: 0.2;
       transition: 0.2s;
@@ -77,6 +78,10 @@
       &::before {
         width: 100%;
       }
+    }
+
+    img {
+      z-index: map.get(g.$z-index-weights, "md");
     }
   }
   p {
@@ -136,7 +141,7 @@
   hr {
     display: block;
     background-color: g.$black-thin;
-    height: 1px;
+    height: 2px;
     border: none;
     margin: 1.2rem 0;
   }
@@ -145,5 +150,21 @@
     &:hover {
       display: none !important;
     }
+  }
+}
+
+.sepLine {
+  display: block;
+  background-color: g.$black-thin;
+  height: 2px;
+  border: none;
+  margin: 1.2rem 5px;
+}
+
+.footerContainer {
+  margin: 40px 20px;
+
+  div {
+    margin: 10px 0;
   }
 }

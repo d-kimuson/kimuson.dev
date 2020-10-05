@@ -17,7 +17,10 @@ const ArticleList: React.FC<ArticleListProps> = ({
       {articles.length > 0 ? (
         <ul className={styles.articleList}>
           {articles.map(article => (
-            <li key={article.slug}>
+            <li
+              key={article.slug}
+              className="animate__animated animate__fadeIn"
+            >
               <ArticlePreview article={article} />
             </li>
           ))}

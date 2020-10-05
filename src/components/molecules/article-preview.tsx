@@ -2,11 +2,12 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
+import Date from "../atoms/date"
+import TagList from "./tag-list"
+import { getArticleLink } from "@funcs/links"
 import { Article } from "@declaration"
 // @ts-ignore
 import styles from "./article-preview.module.scss"
-import Date from "../atoms/date"
-import TagList from "./tag-list"
 
 interface ArticlePreviewProps {
   article: Article
@@ -17,7 +18,7 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
 }: ArticlePreviewProps) => {
   return (
     <Link
-      to={article.slug}
+      to={getArticleLink(article.slug)}
       className={`${styles.article} m-card l-main-width m-remove-a-decoration`}
     >
       <Image

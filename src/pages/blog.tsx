@@ -1,18 +1,18 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { IndexQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { BlogPageQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import ArticleList from "../components/molecules/article-list"
 import { edgeListToArticleList } from "@funcs/article"
 
-interface IndexProps extends PageProps {
-  data: IndexQuery
+interface BlogPageProps extends PageProps {
+  data: BlogPageQuery
 }
 
-const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
+const BlogPage: React.FC<BlogPageProps> = ({ data }: BlogPageProps) => {
   const edges = data.allMarkdownRemark.edges.filter(
     (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
   )
@@ -39,10 +39,10 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )
 }
 
-export default Index
+export default BlogPage
 
 export const pageQuery = graphql`
-  query Index {
+  query BlogPage {
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {

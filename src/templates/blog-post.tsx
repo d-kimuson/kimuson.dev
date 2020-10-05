@@ -1,16 +1,27 @@
 import React from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 import Image from "gatsby-image"
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  LineShareButton,
+  LineIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from "react-share"
 
 import { BlogPostBySlugQuery } from "@graphql-types"
-// @ts-ignore
-import styles from "./blog-post.module.scss"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import Sidebar from "../components/templates/sidebar"
 import TagList from "../components/molecules/tag-list"
 import Date from "../components/atoms/date"
 import { toGatsbyImageFluidArg } from "@funcs/image"
+import { getArticleLink } from "@funcs/links"
+// @ts-ignore
+import styles from "./blog-post.module.scss"
 
 interface AroundNav {
   fields: {
@@ -31,7 +42,6 @@ interface BlogPostTemplateProps extends PageProps {
 
 const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   data,
-  pageContext,
 }: BlogPostTemplateProps) => {
   const post = data.markdownRemark
   const title = post?.frontmatter?.title || ``
@@ -41,8 +51,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   )
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const html = post?.html || ``
-
-  const { previous, next } = pageContext
+  const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
+  const articleUrl = siteUrl + getArticleLink(post?.fields?.slug || ``)
+  const articleSize = 40
 
   return (
     <>
@@ -70,23 +81,47 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   {title}
                 </h1>
                 <Date date={post?.frontmatter?.date} />
-                <TagList tags={tags} isLink={true} />
+
                 <div
                   className={styles.articleBody}
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
               </div>
+
+              <hr className={styles.sepLine} />
+
+              <footer className={styles.footerContainer}>
+                <div className={styles.snsArea}>
+                  <FacebookShareButton url={articleUrl}>
+                    <FacebookIcon size={articleSize} round />
+                  </FacebookShareButton>
+
+                  <LineShareButton url={articleUrl}>
+                    <LineIcon size={articleSize} round />
+                  </LineShareButton>
+
+                  <LinkedinShareButton url={articleUrl}>
+                    <LinkedinIcon size={articleSize} round />
+                  </LinkedinShareButton>
+
+                  <TwitterShareButton
+                    title={title}
+                    via="_kimuson"
+                    url={articleUrl}
+                  >
+                    <TwitterIcon size={articleSize} round />
+                  </TwitterShareButton>
+                </div>
+
+                <div className={styles.tagArea}>
+                  <TagList tags={tags} isLink={true} />
+                </div>
+              </footer>
             </article>
           </main>
 
-          <section className="m-card l-main-width">
-            <h1 className="m-card__title-reverse">
-              この辺にも興味あるんじゃない?
-            </h1>
-            <div className="m-card__content"></div>
-          </section>
-
-          <div className={`${styles.navArticleContainer} l-main-width`}>
+          {/* 次&前の投稿はいらなそう */}
+          {/* <div className={`${styles.navArticleContainer} l-main-width`}>
             {previous === null ? (
               <div></div>
             ) : (
@@ -104,7 +139,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                 {next.frontmatter.title}
               </Link>
             )}
-          </div>
+          </div> */}
         </div>
 
         <Sidebar
@@ -143,6 +178,11 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+    }
+    site {
+      siteMetadata {
+        siteUrl
       }
     }
   }
