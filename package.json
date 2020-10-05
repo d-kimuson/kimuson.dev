@@ -99,6 +99,7 @@
     "build": "gatsby build",
     "try:prod": "yarn build && npx http-server public",
     "start": "npm run develop",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "post:new": "git rev-parse --show-toplevel && ./bin/create.sh"
   }
 }
