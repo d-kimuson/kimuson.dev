@@ -45,6 +45,7 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
       <Link
         to="/search/"
         className={`m-remove-a-decoration ${styles.responsiveHeaderSearch}`}
+        aria-label="検索ページへのリンク"
       >
         <FontAwesomeIcon icon={faSearch} />
       </Link>
