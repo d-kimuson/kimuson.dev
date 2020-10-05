@@ -31,9 +31,13 @@ const CommonSidebar: React.FC = () => {
     .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
     .filter(filterDraft)
 
-  const categories = edges
-    .map(e => e.node.frontmatter?.category)
-    .filter((c): c is string => typeof c !== `undefined`)
+  const categories = Array.from(
+    new Set(
+      edges
+        .map(e => e.node.frontmatter?.category)
+        .filter((c): c is string => typeof c !== `undefined`)
+    )
+  )
 
   const tags = Array.from(
     new Set(
