@@ -1,6 +1,6 @@
 ---
 title: "Gatsbyブログで記事マークダウンファイルをテンプレートから自動生成する"
-description: まだ書かれていません
+description: Gatsbyのブログでマークダウン記事ファイルを自動生成するシェルスクリプトを書きました。
 category: "Gatsby"
 tags:
   - ブログ

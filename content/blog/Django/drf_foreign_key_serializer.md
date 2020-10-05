@@ -1,6 +1,6 @@
 ---
 title: DRFでシリアライザのForeignKeyフィールドをPOST時はプライマリーキーを渡し、GET時は展開する
-description: まだ書いてない
+description: Django REST frameworkで外部キーをPOST時はプライマリーキーを使い、GET時は展開する方法について説明します。
 category: Django
 tags:
   - Django
