@@ -69,7 +69,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
               {typeof thumbnail === `object` && thumbnail !== null ? (
                 <Image
                   fluid={toGatsbyImageFluidArg(thumbnail)}
-                  backgroundColor="#000"
+                  // backgroundColor="#000"
                   className={styles.thumbnail}
                 />
               ) : (
