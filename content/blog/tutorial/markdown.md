@@ -1,12 +1,12 @@
 ---
 title: マークダウンチートシート
 description: マークダウンのチートシートです。
-category: フロントエンド
+category: tutorial
 tags:
   - Markdown
   - ブログ
 date: "2015-05-28T22:40:32.169Z"
-thumbnail: 'thumbnails/blog.png'
+thumbnail: 'thumbnails/Blog.png'
 draft: true
 ---
 

@@ -1,13 +1,12 @@
 ---
 title: Gatsbyで技術ブログを作りました！
 description: Gatsby+TypeScriptで技術ブログを作りました。苦労した点などをまとめます。
-category: ブログ
+category: Gatsby
 tags:
-  - ブログ
   - Gatsby
   - React
 date: "2020-08-30T22:40:32.169Z"
-thumbnail: 'thumbnails/blog.png'
+thumbnail: 'thumbnails/Blog.png'
 draft: false
 ---
 
