@@ -57,7 +57,6 @@ const Head: React.FC<HeadProps> = ({ title, description, slug }: HeadProps) => {
       title={pageTitle}
       description={pageDescription}
       language="ja"
-      canonical={siteUrl}
       openGraph={{
         url: pageUrl,
         title: pageTitle,

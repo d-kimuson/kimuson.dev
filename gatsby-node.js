@@ -61,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const next = index === 0 ? null : posts[index - 1].node
 
     createPage({
-      path: `/blog${post.node.fields.slug}`,
+      path: `/blog${post.node.fields.slug}`.toLowerCase(),
       component: blogPost,
       context: {
         slug: post.node.fields.slug,
@@ -78,7 +78,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   Array.from(new Set(categories)).forEach((category, index) => {
     createPage({
-      path: `/categories/${category}/`,
+      path: `/categories/${category}/`.toLowerCase(),
       component: path.resolve('./src/templates/category.tsx'),
       context: {
         category: category
@@ -93,7 +93,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   Array.from(new Set(tags)).forEach((tag, index) => {
     createPage({
-      path: `/tags/${tag}/`,
+      path: `/tags/${tag}/`.toLowerCase(),
       component: path.resolve('./src/templates/tag.tsx'),
       context: {
         tag: tag
