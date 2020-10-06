@@ -72,13 +72,13 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // カテゴリページ
-  const categories = posts
+  const category = posts
     .filter(post => typeof post.node.frontmatter.category !== 'undefined')
     .map(post => post.node.frontmatter.category)
 
-  Array.from(new Set(categories)).forEach((category, index) => {
+  Array.from(new Set(category)).forEach((category, index) => {
     createPage({
-      path: `/categories/${category}/`.toLowerCase(),
+      path: `/category/${category}/`.toLowerCase(),
       component: path.resolve('./src/templates/category.tsx'),
       context: {
         category: category
