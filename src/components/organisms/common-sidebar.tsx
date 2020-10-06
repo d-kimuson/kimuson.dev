@@ -31,7 +31,7 @@ const CommonSidebar: React.FC = () => {
     .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
     .filter(filterDraft)
 
-  const categories = Array.from(
+  const category = Array.from(
     new Set(
       edges
         .map(e => e.node.frontmatter?.category)
@@ -52,10 +52,10 @@ const CommonSidebar: React.FC = () => {
       <section className="m-card l-sidebar-width">
         <h1 className="m-card__title">
           <FontAwesomeIcon icon={faFolder} />
-          ALL CATEGORIES
+          ALL category
         </h1>
         <div className="m-card__content">
-          <CategoryList categories={categories} />
+          <CategoryList category={category} />
         </div>
       </section>
       <section className="m-card l-sidebar-width">

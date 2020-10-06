@@ -3,6 +3,6 @@ export const getArticleLink = (articleSlug: string): string =>
   `/blog${articleSlug}`.toLowerCase()
 
 export const getCategoryLink = (category: string): string =>
-  `/categories/${category}/`.toLowerCase()
+  `/category/${category}/`.toLowerCase()
 
 export const getTagLink = (tag: string): string => `/tags/${tag}/`.toLowerCase()

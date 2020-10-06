@@ -7,14 +7,14 @@ import { getCategoryLink } from "@funcs/links"
 import styles from "./category-list.module.scss"
 
 interface CategoryListProps {
-  categories: string[]
+  category: string[]
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({
-  categories,
+  category,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
-    {categories.map(category => (
+    {category.map(category => (
       <li key={category} className={styles.category}>
         <Link to={getCategoryLink(category)} className="m-remove-a-decoration">
           {category}
