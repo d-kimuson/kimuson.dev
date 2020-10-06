@@ -68,7 +68,7 @@ Gatsby version: 2.24.51
 
 以下のコマンドでこのスターターをベースにプロジェクトを始めることができます.
 
-``` sh
+``` bash
 $ gatsby new my-blog https://github.com/gatsbyjs/gatsby-starter-blog
 ```
 
@@ -358,7 +358,7 @@ tags:
   - Blog
 date: "2015-05-28T22:40:32.169Z"
 thumbnail: 'thumbnails/blog.png'
-draft: false
+draft: true
 ---
 
 このブログでは, マークダウンで記事を書くことができます.

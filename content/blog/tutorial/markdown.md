@@ -69,7 +69,7 @@ example_linkという文字でリンクが貼られて、遷移先が `http:///e
 
 ## コードを書く
 
-``` sh
+``` bash
 $ touch hoge.txt
 ```
 

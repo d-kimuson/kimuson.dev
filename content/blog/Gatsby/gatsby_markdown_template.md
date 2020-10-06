@@ -26,7 +26,7 @@ tags:
   - React
 date: "2020-08-30T22:40:32.169Z"
 thumbnail: 'thumbnails/Blog.png'
-draft: false
+draft: true
 ---
 
 技術ブログを Hugo から, Gatsyby.js に乗り換えて, リニューアルしました！
@@ -57,7 +57,7 @@ Copyright (C) 2007 Free Software Foundation, Inc.
 
 Gatsbyのディレクトリ構造は以下の通りです.
 
-``` sh
+``` bash
 $ tree -I "node_modules|static|src|public"
 .
 ├── LICENSE
@@ -165,7 +165,7 @@ printf "$FILEPATHに記事ファイルを作成しました"
 
 先程作成した `bin/create.sh`に実行権限を付与してあげつつ,
 
-``` sh
+``` bash
 $ chmod a+x bin/create.sh
 ```
 
@@ -183,7 +183,7 @@ $ chmod a+x bin/create.sh
 
 これで完成です.
 
-``` sh
+``` bash
 $ yarn post:new
 $ npm run post:new
 ```

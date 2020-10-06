@@ -4,7 +4,7 @@
 
 GraphQL スキーマに変更があれば,
 
-``` sh
+``` bash
 $ yarn codegen
 ```
 
@@ -14,7 +14,7 @@ $ yarn codegen
 
 `onSave` で走らせたければ, 開発サーバーを
 
-``` sh
+``` bash
 $ yarn dev:codegen
 ```
 
