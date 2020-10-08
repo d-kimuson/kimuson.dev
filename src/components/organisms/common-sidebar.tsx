@@ -8,6 +8,8 @@ import { CommonSidebarQuery, MarkdownRemarkEdge } from "@graphql-types"
 import CategoryList from "../../components/molecules/category-list"
 import TagList from "../../components/molecules/tag-list"
 import { filterDraft } from "@funcs/article"
+// @ts-ignore
+import styles from "./common-sidebar.module.scss"
 
 const query = graphql`
   query CommonSidebar {
@@ -49,21 +51,21 @@ const CommonSidebar: React.FC = () => {
 
   return (
     <>
-      <section className="m-card l-sidebar-width">
+      <section className={`m-card l-sidebar-width`}>
         <h1 className="m-card__title">
           <FontAwesomeIcon icon={faFolder} />
-          ALL category
+          ALL CATEGORIES
         </h1>
-        <div className="m-card__content">
+        <div className={`m-card__content ${styles.sectionContent}`}>
           <CategoryList category={category} />
         </div>
       </section>
-      <section className="m-card l-sidebar-width">
+      <section className={`m-card l-sidebar-width`}>
         <h1 className="m-card__title">
           <FontAwesomeIcon icon={faTag} style={{ transform: `scale(0.9)` }} />
           ALL TAGS
         </h1>
-        <div className="m-card__content">
+        <div className={`m-card__content ${styles.sectionContent}`}>
           <TagList tags={tags} isLink={true} />
         </div>
       </section>
