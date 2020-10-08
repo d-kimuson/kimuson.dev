@@ -68,8 +68,11 @@ $-required-1-column-width: l.$page-x-padding * 2 + l.$space-between-main-side;
 
 @media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
   // 1カラムレイアウト & main area の縮小
+  .l-page-container {
+    padding: 0;
+  }
   .l-main-width,
   .l-main-wrapper {
-    width: calc(100vw - #{l.$page-x-padding} * 2);
+    width: 100vw;
   }
 }
