@@ -53,6 +53,7 @@ $-image-width: 250px;
 }
 
 .description {
+  // 暫定の複数行折込
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 3;

@@ -27,7 +27,7 @@ const query = graphql`
   }
 `
 
-const imageStyle = { height: `250px`, width: `250px` }
+const imageStyle = { height: `200px`, width: `200px` }
 
 const Bio: React.FC = () => {
   const data: BioQuery = useStaticQuery(query)
@@ -49,7 +49,9 @@ const Bio: React.FC = () => {
           )}
         </div>
 
-        <p>{author?.summary || `No Introduction`}</p>
+        <p className={styles.description}>
+          {author?.summary || `No Introduction`}
+        </p>
       </div>
     </section>
   )
