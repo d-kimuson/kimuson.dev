@@ -49,15 +49,34 @@ $-code-block-y-margin: 20px;
 }
 
 // Codeblock
-$-code-height: 20px;
+$-code-padding-y: 12px;
+$-code-font-size: 1rem;
+$-code-height: $-code-font-size * 1.5;
+$-line-number-padding-x: 0.7em;
 pre[class*="language-"] {
   margin: 0 0 $-code-block-y-margin 0;
+  padding-top: $-code-padding-y;
+  padding-bottom: $-code-padding-y;
   span[class="line-numbers-rows"] {
-    padding: 16px 0; // [変更不可] code block と統一
-    span::before {
+    padding: $-code-padding-y 0;
+    span {
+      height: $-code-height !important;
       display: flex;
       justify-content: center;
-      padding-left: 0.8em; // [変更不可] padding-rightと統一
+      align-items: center;
+
+      &::before {
+        padding-right: $-line-number-padding-x;
+        padding-left: $-line-number-padding-x;
+      }
+    }
+  }
+
+  code {
+    &,
+    * {
+      line-height: $-code-height !important;
+      display: inline-block;
     }
   }
 
@@ -65,7 +84,7 @@ pre[class*="language-"] {
   .token,
   code {
     font-family: g.$code-fonts, monospace !important;
-    font-size: 1.2rem;
+    font-size: $-code-font-size !important;
   }
 }
 
