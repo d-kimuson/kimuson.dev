@@ -34,16 +34,11 @@ Hugo は, フロントのことはよくわからないけど, テーマ選ん�
 
 とても気に入ったので, 勢いでこのブログを作りました！
 
-## 技術スタック
+このエントリは, `Gatsby` でブログを構築するにあたっての知見を共有することを目的とします.
 
-ブログ構築には,
+そもそもGatsbyとは, みたいな話には触れません.
 
-- TypeScript
-- Gatsby.js
-
-を使っています.
-
-記事はマークダウンファイルで管理しています.
+## 環境
 
 環境は以下の通りです.
 
@@ -82,11 +77,50 @@ $ gatsby new my-blog https://github.com/gatsbyjs/gatsby-starter-blog
 
 各コンポーネントでは, GraphQLから取得したデータに型付けをする必要があって面倒ですが, 自動生成するツールがあるのでそちらを使います.
 
-[gatsby-plugin-graphql-codegen](https://www.gatsbyjs.com/plugins/gatsby-plugin-graphql-codegen/) を利用した記事が多く見られましたが, 導入してみると OnSave のたびに自動生成が回ってホットリロードが止められてしまってDXがとても悪かったので, 必要なタイミングで CUI から生成するようにしました.
+[GraphQL Code Generator](https://graphql-code-generator.com/) をプラグインとして使えるようにした [gatsby-plugin-graphql-codegen](https://www.gatsbyjs.com/plugins/gatsby-plugin-graphql-codegen/) を利用した記事が多く見られましたが, 導入してみると OnSave のたびに自動生成が回ってホットリロードが止められてしまってDXがとても悪かったので, [GraphQL Code Generator](https://graphql-code-generator.com/) を直接使って, 必要なタイミングで CUI から生成するようにしました.
+
+まずは必要なパッケージを取得してあげます.
 
 ``` typescript
 $ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-operations
 ```
+
+CLIから型定義ファイルを自動生成するためには, `codegen.yml` を設置する必要があります.
+
+``` yml:title=codegen.yml
+overwrite: true
+schema: "http://localhost:8000/__graphql"
+documents:
+  - "./node_modules/gatsby-*/**/*.js"
+  - "./src/**/*.{ts,tsx}"
+generates:
+  types/graphql-types.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+```
+
+これで,
+
+``` bash
+$ yarn run graphql-codegen --config codegen.yml
+```
+
+を叩くことで, `types/graphql-types.d.ts` に型定義ファイルが生成されるようになりました.
+
+少し長いので, `package.json` にスクリプトのエイリアスを貼っておくと良いかもしれません.
+
+``` json:title=package.json
+{
+  ...
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.yml",
+    ...
+  }
+}
+```
+
+---
 
 コンポーネント以外に, Gatsbyのコアになる
 
@@ -94,9 +128,11 @@ $ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/
 - gatsby-node.js
 - gatsby-browser.js
 
-辺りも TypeScript に置き換える余地はありますが, 結構面倒ですし, こだわりすぎるのも良くないかなってことで置き換えていません.
+辺りも TypeScript に置き換える余地はありますが, 結構手間ですし, 置き換えるメリットをあまり感じないのでここはそのままで行きます.
 
 ### CSS周りの設定
+
+まず前提として, このブログは自由にカスタマイズしたいことと, CSSの経験が少ないので実際に書く場が欲しいなと思っていたので, UIフレームワークは使いません.
 
 Reactでのスタイリングには,
 
@@ -121,9 +157,7 @@ CSSでJSの値が必要な場面自体あまりない気がしますし, 必要�
 
 ただ, 名前空間に関しては機械的なアプローチが欲しいので, コンポーネントのスタイルに関してはCSS Modulesを使って, それ以外は通常のCSSって感じで運用してみます.
 
-SASSの利用には, [gatsby-plugin-sass \| Gatsby](https://www.gatsbyjs.com/plugins/gatsby-plugin-sass/) を使います.
-
-SASSは, [dart-sass](https://github.com/sass/dart-sass) を使います.
+[gatsby-plugin-sass \| Gatsby](https://www.gatsbyjs.com/plugins/gatsby-plugin-sass/) でSASSを読み込みます, SASSの実装は, [dart-sass](https://github.com/sass/dart-sass) を使います.
 
 ``` bash
 $ yarn add -D gatsby-plugin-sass sass postcss autoprefixer postcss-flexbugs-fixes cssnano
@@ -272,8 +306,11 @@ vscode の共有設定も一応書いておきます.
 
 ``` json:title=.vscode/settings.json
 {
+  "files.associations": {
+    "*.tsx": "typescriptreact",
+    "*.jsx": "javascriptreact",
+  },
   // ESLint
-  "eslint.enable": true,
   "eslint.options": {
     "configFile": "./.eslintrc.js"
   },
@@ -762,3 +799,4 @@ SSL化については, Netlify側で自動で設定してくれるので, 特に
 ## 参考にさせて頂きました
 
 - [Gatsby + TypeScript で技術ブログを書くための知見](https://blog.ojisan.io/1st-blog-stack)
+- [Gatsby × TypeScriptでGraphQL Code Generatorを使うと幸せになれる | Kumasan](https://kumaaaaa.com/gatsby-graphql-code-generator/)

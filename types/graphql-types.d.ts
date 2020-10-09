@@ -726,10 +726,11 @@ export enum FileFieldsEnum {
   ChildMarkdownRemarkFrontmatterThumbnailChildren = 'childMarkdownRemark___frontmatter___thumbnail___children',
   ChildMarkdownRemarkFrontmatterTitle = 'childMarkdownRemark___frontmatter___title',
   ChildMarkdownRemarkFrontmatterDescription = 'childMarkdownRemark___frontmatter___description',
-  ChildMarkdownRemarkFrontmatterCategory = 'childMarkdownRemark___frontmatter___category',
   ChildMarkdownRemarkFrontmatterTags = 'childMarkdownRemark___frontmatter___tags',
+  ChildMarkdownRemarkFrontmatterCategory = 'childMarkdownRemark___frontmatter___category',
   ChildMarkdownRemarkFrontmatterDate = 'childMarkdownRemark___frontmatter___date',
   ChildMarkdownRemarkFrontmatterDraft = 'childMarkdownRemark___frontmatter___draft',
+  ChildMarkdownRemarkFrontmatterWeight = 'childMarkdownRemark___frontmatter___weight',
   ChildMarkdownRemarkExcerpt = 'childMarkdownRemark___excerpt',
   ChildMarkdownRemarkRawMarkdownBody = 'childMarkdownRemark___rawMarkdownBody',
   ChildMarkdownRemarkFileAbsolutePath = 'childMarkdownRemark___fileAbsolutePath',
@@ -859,10 +860,11 @@ export type Frontmatter = {
   thumbnail?: Maybe<File>;
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  category?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  category?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
   draft?: Maybe<Scalars['Boolean']>;
+  weight?: Maybe<Scalars['Int']>;
 };
 
 
@@ -877,10 +879,11 @@ export type FrontmatterFilterInput = {
   thumbnail?: Maybe<FileFilterInput>;
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
-  category?: Maybe<StringQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
   date?: Maybe<DateQueryOperatorInput>;
   draft?: Maybe<BooleanQueryOperatorInput>;
+  weight?: Maybe<IntQueryOperatorInput>;
 };
 
 export enum ImageCropFocus {
@@ -1615,10 +1618,11 @@ export enum MarkdownRemarkFieldsEnum {
   FrontmatterThumbnailChildMarkdownRemarkChildren = 'frontmatter___thumbnail___childMarkdownRemark___children',
   FrontmatterTitle = 'frontmatter___title',
   FrontmatterDescription = 'frontmatter___description',
-  FrontmatterCategory = 'frontmatter___category',
   FrontmatterTags = 'frontmatter___tags',
+  FrontmatterCategory = 'frontmatter___category',
   FrontmatterDate = 'frontmatter___date',
   FrontmatterDraft = 'frontmatter___draft',
+  FrontmatterWeight = 'frontmatter___weight',
   Excerpt = 'excerpt',
   RawMarkdownBody = 'rawMarkdownBody',
   FileAbsolutePath = 'fileAbsolutePath',
