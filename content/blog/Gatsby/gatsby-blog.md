@@ -744,13 +744,13 @@ export default Toc
 
 紹介した以外に以下のプラグインを使っています.
 
-| plugin | 用途 |
-| :--- | :--- |
-| gatsby-plugin-remove-console | 本番環境での `console.log` の除去 |
-| gatsby-plugin-google-analytics | Google Analytics によるアクセス解析 |
-| gatsby-plugin-next-seo | より詳細なSEO設定(ページ毎の title, description, etc ) |
-| gatsby-plugin-sitemap | sitemap.xml の自動生成 |
-| gatsby-plugin-robots-txt | robots.txt の自動生成 |
+| plugin                         | 用途                                                   |
+| :----------------------------- | :----------------------------------------------------- |
+| gatsby-plugin-remove-console   | 本番環境での `console.log` の除去                      |
+| gatsby-plugin-google-analytics | Google Analytics によるアクセス解析                    |
+| gatsby-plugin-next-seo         | より詳細なSEO設定(ページ毎の title, description, etc ) |
+| gatsby-plugin-sitemap          | sitemap.xml の自動生成                                 |
+| gatsby-plugin-robots-txt       | robots.txt の自動生成                                  |
 
 ## Netlify にデプロイする
 
@@ -760,15 +760,20 @@ SSGなので, DBやアプリケーションサーバーを用意する必要が�
 
 実際このブログも独自ドメイン代しかかかってないです.
 
+詳細なビルド方法には触れませんが, なにか特殊なことをする必要はありません.
+
+`public` ディレクトリに完成品がビルドされるので, ローカルでビルドしたものをあげるなり, リポジトリと連携してリモートでビルドするなり, 基本的なNetlifyのやり方に従えばOKです.
+
 ### ビルドでもキャッシュを使う
 
-ビルドは, ローカルで走らせても問題ありませんが, Netlify ならリモートの更新と同時に使い捨てのコンテナで走らせるのが一般的だと思います.
-
-Gatsbyでは, ビルド時間が長くなりがちで `.cache` ディレクトリにキャッシュを置いて改善していますが, クラウドでビルドすると, 当然毎回コンテナを立ち上げているのでキャッシュが利用できません.
+Gatsbyでは, ビルド時間が長くなりがちで `.cache` ディレクトリにキャッシュを置いて改善していますが, リモートでビルドすると, 当然毎回コンテナを立ち上げているのでキャッシュが利用できません.
 
 つまり毎回のビルドにめちゃくちゃ時間がかかります.
 
-[Netlify の GatsbyCache プラグイン](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) を使うことで, キャッシュが効かせられるようになるので, 追加しておきます.
+ですので, ビルドをリモートで走らせる場合は,
+[Netlify の GatsbyCache プラグイン](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) を使うべきです.
+
+変更の内容によっては, キャッシュの影響で反映されないときがあるので, そういうときだけキャッシュを使わずにビルドしてあげます.
 
 ### 独自ドメインとDNS設定
 
@@ -792,7 +797,22 @@ SSL化については, Netlify側で自動で設定してくれるので, 特に
 
 ## 終わりに
 
-とりあえず機能面は満足の行く形になりましたが, デザイン面はほぼ気にせずに作ってしまったので, だいぶダサイ(というかちゃっちい?)感じになってしまいました.
+とりあえず機能面は満足の行く形になりました！
+
+サイトの [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=ja) スコアも良好で,
+
+|   ページ   | Performance | Best Precties |  SEO  |
+| :--------: | :---------: | :-----------: | :---: |
+| 以前のTOP  |     20      |      85       |  71   | 92  |
+| 以前の記事 |     23      |      78       |  86   | 91  |
+| 今回のTOP  |     91      |      100      |  100  | 100 |
+| 今回の記事 |     96      |      98       |  100  | 100 |
+
+こんな感じになりました.
+
+気になってるところは, 機能メインで作っていってしまったのとセンスの問題でまだだいぶちゃっちいことと, 記事のビルドに結構時間がかかるので, 記事を書く体験が若干悪いところでしょうか.
+
+せっかくならリアルタイムでブログにどう反映されるか見ながらかけると嬉しいんですけど, ホットリロードに1~2秒の間があるので少しそこがストレスです.
 
 少しずつ直していこうと思います.
 
