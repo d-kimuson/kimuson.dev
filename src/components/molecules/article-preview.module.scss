@@ -51,3 +51,10 @@ $-image-width: 250px;
   color: g.$text-color;
   text-decoration: none;
 }
+
+.description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

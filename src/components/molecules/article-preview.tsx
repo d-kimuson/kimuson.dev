@@ -37,7 +37,7 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
           <Date date={article.date} />
         </div>
         <TagList tags={article.tags} isLink={false} />
-        <p className="description">{article.description}</p>
+        <p className={styles.description}>{article.description}</p>
       </div>
     </Link>
   )
