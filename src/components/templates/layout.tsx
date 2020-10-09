@@ -13,7 +13,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
-    <>
+    <div className={styles.layoutContainer}>
       <Header className={styles.headerWrapper} />
 
       <div className={styles.contentWrapper}>
@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </div>
 
       <Footer className={styles.footerWrapper} />
-    </>
+    </div>
   )
 }
 

@@ -1,9 +1,13 @@
 @use "sass:map";
 @use "@styles/global" as g;
 
+.layoutContainer {
+  padding-top: g.$header-height;
+}
+
 .headerWrapper {
   height: g.$header-height;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: map.get(g.$z-index-weights, "lg");
