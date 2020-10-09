@@ -1,23 +1,10 @@
 import { FixedObject, FluidObject } from "gatsby-image"
+import { FixedImage, FluidImage } from "@declaration"
 
-import { ImageSharpFixed, ImageSharpFluid } from "@graphql-types"
-
-function toArg<T>(prop: T | null | undefined): T | undefined {
-  return prop === null ? undefined : prop
-}
+import { toArg } from "@funcs/type"
 
 export function toGatsbyImageFixedArg(
-  image: Pick<
-    ImageSharpFixed,
-    | "width"
-    | "height"
-    | "src"
-    | "srcSet"
-    | "base64"
-    | "tracedSVG"
-    | "srcWebp"
-    | "srcSetWebp"
-  >,
+  image: FixedImage,
   media?: string
 ): FixedObject {
   return {
@@ -35,17 +22,7 @@ export function toGatsbyImageFixedArg(
 }
 
 export function toGatsbyImageFluidArg(
-  image: Pick<
-    ImageSharpFluid,
-    | "aspectRatio"
-    | "src"
-    | "srcSet"
-    | "sizes"
-    | "base64"
-    | "tracedSVG"
-    | "srcWebp"
-    | "srcSetWebp"
-  >,
+  image: FluidImage,
   media?: string
 ): FluidObject {
   return {

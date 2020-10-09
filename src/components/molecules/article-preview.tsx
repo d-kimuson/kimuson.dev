@@ -5,6 +5,7 @@ import Image from "gatsby-image"
 import Date from "../atoms/date"
 import TagList from "./tag-list"
 import { getArticleLink } from "@funcs/links"
+import { toGatsbyImageFluidArg } from "@funcs/image"
 import { Article } from "@declaration"
 // @ts-ignore
 import styles from "./article-preview.module.scss"
@@ -12,6 +13,8 @@ import styles from "./article-preview.module.scss"
 interface ArticlePreviewProps {
   article: Article
 }
+
+const imgStyle = { height: `200px`, width: `250px` }
 
 const ArticlePreview: React.FC<ArticlePreviewProps> = ({
   article,
@@ -21,11 +24,15 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
       to={getArticleLink(article.slug)}
       className={`${styles.article} m-card l-main-width m-remove-a-decoration`}
     >
-      <Image
-        fluid={article.thumbnail}
-        className={styles.image}
-        imgStyle={{ height: `200px`, width: `250px` }}
-      />
+      {typeof article.thumbnail === `object` ? (
+        <Image
+          fluid={toGatsbyImageFluidArg(article.thumbnail)}
+          className={styles.image}
+          imgStyle={imgStyle}
+        />
+      ) : (
+        <div style={imgStyle}></div>
+      )}
       <div className={styles.infoContainer}>
         <h2 className={styles.title}>
           {article.draft ? (
