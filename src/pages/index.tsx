@@ -18,7 +18,10 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )
   const posts = edgeListToArticleList(edges)
 
-  console.log(data)
+  console.log(
+    `nodes: `,
+    edges.filter(e => typeof e.node.excerpt !== `string`)
+  )
 
   return (
     <>
@@ -46,7 +49,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
-          excerpt
+          excerpt(truncate: true)
           fields {
             slug
           }

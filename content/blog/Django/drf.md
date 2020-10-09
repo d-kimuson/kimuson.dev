@@ -410,7 +410,7 @@ $ pipenv install --dev drf-yasg-stubs
 
 ### セットアップ
 
-``` python:config/settings.py
+``` python:title=config/settings.py
 # config/settings.py
 INSTALLED_APPS = [
     ...
@@ -419,7 +419,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-``` python:sample/urls.py
+``` python:title=sample/urls.py
 # sample/urls.py
 from django.urls import path
 from rest_framework import routers
@@ -459,7 +459,7 @@ urlpatterns += [
 ]
 ```
 
-``` ini:mypy.ini
+``` ini:title=mypy.ini
 ; mypy.ini
 plugins =
   mypy_django_plugin.main, mypy_drf_plugin.main

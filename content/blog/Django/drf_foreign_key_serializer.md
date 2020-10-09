@@ -76,7 +76,7 @@ GETメソッドに関しては望ましいですが, POSTメソッドのパラ�
 
 環境は以下の通りです.
 
-``` bashsh
+``` bash
 $ sw_vers
 ProductName:    Mac OS X
 ProductVersion: 10.15.6
@@ -186,7 +186,7 @@ class SampleSerializer(serializers.ModelSerializer):
 
 一応APIを叩いてみます. クライアントは, [HTTPie](https://httpie.org/) を使っています.
 
-``` bashsh
+``` bash
 $ http http://localhost:8080/samples/
 HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS
