@@ -1,23 +1,26 @@
 import React from "react"
 import { Link } from "gatsby"
 
+import { CategoryListNode } from "@declaration"
 import { getCategoryLink } from "@funcs/links"
-
 // @ts-ignore
 import styles from "./category-list.module.scss"
 
 interface CategoryListProps {
-  category: string[]
+  categoryList: CategoryListNode[]
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({
-  category,
+  categoryList,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
-    {category.map(category => (
-      <li key={category} className={styles.category}>
-        <Link to={getCategoryLink(category)} className="m-remove-a-decoration">
-          {category}
+    {categoryList.map(category => (
+      <li key={category.name} className={styles.category}>
+        <Link
+          to={getCategoryLink(category.name)}
+          className="m-remove-a-decoration"
+        >
+          {category.name} ({category.count})
         </Link>
       </li>
     ))}

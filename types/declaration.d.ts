@@ -45,3 +45,8 @@ export interface Article {
   category: string
   tags: string[]
 }
+
+export interface CategoryListNode {
+  name: string
+  count: number
+}

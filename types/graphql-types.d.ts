@@ -729,8 +729,8 @@ export enum FileFieldsEnum {
   ChildMarkdownRemarkFrontmatterTags = 'childMarkdownRemark___frontmatter___tags',
   ChildMarkdownRemarkFrontmatterCategory = 'childMarkdownRemark___frontmatter___category',
   ChildMarkdownRemarkFrontmatterDate = 'childMarkdownRemark___frontmatter___date',
-  ChildMarkdownRemarkFrontmatterDraft = 'childMarkdownRemark___frontmatter___draft',
   ChildMarkdownRemarkFrontmatterWeight = 'childMarkdownRemark___frontmatter___weight',
+  ChildMarkdownRemarkFrontmatterDraft = 'childMarkdownRemark___frontmatter___draft',
   ChildMarkdownRemarkExcerpt = 'childMarkdownRemark___excerpt',
   ChildMarkdownRemarkRawMarkdownBody = 'childMarkdownRemark___rawMarkdownBody',
   ChildMarkdownRemarkFileAbsolutePath = 'childMarkdownRemark___fileAbsolutePath',
@@ -863,8 +863,8 @@ export type Frontmatter = {
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   category?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
-  draft?: Maybe<Scalars['Boolean']>;
   weight?: Maybe<Scalars['Int']>;
+  draft?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -882,8 +882,8 @@ export type FrontmatterFilterInput = {
   tags?: Maybe<StringQueryOperatorInput>;
   category?: Maybe<StringQueryOperatorInput>;
   date?: Maybe<DateQueryOperatorInput>;
-  draft?: Maybe<BooleanQueryOperatorInput>;
   weight?: Maybe<IntQueryOperatorInput>;
+  draft?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export enum ImageCropFocus {
@@ -1621,8 +1621,8 @@ export enum MarkdownRemarkFieldsEnum {
   FrontmatterTags = 'frontmatter___tags',
   FrontmatterCategory = 'frontmatter___category',
   FrontmatterDate = 'frontmatter___date',
-  FrontmatterDraft = 'frontmatter___draft',
   FrontmatterWeight = 'frontmatter___weight',
+  FrontmatterDraft = 'frontmatter___draft',
   Excerpt = 'excerpt',
   RawMarkdownBody = 'rawMarkdownBody',
   FileAbsolutePath = 'fileAbsolutePath',
@@ -3512,29 +3512,6 @@ export type GatsbyImageSharpSizes_WithWebp_NoBase64Fragment = (
   & Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>
 );
 
-export type MiniSearchQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type MiniSearchQuery = (
-  { __typename?: 'Query' }
-  & { allMarkdownRemark: (
-    { __typename?: 'MarkdownRemarkConnection' }
-    & { edges: Array<(
-      { __typename?: 'MarkdownRemarkEdge' }
-      & { node: (
-        { __typename?: 'MarkdownRemark' }
-        & { frontmatter?: Maybe<(
-          { __typename?: 'Frontmatter' }
-          & Pick<Frontmatter, 'title' | 'draft' | 'tags'>
-        )>, fields?: Maybe<(
-          { __typename?: 'MarkdownRemarkFields' }
-          & Pick<MarkdownRemarkFields, 'slug'>
-        )> }
-      ) }
-    )> }
-  ) }
-);
-
 export type SearchQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3595,26 +3572,6 @@ export type BioQuery = (
   )> }
 );
 
-export type CommonSidebarQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CommonSidebarQuery = (
-  { __typename?: 'Query' }
-  & { allMarkdownRemark: (
-    { __typename?: 'MarkdownRemarkConnection' }
-    & { edges: Array<(
-      { __typename?: 'MarkdownRemarkEdge' }
-      & { node: (
-        { __typename?: 'MarkdownRemark' }
-        & { frontmatter?: Maybe<(
-          { __typename?: 'Frontmatter' }
-          & Pick<Frontmatter, 'category' | 'tags' | 'draft'>
-        )> }
-      ) }
-    )> }
-  ) }
-);
-
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3627,6 +3584,26 @@ export type HeaderQuery = (
       & Pick<SiteSiteMetadata, 'title'>
     )> }
   )> }
+);
+
+export type PopularCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PopularCategoriesQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'category' | 'draft'>
+        )> }
+      ) }
+    )> }
+  ) }
 );
 
 export type HeadQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3651,47 +3628,6 @@ export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type IndexQuery = (
-  { __typename?: 'Query' }
-  & { allMarkdownRemark: (
-    { __typename?: 'MarkdownRemarkConnection' }
-    & { edges: Array<(
-      { __typename?: 'MarkdownRemarkEdge' }
-      & { node: (
-        { __typename?: 'MarkdownRemark' }
-        & Pick<MarkdownRemark, 'excerpt'>
-        & { fields?: Maybe<(
-          { __typename?: 'MarkdownRemarkFields' }
-          & Pick<MarkdownRemarkFields, 'slug'>
-        )>, frontmatter?: Maybe<(
-          { __typename?: 'Frontmatter' }
-          & Pick<Frontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
-          & { thumbnail?: Maybe<(
-            { __typename?: 'File' }
-            & { childImageSharp?: Maybe<(
-              { __typename?: 'ImageSharp' }
-              & { fluid?: Maybe<(
-                { __typename?: 'ImageSharpFluid' }
-                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
-              )> }
-            )> }
-          )> }
-        )> }
-      ) }
-    )> }
-  ), site?: Maybe<(
-    { __typename?: 'Site' }
-    & Pick<Site, 'id'>
-    & { siteMetadata?: Maybe<(
-      { __typename?: 'SiteSiteMetadata' }
-      & Pick<SiteSiteMetadata, 'title'>
-    )> }
-  )> }
-);
-
-export type SearchPageQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SearchPageQuery = (
   { __typename?: 'Query' }
   & { allMarkdownRemark: (
     { __typename?: 'MarkdownRemarkConnection' }

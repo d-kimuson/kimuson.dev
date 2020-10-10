@@ -29,7 +29,7 @@ const Tag: React.FC<TagProps> = ({
   isLink = false,
 }: TagProps) => {
   return isLink ? (
-    <Link to={getTagLink(tag)} className="m-remove-a-decoration m-tag-list">
+    <Link to={getTagLink(tag)} className="m-remove-a-decoration m-tag-link">
       <TagInner tag={tag} className={className} />
     </Link>
   ) : (
