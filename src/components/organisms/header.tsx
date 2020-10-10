@@ -1,11 +1,8 @@
 import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/free-solid-svg-icons"
 
 import { HeaderQuery } from "@graphql-types"
 import Navigation from "../molecules/navigation"
-import Search from "../molecules/mini-search"
 // @ts-ignore
 import styles from "./header.module.scss"
 
@@ -39,16 +36,8 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
       </Link>
 
       <Navigation className={styles.headerNavArea} />
-      <Search className={styles.headerSearchArea} />
 
       {/* Responsive */}
-      <Link
-        to="/search/"
-        className={`m-remove-a-decoration ${styles.responsiveHeaderSearch}`}
-        aria-label="検索ページへのリンク"
-      >
-        <FontAwesomeIcon icon={faSearch} />
-      </Link>
       <div className={styles.responsiveHeaderNav}>
         <button
           className={styles.menuButton}
