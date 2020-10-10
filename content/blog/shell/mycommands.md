@@ -2,7 +2,7 @@
 title: "自作シェルスクリプトで楽をしよう"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
-  - "bash"
+  - "Shell"
 category: "shell"
 date: "2020-02-23T00:35:38+09:00"
 weight: 5

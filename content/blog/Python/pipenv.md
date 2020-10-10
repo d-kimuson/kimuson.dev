@@ -3,7 +3,6 @@ title: "Pipenv 使ってみる"
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
-  - "pipenv"
 category: "Python"
 date: "2020-01-24T17:53:49+09:00"
 weight: 5

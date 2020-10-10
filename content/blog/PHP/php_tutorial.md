@@ -3,7 +3,6 @@ title: "PHPのマイクロフレームワークであるSlim3を触ってみる"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
   - "PHP"
-  - "Slim"
 category: "PHP"
 date: 2019-09-12T21:17:37+09:00
 weight: 5

@@ -3,7 +3,6 @@ title: "自作パッケージを Github から pip install できるようにす
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
-  - "pip"
 category: "Python"
 date: "2019-08-15T09:56:52+09:00"
 weight: 5

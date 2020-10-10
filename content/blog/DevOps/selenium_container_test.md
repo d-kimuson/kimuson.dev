@@ -2,7 +2,7 @@
 title: "Selenium Dockerコンテナで Django のテストを実行する"
 thumbnail: "/thumbnails/くじら.png"
 tags:
-  - "Senenium"
+  - "Selenium"
   - "Python"
   - "Django"
   - "Docker"

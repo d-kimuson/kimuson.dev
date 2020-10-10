@@ -2,8 +2,7 @@
 title: "Rust 製コマンドでターミナルを使いやすくしよう"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
-  - "Rust"
-  - "bash"
+  - "Shell"
 category: "shell"
 date: "2020-06-02T09:08:03+09:00"
 weight: 5

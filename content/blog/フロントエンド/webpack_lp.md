@@ -2,9 +2,7 @@
 title: "LP制作でもWebpackを挟みたい"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
-  - "JavaScript"
-  - "Node.js"
-  - "Html"
+  - "webpack"
 category: "フロントエンド"
 date: "2020-07-15T00:17:15+09:00"
 weight: 5

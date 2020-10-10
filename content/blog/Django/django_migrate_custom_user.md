@@ -4,7 +4,7 @@ description: "Djangoへカスタムユーザーのマイグレーションに失
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
-  - "django"
+  - "Django"
 category: "Django"
 date: "2020-01-17T09:12:07+09:00"
 weight: 5

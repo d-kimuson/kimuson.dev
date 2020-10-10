@@ -92,13 +92,15 @@ exports.createPages = async ({ graphql, actions }) => {
     .flatMap(post => post.node.frontmatter.tags)
 
   Array.from(new Set(tags)).forEach((tag, index) => {
-    createPage({
-      path: `/tags/${tag}/`.toLowerCase(),
-      component: path.resolve('./src/templates/tag.tsx'),
-      context: {
-        tag: tag
-      }
-    })
+    if (tag !== null) {
+      createPage({
+        path: `/tags/${tag}/`.toLowerCase(),
+        component: path.resolve('./src/templates/tag.tsx'),
+        context: {
+          tag: tag
+        }
+      })
+    }
   })
 }
 

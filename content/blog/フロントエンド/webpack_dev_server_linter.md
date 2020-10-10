@@ -3,7 +3,6 @@ title: "Webpack Dev Serverでコードを整形する"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
   - "webpack"
-  - "Sass"
 category: "フロントエンド"
 date: "2020-08-03T16:33:44+09:00"
 weight: 5

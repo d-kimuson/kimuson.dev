@@ -2,7 +2,6 @@
 title: "MarkdownからHTMLやPDFを生成するコメンドを作った"
 thumbnail: "/thumbnails/Python.png"
 tags:
-  - "HTML"
   - "Markdown"
 category: "product"
 date: "2018-12-07T15:29:02+09:00"

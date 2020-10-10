@@ -2,7 +2,7 @@
 title: "Text Diffを見やすくする"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
-  - "bash"
+  - "Shell"
 category: "shell"
 date: "2020-06-16T15:01:10+09:00"
 weight: 5

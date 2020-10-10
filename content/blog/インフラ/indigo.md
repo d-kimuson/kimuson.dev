@@ -2,9 +2,6 @@
 title: "WebARENA IndigoでVPSを建てる"
 
 thumbnail: "/thumbnails/prog_g.png"
-tags:
-  - "WebARENA"
-  - "Indigo"
 category: "インフラ"
 date: "2020-02-05T22:03:04+09:00"
 weight: 5

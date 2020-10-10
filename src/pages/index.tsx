@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { Link, graphql, PageProps } from "gatsby"
 
 import { IndexQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
@@ -7,6 +7,8 @@ import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import ArticleList from "../components/molecules/article-list"
 import { edgeListToArticleList } from "@funcs/article"
+// @ts-ignore
+import styles from "./index.module.scss"
 
 interface IndexProps extends PageProps {
   data: IndexQuery
@@ -33,6 +35,9 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
               <h1 className="m-page-title">Latest Posts</h1>
 
               <ArticleList articles={posts} />
+              <div className={styles.blogLinkWrapper}>
+                <Link to="/blog/">もっと記事を見る</Link>
+              </div>
             </section>
           </main>
         </div>
@@ -46,7 +51,10 @@ export default Index
 
 export const pageQuery = graphql`
   query Index {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: 5
+    ) {
       edges {
         node {
           excerpt(truncate: true)

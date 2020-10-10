@@ -50,13 +50,13 @@ const PopularCategories: React.FC = () => {
       <section className={`m-card l-sidebar-width`}>
         <h1 className="m-card__title">
           <FontAwesomeIcon icon={faFolder} />
-          ALL CATEGORIES
+          CATEGORIES
         </h1>
         <div className={`m-card__content`}>
           <CategoryList
             categoryList={categories
               .sort((a, b) => b.count - a.count)
-              .slice(0, 8)}
+              .slice(0, 12)}
           />
         </div>
       </section>

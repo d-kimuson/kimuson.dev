@@ -4,7 +4,7 @@ description: "Django REST frameworkでパーミッションのカスタマイズ
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
-  - "django"
+  - "Django"
 category: "Django"
 date: "2020-06-12T14:33:39+09:00"
 weight: 5

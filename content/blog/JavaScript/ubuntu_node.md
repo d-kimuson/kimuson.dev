@@ -2,7 +2,7 @@
 title: "UbuntuサーバーにNodeをいれるとサーバーが死ぬことへの対策"
 thumbnail: "/thumbnails/prog_g.png"
 tags:
-  - "EC2"
+  - "AWS"
   - "Node.js"
 category: "JavaScript"
 date: "2019-09-12T17:40:27+09:00"

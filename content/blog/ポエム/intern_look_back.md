@@ -1,8 +1,6 @@
 ---
 title: "インターンの振り返り"
 thumbnail: "/thumbnails/日記.png"
-tags:
-  - "振り返り"
 category: "ポエム"
 date: "2019-09-22T16:50:16+09:00"
 weight: 5
