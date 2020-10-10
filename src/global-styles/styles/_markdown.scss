@@ -73,11 +73,8 @@ pre[class*="language-"] {
   }
 
   code {
-    &,
-    * {
-      line-height: $-code-height !important;
-      display: inline-block;
-    }
+    line-height: $-code-height !important;
+    display: inline-block;
   }
 
   .line-numbers-rows > span::before,
