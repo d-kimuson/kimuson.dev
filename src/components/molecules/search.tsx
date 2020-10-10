@@ -6,6 +6,7 @@ import Fuse from "fuse.js"
 
 import { SearchQuery, MarkdownRemarkEdge } from "@graphql-types"
 import { Article } from "@declaration"
+import TagChecklist from "./tag-checklist"
 import { edgeListToArticleList } from "@funcs/article"
 import ArticleList from "./article-list"
 // @ts-ignore
@@ -13,7 +14,7 @@ import styles from "./search.module.scss"
 
 const query = graphql`
   query Search {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt
@@ -43,43 +44,47 @@ const query = graphql`
 
 interface SearchProps {
   className?: string
-  initKeyword?: string
 }
 
-interface ArticleForFuse extends Article {
-  tagsString: string
-}
-
-const Search: React.FC<SearchProps> = ({
-  className,
-  initKeyword = ``,
-}: SearchProps) => {
+const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   const data: SearchQuery = useStaticQuery(query)
   const edges = data.allMarkdownRemark.edges.filter(
     (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
   )
-  const articles: ArticleForFuse[] = edgeListToArticleList(edges).map(
-    article => ({
-      ...article,
-      tagsString: article.tags.reduce((s, t) => `${s} ${t}`),
-    })
-  )
+  const articles: Article[] = edgeListToArticleList(edges)
+  const tags = Array.from(new Set(articles.flatMap(article => article.tags)))
 
   const fuse = new Fuse(articles, {
-    keys: [`title`, `tagsString`],
+    keys: [`title`],
   })
 
-  const [keyword, setKeyword] = useState<string>(initKeyword)
-  const [results, setResults] = useState<Article[]>([])
+  const [keyword, setKeyword] = useState<string>(``)
+  const [results, setResults] = useState<Article[]>(articles)
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+
+  const tagsUpdated = (tags: string[]): void => {
+    setSelectedTags(tags)
+  }
 
   useEffect(() => {
-    setResults(
-      fuse
-        .search(keyword)
-        .map(_ => _.item)
-        .slice(0, 10)
-    )
-  }, [keyword])
+    let updatedArticles
+    if (keyword === ``) {
+      updatedArticles = articles
+    } else {
+      updatedArticles = fuse.search(keyword).map(_ => _.item)
+    }
+
+    if (selectedTags.length !== 0) {
+      updatedArticles = updatedArticles.filter(article =>
+        selectedTags.reduce(
+          (s: boolean, tag: string) => s || article.tags.includes(tag),
+          false
+        )
+      )
+    }
+
+    setResults(updatedArticles)
+  }, [keyword, selectedTags])
 
   return (
     <section className={className ? className : ``}>
@@ -101,6 +106,11 @@ const Search: React.FC<SearchProps> = ({
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
+
+      <details>
+        <summary className={styles.tagFilterDropdown}>タグで絞り込む</summary>
+        <TagChecklist tags={tags} onUpdate={tagsUpdated} />
+      </details>
 
       <ArticleList articles={results} />
     </section>

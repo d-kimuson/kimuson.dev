@@ -2,34 +2,39 @@ import React from "react"
 import { Link } from "gatsby"
 
 import { getTagLink } from "@funcs/links"
-// @ts-ignore
-import styles from "./tag.module.scss"
-
-interface TagProps {
-  tag: string
-  isLink: boolean
-}
 
 interface TagInnerProps {
   tag: string
+  className?: string
 }
 
-const TagInner: React.FC<TagInnerProps> = ({ tag }: TagInnerProps) => (
-  <div className={styles.tag}># {tag}</div>
+const TagInner: React.FC<TagInnerProps> = ({
+  tag,
+  className,
+}: TagInnerProps) => (
+  <div className={`m-tag ${typeof className === `string` ? className : ``}`}>
+    # {tag}
+  </div>
 )
 
-const Tag: React.FC<TagProps> = ({ tag, isLink }: TagProps) =>
-  isLink ? (
-    <Link
-      to={getTagLink(tag)}
-      className={`m-remove-a-decoration ${styles.tagLink}`}
-    >
-      <TagInner tag={tag} />
+interface TagProps {
+  tag: string
+  className?: string
+  isLink?: boolean
+}
+
+const Tag: React.FC<TagProps> = ({
+  tag,
+  className,
+  isLink = false,
+}: TagProps) => {
+  return isLink ? (
+    <Link to={getTagLink(tag)} className="m-remove-a-decoration m-tag-list">
+      <TagInner tag={tag} className={className} />
     </Link>
   ) : (
-    <span>
-      <TagInner tag={tag} />
-    </span>
+    <TagInner tag={tag} className={className} />
   )
+}
 
 export default Tag

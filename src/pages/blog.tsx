@@ -1,35 +1,23 @@
 import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { PageProps } from "gatsby"
 
-import { BlogPageQuery, MarkdownRemarkEdge } from "@graphql-types"
-import Sidebar from "../components/templates/sidebar"
-import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
-import ArticleList from "../components/molecules/article-list"
-import { edgeListToArticleList } from "@funcs/article"
+import Layout from "../components/templates/layout"
+import Sidebar from "../components/templates/sidebar"
+import Search from "../components/molecules/search"
 
-interface BlogPageProps extends PageProps {
-  data: BlogPageQuery
-}
-
-const BlogPage: React.FC<BlogPageProps> = ({ data }: BlogPageProps) => {
-  const edges = data.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
-  )
-  const posts = edgeListToArticleList(edges)
-
-  console.log(data)
+const BlogPage: React.FC<PageProps> = () => {
+  const title = `検索`
+  const description = `検索することができます。`
 
   return (
     <>
-      <Head />
+      <Head title={title} description={description} />
       <Layout>
         <div className="l-main-wrapper">
-          <main role="main">
-            <section>
-              <h1 className="m-page-title">Latest Posts</h1>
-
-              <ArticleList articles={posts} />
+          <main role="main" style={{ width: `100%` }}>
+            <section style={{ width: `100%` }}>
+              <Search />
             </section>
           </main>
         </div>
@@ -40,39 +28,3 @@ const BlogPage: React.FC<BlogPageProps> = ({ data }: BlogPageProps) => {
 }
 
 export default BlogPage
-
-export const pageQuery = graphql`
-  query BlogPage {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-            description
-            date
-            draft
-            category
-            tags
-            thumbnail {
-              childImageSharp {
-                fluid(maxHeight: 200) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    site {
-      id
-      siteMetadata {
-        title
-      }
-    }
-  }
-`

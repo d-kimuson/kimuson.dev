@@ -46,3 +46,31 @@
     padding: 10px;
   }
 }
+
+.m-tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.m-tag {
+  margin: 5px 3px;
+  padding: 4px 12px;
+  // style
+  border-radius: 15px;
+  background-color: g.$theme-color;
+  color: g.$theme-text-color;
+  font-size: 0.8rem;
+  // animation
+  transition: 300ms ease;
+}
+
+.m-tag-link {
+  &:hover .m-tag {
+    background-color: g.$link-color;
+  }
+}
+
+.m-tag--active {
+  background-color: g.$link-color;
+}

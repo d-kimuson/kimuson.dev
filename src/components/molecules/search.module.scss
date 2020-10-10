@@ -29,3 +29,8 @@ $-input-width: 85%;
   color: g.$black-weak;
   background: inherit;
 }
+
+.tagFilterDropdown {
+  outline: none;
+  cursor: pointer;
+}
