@@ -11,11 +11,15 @@ const navRoutes = [
   },
   {
     to: `/blog/`,
-    text: `Blog`,
+    text: `Blog / Search`,
   },
   {
     to: `/about/`,
     text: `About`,
+  },
+  {
+    to: `/product/`,
+    text: `Product`,
   },
 ]
 

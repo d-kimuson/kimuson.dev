@@ -1,3 +1,5 @@
+@use "@styles/global/" as g;
+
 .navLinkList {
   list-style: none;
   display: flex;
@@ -12,4 +14,24 @@
 
 .navLink {
   margin: 0 0 0 40px;
+  position: relative;
+
+  &::after {
+    transition: 400ms;
+    display: inline-block;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    height: 2px;
+    background: g.$white-weak;
+    border-radius: 5px;
+    width: 0%;
+    content: "";
+  }
+
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+  }
 }

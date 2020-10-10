@@ -5,8 +5,8 @@ import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 
 const NotFoundPage: React.FC<PageProps> = () => {
-  const title = `About`
-  const description = `Aboutページです。`
+  const title = `Product`
+  const description = `プロダクトページです。`
 
   return (
     <>
@@ -14,8 +14,8 @@ const NotFoundPage: React.FC<PageProps> = () => {
       <Layout>
         <main role="main">
           <section>
-            <h1 className="m-page-title">About</h1>
-            <p>このサイトについて</p>
+            <h1 className="m-page-title">Product</h1>
+            <p>作品とかとか</p>
           </section>
         </main>
       </Layout>
