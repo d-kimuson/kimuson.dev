@@ -6,7 +6,8 @@
   "author": "Kaito Kimura <dev.kimuson@gmail.com>",
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn build"
     }
   },
   "dependencies": {
