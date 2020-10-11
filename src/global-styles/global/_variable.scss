@@ -8,9 +8,11 @@ $white: #fafafa !default;
 $white-weak: #eaedf2 !default;
 $green: #64dd17 !default;
 $skyblue: #00b0ff !default;
+$blue: #4554df !default;
 // color
-$theme-color: color.scale($black, $lightness: 20%) !default;
-$theme-text-color: $white;
+// $theme-color: color.scale($black, $lightness: 20%) !default;
+$theme-color: $blue !default;
+$theme-text-color: #fff;
 $bg-color: $white-weak;
 $text-color: $black !default;
 $link-color: $skyblue !default;

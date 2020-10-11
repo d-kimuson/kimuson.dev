@@ -5,7 +5,8 @@ $-header-title-width: 250px;
 $-header-nav-min-width: 420px;
 
 .header {
-  background-color: g.$theme-color;
+  background: transparentize(g.$theme-color, $amount: 0.3);
+  backdrop-filter: blur(6px);
   color: g.$theme-text-color;
   display: flex;
   padding: 0 30px;
