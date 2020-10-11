@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
+import { Swiper, SwiperSlide } from "swiper/react"
 
 import Date from "../atoms/date"
 import { Article } from "@declaration"
@@ -14,7 +15,8 @@ interface ArticlePreviewProps {
   article: Article
 }
 
-const imgStyle = { height: `200px`, width: `300px` }
+const imgWidth = 300
+const imgStyle = { height: `200px`, width: `${imgWidth}px` }
 
 const ArticlePreview: React.FC<ArticlePreviewProps> = ({
   article,
@@ -58,20 +60,32 @@ interface ArticleListRowProps {
 const ArticleListRow: React.FC<ArticleListRowProps> = ({
   articles,
 }: ArticleListRowProps) => {
+  const [windowSize, setWindowSize] = useState<number>(-1)
+  useEffect(() => {
+    window.addEventListener(`resize`, () => {
+      setWindowSize(window.innerWidth)
+    })
+
+    setWindowSize(window.innerWidth)
+  })
+
   return (
     <section>
-      <h1>Related Articles</h1>
+      <h1 className={styles.articleListTitle}>Related Articles</h1>
       {articles.length > 0 ? (
-        <ul className={styles.articleList}>
+        <Swiper
+          tag={`ul`}
+          spaceBetween={imgWidth * 0.9}
+          slidesPerView={Math.floor(windowSize / imgWidth) + 1}
+          onSlideChange={(): void => console.log(`slide change`)}
+          onSwiper={(swiper): void => console.log(swiper)}
+        >
           {articles.map(article => (
-            <li
-              key={article.slug}
-              className={`animate__animated animate__fadeIn ${styles.preview}`}
-            >
+            <SwiperSlide key={article.slug} tag={`li`}>
               <ArticlePreview article={article} />
-            </li>
+            </SwiperSlide>
           ))}
-        </ul>
+        </Swiper>
       ) : (
         <p>記事がありません。</p>
       )}

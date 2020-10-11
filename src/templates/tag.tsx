@@ -31,16 +31,18 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
         slug={getTagLink(tag)}
       />
       <Layout>
-        <div className="l-main-wrapper">
-          <main role="main">
-            <section>
-              <h1 className="m-page-title">タグ: {tag}</h1>
-              <ArticleList articles={posts} />
-            </section>
-          </main>
-        </div>
+        <div className="l-page-container">
+          <div className="l-main-wrapper">
+            <main role="main">
+              <section>
+                <h1 className="m-page-title">タグ: {tag}</h1>
+                <ArticleList articles={posts} />
+              </section>
+            </main>
+          </div>
 
-        <Sidebar bio={true} commonSidebar={true} />
+          <Sidebar bio={true} commonSidebar={true} />
+        </div>
       </Layout>
     </>
   )

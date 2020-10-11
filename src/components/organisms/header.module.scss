@@ -2,7 +2,7 @@
 @use "@styles/global" as g;
 
 $-header-title-width: 250px;
-$-header-nav-min-width: 400px;
+$-header-nav-min-width: 420px;
 
 .header {
   background-color: g.$theme-color;
@@ -69,6 +69,7 @@ $-button-inner-height: $-button-height - $-button-line-height;
     height: $-button-line-height;
     width: $-button-width;
     position: absolute;
+    transition: 400ms;
     &:nth-child(1) {
       top: 0;
     }
