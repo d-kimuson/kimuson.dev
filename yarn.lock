@@ -13508,6 +13508,11 @@ react-style-singleton@^2.1.0:
     invariant "^2.2.4"
     tslib "^1.0.0"
 
+react-ztext@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-ztext/-/react-ztext-1.0.1.tgz#48b13386ba73262923f04867b61ef0428732a16a"
+  integrity sha512-/6lqjCYe8MYdYP8nCHq9PmKWigLb4UMR6gsgdFMtPLESybk75VjPo5EnLatpakiNeKvisHSw5IXo8RYa4Gx8wg==
+
 react@^16.12.0, react@^16.8.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"

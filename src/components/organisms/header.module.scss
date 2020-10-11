@@ -10,13 +10,16 @@ $-header-nav-min-width: 420px;
   display: flex;
   padding: 0 30px;
 
-  .headerTitle {
+  .headerTitleArea {
     grid-area: title;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 0.8rem;
     width: $-header-title-width;
+  }
+
+  .headerTitle {
+    font-size: 1.6rem;
   }
 
   .headerNavArea {

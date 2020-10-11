@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
+import Ztext from "react-ztext"
 
 import { HeaderQuery } from "@graphql-types"
 import Navigation from "../molecules/navigation"
@@ -31,8 +32,22 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
       }`}
     >
       {/* Basic */}
-      <Link to="/" className={`${styles.headerTitle} m-remove-a-decoration`}>
-        <h1>{data.site?.siteMetadata?.title || `No Title`}</h1>
+      <Link
+        to="/"
+        className={`${styles.headerTitleArea} m-remove-a-decoration`}
+      >
+        <Ztext
+          direction="both"
+          event="pointer"
+          eventRotation="20deg"
+          eventDirection="default"
+          fade={false}
+          layers={3}
+        >
+          <h1 className={styles.headerTitle}>
+            {data.site?.siteMetadata?.title || `No Title`}
+          </h1>
+        </Ztext>
       </Link>
 
       <Navigation className={styles.headerNavArea} />
