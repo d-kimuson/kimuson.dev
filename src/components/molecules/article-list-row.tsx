@@ -74,14 +74,14 @@ const ArticleListRow: React.FC<ArticleListRowProps> = ({
       <h1 className={styles.articleListTitle}>Related Articles</h1>
       {articles.length > 0 ? (
         <Swiper
-          tag={`ul`}
+          tag={`div`}
           spaceBetween={imgWidth * 0.9}
           slidesPerView={Math.floor(windowSize / imgWidth) + 1}
           onSlideChange={(): void => console.log(`slide change`)}
           onSwiper={(swiper): void => console.log(swiper)}
         >
           {articles.map(article => (
-            <SwiperSlide key={article.slug} tag={`li`}>
+            <SwiperSlide tag={`div`} key={article.slug}>
               <ArticlePreview article={article} />
             </SwiperSlide>
           ))}
