@@ -1,9 +1,30 @@
 @use "@styles/global" as g;
+@use "sass:color";
 
 .footer {
-  background-color: g.$black-weak;
+  background-color: color.scale(g.$black-weak, $lightness: 20%);
   color: g.$theme-text-color;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 0.9rem;
+}
+
+.footerLinks {
+  list-style: none;
+  display: flex;
+  &.footerLinks {
+    padding-top: 20px;
+  }
+  li {
+    &:not(:first-child)::before {
+      content: "|";
+      padding: 0 10px;
+    }
+  }
+
+  a:hover {
+    color: g.$link-color;
+  }
 }
