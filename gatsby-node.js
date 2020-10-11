@@ -55,6 +55,8 @@ exports.createPages = async ({ graphql, actions }) => {
         && !post.node.frontmatter.draft
       )
     ))
+  .filter(post => typeof post.node.frontmatter.title === `string`)
+  .filter(post => typeof post.node.frontmatter.category === `string`)
 
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
