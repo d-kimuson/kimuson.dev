@@ -12,12 +12,14 @@ const NotFoundPage: React.FC<PageProps> = () => {
     <>
       <Head title={title} description={description} />
       <Layout>
-        <main role="main">
-          <section>
-            <h1 className="m-page-title">Product</h1>
-            <p>作品とかとか</p>
-          </section>
-        </main>
+        <div className="l-page-container">
+          <main role="main">
+            <section>
+              <h1 className="m-page-title">Product</h1>
+              <p>作品とかとか</p>
+            </section>
+          </main>
+        </div>
       </Layout>
     </>
   )

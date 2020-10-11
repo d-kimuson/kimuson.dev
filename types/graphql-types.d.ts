@@ -725,12 +725,12 @@ export enum FileFieldsEnum {
   ChildMarkdownRemarkFrontmatterThumbnailId = 'childMarkdownRemark___frontmatter___thumbnail___id',
   ChildMarkdownRemarkFrontmatterThumbnailChildren = 'childMarkdownRemark___frontmatter___thumbnail___children',
   ChildMarkdownRemarkFrontmatterTitle = 'childMarkdownRemark___frontmatter___title',
-  ChildMarkdownRemarkFrontmatterDescription = 'childMarkdownRemark___frontmatter___description',
-  ChildMarkdownRemarkFrontmatterTags = 'childMarkdownRemark___frontmatter___tags',
   ChildMarkdownRemarkFrontmatterCategory = 'childMarkdownRemark___frontmatter___category',
   ChildMarkdownRemarkFrontmatterDate = 'childMarkdownRemark___frontmatter___date',
   ChildMarkdownRemarkFrontmatterWeight = 'childMarkdownRemark___frontmatter___weight',
   ChildMarkdownRemarkFrontmatterDraft = 'childMarkdownRemark___frontmatter___draft',
+  ChildMarkdownRemarkFrontmatterDescription = 'childMarkdownRemark___frontmatter___description',
+  ChildMarkdownRemarkFrontmatterTags = 'childMarkdownRemark___frontmatter___tags',
   ChildMarkdownRemarkExcerpt = 'childMarkdownRemark___excerpt',
   ChildMarkdownRemarkRawMarkdownBody = 'childMarkdownRemark___rawMarkdownBody',
   ChildMarkdownRemarkFileAbsolutePath = 'childMarkdownRemark___fileAbsolutePath',
@@ -859,12 +859,12 @@ export type Frontmatter = {
   __typename?: 'Frontmatter';
   thumbnail?: Maybe<File>;
   title?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   category?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
   weight?: Maybe<Scalars['Int']>;
   draft?: Maybe<Scalars['Boolean']>;
+  description?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 
@@ -878,12 +878,12 @@ export type FrontmatterDateArgs = {
 export type FrontmatterFilterInput = {
   thumbnail?: Maybe<FileFilterInput>;
   title?: Maybe<StringQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  tags?: Maybe<StringQueryOperatorInput>;
   category?: Maybe<StringQueryOperatorInput>;
   date?: Maybe<DateQueryOperatorInput>;
   weight?: Maybe<IntQueryOperatorInput>;
   draft?: Maybe<BooleanQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
 };
 
 export enum ImageCropFocus {
@@ -1617,12 +1617,12 @@ export enum MarkdownRemarkFieldsEnum {
   FrontmatterThumbnailChildMarkdownRemarkTableOfContents = 'frontmatter___thumbnail___childMarkdownRemark___tableOfContents',
   FrontmatterThumbnailChildMarkdownRemarkChildren = 'frontmatter___thumbnail___childMarkdownRemark___children',
   FrontmatterTitle = 'frontmatter___title',
-  FrontmatterDescription = 'frontmatter___description',
-  FrontmatterTags = 'frontmatter___tags',
   FrontmatterCategory = 'frontmatter___category',
   FrontmatterDate = 'frontmatter___date',
   FrontmatterWeight = 'frontmatter___weight',
   FrontmatterDraft = 'frontmatter___draft',
+  FrontmatterDescription = 'frontmatter___description',
+  FrontmatterTags = 'frontmatter___tags',
   Excerpt = 'excerpt',
   RawMarkdownBody = 'rawMarkdownBody',
   FileAbsolutePath = 'fileAbsolutePath',
@@ -2465,17 +2465,17 @@ export type SitePageConnectionGroupArgs = {
 export type SitePageContext = {
   __typename?: 'SitePageContext';
   slug?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
   previous?: Maybe<SitePageContextPrevious>;
   next?: Maybe<SitePageContextNext>;
-  category?: Maybe<Scalars['String']>;
   tag?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextFilterInput = {
   slug?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
   previous?: Maybe<SitePageContextPreviousFilterInput>;
   next?: Maybe<SitePageContextNextFilterInput>;
-  category?: Maybe<StringQueryOperatorInput>;
   tag?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -2650,6 +2650,7 @@ export enum SitePageFieldsEnum {
   InternalType = 'internal___type',
   IsCreatedByStatefulCreatePages = 'isCreatedByStatefulCreatePages',
   ContextSlug = 'context___slug',
+  ContextCategory = 'context___category',
   ContextPreviousFieldsSlug = 'context___previous___fields___slug',
   ContextPreviousFrontmatterTitle = 'context___previous___frontmatter___title',
   ContextPreviousFrontmatterDraft = 'context___previous___frontmatter___draft',
@@ -2660,7 +2661,6 @@ export enum SitePageFieldsEnum {
   ContextNextFrontmatterDraft = 'context___next___frontmatter___draft',
   ContextNextFrontmatterCategory = 'context___next___frontmatter___category',
   ContextNextFrontmatterTags = 'context___next___frontmatter___tags',
-  ContextCategory = 'context___category',
   ContextTag = 'context___tag',
   PluginCreatorId = 'pluginCreator___id',
   PluginCreatorParentId = 'pluginCreator___parent___id',
@@ -3667,6 +3667,7 @@ export type IndexQuery = (
 
 export type BlogPostBySlugQueryVariables = Exact<{
   slug: Scalars['String'];
+  category: Scalars['String'];
 }>;
 
 
@@ -3698,7 +3699,33 @@ export type BlogPostBySlugQuery = (
       { __typename?: 'SiteSiteMetadata' }
       & Pick<SiteSiteMetadata, 'siteUrl'>
     )> }
-  )> }
+  )>, allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & Pick<MarkdownRemark, 'excerpt'>
+        & { fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & GatsbyImageSharpFluid_WithWebp_TracedSvgFragment
+              )> }
+            )> }
+          )> }
+        )> }
+      ) }
+    )> }
+  ) }
 );
 
 export type CategoryPageQueryVariables = Exact<{

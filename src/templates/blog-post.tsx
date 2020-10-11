@@ -12,14 +12,16 @@ import {
   TwitterIcon,
 } from "react-share"
 
-import { BlogPostBySlugQuery } from "@graphql-types"
+import { BlogPostBySlugQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import Sidebar from "../components/templates/sidebar"
+import ArticleListRow from "../components/molecules/article-list-row"
 import TagList from "../components/molecules/tag-list"
 import Date from "../components/atoms/date"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 import { getArticleLink } from "@funcs/links"
+import { edgeListToArticleList } from "@funcs/article"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
 
@@ -55,6 +57,12 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   const articleUrl = siteUrl + getArticleLink(post?.fields?.slug || ``)
   const articleSize = 40
 
+  const relatedArticle = edgeListToArticleList(
+    data.allMarkdownRemark.edges.filter(
+      (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+    )
+  )
+
   return (
     <>
       <Head
@@ -63,90 +71,73 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
         slug={post?.fields?.slug || ``}
       />
       <Layout>
-        <div className="l-main-wrapper">
-          <main role="main">
-            <article className={`m-card l-main-width`}>
-              {typeof thumbnail === `object` && thumbnail !== null ? (
-                <Image
-                  fluid={toGatsbyImageFluidArg(thumbnail)}
-                  // backgroundColor="#000"
-                  className={styles.thumbnail}
-                />
-              ) : (
-                <div />
-              )}
-              <div className={styles.contentContainer}>
-                <h1 className="m-page-title">
-                  {post?.frontmatter?.draft ? `[非公開]` : ``}
-                  {title}
-                </h1>
-                <Date date={post?.frontmatter?.date} />
+        <div className="l-page-container">
+          <div className="l-main-wrapper">
+            <main role="main">
+              <article className={`m-card l-main-width`}>
+                {typeof thumbnail === `object` && thumbnail !== null ? (
+                  <Image
+                    fluid={toGatsbyImageFluidArg(thumbnail)}
+                    // backgroundColor="#000"
+                    className={styles.thumbnail}
+                  />
+                ) : (
+                  <div />
+                )}
+                <div className={styles.contentContainer}>
+                  <h1 className="m-page-title">
+                    {post?.frontmatter?.draft ? `[非公開]` : ``}
+                    {title}
+                  </h1>
+                  <Date date={post?.frontmatter?.date} />
 
-                <div
-                  className={styles.articleBody}
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
-              </div>
-
-              <hr className={styles.sepLine} />
-
-              <footer className={styles.footerContainer}>
-                <div className={styles.snsArea}>
-                  <FacebookShareButton url={articleUrl}>
-                    <FacebookIcon size={articleSize} round />
-                  </FacebookShareButton>
-
-                  <LineShareButton url={articleUrl}>
-                    <LineIcon size={articleSize} round />
-                  </LineShareButton>
-
-                  <LinkedinShareButton url={articleUrl}>
-                    <LinkedinIcon size={articleSize} round />
-                  </LinkedinShareButton>
-
-                  <TwitterShareButton
-                    title={title}
-                    via="_kimuson"
-                    url={articleUrl}
-                  >
-                    <TwitterIcon size={articleSize} round />
-                  </TwitterShareButton>
+                  <div
+                    className={styles.articleBody}
+                    dangerouslySetInnerHTML={{ __html: html }}
+                  />
                 </div>
 
-                <div className={styles.tagArea}>
-                  <TagList tags={tags} isLink={true} />
-                </div>
-              </footer>
-            </article>
-          </main>
+                <hr className={styles.sepLine} />
 
-          {/* 次&前の投稿はいらなそう */}
-          {/* <div className={`${styles.navArticleContainer} l-main-width`}>
-            {previous === null ? (
-              <div></div>
-            ) : (
-              <Link to={previous.fields.slug} className={styles.navPrevious}>
-                {previous.frontmatter.title}
-              </Link>
-            )}
+                <footer className={styles.footerContainer}>
+                  <div className={styles.snsArea}>
+                    <FacebookShareButton url={articleUrl}>
+                      <FacebookIcon size={articleSize} round />
+                    </FacebookShareButton>
 
-            <div className="nav-margin"></div>
+                    <LineShareButton url={articleUrl}>
+                      <LineIcon size={articleSize} round />
+                    </LineShareButton>
 
-            {next === null ? (
-              <div></div>
-            ) : (
-              <Link to={next.fields.slug} className={styles.navNext}>
-                {next.frontmatter.title}
-              </Link>
-            )}
-          </div> */}
+                    <LinkedinShareButton url={articleUrl}>
+                      <LinkedinIcon size={articleSize} round />
+                    </LinkedinShareButton>
+
+                    <TwitterShareButton
+                      title={title}
+                      via="_kimuson"
+                      url={articleUrl}
+                    >
+                      <TwitterIcon size={articleSize} round />
+                    </TwitterShareButton>
+                  </div>
+
+                  <div className={styles.tagArea}>
+                    <TagList tags={tags} isLink={true} />
+                  </div>
+                </footer>
+              </article>
+            </main>
+          </div>
+
+          <Sidebar
+            bio={true}
+            toc={{ htmlAst: post?.htmlAst }}
+            commonSidebar={true}
+          />
         </div>
 
-        <Sidebar
-          bio={true}
-          toc={{ htmlAst: post?.htmlAst }}
-          commonSidebar={true}
-        />
+        <ArticleListRow articles={relatedArticle} />
       </Layout>
     </>
   )
@@ -155,7 +146,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String!, $category: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
@@ -183,6 +174,37 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         siteUrl
+      }
+    }
+    allMarkdownRemark(
+      filter: {
+        frontmatter: { category: { eq: $category } }
+        fields: { slug: { ne: $slug } }
+      }
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
+      edges {
+        node {
+          excerpt(truncate: true)
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            description
+            date
+            draft
+            category
+            tags
+            thumbnail {
+              childImageSharp {
+                fluid(maxHeight: 200) {
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

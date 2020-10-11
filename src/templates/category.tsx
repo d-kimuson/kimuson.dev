@@ -30,16 +30,18 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
         slug={getCategoryLink(category)}
       />
       <Layout>
-        <div className="l-main-wrapper">
-          <main role="main">
-            <section>
-              <h1 className="m-page-title">カテゴリ: {category}</h1>
+        <div className="l-page-container">
+          <div className="l-main-wrapper">
+            <main role="main">
+              <section>
+                <h1 className="m-page-title">カテゴリ: {category}</h1>
 
-              <ArticleList articles={posts} />
-            </section>
-          </main>
+                <ArticleList articles={posts} />
+              </section>
+            </main>
+          </div>
+          <Sidebar bio={true} commonSidebar={true} />
         </div>
-        <Sidebar bio={true} commonSidebar={true} />
       </Layout>
     </>
   )

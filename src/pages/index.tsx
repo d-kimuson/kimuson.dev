@@ -29,19 +29,21 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
     <>
       <Head />
       <Layout>
-        <div className="l-main-wrapper">
-          <main role="main">
-            <section>
-              <h1 className="m-page-title">Latest Posts</h1>
+        <div className="l-page-container">
+          <div className="l-main-wrapper">
+            <main role="main">
+              <section>
+                <h1 className="m-page-title">Latest Posts</h1>
 
-              <ArticleList articles={posts} />
-              <div className={styles.blogLinkWrapper}>
-                <Link to="/blog/">もっと記事を見る</Link>
-              </div>
-            </section>
-          </main>
+                <ArticleList articles={posts} />
+                <div className={styles.blogLinkWrapper}>
+                  <Link to="/blog/">もっと記事を見る</Link>
+                </div>
+              </section>
+            </main>
+          </div>
+          <Sidebar bio={true} commonSidebar={true} />
         </div>
-        <Sidebar bio={true} commonSidebar={true} />
       </Layout>
     </>
   )

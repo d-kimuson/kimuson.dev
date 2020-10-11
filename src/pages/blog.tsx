@@ -14,14 +14,16 @@ const BlogPage: React.FC<PageProps> = () => {
     <>
       <Head title={title} description={description} />
       <Layout>
-        <div className="l-main-wrapper">
-          <main role="main" style={{ width: `100%` }}>
-            <section style={{ width: `100%` }}>
-              <Search />
-            </section>
-          </main>
+        <div className="l-page-container">
+          <div className="l-main-wrapper">
+            <main role="main" style={{ width: `100%` }}>
+              <section style={{ width: `100%` }}>
+                <Search />
+              </section>
+            </main>
+          </div>
+          <Sidebar bio={true} commonSidebar={true} />
         </div>
-        <Sidebar bio={true} commonSidebar={true} />
       </Layout>
     </>
   )
