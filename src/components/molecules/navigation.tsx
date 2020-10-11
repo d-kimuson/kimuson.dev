@@ -17,10 +17,12 @@ const navRoutes = [
     to: `/about/`,
     text: `About`,
   },
-  {
-    to: `/product/`,
-    text: `Product`,
-  },
+  // まだ載せている作品がないので, ヘッダから削除しておく
+  // 載せるものができたときにもとに戻す！
+  // {
+  //   to: `/product/`,
+  //   text: `Product`,
+  // },
 ]
 
 interface NavigationProps {
