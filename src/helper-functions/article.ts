@@ -1,4 +1,4 @@
-import { Article, FluidImage } from "@declaration"
+import { Article, Work, FluidImage } from "@declaration"
 import { MarkdownRemarkEdge } from "@graphql-types"
 import { toArg } from "@funcs/type"
 
@@ -18,7 +18,8 @@ export const edgeListToArticleList = (
     .map(e => ({
       slug: e.node.fields?.slug,
       title: e.node.frontmatter?.title || `No Title`,
-      description: e.node.frontmatter?.description || e.node.excerpt || ``,
+      description:
+        e.node.frontmatter?.description || e.node.excerpt || `No Description`,
       date: e.node.frontmatter?.date,
       thumbnail: mdEdgeToFluidImage(e),
       draft: e.node.frontmatter?.draft || false,
@@ -30,5 +31,23 @@ export const edgeListToArticleList = (
         typeof post.slug === `string` &&
         typeof post.date === `string` &&
         typeof post.category === `string`
+    )
+}
+
+export const edgeListToWorkList = (edges: MarkdownRemarkEdge[]): Work[] => {
+  return edges
+    .filter(filterDraft)
+    .map(e => ({
+      slug: e.node.fields?.slug,
+      title: e.node.frontmatter?.title || `No Title`,
+      description:
+        e.node.frontmatter?.description || e.node.excerpt || `No Description`,
+      date: e.node.frontmatter?.date,
+      thumbnail: mdEdgeToFluidImage(e),
+      draft: e.node.frontmatter?.draft || false,
+    }))
+    .filter(
+      (post): post is Work =>
+        typeof post.slug === `string` && typeof post.date === `string`
     )
 }

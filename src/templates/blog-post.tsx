@@ -92,7 +92,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   <Date date={post?.frontmatter?.date} />
 
                   <div
-                    className={styles.articleBody}
+                    className="m-article-body"
                     dangerouslySetInnerHTML={{ __html: html }}
                   />
                 </div>

@@ -1,29 +1,22 @@
 import React from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 
-import { IndexQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { WorkPageQuery, MarkdownRemarkEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
-import ArticleList from "../components/molecules/article-list"
-import { edgeListToArticleList } from "@funcs/article"
-// @ts-ignore
-import styles from "./index.module.scss"
+import WorkList from "../components/molecules/work-list"
+import { edgeListToWorkList } from "@funcs/article"
 
-interface IndexProps extends PageProps {
-  data: IndexQuery
+interface WorkPageProps extends PageProps {
+  data: WorkPageQuery
 }
 
-const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
+const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMarkdownRemark.edges.filter(
     (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
   )
-  const posts = edgeListToArticleList(edges)
-
-  console.log(
-    `nodes: `,
-    edges.filter(e => typeof e.node.excerpt !== `string`)
-  )
+  const works = edgeListToWorkList(edges)
 
   return (
     <>
@@ -33,12 +26,9 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
           <div className="l-main-wrapper">
             <main role="main">
               <section>
-                <h1 className="m-page-title">Latest Posts</h1>
+                <h1 className="m-page-title">Works</h1>
 
-                <ArticleList articles={posts} />
-                <div className={styles.blogLinkWrapper}>
-                  <Link to="/blog/">もっと記事を見る</Link>
-                </div>
+                <WorkList works={works} />
               </section>
             </main>
           </div>
@@ -49,14 +39,13 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )
 }
 
-export default Index
+export default WorkPage
 
 export const pageQuery = graphql`
-  query Index {
+  query WorkPage {
     allMarkdownRemark(
-      filter: { fields: { slug: { regex: "//blog/" } } }
+      filter: { fields: { slug: { regex: "//work/" } } }
       sort: { fields: [frontmatter___date], order: DESC }
-      limit: 5
     ) {
       edges {
         node {
@@ -69,8 +58,6 @@ export const pageQuery = graphql`
             description
             date
             draft
-            category
-            tags
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 200) {

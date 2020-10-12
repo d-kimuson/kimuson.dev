@@ -19,10 +19,10 @@ const navRoutes = [
   },
   // まだ載せている作品がないので, ヘッダから削除しておく
   // 載せるものができたときにもとに戻す！
-  // {
-  //   to: `/product/`,
-  //   text: `Product`,
-  // },
+  {
+    to: `/work/`,
+    text: `Work`,
+  },
 ]
 
 interface NavigationProps {

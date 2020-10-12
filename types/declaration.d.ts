@@ -46,6 +46,15 @@ export interface Article {
   tags: string[]
 }
 
+export interface Work {
+  slug: string
+  title: string
+  description: string
+  date: string
+  thumbnail: FluidImage | undefined
+  draft: boolean
+}
+
 export interface CategoryListNode {
   name: string
   count: number

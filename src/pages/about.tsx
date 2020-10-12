@@ -5,17 +5,14 @@ import { AboutPageQuery } from "@graphql-types"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import Sidebar from "../components/templates/sidebar"
-// @ts-ignore
-import styles from "../templates/blog-post.module.scss"
 
 interface AboutPageProps extends PageProps {
   data: AboutPageQuery
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
-  const title = data.file?.childMarkdownRemark?.frontmatter?.title || `About`
-  const description =
-    data.file?.childMarkdownRemark?.frontmatter?.description || ``
+  const title = data.markdownRemark?.frontmatter?.title || `About`
+  const description = data.markdownRemark?.frontmatter?.description || ``
 
   return (
     <>
@@ -27,9 +24,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
               <section>
                 {/* <h1 className="m-page-title">{title}</h1> */}
                 <div
-                  className={styles.articleBody}
+                  className="m-article-body"
                   dangerouslySetInnerHTML={{
-                    __html: data.file?.childMarkdownRemark?.html || ``,
+                    __html: data.markdownRemark?.html || ``,
                   }}
                 ></div>
               </section>
@@ -38,7 +35,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
           <Sidebar
             bio={true}
             commonSidebar={true}
-            toc={{ htmlAst: data.file?.childMarkdownRemark?.htmlAst }}
+            toc={{ htmlAst: data.markdownRemark?.htmlAst }}
           />
         </div>
       </Layout>
@@ -50,16 +47,13 @@ export default AboutPage
 
 export const pageQuery = graphql`
   query AboutPage {
-    file(sourceInstanceName: { eq: "about" }) {
-      id
-      childMarkdownRemark {
-        frontmatter {
-          title
-          description
-        }
-        html
-        htmlAst
+    markdownRemark(fields: { slug: { regex: "//about/" } }) {
+      frontmatter {
+        title
+        description
       }
+      html
+      htmlAst
     }
   }
 `

@@ -18,6 +18,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
   const blogPost = path.resolve(`./src/templates/blog-post.tsx`)
+  const workPost = path.resolve(`./src/templates/work-post.tsx`)
   const result = await graphql(
     `
       {
@@ -48,26 +49,44 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog posts pages.
-  const posts = result.data.allMarkdownRemark.edges
+  const postsNotDraft = result.data.allMarkdownRemark.edges
     .filter(post => (
       process.env.NODE_ENV === 'development' ||
       (typeof post.node.frontmatter.draft === 'boolean'
         && !post.node.frontmatter.draft
       )
     ))
-  .filter(post => typeof post.node.frontmatter.title === `string`)
-  .filter(post => typeof post.node.frontmatter.category === `string`)
+  
+  const blogPosts = postsNotDraft
+    .filter(post => post.node.fields.slug.includes(`/blog/`))
+    .filter(post => typeof post.node.frontmatter.title === `string`)
+    .filter(post => typeof post.node.frontmatter.category === `string`)
+  
+  const workPosts = postsNotDraft
+    .filter(work => work.node.fields.slug.includes(`/work/`))
 
-  posts.forEach((post, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node
-
+  // Blog Posts
+  blogPosts.forEach((post, index) => {
     createPage({
-      path: `/blog${post.node.fields.slug}`.toLowerCase(),
+      path: post.node.fields.slug.toLowerCase(),
       component: blogPost,
       context: {
         slug: post.node.fields.slug,
         category: post.node.frontmatter.category,
+      },
+    })
+  })
+
+  // Work Posts
+  workPosts.forEach((post, index) => {
+    const previous = index === workPosts.length - 1 ? null : workPosts[index + 1].node
+    const next = index === 0 ? null : workPosts[index - 1].node
+
+    createPage({
+      path: post.node.fields.slug.toLowerCase(),
+      component: workPost,
+      context: {
+        slug: post.node.fields.slug,
         previous,
         next,
       },
@@ -75,8 +94,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // カテゴリページ
-  const category = posts
-    .filter(post => typeof post.node.frontmatter.category !== 'undefined')
+  const category = blogPosts
     .map(post => post.node.frontmatter.category)
 
   Array.from(new Set(category)).forEach((category, index) => {
@@ -90,7 +108,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // タグページ
-  const tags = posts
+  const tags = blogPosts
     .filter(post => typeof post.node.frontmatter.tags !== 'undefined')
     .flatMap(post => post.node.frontmatter.tags)
 

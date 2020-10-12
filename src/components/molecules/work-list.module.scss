@@ -1,0 +1,39 @@
+@use "@styles/global" as g;
+
+.workList {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+$-image-height: 200px;
+$-image-width: 300px;
+
+.workPreview {
+  display: grid;
+  grid-template:
+    "image" $-image-height
+    "info" 100px / 1fr;
+  width: $-image-width;
+  margin: 20px 10px;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.2rem;
+}
+
+.image {
+  grid-area: image;
+}
+
+.info-container {
+  grid-area: info;
+  width: 100%;
+  padding: 10px 10px;
+  // style
+  color: g.$text-color;
+  text-decoration: none;
+}

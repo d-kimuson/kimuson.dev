@@ -1,6 +1,6 @@
 // gatsby-node.js で定義済みなので, 変更時はそちらも一緒に
 export const getArticleLink = (articleSlug: string): string =>
-  `/blog${articleSlug}`.toLowerCase()
+  `${articleSlug}`.toLowerCase()
 
 export const getCategoryLink = (category: string): string =>
   `/category/${category}/`.toLowerCase()
