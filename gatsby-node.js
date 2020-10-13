@@ -145,12 +145,21 @@ exports.createSchemaCustomization = ({ actions }) => {
     name: 'fileByDataPath',
     extend: () => ({
       resolve: function (src, args, context, info) {
+
         const partialPath = src.thumbnail
         if (!partialPath) {
           return null
         }
 
-        const filePath = path.join(__dirname, 'content/assets', partialPath)
+        let filePath
+        if (partialPath.includes(`/work/`) || partialPath.includes(`/blog/`) || partialPath.includes(`/about/`)) {
+          // content からの相対パスを適用する
+          filePath = path.join(__dirname, 'content', partialPath)
+        } else {
+          // content/assets からの相対パスを適用する
+          filePath = path.join(__dirname, 'content/assets', partialPath)
+        }
+
         const fileNode = context.nodeModel.runQuery({
           firstOnly: true,
           type: 'File',
@@ -164,6 +173,7 @@ exports.createSchemaCustomization = ({ actions }) => {
         })
 
         if (!fileNode) {
+          console.log(`サムネ画像(${partialPath} => ${filePath})は見つかりませんでした.`)
           return null
         }
 
