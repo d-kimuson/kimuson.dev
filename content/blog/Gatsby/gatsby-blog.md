@@ -1,5 +1,5 @@
 ---
-title: Gatsbyで技術ブログを作りました！
+title: Gatsbyで技術ブログを作る際の知見
 description: Gatsby+TypeScriptで技術ブログを作りました。苦労した点などをまとめます。
 category: Gatsby
 tags:
@@ -11,7 +11,7 @@ thumbnail: 'thumbnails/Blog.png'
 draft: false
 ---
 
-技術ブログを Hugo から, Gatsyby.js に乗り換えて, リニューアルしました！
+技術ブログを Hugo から, Gatsyby.js に乗り換えて, リニューアルしたので簡単に知見を共有します.
 
 ## どうして乗り換えたのか
 
@@ -36,8 +36,6 @@ Hugo は, フロントのことはよくわからないけど, テーマ選ん�
 とても気に入ったので, 勢いでこのブログを作りました！
 
 このエントリは, `Gatsby` でブログを構築するにあたっての知見を共有することを目的とします.
-
-そもそもGatsbyとは, みたいな話には触れません.
 
 ## 環境
 
