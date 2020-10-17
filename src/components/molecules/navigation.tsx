@@ -14,14 +14,12 @@ const navRoutes = [
     text: `Blog / Search`,
   },
   {
-    to: `/about/`,
-    text: `About`,
-  },
-  // まだ載せている作品がないので, ヘッダから削除しておく
-  // 載せるものができたときにもとに戻す！
-  {
     to: `/work/`,
     text: `Work`,
+  },
+  {
+    to: `/about/`,
+    text: `About`,
   },
 ]
 
