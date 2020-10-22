@@ -107,6 +107,7 @@
     "try:prod": "yarn build && npx http-server public",
     "start": "npm run develop",
     "clean": "gatsby clean",
-    "post:new": "git rev-parse --show-toplevel && ./bin/create.sh"
+    "article:new": "git rev-parse --show-toplevel && ./bin/create.sh",
+    "post": "git rev-parse --show-toplevel && git add content && git commit -m '[auto] post article && git push origin HEAD'"
   }
 }
