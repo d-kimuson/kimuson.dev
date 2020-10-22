@@ -88,6 +88,8 @@
     "stylelint-prettier": "^1.1.2",
     "stylelint-scss": "^3.18.0",
     "stylelint-webpack-plugin": "^2.1.0",
+    "textlint": "^11.7.6",
+    "textlint-rule-preset-ja-technical-writing": "^4.0.1",
     "tsconfig-paths-webpack-plugin": "^3.3.0"
   },
   "license": "0BSD",

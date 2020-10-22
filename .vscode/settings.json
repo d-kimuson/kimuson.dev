@@ -1,4 +1,5 @@
 {
+  "editor.tabSize": 2,
   "files.associations": {
     "*.tsx": "typescriptreact",
     "*.jsx": "javascriptreact",
@@ -22,8 +23,13 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true,
+    "source.fixAll.textlint": true,
   },
   // Invalidate other formatters
   "css.validate": false,
   "scss.validate": false,
+  // artcile related
+  "textlint.nodePath": "/Users/kaito/Blogs/gatsby-tech-blog/node_modules",
+  "textlint.configPath": "/Users/kaito/Blogs/gatsby-tech-blog/.textlintrc",
+  "textlint.autoFixOnSave": false
 }
