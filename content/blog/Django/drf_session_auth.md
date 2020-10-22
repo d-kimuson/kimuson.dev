@@ -1,42 +1,37 @@
 ---
-title: "DRFでサードパーティクッキーでセッション認証を使おうとして、諦めた話"
-description: "DRFでサードパーティクッキーでログイン状態を持つために格闘した話を書きます。"
+title: "DRFでサードパーティクッキーのセッション認証を使おうとして、諦めたけど勉強になった"
+description: "DRFでサードパーティクッキーでログイン状態を持つために格闘した話について書きます。"
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
+  - "セキュリティ"
   - "Django"
 category: "Django"
 date: "2020-04-15T08:41:57+09:00"
 weight: 5
-draft: true
+draft: false
 ---
 
 REST API + SPAなWebアプリを作っていて, 認証をどうしようかな〜ってなった.
 
+本番環境は, Netlify に nuxt で構築したSPA(SSRはしない)を置き, DRFのAPIをHerokuにあげる
+
+つまり, クロスドメインでの通信になる
+
 ぼくの持ちうる知識では
 
 1. APIサーバーでセッション認証(サードパーティクッキーとセッションで管理する)
-2. APIサーバーでトークン認証
+2. APIサーバーでトークンベースの認証
     1. トークンを[ローカルストレージ](https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage)に置く
-    2. BFF層を置き、トークンをBFFサーバーのセッションに保存する
+    2. ~~BFF層を置き、トークンをBFFサーバーのセッションに保存する(SSRしないので無理)~~
 
 辺りが考えられた.
 
-2-1はセキュリティ的にあまりよろしくない.
+2-1はセキュリティ的によろしくない.
 
 参考: [HTML5のLocal Storageを使ってはいけない（翻訳）｜TechRacho（テックラッチョ）〜エンジニアの「？」を「！」に〜｜BPS株式会社](https://techracho.bpsinc.jp/hachi8833/2019_10_09/80851)
 
 まあそりゃそうだよね.
-
-2-2は, BFF層を置くことで
-
-- サーバーサイドレンダリング
-- API通信のバンドル
-- トークンをBFF層で管理する
-
-とかができるし, セッションで認証するよりトークンでの認証のほうがクライアントと疎結合になるので将来のモバイルアプリ化を考えたりしたら魅力的だが, 今回は無料運用範囲で軽いものを作ろうと思っていて, クライアントサイドのデプロイは Netlify(BFF層を置くことができない) を使おうと思っていたので, 今回は手軽な1でやってみることにした.
-
-本番環境は, Netlify に nuxt で構築したSPAを置き, DjangoのAPIサーバーをHerokuにあげるので, 異なるオリジン間でのAPI通信となる.
 
 クロスオリジンでの通信はCSRF対策でブラウザ側の制限が多く, おまけに今回はクッキーも使おうとしているので対応がめんどくなる.
 
@@ -235,10 +230,7 @@ SESSION_COOKIE_SAMESITE = 'None'  # None => 'None'
 - [Fixed #30862 -- Allowed setting SameSite cookies flags to 'None'. by danidee10 · Pull Request #11894 · django/django · GitHub](https://github.com/django/django/pull/11894)
 - [django-polaris/middleware.py at master · stellar/django-polaris · GitHub](https://github.com/stellar/django-polaris/blob/master/polaris/polaris/middleware.py)
 
-
-#### middleware.py
-
-``` python
+``` python:title=middleware.py
 class SameSiteMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -253,14 +245,12 @@ class SameSiteMiddleware:
         return response
 ```
 
-Secure属性があると, ローカルの開発サーバーで意図通り動かなくなるのでDEBUGみてわけるようにした.
+`Secure` 属性があると, ローカルの開発サーバーで意図通り動かなくなるので `DEBUG` みてわけるようにした.
 
 - ローカル: `SameSite=Lax`
 - 本番環境: `SamSite=None; Secure`
 
-#### config/settings.py
-
-``` python
+``` python:title=config/settings.py
 MIDDLEWARE = [
     'middleware.SameSiteMiddleware',
     ...
@@ -271,7 +261,12 @@ MIDDLEWARE = [
 
 ## CSRF Token 認証の無効化
 
-CSRF保護のために, Djangoのセッション認証では, POST, PUT, DELETE 等データ変更を伴うリクエストメソッドでは, クッキーでCSRFトークンを渡してリクエストヘッダにトークンを渡すように義務付け, 一致するか確認している.
+CSRF保護のために, Djangoのセッション認証では `POST`, `PUT`, `DELETE` 等データ変更を伴うリクエストメソッドでは
+
+1. クッキーでCSRFトークンを渡す
+2. リクエストヘッダにトークンを渡す
+
+ように義務付け, 一致するか確認している.
 
 つまり, クライアントサイドで
 
@@ -288,7 +283,10 @@ document.cookie
 
 ではアクセスできないとのこと.
 
-実際オリジン(localhost)が一致する開発サーバーでは取得できたが, オリジンが異なる本番環境では, トークンを取得できていなかった(この辺のクッキーがオリジンごとに管理されてる云々の知識が薄かったので, とても苦労した...)
+実際オリジン(localhost)が一致する開発サーバーでは取得できたが, オリジンが異なる本番環境では, トークンを取得できていなかった.
+
+この辺のクッキーがオリジンごとに管理されてる云々の知識が薄かったので, とても苦労した...
+そりゃそうだよね, document.cookieで全サイトのクッキー拾えちゃったらやばすぎだよね...
 
 色々調べてみたけど, javascript から取得する方法はないっぽかった.
 
@@ -296,9 +294,7 @@ document.cookie
 
 ~~よくよく考えたらクッキーは送信してるんだから, ヘッダで送らずとも直接クッキーの中身をサーバーサイドで確認して認証すればよかった気がする.~~
 
-#### config/settings.py
-
-``` python
+``` python:config/settings.py
 CSRF_TRUSTED_ORIGINS = [
     '本番オリジン',
     'localhost',
@@ -314,9 +310,7 @@ REST_FRAMEWORK = {
 }
 ```
 
-#### middleware.py
-
-``` python
+``` python:middleware.py
 from rest_framework.authentication import SessionAuthentication
 
 
@@ -342,7 +336,9 @@ class MySessionAuthentication(SessionAuthentication):
             raise exceptions.PermissionDenied('CSRF Failed: %s' % "Refererが信頼されてないよ")
 ```
 
-これで意図通り動くようになったが, iPhoneから覗いたら結局上手く行かなかった.
+これで意図通り動くようになった
+
+## 今度はiPhoneから覗いたら結局上手く行かない
 
 MacからもChromeとFirefoxは動くけど, Safariは駄目だった.
 
@@ -353,10 +349,18 @@ Safariはサードパーティクッキーを完全ブロック, Chromeもプラ
 
 てことで, ここまでやっといてなんだけど
 
-- ページとAPIのオリジンを統一する
-    - オリジンが一致してるならクッキーも普通に使えるので問題なくセッションで認証できる
-- CORSでAPIを叩くならおとなしくトークン認証を使おう
-    - トークンはクッキーやらローカルストレージに置くしかない(あまり良くないからリファラのチェックとか諸々を固くするしかない...?)
-    - できれば, BFF層を置こう.
+- 同一オリジンから配信する => 普通にセッションで認証できる
+- 異なるオリジンから配信する =>
+  - セッション認証は無理
+  - ローカルストレージに置く
+
+て形になりそう.
+
+確かにセッションのがセキュアだけど, そもそもXSSがある時点で驚異の大きさ自体は変わらないので
+
+- トークンのリセット期間を適切に決める
+- やばい操作にはパスワードでちゃんと認証をする(Githubとかちょくちょくパスワード求めてくるよね)
+
+辺りをしっかりやれば良さそう
 
 結局, トークン認証を採用したのでだいぶ無駄に時間を過ごしてしまったが, まあとても勉強になったので良かった.

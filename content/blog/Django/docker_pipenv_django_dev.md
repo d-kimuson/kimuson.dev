@@ -4,6 +4,7 @@ description: "Djangoの開発環境をDockerに乗せた状態で、Pipenvでパ
 thumbnail: "/thumbnails/Python.png"
 tags:
   - Python
+  - Pipenv
   - Docker
 category: "Django"
 date: "2020-03-20T04:59:54+09:00"
