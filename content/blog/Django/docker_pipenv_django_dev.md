@@ -1,34 +1,31 @@
 ---
-title: "Django開発環境をDocker+Pipenv上に作ろうとしたら詰まった"
-description: "Django開発環境をDocker+Pipenv上に作ろうとしたら詰まった"
+title: "Djangoの開発環境をDockerに乗せてPipenvでパッケージ管理しようとしたら詰まって結局やめた話"
+description: "Djangoの開発環境をDockerに乗せた状態で、Pipenvでパッケージ管理しようとしたら詰まって結局やめた話をします。"
 thumbnail: "/thumbnails/Python.png"
 tags:
   - Python
   - Docker
 category: "Django"
 date: "2020-03-20T04:59:54+09:00"
-weight: 5
-draft: true
+draft: false
 ---
 
-新規のプロダクトで, Django の開発環境を Docker コンテナに乗せて作っていたのだけど
+友人と企画したサービスの開発で [Django](https://github.com/django/django) の開発環境を `Docker` コンテナに乗せて作っていたのだけど, パッケージ管理を [Pipenv](https://pipenv-ja.readthedocs.io/ja/translate-ja/basics.html) でしようとして色々詰まって結局やめたのでメモしておく.
 
+## Pipenv を使おうとした理由
 
-
-パッケージ管理を Pipenv でしようとして色々詰まったのでメモしておく
-
-## 開発環境を Docker に乗せる
-
-チーム開発ってこともあって, Dev 環境は Docker ベースで作っておきたいなってことで乗せた.
+チーム開発だったので環境間の差分を吸収したかったのと, 個人的にキャッチアップしたかったという理由で開発環境は `Docker` の上に構築した.
 
 パッケージ管理は,
 
 - Pipfile がパッケージ取得時に自動更新される
+  - `pip install <package>` だと `requirements.txt` の更新漏れがあるし, そもそもめんどい
 - scripts に独自コマンドを定義できる
+- 開発用パッケージ(autopep8, mypyとか)を分けて管理できる
 
 辺りが便利なので, Pipenv でやろうかなって思ったら結構詰まった
 
-## 詰まった点
+## まずは詰まった点
 
 コンテナ内だから, わざわざ仮想化する必要もないかなって感じで最初は
 
@@ -47,18 +44,10 @@ CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 で, まあ問題なく動くんだけど, 問題点が2つあって
 
-1つ目は, scripts が 仮想環境を見に行ってしまう点.
-
-``` toml
-...
-[scripts]
-wpython = "which python"
-```
-
-で,
+1つ目は, scripts が仮想環境を見に行ってしまう点.
 
 ``` bash
-$ docker exec django_app pipenv run wpython
+$ docker exec django_app pipenv run which python
 /django_app/.venv/bin/python
 ```
 
@@ -72,17 +61,15 @@ $ docker exec django_app pipenv run wpython
 
 ## てことで, コンテナ内で仮想環境を作ることに
 
-Pipenv 自体が仮想環境と密結合になって価値を発揮しているので, 単純に仮想環境を使うほうが良さそう
+Pipenv 自体が仮想環境と密に結合しているパッケージマネージャなので, 単純にコンテナ内のランタイムも仮想環境を使うほうが良さそう
 
-と言っても面倒な点が多くて結構詰まった.
+と言っても面倒な点が多くてまたまた詰まる
 
 ### 1. 仮想環境がマウントで壊れる
 
 シンプルに思いつくのは,
 
-**docker-compose.yml**
-
-``` yml
+``` yml:title=docker-compose.yml
 version: "3.7"
 
 services:
@@ -96,9 +83,7 @@ services:
       ...
 ```
 
-**django_app/Dockerfile**
-
-``` Dockerfile
+``` Dockerfile:title=django_app/Dockerfile
 FROM python:3.7.6-stretch
 WORKDIR /django_app
 COPY ./Pipfile /django_app/Pipfile
@@ -109,7 +94,7 @@ RUN pipenv install --dev
 CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
 
-こんな感じだけど, 
+こんな感じだけど,
 
 1. イメージ構築 (Dockerfile の RUN) => コンテナ内に .venv が作成される
 2. docker-compose.yml で指定したディレクトリのマウントが働く
@@ -121,25 +106,19 @@ CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 て感じで進んでしまうので,
 
-マウント処理が完了しているコンテナ構築のタイミングでパッケージインストールなり, 
+マウント処理が完了している **コンテナ構築のタイミングで** パッケージインストールなり, 仮想環境を作る必要があるっぽい
 
-仮想環境を作る必要があるっぽい
-
-てことで, CMD と ENTRYPOINT を併用してコンテナ構築時に作るようにする
+てことで, CMD と ENTRYPOINT を併用してコンテナ構築時に作る
 
 参考: [[docker] CMD とENTRYPOINT の違いを試してみた](https://qiita.com/hihihiroro/items/d7ceaadc9340a4dbeb8f#%E4%BD%B5%E7%94%A8)
 
-**Dockerfile**
-
-``` Dockerfile
+``` Dockerfile:title=Dockerfile
 ...
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
 
-**entrypoint.sh**
-
-``` bash
+``` bash:title=entrypoint.sh
 #!/usr/bin/env bash
 
 set -e
@@ -156,9 +135,9 @@ exec $cmd  # cmd := /django_app/.venv/bin/python manage.py runserver 0.0.0.0:800
 
 これで, 仮想環境の python を実行環境として開発サーバーを起動できるようになった
 
-## 2. コンテナ内でコマンド実行時に毎回仮想環境を呼ぶ必要がある
+### 2. コンテナ内でコマンド実行時に毎回仮想環境を呼ぶ必要がある
 
-コンテナ内で作業するときは, 
+コンテナ内で作業するときは,
 
 ``` bash
 $ docker exec -it django_app bash
@@ -188,9 +167,7 @@ ImportError: Couldn't import Django. Are you sure it's installed and available o
 
 対策として, .bashrc から自動的に仮想環境をアクティベートするようにする
 
-**/django_app/.bashrc**
-
-``` bash
+``` bash:title=/django_app/.bashrc
 #!/bin/bash
 
 if [ "`which python`" != "/django_app/.venv/bin/python" ]; then
@@ -198,15 +175,9 @@ if [ "`which python`" != "/django_app/.venv/bin/python" ]; then
 fi
 ```
 
-**Dockerfile**
-
-``` Dockerfile
+``` Dockerfile:title="/django_app/Dockerfile"
 RUN echo "source /django_app/.bashrc" >> /root/.bashrc
 ```
-
-直接 /root/.bashrc を書き換えても良かったけど,
-
-他にも .bashrc を扱いたい場面が出てくるかもしれないので, マウントしてるディレクトリを参照してもらったほうが柔軟でいいかなってことでこの形で
 
 これで,
 
@@ -216,26 +187,37 @@ $ docker exec -it django_app bash
 System check identified no issues (0 silenced).
 ```
 
-仮想環境が自動アクティベートされて使いやすくなった
+問題が解消された.
 
-見通しが悪くなったので, 最後に
-[リポジトリ](https://github.com/kaito1002/django_docker_pipenv)
+見通しが悪くなったので,
+[d-kimuson/django_docker_pipenv](https://github.com/d-kimuson/django_docker_pipenv)
 に全体像を貼っておきます
 
-これで終わります.
+---
 
-**追記**
+以下追記です。
 
-詳細はよくわからないんだけど, この方法だと PyCharm の DockerCompose 先を実行環境にする機能が, 仮想環境の利用を想定してないらしくて, 上手く扱えなかった
+## PyCharmがパッケージを読んでくれない
 
-なので, PyCharm を使いたい場合は,
+詳細はよくわからないんだけど, この方法だと PyCharm の `docker-compose` のコンテナを実行環境にする機能が, 仮想環境の利用を想定してないらしくて, 上手く扱えなかった
 
-- パッケージはシステムに直接インストールする
-  - ふつうに requirements.txt で管理する
-  - 別にPipenvを使ってもいいけど使う意味はたぶんない
-- SSH接続で対応
-  - コンテナにSSH接続できるようにして SSH Interpreter を使う
+対策のしようもなさそうなので、結局 Pipenv の採用をやめて pip を使うことにした.
 
-辺りが解決策になりそう.
+- Pipfile がパッケージ取得時に自動更新される
+- scripts に独自コマンドを定義できる
+- 開発用パッケージ(autopep8, mypyとか)を分けて管理できる
 
-今回はとりあえず, VS Codeでやろうかなって思ってるんでまたの機会に試してみます.
+の3つを `Pipenv` の利点としてあげたけど, この辺はパッケージのインストール/アンインストール用の `bash` 関数を用意して, 上記と同様に `.bashrc` で自動適用することで再現した
+
+詳細は書かない(別記事では書くかも)けど,
+
+インストール・アンインストール用の独自関数で
+
+1. パッケージを普通に更新しつつ,
+2. `dev` / `production` 用の `requirements.txt` を更新する
+
+て形にした.
+
+他にも `Pipenv` の `scripts` に書きたいようなものは `.bashrc` に書く形にで落ち着いた
+
+僕の中では, Pipenvは便利だけど, Dockerコンテナを使わないときだけ使うかなーという結論になりました
