@@ -1,17 +1,18 @@
 ---
 title: "[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~"
+description: "PyQtの主要なウィジェットを紹介します。"
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
   - "PyQt"
 category: "Python"
 date: "2019-06-22T17:53:17+09:00"
-draft: true
+draft: false
 ---
 
 今回の記事は,
 
-[[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](/post/pyqt1/)
+[[PyQt + QtDesigner] Python で GUIアプリ開発 その1 ~ 開発の流れ ~](./pyqt1/)
 
 の続きです.
 
@@ -51,10 +52,11 @@ dlg = uic.loadUi(f"{ui_path}/page1.ui)"
 # dlg1には, Label, lineEdit1, lineEdit2が設置されているとします.
 
 
-def changeLabel():  # lineEdit1でreturnされた時の処理
+def changeLabel():               # lineEdit1でreturnされた時の処理
     text = dlg.lineEdit1.text()  # lineEdit1にセットされたテキストを取得
-    dlg.Label.setText(text)  # Labelに取得したテキストをセット
-    dlg.lineEdit2.setFocus()  # lineEdit1の入力を終えたのでlineEdit2を強調
+    dlg.Label.setText(text)      # Labelに取得したテキストをセット
+    dlg.lineEdit2.setFocus()     # lineEdit1の入力を終えたのでlineEdit2を強調
+
 
 dlg.lineEdit1.setPlaceholderText("なにか入力して下さい")
 dlg.lineEdit1.setFocus()  # 初期段階でlineEdit1を強調しておく
@@ -73,7 +75,6 @@ if __name__ == "__main__":
 
 という動作を実装しています.
 
-<a id="qpushbutton"></a>
 ## QpushButton
 
 前回も使った通常のボタンです.
@@ -97,7 +98,7 @@ if __name__ == "__main__":
 
 注意点として, QListWidgeの要素は, 全て QListWidgeItemクラスインスタンスであるということがあげられます.
 
-valueを得る得るには, 取得した要素.text() をする必要があります.
+valueを得るには, 取得した要素.text() をする必要があります.
 
 ## QTableWidget
 
@@ -114,13 +115,15 @@ QTabelWidgetでは, テーブル上にアイテムを並べて表示します.
 - QTableWidget.currentItem(): 選択されている要素を取得
 - QTableWidget.setCurrentItem(QTableWidgetItem("hoge")) : 選択されているセルに要素を追加
 
-QListWidge同様に, 要素は, QTableWidgeItemクラスインスタンスなので, 取得した要素を得るには, 要素.text() をする必要があります.
+`QListWidge` と同様に, 要素は `QTableWidgeItem` クラスのインスタンスなので取得した要素を得るには, `要素.text()` をする必要があります.
 
 基本的には, QListWidgeと似た操作ですが, 2次元なのでセルを指定したければ当然2つの添字を渡す必要があります.
 
 ## その他のウィジェット
 
-PyQtでは, その他にもたくさんのウィジェットを利用することができます(Qt DesignerのWidget Boxから設置できるのでいろいろ見てみると良いかも).
+PyQtでは, その他にもたくさんのウィジェットを利用できます.
+
+`Qt Designer` の `Widget Box` から設置できるのでいろいろ見てみると良いかも.
 
 あまり細かいものまでみても仕方ないので今回は省略しますが, 使いたいウィジェットがあったときには, 公式の
 
@@ -132,14 +135,19 @@ C++版のドキュメントですが, 定義されているメソッドは基本
 
 また, Python版の情報は検索してもあまりヒットしないので, 英語で検索して海外の資料を参考にするか, PyQtではなくQtとして検索して情報収集することをおすすめします.
 
-今回は終わります, 閲覧ありがとうございました.
+今回は終わります, ありがとうございました.
 
----
+## PyQt + Qt DesignerでGUIアプリ開発
 
-### PyQt + Qt DesignerでGUIアプリ開発
+`PyQt` 関係は3エントリに分けて投稿してます.
 
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](/post/pyqt1/)
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](/post/pyqt2/)
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](/post/pyqt3/) ←次はここ
+よろしければ他もどうぞ.
 
-次回は, *.connect() に引数もセットで関数を渡す方法と, それを利用した汎用的画面遷移関数を実装します.
+今回は主なウィジェットの使い方について紹介しました.
+次回は, 汎用的な画面遷移の実装についてです.
+
+1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](./pyqt1/)
+2. [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](./pyqt2/)
+3. **[[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](./pyqt3/)**
+
+次回は, *.connect() に引数もセットで関数を渡す方法と, それを利用した汎用的な画面遷移関数を実装します.
