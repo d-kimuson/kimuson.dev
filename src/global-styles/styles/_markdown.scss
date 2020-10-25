@@ -204,6 +204,7 @@ pre[class*="language-"] {
   code {
     font-family: g.$code-fonts, monospace !important;
     font-size: $-code-font-size !important;
+    font-weight: 100;
   }
 }
 

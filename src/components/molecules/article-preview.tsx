@@ -14,7 +14,7 @@ interface ArticlePreviewProps {
   article: Article
 }
 
-const imgStyle = { height: `200px`, width: `250px` }
+const imgStyle = { height: `150px`, width: `200px` }
 
 const ArticlePreview: React.FC<ArticlePreviewProps> = ({
   article,
@@ -44,7 +44,6 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
           <Date date={article.date} />
         </div>
         <TagList tags={article.tags} />
-        <p className={styles.description}>{article.description}</p>
       </div>
     </Link>
   )

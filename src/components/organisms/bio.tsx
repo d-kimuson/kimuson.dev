@@ -1,6 +1,8 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
 
 import { BioQuery } from "@graphql-types"
 // @ts-ignore
@@ -36,7 +38,10 @@ const Bio: React.FC = () => {
 
   return (
     <section className={`m-card ${styles.bio}`}>
-      <h1 className="m-card__title">{author?.name || `No Name`}</h1>
+      <h1 className="m-card__title">
+        <FontAwesomeIcon icon={faUser} />
+        <span>Author</span>
+      </h1>
       <div className="m-card__content">
         <div className={styles.bioImageWrapper}>
           {typeof avatarImage === `object` && avatarImage !== null ? (
@@ -48,6 +53,8 @@ const Bio: React.FC = () => {
             <div style={imageStyle} />
           )}
         </div>
+
+        <h2 className={styles.name}>{author?.name || `No Name`}</h2>
 
         <p className={styles.description}>
           {author?.summary || `No Introduction`}

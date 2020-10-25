@@ -2,8 +2,8 @@
 @use "@styles/styles/_variable" as var;
 
 // 最適化したサイズを配信するために, 変更時は graphql も変更すること
-$-image-height: 200px;
-$-image-width: 250px;
+$-image-height: 150px;
+$-image-width: 200px;
 
 .article {
   display: grid;

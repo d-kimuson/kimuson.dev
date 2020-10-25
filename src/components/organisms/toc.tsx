@@ -2,6 +2,8 @@ import React from "react"
 import { Link } from "gatsby"
 
 import { HtmlAst } from "@declaration"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faList } from "@fortawesome/free-solid-svg-icons"
 // @ts-ignore
 import styles from "./toc.module.scss"
 
@@ -30,7 +32,10 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
 
   return (
     <section className={`${styles.tocWrapper} m-card`}>
-      <h1 className="m-card__title">見出し</h1>
+      <h1 className="m-card__title">
+        <FontAwesomeIcon icon={faList} />
+        <span>見出し</span>
+      </h1>
       <div className="m-card__content">
         <ul className={styles.toc}>
           {headings.map(h => (
