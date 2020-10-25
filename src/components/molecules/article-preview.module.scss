@@ -2,14 +2,14 @@
 @use "@styles/styles/_variable" as var;
 
 // 最適化したサイズを配信するために, 変更時は graphql も変更すること
-$-image-height: 150px;
-$-image-width: 200px;
+$-image-height: 90px;
+$-image-width: 120px;
 
 .article {
   display: grid;
   grid-template: "image description" 1fr;
-  grid-template-columns: $-image-width 1fr;
-  height: $-image-height;
+  grid-template-columns: 20% 80%;
+  height: auto;
   margin: 10px 0;
 
   .title {
@@ -32,11 +32,20 @@ $-image-width: 200px;
   margin: 7px 0;
 }
 
-.image {
+.imageWrapper {
   grid-area: image;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
   height: $-image-height;
   width: $-image-width;
-  overflow: hidden;
+  border-radius: 20%;
 
   img {
     transition: 300ms ease !important; // inline-style で書かれているのでやむを得ず

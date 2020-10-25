@@ -14,7 +14,7 @@ interface ArticlePreviewProps {
   article: Article
 }
 
-const imgStyle = { height: `150px`, width: `200px` }
+const imgStyle = { height: `90px`, width: `120px` }
 
 const ArticlePreview: React.FC<ArticlePreviewProps> = ({
   article,
@@ -25,11 +25,13 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
       className={`${styles.article} m-card l-main-width m-remove-a-decoration`}
     >
       {typeof article.thumbnail === `object` ? (
-        <Image
-          fluid={toGatsbyImageFluidArg(article.thumbnail)}
-          className={styles.image}
-          imgStyle={imgStyle}
-        />
+        <div className={styles.imageWrapper}>
+          <Image
+            fluid={toGatsbyImageFluidArg(article.thumbnail)}
+            className={styles.image}
+            imgStyle={imgStyle}
+          />
+        </div>
       ) : (
         <div style={imgStyle}></div>
       )}

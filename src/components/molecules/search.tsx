@@ -33,7 +33,7 @@ const query = graphql`
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxHeight: 150) {
+                fluid(maxHeight: 90) {
                   ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
@@ -54,7 +54,9 @@ const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   const edges = data.allMarkdownRemark.edges.filter(
     (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
   )
-  const articles: Article[] = edgeListToArticleList(edges)
+  const articles: Article[] = edgeListToArticleList(edges).sort((a, b) => {
+    return a.draft && !b.draft ? 1 : !a.draft && b.draft ? -1 : 0
+  })
   const tags = Array.from(new Set(articles.flatMap(article => article.tags)))
 
   const fuse = new Fuse(articles, {
