@@ -6,7 +6,7 @@
 }
 
 .toc {
-  max-height: 40vh;
+  max-height: 70vh;
   overflow-y: scroll;
   list-style: none;
   font-size: 0.9rem;
@@ -30,4 +30,9 @@
     margin-inline-start: 20px;
     font-size: 0.8rem;
   }
+}
+
+.tocActive {
+  font-weight: bold;
+  color: g.$link-color;
 }

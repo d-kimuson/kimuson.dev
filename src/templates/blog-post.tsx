@@ -19,6 +19,7 @@ import Sidebar from "../components/templates/sidebar"
 import ArticleListRow from "../components/molecules/article-list-row"
 import TagList from "../components/molecules/tag-list"
 import Date from "../components/atoms/date"
+import { renderAst } from "@funcs/markdown"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 import { getArticleLink } from "@funcs/links"
 import { edgeListToArticleList } from "@funcs/article"
@@ -91,10 +92,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   </h1>
                   <Date date={post?.frontmatter?.date} />
 
-                  <div
-                    className="m-article-body"
-                    dangerouslySetInnerHTML={{ __html: html }}
-                  />
+                  <div className="m-article-body">
+                    {renderAst(post?.htmlAst)}
+                  </div>
                 </div>
 
                 <hr className={styles.sepLine} />
