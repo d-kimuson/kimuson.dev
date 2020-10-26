@@ -26,7 +26,7 @@
       }
     }
   }
-  li[class="toc-h3"] {
+  li[class^="toc-h3"] {
     margin-inline-start: 20px;
     font-size: 0.8rem;
   }
