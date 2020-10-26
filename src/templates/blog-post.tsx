@@ -53,7 +53,6 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
     (tag): tag is string => typeof tag === `string`
   )
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
-  const html = post?.html || ``
   const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
   const articleUrl = siteUrl + getArticleLink(post?.fields?.slug || ``)
   const articleSize = 40

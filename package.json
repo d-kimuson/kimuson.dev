@@ -104,7 +104,7 @@
     "dev": "gatsby develop",
     "dev:codegen": "IS_CODEGEN=true gatsby develop",
     "codegen": "graphql-codegen --config codegen.yml",
-    "lint": "yarn run eslint src --ext .tsx,.ts,.jsx,.js --fix && stylelint src --fix",
+    "lint": "yarn run eslint src --ext .tsx,.ts,.jsx,.js --fix && stylelint src --fix --syntax css-in-js",
     "build": "gatsby build",
     "try:prod": "yarn build && npx http-server public",
     "start": "npm run develop",

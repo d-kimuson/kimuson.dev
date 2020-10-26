@@ -2,8 +2,6 @@ import React, {
   createElement,
   DetailedReactHTMLElement,
   InputHTMLAttributes,
-  useState,
-  useEffect,
 } from "react"
 import rehypeReact from "rehype-react"
 
