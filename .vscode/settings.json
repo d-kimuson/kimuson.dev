@@ -18,6 +18,10 @@
   "eslint.alwaysShowStatus": true,
   // Stylelint
   "stylelint.enable": true,
+  "stylelint.validate": [
+    "css",
+    "scss",
+  ],
   // Lint On Save
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
