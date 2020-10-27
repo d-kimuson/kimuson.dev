@@ -95,6 +95,9 @@
       color: g.$theme-text-color;
     }
   }
+  img[src*="gif"] {
+    filter: none;
+  }
   blockquote {
     $-quote-color: color.scale(g.$text-color, $lightness: 50%);
 
