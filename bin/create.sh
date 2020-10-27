@@ -1,23 +1,19 @@
 #!/bin/bash
 
 printf "記事タイトルを入力してください >> "; read TITLE
-printf "ファイル名を入力してください(sample.md) >> "; read FILENAME
+printf "記事ディレクトリ名(slug)を入力してください(sample) >> "; read ARTICLE_NAME
 printf "カテゴリを入力してください\n"
 printf "既存のカテゴリは以下です\n\n"
 ls -r content/blog/
 printf "\nカテゴリ名 >> "; read DIRNAME
 
-EXTENSION=$(echo $FILENAME | cut -f 2 -d .)
-
-if [ $EXTENSION != "md" ]; then
-  FILENAME=${FILENAME}".md"
-fi;
-
-FILEPATH="content/blog/$DIRNAME/$FILENAME"
+FILEPATH="content/blog/$DIRNAME/$ARTICLE_NAME/index.md"
 
 if [ ! -d content/blog/$DIRNAME ]; then
   mkdir content/blog/$DIRNAME
 fi
+
+mkdir content/blog/$DIRNAME/$ARTICLE_NAME
 cp bin/template.md $FILEPATH
 
 CURRENT_TIME=$(date +"%Y-%m-%dT%TZ")
