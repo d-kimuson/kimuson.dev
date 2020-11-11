@@ -12,8 +12,8 @@ draft: false
 
 今回の記事は,
 
-- [[PyQt + QtDesigner] Python で GUIアプリ開発 その1 ~ 開発の流れ ~](./pyqt1/)
-- [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](./pyqt2/)
+- [[PyQt + QtDesigner] Python で GUIアプリ開発 その1 ~ 開発の流れ ~](../pyqt1/)
+- [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](../pyqt2/)
 
 の続きです.
 
@@ -94,6 +94,6 @@ PyQtの記事はひとまずこれで終わろうと思います.
 
 ### PyQt + Qt DesignerでGUIアプリ開発
 
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](/post/pyqt1/)
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](/post/pyqt2/)
-1. [[[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](/post/pyqt3/)](/post/pyqt3/)
+1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](./../pyqt1/)
+1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](./../pyqt2/)
+1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](./../pyqt3/)

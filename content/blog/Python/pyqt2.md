@@ -12,7 +12,7 @@ draft: false
 
 今回の記事は,
 
-[[PyQt + QtDesigner] Python で GUIアプリ開発 その1 ~ 開発の流れ ~](./pyqt1/)
+[[PyQt + QtDesigner] Python で GUIアプリ開発 その1 ~ 開発の流れ ~](../pyqt1/)
 
 の続きです.
 
@@ -146,8 +146,8 @@ C++版のドキュメントですが, 定義されているメソッドは基本
 今回は主なウィジェットの使い方について紹介しました.
 次回は, 汎用的な画面遷移の実装についてです.
 
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](./pyqt1/)
-2. [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](./pyqt2/)
-3. **[[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](./pyqt3/)**
+1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1  ~ 開発の流れ ~](./../pyqt1/)
+1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](./../pyqt2/)
+1. **[[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](./../pyqt3/)**
 
 次回は, *.connect() に引数もセットで関数を渡す方法と, それを利用した汎用的な画面遷移関数を実装します.
