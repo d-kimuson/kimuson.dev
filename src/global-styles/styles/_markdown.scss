@@ -2,7 +2,6 @@
 @use "sass:map";
 @use "../global/" as g;
 @import "~prismjs/themes/prism-okaidia";
-@import "~prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 // article
 .m-article-body {
@@ -177,34 +176,19 @@ $-code-block-y-margin: 20px;
 
 // Codeblock
 $-code-padding-y: 12px;
-$-code-font-size: 1rem;
+$-code-font-size: 0.9rem;
 $-code-height: $-code-font-size * 1.5;
 $-line-number-padding-x: 0.7em;
 pre[class*="language-"] {
   margin: 0 0 $-code-block-y-margin 0;
   padding-top: $-code-padding-y;
   padding-bottom: $-code-padding-y;
-  span[class="line-numbers-rows"] {
-    padding: $-code-padding-y 0;
-    span {
-      height: $-code-height !important;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &::before {
-        padding-right: $-line-number-padding-x;
-        padding-left: $-line-number-padding-x;
-      }
-    }
-  }
 
   code {
     line-height: $-code-height !important;
     display: inline-block;
   }
 
-  .line-numbers-rows > span::before,
   .token,
   code {
     font-family: g.$code-fonts, monospace !important;
