@@ -39,12 +39,4 @@ module.exports = {
       version: "detect"
     }
   },
-  ignorePatterns: [
-    "gatsby-browser.js",
-    "gatsby-config.js",
-    "gatsby-node.js",
-    ".eslintrc.js",
-    ".stylelintrc.js",
-    "types/graphql-types.d.ts"
-  ],
 }

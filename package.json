@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "@danbruegge/gatsby-plugin-stylelint": "^4.1.0",
+    "@tsconfig/node14": "^1.0.0",
     "@types/rehype-react": "^4.0.0",
     "@types/swiper": "^5.4.0",
     "eslint-config-prettier": "^6.11.0",
@@ -91,6 +92,8 @@
     "stylelint-webpack-plugin": "^2.1.0",
     "textlint": "^11.7.6",
     "textlint-rule-preset-ja-technical-writing": "^4.0.1",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0"
   },
   "license": "0BSD",

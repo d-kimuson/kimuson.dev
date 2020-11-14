@@ -2639,12 +2639,12 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsPromptGlobal = 'pluginCreator___pluginOptions___prompt___global',
   PluginCreatorPluginOptionsMaxWidth = 'pluginCreator___pluginOptions___maxWidth',
   PluginCreatorPluginOptionsTrackingId = 'pluginCreator___pluginOptions___trackingId',
+  PluginCreatorPluginOptionsPublisherId = 'pluginCreator___pluginOptions___publisherId',
   PluginCreatorPluginOptionsShortName = 'pluginCreator___pluginOptions___short_name',
   PluginCreatorPluginOptionsStartUrl = 'pluginCreator___pluginOptions___start_url',
   PluginCreatorPluginOptionsBackgroundColor = 'pluginCreator___pluginOptions___background_color',
   PluginCreatorPluginOptionsThemeColor = 'pluginCreator___pluginOptions___theme_color',
   PluginCreatorPluginOptionsDisplay = 'pluginCreator___pluginOptions___display',
-  PluginCreatorPluginOptionsIcon = 'pluginCreator___pluginOptions___icon',
   PluginCreatorPluginOptionsCacheBustingMode = 'pluginCreator___pluginOptions___cache_busting_mode',
   PluginCreatorPluginOptionsIncludeFavicon = 'pluginCreator___pluginOptions___include_favicon',
   PluginCreatorPluginOptionsLegacy = 'pluginCreator___pluginOptions___legacy',
@@ -2869,6 +2869,7 @@ export enum SitePluginFieldsEnum {
   PluginOptionsPluginsPluginOptionsShowLineNumbers = 'pluginOptions___plugins___pluginOptions___showLineNumbers',
   PluginOptionsPluginsPluginOptionsNoInlineHighlight = 'pluginOptions___plugins___pluginOptions___noInlineHighlight',
   PluginOptionsPluginsPluginOptionsMaxWidth = 'pluginOptions___plugins___pluginOptions___maxWidth',
+  PluginOptionsPluginsPluginOptionsIcon = 'pluginOptions___plugins___pluginOptions___icon',
   PluginOptionsPluginsBrowserApIs = 'pluginOptions___plugins___browserAPIs',
   PluginOptionsPluginsSsrApIs = 'pluginOptions___plugins___ssrAPIs',
   PluginOptionsPluginsPluginFilepath = 'pluginOptions___plugins___pluginFilepath',
@@ -2884,12 +2885,12 @@ export enum SitePluginFieldsEnum {
   PluginOptionsPromptGlobal = 'pluginOptions___prompt___global',
   PluginOptionsMaxWidth = 'pluginOptions___maxWidth',
   PluginOptionsTrackingId = 'pluginOptions___trackingId',
+  PluginOptionsPublisherId = 'pluginOptions___publisherId',
   PluginOptionsShortName = 'pluginOptions___short_name',
   PluginOptionsStartUrl = 'pluginOptions___start_url',
   PluginOptionsBackgroundColor = 'pluginOptions___background_color',
   PluginOptionsThemeColor = 'pluginOptions___theme_color',
   PluginOptionsDisplay = 'pluginOptions___display',
-  PluginOptionsIcon = 'pluginOptions___icon',
   PluginOptionsCacheBustingMode = 'pluginOptions___cache_busting_mode',
   PluginOptionsIncludeFavicon = 'pluginOptions___include_favicon',
   PluginOptionsLegacy = 'pluginOptions___legacy',
@@ -3045,12 +3046,12 @@ export type SitePluginPluginOptions = {
   prompt?: Maybe<SitePluginPluginOptionsPrompt>;
   maxWidth?: Maybe<Scalars['Int']>;
   trackingId?: Maybe<Scalars['String']>;
+  publisherId?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
   theme_color?: Maybe<Scalars['String']>;
   display?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
   cache_busting_mode?: Maybe<Scalars['String']>;
   include_favicon?: Maybe<Scalars['Boolean']>;
   legacy?: Maybe<Scalars['Boolean']>;
@@ -3117,12 +3118,12 @@ export type SitePluginPluginOptionsFilterInput = {
   prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
+  publisherId?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
   theme_color?: Maybe<StringQueryOperatorInput>;
   display?: Maybe<StringQueryOperatorInput>;
-  icon?: Maybe<StringQueryOperatorInput>;
   cache_busting_mode?: Maybe<StringQueryOperatorInput>;
   include_favicon?: Maybe<BooleanQueryOperatorInput>;
   legacy?: Maybe<BooleanQueryOperatorInput>;
@@ -3204,6 +3205,7 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPrompt>;
   maxWidth?: Maybe<Scalars['Int']>;
+  icon?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
@@ -3214,6 +3216,7 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
+  icon?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsPrompt = {
@@ -3302,6 +3305,29 @@ export type StringQueryOperatorInput = {
   regex?: Maybe<Scalars['String']>;
   glob?: Maybe<Scalars['String']>;
 };
+
+export type GatsbyNodeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GatsbyNodeQuery = (
+  { __typename?: 'Query' }
+  & { allMarkdownRemark: (
+    { __typename?: 'MarkdownRemarkConnection' }
+    & { edges: Array<(
+      { __typename?: 'MarkdownRemarkEdge' }
+      & { node: (
+        { __typename?: 'MarkdownRemark' }
+        & { fields?: Maybe<(
+          { __typename?: 'MarkdownRemarkFields' }
+          & Pick<MarkdownRemarkFields, 'slug'>
+        )>, frontmatter?: Maybe<(
+          { __typename?: 'Frontmatter' }
+          & Pick<Frontmatter, 'title' | 'draft' | 'category' | 'tags'>
+        )> }
+      ) }
+    )> }
+  ) }
+);
 
 export type GatsbyImageSharpFixedFragment = (
   { __typename?: 'ImageSharpFixed' }
