@@ -2,7 +2,7 @@ import React from "react"
 import { GatsbySeo } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
-import { HeadQuery } from "@graphql-types"
+import type { HeadQuery } from "@graphql-types"
 import { getBlogPostLink } from "@funcs/links"
 
 const query = graphql`

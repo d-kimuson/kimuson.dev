@@ -3,11 +3,11 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-import Date from "../atoms/date"
-import { BlogPost } from "@declaration"
-import TagList from "./tag-list"
+import type { BlogPost } from "@declaration"
 import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
+import Date from "../atoms/date"
+import TagList from "./tag-list"
 // @ts-ignore
 import styles from "./blog-post-list-row.module.scss"
 

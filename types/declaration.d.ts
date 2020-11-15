@@ -1,4 +1,4 @@
-import { ImageSharpFixed, ImageSharpFluid } from "@graphql-types"
+import type { ImageSharpFixed, ImageSharpFluid } from "@graphql-types"
 
 export type FixedImage = Pick<
   ImageSharpFixed,

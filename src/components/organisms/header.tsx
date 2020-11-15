@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
-import { HeaderQuery } from "@graphql-types"
+import type { HeaderQuery } from "@graphql-types"
 import Navigation from "../molecules/navigation"
 // @ts-ignore
 import styles from "./header.module.scss"

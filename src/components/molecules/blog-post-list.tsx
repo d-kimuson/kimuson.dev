@@ -1,6 +1,6 @@
 import React from "react"
 
-import { BlogPost } from "@declaration"
+import type { BlogPost } from "@declaration"
 import BlogPostPreview from "./blog-post-preview"
 // @ts-ignore
 import styles from "./blog-post-list.module.scss"

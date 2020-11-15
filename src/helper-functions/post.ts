@@ -1,5 +1,5 @@
-import { BlogPost, WorkPost, FluidImage } from "@declaration"
-import { MdxEdge } from "@graphql-types"
+import type { BlogPost, WorkPost, FluidImage } from "@declaration"
+import type { MdxEdge } from "@graphql-types"
 import { toUndefinedOrT } from "@funcs/type"
 
 interface DraftablePost {

@@ -2,11 +2,11 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import Date from "../atoms/date"
-import TagList from "./tag-list"
+import type { BlogPost } from "@declaration"
 import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import { BlogPost } from "@declaration"
+import Date from "../atoms/date"
+import TagList from "./tag-list"
 // @ts-ignore
 import styles from "./blog-post-preview.module.scss"
 

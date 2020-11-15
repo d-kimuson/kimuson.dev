@@ -13,17 +13,17 @@ import {
   TwitterIcon,
 } from "react-share"
 
-import { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
-import { MdxAst } from "@declaration"
+import type { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
+import type { MdxAst } from "@declaration"
+import { toGatsbyImageFluidArg } from "@funcs/image"
+import { getBlogPostLink } from "@funcs/links"
+import { convertToBlogPostList, filterDraft } from "@funcs/post"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
 import BlogPostListRow from "@components/molecules/blog-post-list-row"
 import TagList from "@components/molecules/tag-list"
 import Date from "@components/atoms/date"
-import { toGatsbyImageFluidArg } from "@funcs/image"
-import { getBlogPostLink } from "@funcs/links"
-import { convertToBlogPostList, filterDraft } from "@funcs/post"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
 

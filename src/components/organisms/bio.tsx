@@ -4,7 +4,7 @@ import Image from "gatsby-image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 
-import { BioQuery } from "@graphql-types"
+import type { BioQuery } from "@graphql-types"
 // @ts-ignore
 import styles from "./bio.module.scss"
 import { toGatsbyImageFixedArg } from "@funcs/image"

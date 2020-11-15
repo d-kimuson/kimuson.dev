@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { CategorySummary } from "@declaration"
+import type { CategorySummary } from "@declaration"
 import { getCategoryLink } from "@funcs/links"
 // @ts-ignore
 import styles from "./category-list.module.scss"

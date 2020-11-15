@@ -3,10 +3,10 @@ import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
-import { PopularCategoriesQuery } from "@graphql-types"
-import { CategorySummary } from "@declaration"
-import CategoryList from "../molecules/category-list"
+import type { PopularCategoriesQuery } from "@graphql-types"
+import type { CategorySummary } from "@declaration"
 import { processDraftPostList } from "@funcs/post"
+import CategoryList from "../molecules/category-list"
 
 const query = graphql`
   query PopularCategories {

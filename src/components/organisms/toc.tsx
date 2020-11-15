@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
 
-import { MdxAst } from "@declaration"
+import type { MdxAst } from "@declaration"
 import { toValidSlug } from "@funcs/links"
 // @ts-ignore
 import styles from "./toc.module.scss"

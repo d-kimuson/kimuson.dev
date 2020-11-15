@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { WorkPageQuery, MdxEdge } from "@graphql-types"
+import type { WorkPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "@components/templates/sidebar"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"

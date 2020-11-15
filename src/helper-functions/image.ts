@@ -1,6 +1,6 @@
 import { FixedObject, FluidObject } from "gatsby-image"
-import { FixedImage, FluidImage } from "@declaration"
 
+import type { FixedImage, FluidImage } from "@declaration"
 import { toUndefinedOrT } from "@funcs/type"
 
 export function toGatsbyImageFixedArg(

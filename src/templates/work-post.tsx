@@ -3,14 +3,14 @@ import { graphql, PageProps } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "gatsby-image"
 
-import { WorkPostBySlugQuery } from "@graphql-types"
-import { MdxAst } from "@declaration"
+import type { WorkPostBySlugQuery } from "@graphql-types"
+import type { MdxAst } from "@declaration"
+import { getWorkPostLink } from "@funcs/links"
+import { toGatsbyImageFluidArg } from "@funcs/image"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
 import Date from "@components/atoms/date"
-import { getWorkPostLink } from "@funcs/links"
-import { toGatsbyImageFluidArg } from "@funcs/image"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
 
