@@ -28,7 +28,7 @@ draft: true
 
 データの集合を扱ういくつかの記法があります.
 
-## リスト
+### リスト
 
 - アイテム
 - アイテム
@@ -73,9 +73,30 @@ example_linkという文字でリンクが貼られて、遷移先が `http:///e
 $ touch hoge.txt
 ```
 
+`lang:title` のように書くことで、コードブロックに任意のタイトルをつけることができます
+
+``` js:hello.js
+console.log('hello world');
+```
+
 ``` js:title=hello.js
 console.log('hello world');
 ```
+
+[react-live](https://github.com/FormidableLabs/react-live) を使って、編集と実行を試すことができるコードブロックを使うことが出来ます
+
+``` js react-live
+const onClick = () => alert(`This is called from live code!`)
+render(<button onClick={onClick}>Click Me!</button>)
+```
+
+## React Component を埋め込む
+
+`mdx` ファイルでは、React Component の埋め込みをサポートします
+
+import TagList from "@components/molecules/tag-list.tsx"
+
+<TagList tags={[`Markdown`, `ブログ`]} isLink />
 
 ---
 
