@@ -14,6 +14,7 @@ import {
 } from "react-share"
 
 import { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
+import { MdxAst } from "@declaration"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
@@ -61,6 +62,8 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   const relatedArticle = convertToBlogPostList(
     data.allMdx.edges.filter((e): e is MdxEdge => typeof e !== `undefined`)
   ).filter(filterDraft)
+
+  const mdxAst: MdxAst = post?.mdxAST
 
   return (
     <>
@@ -127,11 +130,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             </main>
           </div>
 
-          <Sidebar
-            bio={true}
-            // toc={{ mdxAST: post?.mdxAST }}
-            commonSidebar={true}
-          />
+          <Sidebar bio={true} toc={{ mdxAst: mdxAst }} commonSidebar={true} />
         </div>
 
         <BlogPostListRow blogPosts={relatedArticle} />

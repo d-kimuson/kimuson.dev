@@ -3394,7 +3394,7 @@ export type SearchQuery = (
               { __typename?: 'ImageSharp' }
               & { fluid?: Maybe<(
                 { __typename?: 'ImageSharpFluid' }
-                & Pick<ImageSharpFluid, 'base64' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'tracedSVG'>
+                & Pick<ImageSharpFluid, 'aspectRatio' | 'base64' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'tracedSVG'>
               )> }
             )> }
           )> }

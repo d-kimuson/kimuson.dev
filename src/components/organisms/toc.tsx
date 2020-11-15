@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
-
-import { HtmlAst } from "@declaration"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
+
+import { MdxAst } from "@declaration"
+import { toValidSlug } from "@funcs/links"
 // @ts-ignore
 import styles from "./toc.module.scss"
 
@@ -19,22 +20,22 @@ interface Heading {
 }
 
 interface TocProps {
-  htmlAst: HtmlAst
+  mdxAst: MdxAst
 }
 
-const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
+const Toc: React.FC<TocProps> = ({ mdxAst }: TocProps) => {
   const [headings, setHeadings] = useState<Heading[]>(
-    htmlAst.children
-      .filter(node => node.type === `element`)
-      .filter(node => [`h2`, `h3`].includes(node.tagName || ``))
+    (mdxAst.children || [])
+      .filter(node => node.type === `heading`)
+      .filter(node => node.depth && [2, 3].includes(node.depth))
       .map(node => {
-        const id = node.properties?.id
+        const value = node.children?.find(item => item.type == `text`)?.value
 
         return {
-          tag: node.tagName,
-          id: id,
+          tag: node.depth ? `h${node.depth}` : node.depth,
+          id: value ? toValidSlug(value) : value,
           active: false,
-          value: node.children.find(item => item.type == `text`)?.value,
+          value: value,
         }
       })
       .filter(

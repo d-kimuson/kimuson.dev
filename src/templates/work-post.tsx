@@ -4,6 +4,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "gatsby-image"
 
 import { WorkPostBySlugQuery } from "@graphql-types"
+import { MdxAst } from "@declaration"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
@@ -37,6 +38,7 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   const title = post?.frontmatter?.title || ``
   const description = post?.frontmatter?.description || post?.excerpt || ``
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
+  const mdxAst: MdxAst = post?.mdxAST
 
   return (
     <>
@@ -73,11 +75,7 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
             </main>
           </div>
 
-          <Sidebar
-            bio={true}
-            // toc={{ mdxAST: post?.mdxAST }}
-            commonSidebar={true}
-          />
+          <Sidebar bio={true} toc={{ mdxAst: mdxAst }} commonSidebar={true} />
         </div>
       </Layout>
     </>

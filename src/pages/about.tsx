@@ -3,6 +3,7 @@ import { PageProps, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { AboutPageQuery } from "@graphql-types"
+import { MdxAst } from "@declaration"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
@@ -14,6 +15,7 @@ interface AboutPageProps extends PageProps {
 const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
   const title = data.mdx?.frontmatter?.title || `About`
   const description = data.mdx?.frontmatter?.description || ``
+  const mdxAst: MdxAst = data.mdx?.mdxAST
 
   return (
     <>
@@ -29,11 +31,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
               </section>
             </main>
           </div>
-          <Sidebar
-            bio={true}
-            commonSidebar={true}
-            // toc={{ htmlAst: data.mdx?.mdxAST }}
-          />
+          <Sidebar bio={true} commonSidebar={true} toc={{ mdxAst: mdxAst }} />
         </div>
       </Layout>
     </>
