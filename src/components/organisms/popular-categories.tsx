@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
 import type { PopularCategoriesQuery } from "@graphql-types"
-import type { CategorySummary } from "@declaration"
 import { processDraftPostList } from "@funcs/post"
 import CategoryList from "../molecules/category-list"
 

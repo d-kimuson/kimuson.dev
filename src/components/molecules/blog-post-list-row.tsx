@@ -3,7 +3,6 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-import type { BlogPost } from "@declaration"
 import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 import Date from "../atoms/date"

@@ -5,7 +5,6 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import Fuse from "fuse.js"
 
 import type { SearchQuery, MdxEdge } from "@graphql-types"
-import type { BlogPost } from "@declaration"
 import TagChecklist from "./tag-checklist"
 import { convertToBlogPostList } from "@funcs/post"
 import BlogPostList from "./blog-post-list"

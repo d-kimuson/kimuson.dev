@@ -1,16 +1,16 @@
 declare module "mdx-utils" {
-  export interface ChildrenPropsBase {
+  interface ChildrenPropsBase {
     mdxType: `code`
     children: string
   }
 
-  export interface PreProps<ChildrenProps extends ChildrenPropsBase> {
+  interface PreProps<ChildrenProps extends ChildrenPropsBase> {
     children: {
       props: ChildrenProps
     }
   }
 
-  export function preToCodeBlock<ChildrenProps extends ChildrenPropsBase>(
+  function preToCodeBlock<ChildrenProps extends ChildrenPropsBase>(
     preProps: PreProps<ChildrenProps>
   ): {
     codeString: string

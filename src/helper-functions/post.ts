@@ -1,4 +1,4 @@
-import type { BlogPost, WorkPost, FluidImage } from "@declaration"
+import type { FluidImage } from "@declaration"
 import type { MdxEdge } from "@graphql-types"
 import { toUndefinedOrT } from "@funcs/type"
 

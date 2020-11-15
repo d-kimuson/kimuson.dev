@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import type { WorkPost } from "@declaration"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 import Date from "../atoms/date"
 // @ts-ignore
