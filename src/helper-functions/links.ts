@@ -8,5 +8,6 @@ export const getCategoryLink = (category: string): string =>
 
 export const getTagLink = (tag: string): string => `/tags/${tag}/`.toLowerCase()
 
-export const toValidSlug = (baseString: string): string =>
-  baseString.replaceAll(` `, `_`).toLowerCase()
+export const toValidSlug = (baseString: string): string => {
+  return baseString.replace(new RegExp(` `, `g`), `_`).toLowerCase()
+}
