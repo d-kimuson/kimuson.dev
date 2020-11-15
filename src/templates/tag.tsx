@@ -58,7 +58,9 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          slug
+          fields {
+            slug
+          }
           frontmatter {
             category
             draft

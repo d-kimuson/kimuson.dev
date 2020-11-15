@@ -3669,8 +3669,10 @@ export type CategoryPageQuery = (
       { __typename?: 'MdxEdge' }
       & { node: (
         { __typename?: 'Mdx' }
-        & Pick<Mdx, 'slug'>
-        & { frontmatter: (
+        & { fields?: Maybe<(
+          { __typename?: 'MdxFields' }
+          & Pick<MdxFields, 'slug'>
+        )>, frontmatter: (
           { __typename?: 'MdxFrontmatter' }
           & Pick<MdxFrontmatter, 'category' | 'draft' | 'description' | 'date' | 'title' | 'tags'>
           & { thumbnail?: Maybe<(
@@ -3708,8 +3710,10 @@ export type TagPageQuery = (
       { __typename?: 'MdxEdge' }
       & { node: (
         { __typename?: 'Mdx' }
-        & Pick<Mdx, 'slug'>
-        & { frontmatter: (
+        & { fields?: Maybe<(
+          { __typename?: 'MdxFields' }
+          & Pick<MdxFields, 'slug'>
+        )>, frontmatter: (
           { __typename?: 'MdxFrontmatter' }
           & Pick<MdxFrontmatter, 'category' | 'draft' | 'description' | 'date' | 'title' | 'tags'>
           & { thumbnail?: Maybe<(
