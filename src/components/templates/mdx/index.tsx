@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { MDXProvider, MDXProviderComponents } from "@mdx-js/react"
-import Pre from "@components/mdx/pre"
+import Pre from "@components/templates/mdx/pre"
 
 const components: MDXProviderComponents = {
   pre: Pre,
