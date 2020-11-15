@@ -7,6 +7,7 @@
       "dom",
       "esnext"
     ],
+    "rootDir": "./",
     "baseUrl": "./",
     "paths": {
       "@declaration": [
@@ -35,6 +36,10 @@
     "strict": true,
     "resolveJsonModule": true,
   },
+  "files": [
+    "./@types/globals.d.ts",
+    "./@types/vendor.d.ts",
+  ],
   "exclude": [
     "node_modules"
   ],
