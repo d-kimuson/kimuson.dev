@@ -1,3 +1,5 @@
+import { replaceAll } from "./util"
+
 export const getBlogPostLink = (articleSlug: string): string =>
   `${articleSlug}`.toLowerCase()
 
@@ -9,5 +11,5 @@ export const getCategoryLink = (category: string): string =>
 export const getTagLink = (tag: string): string => `/tags/${tag}/`.toLowerCase()
 
 export const toValidSlug = (baseString: string): string => {
-  return baseString.replace(new RegExp(` `, `g`), `_`).toLowerCase()
+  return replaceAll(baseString, ` `, `_`).toLowerCase()
 }

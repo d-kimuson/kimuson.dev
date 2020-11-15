@@ -11,7 +11,7 @@
   "author": "Kaito Kimura <dev.kimuson@gmail.com>",
   "main": "n/a",
   "scripts": {
-    "article:new": "git rev-parse --show-toplevel && ./bin/create.sh",
+    "blog:new": "git rev-parse --show-toplevel && ./bin/create.sh",
     "build": "gatsby build",
     "clean": "gatsby clean",
     "codegen": "graphql-codegen --config codegen.yml",

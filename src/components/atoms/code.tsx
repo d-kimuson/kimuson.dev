@@ -3,9 +3,10 @@ import Highlight, { defaultProps, Language } from "prism-react-renderer"
 import dracula from "prism-react-renderer/themes/dracula"
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
 
+import { copy } from "@funcs/clipboard"
+import { replaceAll } from "@funcs/util"
 // @ts-ignore
 import styles from "./code.module.scss"
-import { copy } from "@funcs/clipboard"
 
 interface CodeProps {
   codeString: string
@@ -23,7 +24,12 @@ export const Code: React.FC<CodeProps> = ({
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = (event: MouseEvent): void => {
-    copy(codeString)
+    if (language === `bash`) {
+      // bash ブロックの `$ some command` では、`$ ` をコピー対象から外す
+      copy(replaceAll(codeString, `$ `, ``))
+    } else {
+      copy(codeString)
+    }
     setIsCopied(true)
     setTimeout(() => setIsCopied(false), 1000)
     event.preventDefault()
