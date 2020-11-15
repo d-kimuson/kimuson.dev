@@ -9,8 +9,14 @@ import type {
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"
 import { createFilePath } from "gatsby-source-filesystem"
 
-import { MarkdownRemarkEdge, GatsbyNodeQuery } from "@graphql-types"
+import {
+  getBlogPostLink,
+  getWorkPostLink,
+  getCategoryLink,
+  getTagLink,
+} from "@funcs/links"
 import { filterDraft } from "@funcs/article"
+import { AllMdxQuery, MdxEdge } from "@graphql-types"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
@@ -37,37 +43,32 @@ export const createPages: GatsbyNode["createPages"] = async ({
   const blogPost = path.resolve(`./src/templates/blog-post.tsx`)
   const workPost = path.resolve(`./src/templates/work-post.tsx`)
 
-  const result = await graphql<GatsbyNodeQuery>(
-    `
-      query GatsbyNode {
-        allMarkdownRemark(
-          sort: { fields: [frontmatter___date], order: DESC }
-          limit: 1000
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-                draft
-                category
-                tags
-              }
+  const result = await graphql<AllMdxQuery>(`
+    query AllMdx {
+      allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+              draft
+              category
+              tags
             }
           }
         }
       }
-    `
-  )
+    }
+  `)
 
   if (result.errors) {
     throw result.errors
   }
 
-  const edges = result?.data?.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  const edges = result?.data?.allMdx.edges.filter(
+    (e): e is MdxEdge => typeof e !== `undefined`
   )
   const postsNotDraft = (edges || []).filter(filterDraft)
 
@@ -76,21 +77,24 @@ export const createPages: GatsbyNode["createPages"] = async ({
     .filter(post => typeof post.node.frontmatter?.title === `string`)
     .filter(post => typeof post.node.frontmatter?.category === `string`)
 
-  const workPosts = postsNotDraft.filter(work =>
-    work.node.fields?.slug?.includes(`/work/`)
-  )
+  const workPosts = postsNotDraft
+    .filter(post => post.node.fields?.slug?.includes(`/work/`))
+    .filter(post => typeof post.node.frontmatter.title === `string`)
 
   // ブログ記事ページ
   blogPosts.forEach(post => {
-    if (!post.node.fields?.slug || !post.node.frontmatter?.category) {
+    const slug = post.node.fields?.slug
+
+    if (!slug || !post.node.frontmatter.category) {
+      console.log(`slug or category が存在しないのでスキップします`)
       return
     }
 
     createPage({
-      path: post.node.fields.slug.toLowerCase(),
+      path: getBlogPostLink(slug),
       component: blogPost,
       context: {
-        slug: post.node.fields.slug,
+        slug: slug,
         category: post.node.frontmatter.category,
       },
     })
@@ -98,7 +102,10 @@ export const createPages: GatsbyNode["createPages"] = async ({
 
   // Work記事ページ
   workPosts.forEach((post, index) => {
-    if (!post.node.fields?.slug) {
+    const slug = post.node.fields?.slug
+
+    if (!slug) {
+      console.log(`slug が存在しないのでスキップします`)
       return
     }
 
@@ -107,10 +114,10 @@ export const createPages: GatsbyNode["createPages"] = async ({
     const next = index === 0 ? null : workPosts[index - 1].node
 
     createPage({
-      path: post.node.fields.slug.toLowerCase(),
+      path: getWorkPostLink(slug),
       component: workPost,
       context: {
-        slug: post.node.fields.slug,
+        slug: slug,
         previous,
         next,
       },
@@ -126,7 +133,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
 
     createPage({
-      path: `/category/${category}/`.toLowerCase(),
+      path: getCategoryLink(category),
       component: path.resolve(`./src/templates/category.tsx`),
       context: {
         category: category,
@@ -143,7 +150,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
 
     createPage({
-      path: `/tags/${tag}/`.toLowerCase(),
+      path: getTagLink(tag),
       component: path.resolve(`./src/templates/tag.tsx`),
       context: {
         tag: tag,
@@ -159,7 +166,7 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({
 }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
     createNodeField({
       name: `slug`,
@@ -189,7 +196,6 @@ export const createSchemaCustomization: CreateSchemaCustomization = ({
     name: `fileByDataPath`,
     extend: () => ({
       resolve: function (
-        // 型
         src: { thumbnail?: string }, // @ts-ignore
         args, // @ts-ignore
         context, // @ts-ignore
@@ -202,9 +208,9 @@ export const createSchemaCustomization: CreateSchemaCustomization = ({
 
         let filePath
         if (
-          partialPath.includes(`/work/`) ||
-          partialPath.includes(`/blog/`) ||
-          partialPath.includes(`/about/`)
+          partialPath.includes(`work/`) ||
+          partialPath.includes(`blog/`) ||
+          partialPath.includes(`about/`)
         ) {
           // content からの相対パスを適用する
           filePath = path.join(__dirname, `content`, partialPath)
@@ -238,12 +244,11 @@ export const createSchemaCustomization: CreateSchemaCustomization = ({
   })
 
   const typeDefs = `
-    type Frontmatter @infer {
-      thumbnail: File @fileByDataPath
+    type Mdx implements Node {
+      frontmatter: MdxFrontmatter!
     }
-
-    type MarkdownRemark implements Node @infer {
-      frontmatter: Frontmatter
+    type MdxFrontmatter {
+      thumbnail: File @fileByDataPath
     }
   `
 

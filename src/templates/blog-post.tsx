@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "gatsby-image"
 import {
   FacebookShareButton,
@@ -12,16 +13,15 @@ import {
   TwitterIcon,
 } from "react-share"
 
-import { BlogPostBySlugQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import Sidebar from "../components/templates/sidebar"
 import ArticleListRow from "../components/molecules/article-list-row"
 import TagList from "../components/molecules/tag-list"
 import Date from "../components/atoms/date"
-import { renderAst } from "@funcs/markdown"
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import { getArticleLink } from "@funcs/links"
+import { getBlogPostLink } from "@funcs/links"
 import { edgeListToArticleList } from "@funcs/article"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
@@ -46,7 +46,8 @@ interface BlogPostTemplateProps extends PageProps {
 const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   data,
 }: BlogPostTemplateProps) => {
-  const post = data.markdownRemark
+  console.log(`data: `, data)
+  const post = data.mdx
   const title = post?.frontmatter?.title || ``
   const description = post?.frontmatter?.description || post?.excerpt || ``
   const tags = (post?.frontmatter?.tags || []).filter(
@@ -54,13 +55,11 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   )
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
-  const articleUrl = siteUrl + getArticleLink(post?.fields?.slug || ``)
+  const articleUrl = siteUrl + getBlogPostLink(post?.fields?.slug || ``)
   const articleSize = 40
 
   const relatedArticle = edgeListToArticleList(
-    data.allMarkdownRemark.edges.filter(
-      (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
-    )
+    data.allMdx.edges.filter((e): e is MdxEdge => typeof e !== `undefined`)
   )
 
   return (
@@ -78,7 +77,6 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                 {typeof thumbnail === `object` && thumbnail !== null ? (
                   <Image
                     fluid={toGatsbyImageFluidArg(thumbnail)}
-                    // backgroundColor="#000"
                     className={styles.thumbnail}
                   />
                 ) : (
@@ -92,7 +90,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
                   <Date date={post?.frontmatter?.date} />
 
                   <div className="m-article-body">
-                    {renderAst(post?.htmlAst)}
+                    <MDXRenderer>{post?.body || ``}</MDXRenderer>
                   </div>
                 </div>
 
@@ -131,7 +129,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
 
           <Sidebar
             bio={true}
-            toc={{ htmlAst: post?.htmlAst }}
+            // toc={{ mdxAST: post?.mdxAST }}
             commonSidebar={true}
           />
         </div>
@@ -146,11 +144,11 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!, $category: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
-      html
-      htmlAst
+      body
+      mdxAST
       fields {
         slug
       }
@@ -164,7 +162,14 @@ export const pageQuery = graphql`
         thumbnail {
           childImageSharp {
             fluid(maxWidth: 590) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              aspectRatio
+              base64
+              sizes
+              src
+              srcSet
+              srcWebp
+              srcSetWebp
+              tracedSVG
             }
           }
         }
@@ -175,7 +180,7 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    allMarkdownRemark(
+    allMdx(
       filter: {
         frontmatter: { category: { eq: $category } }
         fields: { slug: { ne: $slug } }
@@ -198,7 +203,14 @@ export const pageQuery = graphql`
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 200) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  tracedSVG
                 }
               }
             }

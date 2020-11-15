@@ -3,7 +3,7 @@ import { GatsbySeo } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
 import { HeadQuery } from "@graphql-types"
-import { getArticleLink } from "@funcs/links"
+import { getBlogPostLink } from "@funcs/links"
 
 const query = graphql`
   query Head {
@@ -27,7 +27,7 @@ interface HeadProps {
 }
 
 const Head: React.FC<HeadProps> = ({ title, description, slug }: HeadProps) => {
-  const { site }: HeadQuery = useStaticQuery(query)
+  const { site } = useStaticQuery<HeadQuery>(query)
   const siteTitle = site?.siteMetadata?.title || ``
   const siteDescription = site?.siteMetadata?.description || ``
   const siteUrl = site?.siteMetadata?.siteUrl || ``
@@ -42,7 +42,7 @@ const Head: React.FC<HeadProps> = ({ title, description, slug }: HeadProps) => {
 
   const pageUrl =
     typeof siteUrl === `string`
-      ? `https://${siteDomain}${getArticleLink(slug || ``)}`
+      ? `https://${siteDomain}${getBlogPostLink(slug || ``)}`
       : undefined
 
   console.log(pageTitle, pageDescription, pageUrl)

@@ -70,7 +70,7 @@ const Toc: React.FC<TocProps> = ({ htmlAst }: TocProps) => {
 
   // 画面位置の変更
   useEffect(() => {
-    if (typeof headings[0].elm === `undefined`) return
+    if (typeof headings[0]?.elm === `undefined`) return
 
     const activeHeading = headings
       .map(setHeadingTop)

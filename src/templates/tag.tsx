@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { TagPageQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { TagPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
@@ -15,8 +15,8 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
   data,
   pageContext,
 }: TagPageProps) => {
-  const edges = data.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  const edges = data.allMdx.edges.filter(
+    (e): e is MdxEdge => typeof e !== `undefined`
   )
   const posts = edgeListToArticleList(edges)
   const tag = pageContext.tag || `No Tag`
@@ -52,15 +52,13 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query TagPage($tag: String!) {
-    allMarkdownRemark(
+    allMdx(
       filter: { frontmatter: { tags: { in: [$tag] } } }
       sort: { fields: [frontmatter___date], order: DESC }
     ) {
       edges {
         node {
-          fields {
-            slug
-          }
+          slug
           frontmatter {
             category
             draft
@@ -71,7 +69,14 @@ export const pageQuery = graphql`
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 200) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  tracedSVG
                 }
               }
             }

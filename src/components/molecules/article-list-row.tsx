@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import Date from "../atoms/date"
 import { Article } from "@declaration"
 import TagList from "./tag-list"
-import { getArticleLink } from "@funcs/links"
+import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 // @ts-ignore
 import styles from "./article-list-row.module.scss"
@@ -23,7 +23,7 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
 }: ArticlePreviewProps) => {
   return (
     <Link
-      to={getArticleLink(article.slug)}
+      to={getBlogPostLink(article.slug)}
       className={`m-card l-main-width m-remove-a-decoration ${styles.articleLink}`}
     >
       <div className={styles.imageWrapper}>

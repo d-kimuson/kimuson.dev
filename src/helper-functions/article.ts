@@ -1,18 +1,16 @@
 import { Article, Work, FluidImage } from "@declaration"
-import { MarkdownRemarkEdge } from "@graphql-types"
+import { MdxEdge } from "@graphql-types"
 import { toArg } from "@funcs/type"
 
-export const filterDraft = (e: MarkdownRemarkEdge): boolean =>
+export const filterDraft = (e: MdxEdge): boolean =>
   process.env.NODE_ENV === `development` ||
   (typeof e.node.frontmatter?.draft === `boolean` && !e.node.frontmatter.draft)
 
-function mdEdgeToFluidImage(e: MarkdownRemarkEdge): FluidImage | undefined {
+function mdEdgeToFluidImage(e: MdxEdge): FluidImage | undefined {
   return toArg(e.node.frontmatter?.thumbnail?.childImageSharp?.fluid)
 }
 
-export const edgeListToArticleList = (
-  edges: MarkdownRemarkEdge[]
-): Article[] => {
+export const edgeListToArticleList = (edges: MdxEdge[]): Article[] => {
   return edges
     .filter(filterDraft)
     .map(e => ({
@@ -34,7 +32,7 @@ export const edgeListToArticleList = (
     )
 }
 
-export const edgeListToWorkList = (edges: MarkdownRemarkEdge[]): Work[] => {
+export const edgeListToWorkList = (edges: MdxEdge[]): Work[] => {
   return edges
     .filter(filterDraft)
     .map(e => ({

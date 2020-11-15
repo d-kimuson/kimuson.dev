@@ -1,9 +1,14 @@
 overwrite: true
 schema: "http://localhost:8000/__graphql"
 documents:
-  - "./node_modules/gatsby-*/**/*.js"
-  - "./src/**/*.{ts,tsx}"
-  - "./gatsby-node.ts"
+  # - "./node_modules/gatsby-*/**/*.js"  # 型生成が必要なライブラリだけ追加する
+  - "./node_modules/gatsby-image/**/*.js"
+  - "./node_modules/gatsby-source-sharp/**/*.js"
+  - "./node_modules/gatsby-plugin-*/**/*.js"
+  - "./node_modules/gatsby-remark-*/**/*.js"
+  - "./node_modules/gatsby-transformer-*/**/*.js"
+  - "./src/**/*.{ts,tsx,js,jsx}"
+  - "./*.{ts,tsx,js,jsx}"
 generates:
   types/graphql-types.d.ts:
     plugins:

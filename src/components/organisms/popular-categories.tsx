@@ -3,14 +3,14 @@ import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
-import { PopularCategoriesQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { PopularCategoriesQuery, MdxEdge } from "@graphql-types"
 import { CategoryListNode } from "@declaration"
 import CategoryList from "../molecules/category-list"
 import { filterDraft } from "@funcs/article"
 
 const query = graphql`
   query PopularCategories {
-    allMarkdownRemark {
+    allMdx {
       edges {
         node {
           frontmatter {
@@ -25,8 +25,8 @@ const query = graphql`
 
 const PopularCategories: React.FC = () => {
   const data: PopularCategoriesQuery = useStaticQuery(query)
-  const edges = data.allMarkdownRemark.edges
-    .filter((e): e is MarkdownRemarkEdge => typeof e !== `undefined`)
+  const edges = data.allMdx.edges
+    .filter((e): e is MdxEdge => typeof e !== `undefined`)
     .filter(filterDraft)
 
   const categories: CategoryListNode[] = []

@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, graphql, PageProps } from "gatsby"
 
-import { IndexQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { IndexQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
@@ -15,15 +15,10 @@ interface IndexProps extends PageProps {
 }
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
-  const edges = data.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  const edges = data.allMdx.edges.filter(
+    (e): e is MdxEdge => typeof e !== `undefined`
   )
   const posts = edgeListToArticleList(edges)
-
-  console.log(
-    `nodes: `,
-    edges.filter(e => typeof e.node.excerpt !== `string`)
-  )
 
   return (
     <>
@@ -53,7 +48,7 @@ export default Index
 
 export const pageQuery = graphql`
   query Index {
-    allMarkdownRemark(
+    allMdx(
       filter: { fields: { slug: { regex: "//blog/" } } }
       sort: { fields: [frontmatter___date], order: DESC }
       limit: 5
@@ -74,7 +69,14 @@ export const pageQuery = graphql`
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 90) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  tracedSVG
                 }
               }
             }

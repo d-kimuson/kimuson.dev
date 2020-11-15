@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { WorkPageQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { WorkPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
@@ -13,8 +13,8 @@ interface WorkPageProps extends PageProps {
 }
 
 const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
-  const edges = data.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  const edges = data.allMdx.edges.filter(
+    (e): e is MdxEdge => typeof e !== `undefined`
   )
   const works = edgeListToWorkList(edges)
 
@@ -43,7 +43,7 @@ export default WorkPage
 
 export const pageQuery = graphql`
   query WorkPage {
-    allMarkdownRemark(
+    allMdx(
       filter: { fields: { slug: { regex: "//work/" } } }
       sort: { fields: [frontmatter___date], order: DESC }
     ) {
@@ -61,7 +61,14 @@ export const pageQuery = graphql`
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 200) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  tracedSVG
                 }
               }
             }

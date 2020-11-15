@@ -4,7 +4,7 @@ import Image from "gatsby-image"
 
 import Date from "../atoms/date"
 import TagList from "./tag-list"
-import { getArticleLink } from "@funcs/links"
+import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 import { Article } from "@declaration"
 // @ts-ignore
@@ -21,7 +21,7 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
 }: ArticlePreviewProps) => {
   return (
     <Link
-      to={getArticleLink(article.slug)}
+      to={getBlogPostLink(article.slug)}
       className={`${styles.article} m-card l-main-width m-remove-a-decoration`}
     >
       {typeof article.thumbnail === `object` ? (

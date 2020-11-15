@@ -14,7 +14,14 @@ const query = graphql`
     avatar: file(absolutePath: { regex: "/icon.png/" }) {
       childImageSharp {
         fixed(width: 250, height: 250) {
-          ...GatsbyImageSharpFixed
+          base64
+          height
+          src
+          srcSet
+          srcSetWebp
+          srcWebp
+          tracedSVG
+          width
         }
       }
     }

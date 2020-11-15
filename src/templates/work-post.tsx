@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "gatsby-image"
 
 import { WorkPostBySlugQuery } from "@graphql-types"
@@ -7,6 +8,7 @@ import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
 import Sidebar from "../components/templates/sidebar"
 import Date from "../components/atoms/date"
+import { getWorkPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
@@ -31,18 +33,17 @@ interface WorkPostTemplateProps extends PageProps {
 const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   data,
 }: WorkPostTemplateProps) => {
-  const post = data.markdownRemark
+  const post = data.mdx
   const title = post?.frontmatter?.title || ``
   const description = post?.frontmatter?.description || post?.excerpt || ``
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
-  const html = post?.html || ``
 
   return (
     <>
       <Head
         title={title}
         description={description}
-        slug={post?.fields?.slug || ``}
+        slug={getWorkPostLink(post?.fields?.slug || ``)}
       />
       <Layout>
         <div className="l-page-container">
@@ -64,10 +65,9 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
                   </h1>
                   <Date date={post?.frontmatter?.date} />
 
-                  <div
-                    className="m-article-body"
-                    dangerouslySetInnerHTML={{ __html: html }}
-                  />
+                  <div className="m-article-body">
+                    <MDXRenderer>{post?.body || ``}</MDXRenderer>
+                  </div>
                 </div>
               </article>
             </main>
@@ -75,7 +75,7 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
 
           <Sidebar
             bio={true}
-            toc={{ htmlAst: post?.htmlAst }}
+            // toc={{ mdxAST: post?.mdxAST }}
             commonSidebar={true}
           />
         </div>
@@ -88,11 +88,11 @@ export default WorkPostTemplate
 
 export const pageQuery = graphql`
   query WorkPostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)
-      html
-      htmlAst
+      body
+      mdxAST
       fields {
         slug
       }
@@ -104,7 +104,14 @@ export const pageQuery = graphql`
         thumbnail {
           childImageSharp {
             fluid(maxWidth: 590) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              aspectRatio
+              base64
+              sizes
+              src
+              srcSet
+              srcWebp
+              srcSetWebp
+              tracedSVG
             }
           }
         }

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import Fuse from "fuse.js"
 
-import { SearchQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { SearchQuery, MdxEdge } from "@graphql-types"
 import { Article } from "@declaration"
 import TagChecklist from "./tag-checklist"
 import { edgeListToArticleList } from "@funcs/article"
@@ -14,7 +14,7 @@ import styles from "./search.module.scss"
 
 const query = graphql`
   query Search {
-    allMarkdownRemark(
+    allMdx(
       filter: { fields: { slug: { regex: "//blog/" } } }
       sort: { fields: [frontmatter___date], order: DESC }
     ) {
@@ -34,7 +34,14 @@ const query = graphql`
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 90) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  tracedSVG
                 }
               }
             }
@@ -50,9 +57,9 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
-  const data: SearchQuery = useStaticQuery(query)
-  const edges = data.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  const data = useStaticQuery<SearchQuery>(query)
+  const edges = data.allMdx.edges.filter(
+    (e): e is MdxEdge => typeof e !== `undefined`
   )
   const articles: Article[] = edgeListToArticleList(edges).sort((a, b) => {
     return a.draft && !b.draft ? 1 : !a.draft && b.draft ? -1 : 0

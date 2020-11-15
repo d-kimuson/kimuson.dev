@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import { CategoryPageQuery, MarkdownRemarkEdge } from "@graphql-types"
+import { CategoryPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "../components/templates/sidebar"
 import Layout from "../components/templates/layout"
 import Head from "../components/templates/head"
@@ -15,8 +15,8 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
   data,
   pageContext,
 }: CategoryPageProps) => {
-  const edges = data.allMarkdownRemark.edges.filter(
-    (e): e is MarkdownRemarkEdge => typeof e !== `undefined`
+  const edges = data.allMdx.edges.filter(
+    (e): e is MdxEdge => typeof e !== `undefined`
   )
   const posts = edgeListToArticleList(edges)
   const category = pageContext.category || `No Category`
@@ -51,15 +51,13 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query CategoryPage($category: String!) {
-    allMarkdownRemark(
+    allMdx(
       filter: { frontmatter: { category: { eq: $category } } }
       sort: { fields: [frontmatter___date], order: DESC }
     ) {
       edges {
         node {
-          fields {
-            slug
-          }
+          slug
           frontmatter {
             category
             draft
@@ -70,7 +68,14 @@ export const pageQuery = graphql`
             thumbnail {
               childImageSharp {
                 fluid(maxHeight: 200) {
-                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
+                  aspectRatio
+                  base64
+                  sizes
+                  src
+                  srcSet
+                  srcWebp
+                  srcSetWebp
+                  tracedSVG
                 }
               }
             }

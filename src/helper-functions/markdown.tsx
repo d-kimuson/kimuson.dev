@@ -1,3 +1,4 @@
+// マークダウン展開を mdx に置き換えたので、もう使わない
 import React, {
   createElement,
   DetailedReactHTMLElement,
@@ -11,15 +12,6 @@ const RehypeH2: React.FC<React.HTMLAttributes<{}>> = ({
   id,
   children,
 }: React.HTMLAttributes<{}>) => {
-  // const [distance, setDistance] = useState<number>(-1)
-
-  // useEffect(() => {
-  //   if (typeof id === `string`) {
-  //     document.addEventListener(`scroll`, event => {
-  //       const top = document.getElementById(id)?.getBoundingClientRect().top
-  //     })
-  //   }
-  // }, [])
   return <h2 id={id}>{children}</h2>
 }
 

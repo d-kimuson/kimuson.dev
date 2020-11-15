@@ -1,5 +1,6 @@
 import React from "react"
 import { PageProps, graphql } from "gatsby"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { AboutPageQuery } from "@graphql-types"
 import Layout from "../components/templates/layout"
@@ -11,8 +12,8 @@ interface AboutPageProps extends PageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
-  const title = data.markdownRemark?.frontmatter?.title || `About`
-  const description = data.markdownRemark?.frontmatter?.description || ``
+  const title = data.mdx?.frontmatter?.title || `About`
+  const description = data.mdx?.frontmatter?.description || ``
 
   return (
     <>
@@ -22,20 +23,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
           <div className="l-main-wrapper">
             <main role="main">
               <section>
-                {/* <h1 className="m-page-title">{title}</h1> */}
-                <div
-                  className="m-article-body"
-                  dangerouslySetInnerHTML={{
-                    __html: data.markdownRemark?.html || ``,
-                  }}
-                ></div>
+                <div className="m-article-body">
+                  <MDXRenderer>{data.mdx?.body || ``}</MDXRenderer>
+                </div>
               </section>
             </main>
           </div>
           <Sidebar
             bio={true}
             commonSidebar={true}
-            toc={{ htmlAst: data.markdownRemark?.htmlAst }}
+            // toc={{ htmlAst: data.mdx?.mdxAST }}
           />
         </div>
       </Layout>
@@ -47,13 +44,13 @@ export default AboutPage
 
 export const pageQuery = graphql`
   query AboutPage {
-    markdownRemark(fields: { slug: { regex: "//about/" } }) {
+    mdx(fields: { slug: { regex: "//about/" } }) {
       frontmatter {
         title
         description
       }
-      html
-      htmlAst
+      body
+      mdxAST
     }
   }
 `
