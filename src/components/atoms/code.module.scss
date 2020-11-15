@@ -1,0 +1,38 @@
+@use "sass:color";
+@use "@styles/global/" as g;
+
+$-code-title-height: 25px;
+
+.preCodeBlock {
+  position: relative;
+  &:not(:root) {
+    padding-top: $-code-title-height + 8px;
+  }
+}
+
+.codeBlockTitle {
+  // outer layout
+  position: absolute;
+  top: 0;
+  left: 10px;
+  // inner layout
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 15px;
+  // style
+  height: $-code-title-height;
+  border-radius: 0 0 5px 5px;
+  background: g.$theme-color;
+  color: g.$theme-text-color;
+  font-size: 0.8rem;
+}
+
+.copyButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 5px;
+  height: $-code-title-height;
+  font-size: 0.9rem;
+}

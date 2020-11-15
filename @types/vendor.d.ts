@@ -1,6 +1,4 @@
 declare module "mdx-utils" {
-  import type { Language } from "prism-react-renderer"
-
   export interface ChildrenPropsBase {
     mdxType: `code`
     children: string
@@ -17,6 +15,6 @@ declare module "mdx-utils" {
   ): {
     codeString: string
     className: string
-    language: Language
+    language: string
   } & Omit<ChildrenProps, "className" | "children">
 }
