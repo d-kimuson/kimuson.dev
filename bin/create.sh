@@ -7,7 +7,7 @@ printf "既存のカテゴリは以下です\n\n"
 ls -r content/blog/
 printf "\nカテゴリ名 >> "; read DIRNAME
 
-FILEPATH="content/blog/$DIRNAME/$ARTICLE_NAME/index.md"
+FILEPATH="content/blog/$DIRNAME/$ARTICLE_NAME/index.mdx"
 
 if [ ! -d content/blog/$DIRNAME ]; then
   mkdir content/blog/$DIRNAME
