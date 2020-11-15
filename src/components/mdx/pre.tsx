@@ -23,6 +23,10 @@ const separateTitle = (
   }
 }
 
+const parseTitle = (title: string): string =>
+  // コードタイトルの title=タイトル 記法のサポート
+  title.includes(`=`) ? title.split(`=`)[1] : title
+
 type ChildrenProps = ChildrenPropsBase & {
   className: string
 }
@@ -36,7 +40,7 @@ const PreComponent: React.FC<PreProps<ChildrenProps>> = (
     const propsUpdated = {
       ...props,
       language: language,
-      title: title,
+      title: title ? parseTitle(title) : title,
     }
     return <Code {...propsUpdated} />
   } else {

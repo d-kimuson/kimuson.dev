@@ -57,9 +57,11 @@ export const Code: React.FC<CodeProps> = ({
               className={`${className} ${styles.preCodeBlock}`}
               style={style}
             >
-              <div className={styles.codeBlockTitle}>
-                {title ? title : language}
-              </div>
+              {title || language !== `markup` ? (
+                <div className={styles.codeBlockTitle}>
+                  {title ? title : language}
+                </div>
+              ) : null}
               <button onClick={handleCopy} className={styles.copyButton}>
                 {isCopied ? `🎉 Copied!` : `Copy`}
               </button>
