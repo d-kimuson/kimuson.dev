@@ -5,8 +5,8 @@ import { TagPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "@components/templates/sidebar"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
-import ArticleList from "@components/molecules/article-list"
-import { edgeListToArticleList } from "@funcs/article"
+import BlogPostList from "@components/molecules/blog-post-list"
+import { convertToBlogPostList } from "@funcs/post"
 import { getTagLink } from "@funcs/links"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
@@ -18,7 +18,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const posts = edgeListToArticleList(edges)
+  const blogPosts = convertToBlogPostList(edges)
   const tag = pageContext.tag || `No Tag`
 
   const siteTitle = data.site?.siteMetadata?.title || ``
@@ -36,7 +36,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
             <main role="main">
               <section>
                 <h1 className="m-page-title">タグ: {tag}</h1>
-                <ArticleList articles={posts} />
+                <BlogPostList blogPosts={blogPosts} />
               </section>
             </main>
           </div>

@@ -1,7 +1,7 @@
 import { FixedObject, FluidObject } from "gatsby-image"
 import { FixedImage, FluidImage } from "@declaration"
 
-import { toArg } from "@funcs/type"
+import { toUndefinedOrT } from "@funcs/type"
 
 export function toGatsbyImageFixedArg(
   image: FixedImage,
@@ -13,10 +13,10 @@ export function toGatsbyImageFixedArg(
     src: image.src,
     srcSet: image.srcSet,
     // T | null | undefined
-    base64: toArg(image.base64),
-    tracedSVG: toArg(image.tracedSVG),
-    srcWebp: toArg(image.srcWebp),
-    srcSetWebp: toArg(image.srcSetWebp),
+    base64: toUndefinedOrT(image.base64),
+    tracedSVG: toUndefinedOrT(image.tracedSVG),
+    srcWebp: toUndefinedOrT(image.srcWebp),
+    srcSetWebp: toUndefinedOrT(image.srcSetWebp),
     media: media,
   }
 }
@@ -31,10 +31,10 @@ export function toGatsbyImageFluidArg(
     srcSet: image.srcSet,
     sizes: image.sizes,
     // T | null | undefined
-    base64: toArg(image.base64),
-    tracedSVG: toArg(image.tracedSVG),
-    srcWebp: toArg(image.srcWebp),
-    srcSetWebp: toArg(image.srcSetWebp),
+    base64: toUndefinedOrT(image.base64),
+    tracedSVG: toUndefinedOrT(image.tracedSVG),
+    srcWebp: toUndefinedOrT(image.srcWebp),
+    srcSetWebp: toUndefinedOrT(image.srcSetWebp),
     media: media,
   }
 }

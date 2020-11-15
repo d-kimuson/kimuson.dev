@@ -15,7 +15,6 @@ import {
   getCategoryLink,
   getTagLink,
 } from "@funcs/links"
-import { filterDraft } from "@funcs/article"
 import { AllMdxQuery, MdxEdge } from "@graphql-types"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
@@ -67,10 +66,14 @@ export const createPages: GatsbyNode["createPages"] = async ({
     throw result.errors
   }
 
-  const edges = result?.data?.allMdx.edges.filter(
-    (e): e is MdxEdge => typeof e !== `undefined`
+  const edges =
+    result?.data?.allMdx.edges.filter(
+      (e): e is MdxEdge => typeof e !== `undefined`
+    ) || []
+  const postsNotDraft = (edges || []).filter(
+    edge =>
+      process.env.NODE_ENV === `development` || !edge.node.frontmatter.draft
   )
-  const postsNotDraft = (edges || []).filter(filterDraft)
 
   const blogPosts = postsNotDraft
     .filter(post => post.node.fields?.slug?.includes(`/blog/`))

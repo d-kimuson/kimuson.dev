@@ -6,28 +6,28 @@ import Date from "../atoms/date"
 import TagList from "./tag-list"
 import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import { Article } from "@declaration"
+import { BlogPost } from "@declaration"
 // @ts-ignore
-import styles from "./article-preview.module.scss"
+import styles from "./blog-post-preview.module.scss"
 
-interface ArticlePreviewProps {
-  article: Article
+interface BlogPostPreviewProps {
+  blogPost: BlogPost
 }
 
 const imgStyle = { height: `90px`, width: `120px` }
 
-const ArticlePreview: React.FC<ArticlePreviewProps> = ({
-  article,
-}: ArticlePreviewProps) => {
+const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
+  blogPost,
+}: BlogPostPreviewProps) => {
   return (
     <Link
-      to={getBlogPostLink(article.slug)}
-      className={`${styles.article} m-card l-main-width m-remove-a-decoration`}
+      to={getBlogPostLink(blogPost.slug)}
+      className={`${styles.blogPost} m-card l-main-width m-remove-a-decoration`}
     >
-      {typeof article.thumbnail === `object` ? (
+      {typeof blogPost.thumbnail === `object` ? (
         <div className={styles.imageWrapper}>
           <Image
-            fluid={toGatsbyImageFluidArg(article.thumbnail)}
+            fluid={toGatsbyImageFluidArg(blogPost.thumbnail)}
             className={styles.image}
             imgStyle={imgStyle}
           />
@@ -37,18 +37,18 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({
       )}
       <div className={styles.infoContainer}>
         <h2 className={styles.title}>
-          {article.draft ? (
+          {blogPost.draft ? (
             <span className={styles.draft}>[非公開] </span>
           ) : null}
-          {article.title}
+          {blogPost.title}
         </h2>
         <div className={styles.date}>
-          <Date date={article.date} />
+          <Date date={blogPost.date} />
         </div>
-        <TagList tags={article.tags} />
+        <TagList tags={blogPost.tags} />
       </div>
     </Link>
   )
 }
 
-export default ArticlePreview
+export default BlogPostPreview

@@ -2,27 +2,27 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import { Work } from "@declaration"
+import { WorkPost } from "@declaration"
 import Date from "../atoms/date"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 // @ts-ignore
-import styles from "./work-list.module.scss"
+import styles from "./work-post-list.module.scss"
 
 interface WorkPreviewProps {
-  work: Work
+  workPost: WorkPost
 }
 
 const imgStyle = { height: `200px`, width: `300px` }
 
 const WorkPreview: React.FC<WorkPreviewProps> = ({
-  work,
+  workPost,
 }: WorkPreviewProps) => {
   return (
-    <Link to={work.slug} className={`m-remove-a-decoration`}>
+    <Link to={workPost.slug} className={`m-remove-a-decoration`}>
       <div className={`m-card ${styles.workPreview}`}>
-        {typeof work.thumbnail === `object` ? (
+        {typeof workPost.thumbnail === `object` ? (
           <Image
-            fluid={toGatsbyImageFluidArg(work.thumbnail)}
+            fluid={toGatsbyImageFluidArg(workPost.thumbnail)}
             imgStyle={imgStyle}
             className={styles.image}
           />
@@ -31,11 +31,11 @@ const WorkPreview: React.FC<WorkPreviewProps> = ({
         )}
         <div className={styles.infoContainer}>
           <div>
-            <Date date={work.date} />
+            <Date date={workPost.date} />
           </div>
           <h2 className={styles.title}>
-            {work.draft ? <span>[非公開]</span> : null}
-            {work.title}
+            {workPost.draft ? <span>[非公開]</span> : null}
+            {workPost.title}
           </h2>
         </div>
       </div>
@@ -44,17 +44,20 @@ const WorkPreview: React.FC<WorkPreviewProps> = ({
 }
 
 interface WorkListProps {
-  works: Work[]
+  workPosts: WorkPost[]
 }
 
-const WorkList: React.FC<WorkListProps> = ({ works }: WorkListProps) => {
+const WorkList: React.FC<WorkListProps> = ({ workPosts }: WorkListProps) => {
   return (
     <section className="l-main-width">
-      {works.length > 0 ? (
+      {workPosts.length > 0 ? (
         <ul className={styles.workList}>
-          {works.map(work => (
-            <li key={work.slug} className="animate__animated animate__fadeIn">
-              <WorkPreview work={work} />
+          {workPosts.map(workPost => (
+            <li
+              key={workPost.slug}
+              className="animate__animated animate__fadeIn"
+            >
+              <WorkPreview workPost={workPost} />
             </li>
           ))}
         </ul>

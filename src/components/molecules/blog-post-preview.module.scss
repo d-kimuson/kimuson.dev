@@ -5,7 +5,7 @@
 $-image-height: 90px;
 $-image-width: 120px;
 
-.article {
+.blogPost {
   display: grid;
   grid-template: "image description" 1fr;
   grid-template-columns: 20% 80%;

@@ -35,27 +35,23 @@ export interface HtmlAst {
   children: HtmlAst[]
 }
 
-export interface Article {
+export interface Post {
   slug: string
   title: string
   description: string
   date: string
   thumbnail: FluidImage | undefined
   draft: boolean
+}
+
+export interface BlogPost extends Post {
   category: string
   tags: string[]
 }
 
-export interface Work {
-  slug: string
-  title: string
-  description: string
-  date: string
-  thumbnail: FluidImage | undefined
-  draft: boolean
-}
+export type WorkPost = Post
 
-export interface CategoryListNode {
+export interface CategorySummary {
   name: string
   count: number
 }

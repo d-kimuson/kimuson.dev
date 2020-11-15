@@ -5,10 +5,10 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import Fuse from "fuse.js"
 
 import { SearchQuery, MdxEdge } from "@graphql-types"
-import { Article } from "@declaration"
+import { BlogPost } from "@declaration"
 import TagChecklist from "./tag-checklist"
-import { edgeListToArticleList } from "@funcs/article"
-import ArticleList from "./article-list"
+import { convertToBlogPostList } from "@funcs/post"
+import BlogPostList from "./blog-post-list"
 // @ts-ignore
 import styles from "./search.module.scss"
 
@@ -61,17 +61,15 @@ const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const articles: Article[] = edgeListToArticleList(edges).sort((a, b) => {
-    return a.draft && !b.draft ? 1 : !a.draft && b.draft ? -1 : 0
-  })
-  const tags = Array.from(new Set(articles.flatMap(article => article.tags)))
+  const blogPosts: BlogPost[] = convertToBlogPostList(edges)
+  const tags = Array.from(new Set(blogPosts.flatMap(article => article.tags)))
 
-  const fuse = new Fuse(articles, {
+  const fuse = new Fuse(blogPosts, {
     keys: [`title`],
   })
 
   const [keyword, setKeyword] = useState<string>(``)
-  const [results, setResults] = useState<Article[]>(articles)
+  const [results, setResults] = useState<BlogPost[]>(blogPosts)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   const tagsUpdated = (tags: string[]): void => {
@@ -79,15 +77,15 @@ const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   }
 
   useEffect(() => {
-    let updatedArticles
+    let updatedBlogPosts
     if (keyword === ``) {
-      updatedArticles = articles
+      updatedBlogPosts = blogPosts
     } else {
-      updatedArticles = fuse.search(keyword).map(_ => _.item)
+      updatedBlogPosts = fuse.search(keyword).map(_ => _.item)
     }
 
     if (selectedTags.length !== 0) {
-      updatedArticles = updatedArticles.filter(article =>
+      updatedBlogPosts = updatedBlogPosts.filter(article =>
         selectedTags.reduce(
           (s: boolean, tag: string) => s || article.tags.includes(tag),
           false
@@ -95,7 +93,7 @@ const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
       )
     }
 
-    setResults(updatedArticles)
+    setResults(updatedBlogPosts)
   }, [keyword, selectedTags])
 
   return (
@@ -124,7 +122,7 @@ const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
         <TagChecklist tags={tags} onUpdate={tagsUpdated} />
       </details>
 
-      <ArticleList articles={results} />
+      <BlogPostList blogPosts={results} />
     </section>
   )
 }

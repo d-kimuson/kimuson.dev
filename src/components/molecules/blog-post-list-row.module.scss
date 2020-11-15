@@ -1,8 +1,8 @@
-.articleListTitle {
+.blogPostListTitle {
   padding-left: 30px;
 }
 
-.articleList {
+.blogPostList {
   list-style: none;
   overflow-x: scroll;
   white-space: nowrap;
@@ -16,7 +16,7 @@ $-image-width: 300px;
   width: $-image-width;
 }
 
-.articleLink {
+.blogPostLink {
   display: grid;
   grid-template:
     "image" $-image-height

@@ -17,12 +17,12 @@ import { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
-import ArticleListRow from "@components/molecules/article-list-row"
+import BlogPostListRow from "@components/molecules/blog-post-list-row"
 import TagList from "@components/molecules/tag-list"
 import Date from "@components/atoms/date"
 import { toGatsbyImageFluidArg } from "@funcs/image"
 import { getBlogPostLink } from "@funcs/links"
-import { edgeListToArticleList } from "@funcs/article"
+import { convertToBlogPostList, filterDraft } from "@funcs/post"
 // @ts-ignore
 import styles from "./blog-post.module.scss"
 
@@ -58,9 +58,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   const articleUrl = siteUrl + getBlogPostLink(post?.fields?.slug || ``)
   const articleSize = 40
 
-  const relatedArticle = edgeListToArticleList(
+  const relatedArticle = convertToBlogPostList(
     data.allMdx.edges.filter((e): e is MdxEdge => typeof e !== `undefined`)
-  )
+  ).filter(filterDraft)
 
   return (
     <>
@@ -134,7 +134,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
           />
         </div>
 
-        <ArticleListRow articles={relatedArticle} />
+        <BlogPostListRow blogPosts={relatedArticle} />
       </Layout>
     </>
   )

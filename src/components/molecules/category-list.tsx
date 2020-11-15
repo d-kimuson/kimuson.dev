@@ -1,13 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { CategoryListNode } from "@declaration"
+import { CategorySummary } from "@declaration"
 import { getCategoryLink } from "@funcs/links"
 // @ts-ignore
 import styles from "./category-list.module.scss"
 
 interface CategoryListProps {
-  categoryList: CategoryListNode[]
+  categoryList: CategorySummary[]
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({

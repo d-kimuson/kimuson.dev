@@ -5,8 +5,8 @@ import { IndexQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "@components/templates/sidebar"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
-import ArticleList from "@components/molecules/article-list"
-import { edgeListToArticleList } from "@funcs/article"
+import BlogPostList from "@components/molecules/blog-post-list"
+import { convertToBlogPostList } from "@funcs/post"
 // @ts-ignore
 import styles from "./index.module.scss"
 
@@ -18,7 +18,10 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const posts = edgeListToArticleList(edges)
+  const blogPosts = convertToBlogPostList(edges)
+
+  console.log(edges)
+  console.log(blogPosts)
 
   return (
     <>
@@ -30,7 +33,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
               <section>
                 <h1 className="m-page-title">Latest Posts</h1>
 
-                <ArticleList articles={posts} />
+                <BlogPostList blogPosts={blogPosts} />
                 <div className={styles.blogLinkWrapper}>
                   <Link to="/blog/">もっと記事を見る</Link>
                 </div>

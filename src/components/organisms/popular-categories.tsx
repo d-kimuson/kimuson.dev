@@ -3,10 +3,10 @@ import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
-import { PopularCategoriesQuery, MdxEdge } from "@graphql-types"
-import { CategoryListNode } from "@declaration"
+import { PopularCategoriesQuery } from "@graphql-types"
+import { CategorySummary } from "@declaration"
 import CategoryList from "../molecules/category-list"
-import { filterDraft } from "@funcs/article"
+import { processDraftPostList } from "@funcs/post"
 
 const query = graphql`
   query PopularCategories {
@@ -24,23 +24,30 @@ const query = graphql`
 `
 
 const PopularCategories: React.FC = () => {
-  const data: PopularCategoriesQuery = useStaticQuery(query)
-  const edges = data.allMdx.edges
-    .filter((e): e is MdxEdge => typeof e !== `undefined`)
-    .filter(filterDraft)
+  const data = useStaticQuery<PopularCategoriesQuery>(query)
+  const blogPostSummaries = processDraftPostList(
+    data.allMdx.edges.map(e => ({
+      category: e.node.frontmatter.category,
+      draft: e.node.frontmatter.draft || false,
+    }))
+  )
+  const categories: CategorySummary[] = []
+  for (const blogPost of blogPostSummaries) {
+    const categoryName = blogPost.category
+    if (!categoryName) continue
 
-  const categories: CategoryListNode[] = []
-  for (const edge of edges) {
-    const category = edge.node.frontmatter?.category
-    const target = categories.find(node => node.name === category)
-    if (typeof category === `string`) {
-      if (typeof target === `undefined`) {
+    const targetCategorySummary = categories.find(
+      node => node.name === categoryName
+    )
+
+    if (typeof categoryName === `string`) {
+      if (typeof targetCategorySummary === `undefined`) {
         categories.push({
-          name: category,
+          name: categoryName,
           count: 1,
         })
       } else {
-        target.count = target.count + 1
+        targetCategorySummary.count = targetCategorySummary.count + 1
       }
     }
   }

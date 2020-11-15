@@ -5,8 +5,8 @@ import { WorkPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "@components/templates/sidebar"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
-import WorkList from "@components/molecules/work-list"
-import { edgeListToWorkList } from "@funcs/article"
+import WorkPostList from "@components/molecules/work-post-list"
+import { convertToWorkPostList } from "@funcs/post"
 
 interface WorkPageProps extends PageProps {
   data: WorkPageQuery
@@ -16,7 +16,7 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const works = edgeListToWorkList(edges)
+  const workPosts = convertToWorkPostList(edges)
 
   return (
     <>
@@ -28,7 +28,7 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
               <section>
                 <h1 className="m-page-title">Works</h1>
 
-                <WorkList works={works} />
+                <WorkPostList workPosts={workPosts} />
               </section>
             </main>
           </div>

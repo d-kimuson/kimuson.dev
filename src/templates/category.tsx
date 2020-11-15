@@ -5,8 +5,8 @@ import { CategoryPageQuery, MdxEdge } from "@graphql-types"
 import Sidebar from "@components/templates/sidebar"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
-import ArticleList from "@components/molecules/article-list"
-import { edgeListToArticleList } from "@funcs/article"
+import BlogPostList from "@components/molecules/blog-post-list"
+import { convertToBlogPostList } from "@funcs/post"
 import { getCategoryLink } from "@funcs/links"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
@@ -18,7 +18,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const posts = edgeListToArticleList(edges)
+  const blogPosts = convertToBlogPostList(edges)
   const category = pageContext.category || `No Category`
   const siteTitle = data.site?.siteMetadata?.title || ``
 
@@ -36,7 +36,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
               <section>
                 <h1 className="m-page-title">カテゴリ: {category}</h1>
 
-                <ArticleList articles={posts} />
+                <BlogPostList blogPosts={blogPosts} />
               </section>
             </main>
           </div>
