@@ -3,7 +3,7 @@ import { MDXProvider, MDXProviderComponents } from "@mdx-js/react"
 import type { Language } from "prism-react-renderer"
 import { preToCodeBlock, ChildrenPropsBase, PreProps } from "mdx-utils"
 
-import { Code } from "./src/components/atoms/code"
+import { Code } from "@components/atoms/code"
 
 const separateTitle = (
   maybeLanguage: string

@@ -21,7 +21,10 @@
       ],
       "@funcs/*": [
         "./src/helper-functions/*"
-      ]
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
     },
     "module": "esnext",
     "moduleResolution": "node",

@@ -2,10 +2,10 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import { WorkPageQuery, MdxEdge } from "@graphql-types"
-import Sidebar from "../components/templates/sidebar"
-import Layout from "../components/templates/layout"
-import Head from "../components/templates/head"
-import WorkList from "../components/molecules/work-list"
+import Sidebar from "@components/templates/sidebar"
+import Layout from "@components/templates/layout"
+import Head from "@components/templates/head"
+import WorkList from "@components/molecules/work-list"
 import { edgeListToWorkList } from "@funcs/article"
 
 interface WorkPageProps extends PageProps {

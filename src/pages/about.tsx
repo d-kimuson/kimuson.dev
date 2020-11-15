@@ -3,9 +3,9 @@ import { PageProps, graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { AboutPageQuery } from "@graphql-types"
-import Layout from "../components/templates/layout"
-import Head from "../components/templates/head"
-import Sidebar from "../components/templates/sidebar"
+import Layout from "@components/templates/layout"
+import Head from "@components/templates/head"
+import Sidebar from "@components/templates/sidebar"
 
 interface AboutPageProps extends PageProps {
   data: AboutPageQuery
