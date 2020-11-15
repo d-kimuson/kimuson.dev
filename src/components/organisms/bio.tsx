@@ -39,7 +39,7 @@ const query = graphql`
 const imageStyle = { height: `200px`, width: `200px` }
 
 const Bio: React.FC = () => {
-  const data: BioQuery = useStaticQuery(query)
+  const data = useStaticQuery<BioQuery>(query)
   const author = data.site?.siteMetadata?.author
   const avatarImage = data.avatar?.childImageSharp?.fixed
 

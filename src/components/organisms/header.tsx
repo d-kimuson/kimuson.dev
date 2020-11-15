@@ -21,7 +21,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
-  const data: HeaderQuery = useStaticQuery(query)
+  const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
   return (
