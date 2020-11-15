@@ -25,7 +25,7 @@ export const Code: React.FC<CodeProps> = ({
   const handleCopy = (event: MouseEvent): void => {
     copy(codeString)
     setIsCopied(true)
-    setTimeout(() => setIsCopied(false), 3000)
+    setTimeout(() => setIsCopied(false), 1000)
     event.preventDefault()
   }
 
