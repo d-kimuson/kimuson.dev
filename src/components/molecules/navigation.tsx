@@ -1,5 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faRss } from "@fortawesome/free-solid-svg-icons"
 
 // @ts-ignore
 import styles from "./navigation.module.scss"
@@ -20,6 +22,13 @@ const navRoutes = [
   {
     to: `/about/`,
     text: `About`,
+  },
+]
+
+const navIcons = [
+  {
+    to: `/rss.xml`,
+    icon: faRss,
   },
 ]
 
@@ -47,6 +56,16 @@ const Navigation: React.FC<NavigationProps> = (props: NavigationProps) => {
             >
               {route.text}
             </Link>
+          </li>
+        ))}
+        {navIcons.map(link => (
+          <li key={link.to}>
+            <a
+              href={link.to}
+              className={`m-remove-a-decoration ${styles.navLink}`}
+            >
+              <FontAwesomeIcon icon={link.icon} />
+            </a>
           </li>
         ))}
       </ul>

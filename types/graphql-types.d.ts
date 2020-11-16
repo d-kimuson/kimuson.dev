@@ -726,12 +726,12 @@ export enum FileFieldsEnum {
   ChildMdxFrontmatterThumbnailPublicUrl = 'childMdx___frontmatter___thumbnail___publicURL',
   ChildMdxFrontmatterThumbnailId = 'childMdx___frontmatter___thumbnail___id',
   ChildMdxFrontmatterThumbnailChildren = 'childMdx___frontmatter___thumbnail___children',
-  ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
-  ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
-  ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
   ChildMdxFrontmatterDescription = 'childMdx___frontmatter___description',
   ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
   ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
+  ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
+  ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
+  ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
   ChildMdxSlug = 'childMdx___slug',
   ChildMdxBody = 'childMdx___body',
   ChildMdxExcerpt = 'childMdx___excerpt',
@@ -1556,12 +1556,12 @@ export enum MdxFieldsEnum {
   FrontmatterThumbnailChildMdxTimeToRead = 'frontmatter___thumbnail___childMdx___timeToRead',
   FrontmatterThumbnailChildMdxId = 'frontmatter___thumbnail___childMdx___id',
   FrontmatterThumbnailChildMdxChildren = 'frontmatter___thumbnail___childMdx___children',
-  FrontmatterDate = 'frontmatter___date',
-  FrontmatterWeight = 'frontmatter___weight',
-  FrontmatterDraft = 'frontmatter___draft',
   FrontmatterDescription = 'frontmatter___description',
   FrontmatterTags = 'frontmatter___tags',
   FrontmatterCategory = 'frontmatter___category',
+  FrontmatterDate = 'frontmatter___date',
+  FrontmatterDraft = 'frontmatter___draft',
+  FrontmatterWeight = 'frontmatter___weight',
   Slug = 'slug',
   Body = 'body',
   Excerpt = 'excerpt',
@@ -1692,12 +1692,12 @@ export type MdxFrontmatter = {
   __typename?: 'MdxFrontmatter';
   title: Scalars['String'];
   thumbnail?: Maybe<File>;
-  date?: Maybe<Scalars['Date']>;
-  weight?: Maybe<Scalars['Int']>;
-  draft?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   category?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['Date']>;
+  draft?: Maybe<Scalars['Boolean']>;
+  weight?: Maybe<Scalars['Int']>;
 };
 
 
@@ -1711,12 +1711,12 @@ export type MdxFrontmatterDateArgs = {
 export type MdxFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   thumbnail?: Maybe<FileFilterInput>;
-  date?: Maybe<DateQueryOperatorInput>;
-  weight?: Maybe<IntQueryOperatorInput>;
-  draft?: Maybe<BooleanQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
   category?: Maybe<StringQueryOperatorInput>;
+  date?: Maybe<DateQueryOperatorInput>;
+  draft?: Maybe<BooleanQueryOperatorInput>;
+  weight?: Maybe<IntQueryOperatorInput>;
 };
 
 export type MdxGroupConnection = {
@@ -2616,6 +2616,12 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsName = 'pluginCreator___pluginOptions___name',
   PluginCreatorPluginOptionsExtensions = 'pluginCreator___pluginOptions___extensions',
   PluginCreatorPluginOptionsMediaTypes = 'pluginCreator___pluginOptions___mediaTypes',
+  PluginCreatorPluginOptionsQuery = 'pluginCreator___pluginOptions___query',
+  PluginCreatorPluginOptionsFeeds = 'pluginCreator___pluginOptions___feeds',
+  PluginCreatorPluginOptionsFeedsQuery = 'pluginCreator___pluginOptions___feeds___query',
+  PluginCreatorPluginOptionsFeedsOutput = 'pluginCreator___pluginOptions___feeds___output',
+  PluginCreatorPluginOptionsFeedsTitle = 'pluginCreator___pluginOptions___feeds___title',
+  PluginCreatorPluginOptionsFeedsMatch = 'pluginCreator___pluginOptions___feeds___match',
   PluginCreatorPluginOptionsTrackingId = 'pluginCreator___pluginOptions___trackingId',
   PluginCreatorPluginOptionsPublisherId = 'pluginCreator___pluginOptions___publisherId',
   PluginCreatorPluginOptionsShortName = 'pluginCreator___pluginOptions___short_name',
@@ -2851,6 +2857,12 @@ export enum SitePluginFieldsEnum {
   PluginOptionsName = 'pluginOptions___name',
   PluginOptionsExtensions = 'pluginOptions___extensions',
   PluginOptionsMediaTypes = 'pluginOptions___mediaTypes',
+  PluginOptionsQuery = 'pluginOptions___query',
+  PluginOptionsFeeds = 'pluginOptions___feeds',
+  PluginOptionsFeedsQuery = 'pluginOptions___feeds___query',
+  PluginOptionsFeedsOutput = 'pluginOptions___feeds___output',
+  PluginOptionsFeedsTitle = 'pluginOptions___feeds___title',
+  PluginOptionsFeedsMatch = 'pluginOptions___feeds___match',
   PluginOptionsTrackingId = 'pluginOptions___trackingId',
   PluginOptionsPublisherId = 'pluginOptions___publisherId',
   PluginOptionsShortName = 'pluginOptions___short_name',
@@ -3011,6 +3023,8 @@ export type SitePluginPluginOptions = {
   name?: Maybe<Scalars['String']>;
   extensions?: Maybe<Array<Maybe<Scalars['String']>>>;
   mediaTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  query?: Maybe<Scalars['String']>;
+  feeds?: Maybe<Array<Maybe<SitePluginPluginOptionsFeeds>>>;
   trackingId?: Maybe<Scalars['String']>;
   publisherId?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
@@ -3076,12 +3090,33 @@ export type SitePluginPluginOptionsEnvProductionPolicyFilterListInput = {
   elemMatch?: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterInput>;
 };
 
+export type SitePluginPluginOptionsFeeds = {
+  __typename?: 'SitePluginPluginOptionsFeeds';
+  query?: Maybe<Scalars['String']>;
+  output?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  match?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsFeedsFilterInput = {
+  query?: Maybe<StringQueryOperatorInput>;
+  output?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  match?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsFeedsFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsFeedsFilterInput>;
+};
+
 export type SitePluginPluginOptionsFilterInput = {
   plugins?: Maybe<SitePluginPluginOptionsPluginsFilterListInput>;
   path?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   extensions?: Maybe<StringQueryOperatorInput>;
   mediaTypes?: Maybe<StringQueryOperatorInput>;
+  query?: Maybe<StringQueryOperatorInput>;
+  feeds?: Maybe<SitePluginPluginOptionsFeedsFilterListInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
   publisherId?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
