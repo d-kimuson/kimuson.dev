@@ -1,6 +1,6 @@
 ---
 title: "django applicationをHerokuにデプロイする"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

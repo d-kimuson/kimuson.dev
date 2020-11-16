@@ -1,7 +1,7 @@
 ---
 title: "Django REST frameworkとVueで簡単なアプリを作ってみる"
 description: "Django REST frameworkを触ってみます。Vueと組み合わせて簡単なアプリを作ってみました。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

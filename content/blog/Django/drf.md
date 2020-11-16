@@ -1,7 +1,7 @@
 ---
 title: "Django Rest Framework まとめ"
 description: "Django REST frameworkについて説明します。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

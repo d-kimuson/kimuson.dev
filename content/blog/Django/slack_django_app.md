@@ -1,7 +1,7 @@
 ---
 title: "Django で Slack Bot を作る"
 description: "Djangoで Slack Bot作ったので、簡単に手順をまとめておきます。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

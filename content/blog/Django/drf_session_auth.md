@@ -1,7 +1,7 @@
 ---
 title: "DRFでサードパーティクッキーのセッション認証を使おうとして、諦めたけど勉強になった"
 description: "DRFでサードパーティクッキーでログイン状態を持つために格闘した話について書きます。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "セキュリティ"

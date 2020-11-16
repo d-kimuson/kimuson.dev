@@ -1,12 +1,12 @@
 ---
-title: "Gatsbyブログで記事マークダウンファイルをテンプレートから自動生成する"
+title: "Gatsby製のマークダウンブログで記事ファイルをテンプレートから自動生成する"
 description: Gatsbyのブログでマークダウン記事ファイルを自動生成するシェルスクリプトを書きました。
 category: "Gatsby"
 tags:
   - ブログ
   - Gatsby
 date: "2020-10-05T09:15:22Z"
-thumbnail: "thumbnails/Blog.png"
+thumbnail: "thumbnails/Gatsby.png"
 draft: false
 ---
 

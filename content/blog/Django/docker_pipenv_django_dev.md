@@ -1,7 +1,7 @@
 ---
 title: "Djangoの開発環境をDockerに乗せてPipenvでパッケージ管理しようとしたら詰まって結局やめた話"
 description: "Djangoの開発環境をDockerに乗せた状態で、Pipenvでパッケージ管理しようとしたら詰まって結局やめた話をします。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - Python
   - Pipenv

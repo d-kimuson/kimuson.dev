@@ -1,7 +1,7 @@
 ---
 title: "Django REST frameworkのパーミッションのカスタマイズについて"
 description: "Django REST frameworkでパーミッションのカスタマイズする方法について紹介します。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

@@ -1,7 +1,7 @@
 ---
 title: "Django REST frameworkでトークン認証をする"
 description: "Django REST frameworkでトークン認証をする方法を紹介します。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

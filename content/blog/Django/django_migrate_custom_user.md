@@ -1,7 +1,7 @@
 ---
 title: "Djangoでカスタムユーザーのマイグレーションに失敗するときの対処法"
 description: "Djangoでカスタムユーザーのマイグレーションに失敗するときの対処法について解説します。"
-thumbnail: "/thumbnails/Python.png"
+thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
   - "Django"

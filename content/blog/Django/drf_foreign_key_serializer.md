@@ -6,7 +6,7 @@ tags:
   - Django
   - DRF
 date: "2020-10-01T22:40:32.169Z"
-thumbnail: 'thumbnails/Blog.png'
+thumbnail: 'thumbnails/Django.png'
 draft: false
 ---
 
