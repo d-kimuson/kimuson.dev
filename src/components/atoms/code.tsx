@@ -69,7 +69,7 @@ export const Code: React.FC<CodeProps> = ({
                 </div>
               ) : null}
               <button onClick={handleCopy} className={styles.copyButton}>
-                {isCopied ? `🎉 Copied!` : `Copy`}
+                {isCopied ? `👍 ` : `COPY`}
               </button>
               {tokens.map((line, i) => (
                 <div {...getLineProps({ line, key: i })} key={i}>

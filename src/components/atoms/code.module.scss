@@ -29,10 +29,16 @@ $-code-title-height: 25px;
 }
 
 .copyButton {
+  // layout
   position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 5px;
+  top: 5px;
+  right: 5px;
   height: $-code-title-height;
+  // style
+  background: color.scale(g.$black, $lightness: 20%);
+  color: g.$white;
+  border-radius: 5px;
+  border: none;
+  outline: none;
   font-size: 0.9rem;
 }
