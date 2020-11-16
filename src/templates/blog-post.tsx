@@ -133,7 +133,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
           <Sidebar bio={true} toc={{ mdxAst: mdxAst }} commonSidebar={true} />
         </div>
 
-        <BlogPostListRow blogPosts={relatedArticle} />
+        {relatedArticle.length !== 0 ? (
+          <BlogPostListRow blogPosts={relatedArticle} />
+        ) : null}
       </Layout>
     </>
   )

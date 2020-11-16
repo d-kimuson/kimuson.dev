@@ -70,7 +70,7 @@ const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
 
   return (
     <section>
-      <h1 className={styles.blogPostListTitle}>Related BlogPosts</h1>
+      <h1 className={styles.blogPostListTitle}>合わせて読みたい</h1>
       {blogPosts.length > 0 ? (
         <Swiper
           tag={`div`}
