@@ -32,7 +32,7 @@ const query = graphql`
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxHeight: 90) {
+                fluid(maxHeight: 90, traceSVG: { background: "#fafafa" }) {
                   aspectRatio
                   base64
                   sizes
