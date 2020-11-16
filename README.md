@@ -1,5 +1,7 @@
 # Gatsby Tech Blog
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a8b255ab-2c70-44f4-bcc3-e0ec4faa4994/deploy-status)](https://app.netlify.com/sites/kimuson-dev/deploys)
+
 [Gatsby.js](https://www.gatsbyjs.com/)で, 構築した技術ブログです.
 
 ## Links
