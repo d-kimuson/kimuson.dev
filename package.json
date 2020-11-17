@@ -15,7 +15,7 @@
     "build": "gatsby build",
     "clean": "gatsby clean",
     "codegen": "graphql-codegen --config codegen.yml",
-    "dev": "gatsby develop",
+    "dev": "gatsby develop -p 2828",
     "dev:codegen": "IS_CODEGEN=true gatsby develop",
     "lint": "yarn run eslint src --ext .tsx,.ts,.jsx,.js --fix && yarn run stylelint 'src/**/*.{scss,.css}' --fix",
     "post": "git rev-parse --show-toplevel && git add content && git commit -m '[auto] post article' && git push origin master",
