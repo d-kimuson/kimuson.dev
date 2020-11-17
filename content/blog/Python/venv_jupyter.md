@@ -1,33 +1,45 @@
 ---
-title: "仮想環境からJupyter Notebookを使う"
+title: "仮想環境下のJupyter Notebookを使う"
+description: "仮想環境の下でJupyter Notebookを使う方法を紹介します。"
 thumbnail: "/thumbnails/Python.png"
 tags:
   - "Python"
   - "Jupyter"
 category: "Python"
-date: "2020-07-14T11:31:04+09:00"
+date: "2020-11-17T17:00:17Z"
 weight: 5
-draft: true
+draft: false
 ---
 
-Jupyter Notebookを仮想環境化で使う方法について.
+## 問題
 
-Jupyterを使うこと自体は少ないんですけど, たまに使うことがあってそういうとき仮想環境がうまく適用できなくて困ります.
+仮想環境下にインストールした Jupyter では、パッケージを読み込むことができません
 
 ``` bash
-$ python -m venv env && source env/bin/activate && pip install jupyter
+$ python -m venv .venv && source .venv/bin/activate && pip install jupyter requests
 $ python -m jupyter notebook
 ```
 
-これだと, 仮想環境内にインストールされてるモジュールをインポートできない.
+こんな感じで普通に建てると、
 
-解決方法は, カーネルを仮想環境内からインストールすることです.
-
-``` bash
-$ python -m venv env && source env/bin/activate
-(env)$ pip install jupyter ipykernel
-(env)$ python -m ipykernel install --user --name=kernel_name
-(env)$ python -m jupyter notebook
+``` python
+import requests
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'requests'
 ```
 
-これで, カーネル選択時に `kernel_name` を選んで起動すれば, 仮想環境内のモジュールが使えました.
+インポート文でパッケージないで。って怒られます
+
+## 対処法
+
+カーネルを仮想環境内にインストールすることで対処できます
+
+``` bash
+$ python -m venv .venv && source .venv/bin/activate
+(.venv)$ pip install jupyter ipykernel
+(.venv)$ python -m ipykernel install --user --name=<カーネル名>
+(.venv)$ python -m jupyter notebook
+```
+
+これで、**指定したカーネル名** を選ぶことで、仮想環境内のパッケージを使うことができます
