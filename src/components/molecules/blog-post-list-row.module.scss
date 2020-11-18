@@ -20,7 +20,7 @@ $-image-width: 300px;
   display: grid;
   grid-template:
     "image" $-image-height
-    "info" 120px / 1fr;
+    "info" auto / 1fr;
   width: $-image-width;
   margin: 20px 10px;
 }
@@ -39,6 +39,7 @@ $-image-width: 300px;
 
 .infoContainer {
   grid-area: info;
+  min-height: 120px;
   padding: 5px 8px;
 
   .title {
