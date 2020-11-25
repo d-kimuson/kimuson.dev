@@ -51,7 +51,7 @@ drf-yasg は、手軽にAPIドキュメントを自動生成できるため人�
 
 ってことで、より柔軟なAPI定義ができる `OpenAPI 3.0` を使いたければ drf-spectacular がオススメだよーってことらしいので、こちらを使ってみます
 
-触ってみましたが、基本的には drf_yasg と同じ仕様感でした
+触ってみましたが、基本的には drf_yasg と同じ使用感でした
 
 ## drf-spectacular を導入する
 
@@ -158,13 +158,15 @@ type AnyType = Record<string, unknown>
 
 ## 実際にAPIを叩く
 
-API を使うには、書き出された `api.ts` を使います
+API を使うには、書き出された `api.ts` に定義されている
 
 - ApiAPi
 - ApiAPiFp
 - ApiApiFactory
 
-辺りを使えますが、一番直感的だったので今回は ApiApiFactory を使います
+辺りを使うことができます
+
+一番直感的に感じたので今回は `ApiApiFactory` を使います
 
 ``` typescript:api.ts
 import axios from "axios"
@@ -205,7 +207,7 @@ endpoints.apiSamplesRetrieve(id)
 
 こんな感じで使うことができます
 
-各エンドポイントに対応する関数には、Open API スキーマ基づいた型付けがされているので、型安全にAPIを呼ぶことができるわけです
+各エンドポイントに対応する関数には、`Open API` スキーマ基づいた型付けがされているので、型安全にAPIを呼ぶことができるわけです
 
 ## 型チェックの無効化
 
@@ -281,10 +283,10 @@ class SampleSerializer(serializers.ModelSerializer):
 
 `ModelViewSet` 等によって定義される純粋な REST API だけで足りない場合は、`action` デコレータを使うことで追加のエンドポイントを作ったりしますが、こちらも
 
-- 関数がエンドポイントであること
+- 対象の関数がエンドポイントであること
 - APIパラメータ、レスポンス型
 
-を `extend_schema` デコレータで drf_spectacular に教えて上げる必要があります
+を `extend_schema` デコレータで drf_spectacular に教えてやる必要があります
 
 ``` python:views.py
 from rest_framework import viewsets
@@ -307,8 +309,7 @@ class SampleViewSet(viewsets.ModelViewSet):
             200: UserSerializer
         },
         methods=['GET',],
-        summary="user_detail",
-        description="ログインユーザーの情報を返します",
+        summary="user",
     )
     @action(methods=['GET'], detail=True, url_path='user')
     def user(self, request: Request, pk: Optional[str] = None, **kwargs: Dict[str, Any]) -> Response:
@@ -323,8 +324,6 @@ class SampleViewSet(viewsets.ModelViewSet):
 ## 終わりに
 
 drf_yasg はよく使ってたので、スキーマ作れるなら型も作れるでしょと思って調べてやってみたんですが、良い感じでした！
-
-APIを通してもインタフェースを共通化するために、フロントバック共に TypeScript を使うみたいな話をよく聞きますが、Django でも似たような体験で開発ができそうです
 
 今回は、TypeScript型定義の自動生成のために使いましたが、APIドキュメントの自動生成も便利なのでオススメです
 
