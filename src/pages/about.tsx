@@ -1,9 +1,10 @@
 import React from "react"
 import { PageProps, graphql } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import type { AboutPageQuery } from "@graphql-types"
 import type { MdxAst } from "@declaration"
+import { toUndefinedOrT } from "@funcs/type"
+import { Post } from "@components/templates/post"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
@@ -22,15 +23,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
       <Head title={title} description={description} />
       <Layout>
         <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <div className="m-article-body">
-                  <MDXRenderer>{data.mdx?.body || ``}</MDXRenderer>
-                </div>
-              </section>
-            </main>
-          </div>
+          <Post title={title} post={toUndefinedOrT(data?.mdx)} />
           <Sidebar bio={true} commonSidebar={true} toc={{ mdxAst: mdxAst }} />
         </div>
       </Layout>

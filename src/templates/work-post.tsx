@@ -1,18 +1,14 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import Image from "gatsby-image"
 
 import type { WorkPostBySlugQuery } from "@graphql-types"
 import type { MdxAst } from "@declaration"
 import { getWorkPostLink } from "@funcs/links"
-import { toGatsbyImageFluidArg } from "@funcs/image"
+import { toUndefinedOrT } from "@funcs/type"
+import { Post } from "@components/templates/post"
 import Layout from "@components/templates/layout"
 import Head from "@components/templates/head"
 import Sidebar from "@components/templates/sidebar"
-import Date from "@components/atoms/date"
-// @ts-ignore
-import styles from "./blog-post.module.scss"
 
 interface AroundNav {
   fields: {
@@ -49,32 +45,12 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
       />
       <Layout>
         <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <article className={`m-card l-main-width`}>
-                {typeof thumbnail === `object` && thumbnail !== null ? (
-                  <Image
-                    fluid={toGatsbyImageFluidArg(thumbnail)}
-                    className={styles.thumbnail}
-                  />
-                ) : (
-                  <div />
-                )}
-                <div className={styles.contentContainer}>
-                  <h1 className="m-page-title">
-                    {post?.frontmatter?.draft ? `[非公開]` : ``}
-                    {title}
-                  </h1>
-                  <Date date={post?.frontmatter?.date} />
-
-                  <div className="m-article-body">
-                    <MDXRenderer>{post?.body || ``}</MDXRenderer>
-                  </div>
-                </div>
-              </article>
-            </main>
-          </div>
-
+          <Post
+            title={title}
+            frontmatter={post?.frontmatter}
+            thumbnail={toUndefinedOrT(thumbnail)}
+            post={toUndefinedOrT(post)}
+          />
           <Sidebar bio={true} toc={{ mdxAst: mdxAst }} commonSidebar={true} />
         </div>
       </Layout>

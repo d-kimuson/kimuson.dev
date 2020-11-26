@@ -1,7 +1,6 @@
 @use "sass:color";
 @use "sass:map";
-@use "../global-styles/global/" as g;
-@use "../global-styles/styles/variable" as l;
+@use "@styles/global" as g;
 
 .contentContainer {
   padding: 10px 20px;
