@@ -131,93 +131,11 @@
 }
 
 // prismjs
-// [WARN] ピクセル数は, prismjs.css からもらってきてるものもあるので変更には注意
-$-code-block-y-margin: 20px;
-// Code Title
-.gatsby-code-title {
-  // outer layout
-  margin: $-code-block-y-margin 0 0 20px;
-  // inner layout
-  display: inline-block;
-  text-align: center;
-  padding: 2px 15px;
-  border-radius: 5px 5px 0 0;
-  // style
-  color: g.$text-color;
-}
-// Copy Button
-.gatsby-code-button-container {
-  position: relative;
-  top: 0;
-}
-.gatsby-code-button {
-  position: absolute;
-  top: 17px;
-  right: 15px;
-  z-index: map.get(g.$z-index-weights, "sm");
-  &::after {
-    // 謎の hover エフェクトがあるので, 上書き
-    display: none !important;
-  }
-
-  svg {
-    // calculated by https://codepen.io/sosuke/pen/Pjoqqp
-    // あまり良くない対処なので, Fontawesome等への置き換えを検討
-    filter: invert(98%) sepia(5%) saturate(983%) hue-rotate(178deg)
-      brightness(95%) contrast(99%);
-    opacity: 0.9;
-  }
-}
-:not([class="gatsby-code-title"]) + .gatsby-code-button-container {
-  // code title なしの場合に, titleの代わりに上マージンを設置
-  margin-block-start: $-code-block-y-margin;
-}
-
-// Codeblock
-$-code-padding-y: 12px;
-$-code-font-size: 0.9rem;
-$-code-height: $-code-font-size * 1.5;
-$-line-number-padding-x: 0.7em;
 pre[class*="language-"] {
-  margin: 0 0 $-code-block-y-margin 0;
-  padding-top: $-code-padding-y;
-  padding-bottom: $-code-padding-y;
-
-  code {
-    line-height: $-code-height !important;
-    display: inline-block;
-  }
-
   .token,
   code {
     font-family: g.$code-fonts, monospace !important;
-    font-size: $-code-font-size !important;
+    font-size: 0.9rem !important;
     font-weight: 100;
   }
-}
-
-$-copy-toaster-height: 100px;
-.gatsby-code-button-toaster {
-  // outer layout
-  position: fixed;
-  top: calc(50vh - #{$-copy-toaster-height} / 2);
-  left: 0;
-  z-index: map.get(g.$z-index-weights, "infty");
-  height: $-copy-toaster-height;
-  width: 100%;
-  // inner layout
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // style
-  background-color: transparentize($color: g.$black, $amount: 0.2);
-
-  .gatsby-code-button-toaster-text {
-    color: g.$white;
-  }
-}
-
-.gatsby-code-title,
-.gatsby-code-button-toaster-text {
-  font-family: g.$code-fonts, monospace !important;
 }
