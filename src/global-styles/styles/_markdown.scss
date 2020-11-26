@@ -24,13 +24,6 @@
     line-height: 1.8rem;
     margin: 1.2rem 0;
   }
-  // anchor link の無効化
-  h2,
-  h3 {
-    a[class="anchor before"] {
-      display: none;
-    }
-  }
   a {
     position: relative;
     &::before {
