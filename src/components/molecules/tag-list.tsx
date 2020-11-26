@@ -1,6 +1,6 @@
 import React from "react"
 
-import Tag from "../atoms/tag"
+import { Tag } from "../atoms/tag"
 // @ts-ignore
 import styles from "./tag-list.module.scss"
 
@@ -9,7 +9,7 @@ interface TagListProps {
   isLink?: boolean
 }
 
-const TagList: React.FC<TagListProps> = ({
+export const TagList: React.FC<TagListProps> = ({
   tags,
   isLink = false,
 }: TagListProps) => {
@@ -23,5 +23,3 @@ const TagList: React.FC<TagListProps> = ({
     </ul>
   )
 }
-
-export default TagList

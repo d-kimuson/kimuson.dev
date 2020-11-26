@@ -38,7 +38,9 @@ interface NavigationProps {
   "aria-hidden"?: boolean
 }
 
-const Navigation: React.FC<NavigationProps> = (props: NavigationProps) => {
+export const Navigation: React.FC<NavigationProps> = (
+  props: NavigationProps
+) => {
   const { className, id } = props
   return (
     <nav
@@ -72,5 +74,3 @@ const Navigation: React.FC<NavigationProps> = (props: NavigationProps) => {
     </nav>
   )
 }
-
-export default Navigation

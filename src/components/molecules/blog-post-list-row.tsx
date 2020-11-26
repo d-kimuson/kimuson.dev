@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react"
 
 import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import Date from "../atoms/date"
-import TagList from "./tag-list"
+import { Date } from "../atoms/date"
+import { TagList } from "./tag-list"
 // @ts-ignore
 import styles from "./blog-post-list-row.module.scss"
 
@@ -56,7 +56,7 @@ interface BlogPostListRowProps {
   blogPosts: BlogPost[]
 }
 
-const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
+export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
   blogPosts,
 }: BlogPostListRowProps) => {
   const [windowSize, setWindowSize] = useState<number>(-1)
@@ -91,5 +91,3 @@ const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
     </section>
   )
 }
-
-export default BlogPostListRow

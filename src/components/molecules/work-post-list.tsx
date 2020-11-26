@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import Date from "../atoms/date"
+import { Date } from "../atoms/date"
 // @ts-ignore
 import styles from "./work-post-list.module.scss"
 
@@ -46,7 +46,9 @@ interface WorkListProps {
   workPosts: WorkPost[]
 }
 
-const WorkList: React.FC<WorkListProps> = ({ workPosts }: WorkListProps) => {
+export const WorkPostList: React.FC<WorkListProps> = ({
+  workPosts,
+}: WorkListProps) => {
   return (
     <section className="l-main-width">
       {workPosts.length > 0 ? (
@@ -66,5 +68,3 @@ const WorkList: React.FC<WorkListProps> = ({ workPosts }: WorkListProps) => {
     </section>
   )
 }
-
-export default WorkList

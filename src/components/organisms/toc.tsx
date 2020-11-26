@@ -23,7 +23,7 @@ interface TocProps {
   mdxAst: MdxAst
 }
 
-const Toc: React.FC<TocProps> = ({ mdxAst }: TocProps) => {
+export const Toc: React.FC<TocProps> = ({ mdxAst }: TocProps) => {
   const [headings, setHeadings] = useState<Heading[]>(
     (mdxAst.children || [])
       .filter(node => node.type === `heading`)
@@ -110,5 +110,3 @@ const Toc: React.FC<TocProps> = ({ mdxAst }: TocProps) => {
     </section>
   )
 }
-
-export default Toc

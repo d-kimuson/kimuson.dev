@@ -1,10 +1,10 @@
 import React from "react"
 import { PageProps } from "gatsby"
 
-import Head from "@components/templates/head"
-import Layout from "@components/templates/layout"
-import Sidebar from "@components/templates/sidebar"
-import Search from "@components/molecules/search"
+import { Head } from "@components/templates/head"
+import { Layout } from "@components/templates/layout"
+import { Sidebar } from "@components/templates/sidebar"
+import { Search } from "@components/molecules/search"
 
 const BlogPage: React.FC<PageProps> = () => {
   const title = `検索`

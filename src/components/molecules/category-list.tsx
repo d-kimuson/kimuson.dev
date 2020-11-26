@@ -9,7 +9,7 @@ interface CategoryListProps {
   categoryList: CategorySummary[]
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({
+export const CategoryList: React.FC<CategoryListProps> = ({
   categoryList,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
@@ -25,5 +25,3 @@ const CategoryList: React.FC<CategoryListProps> = ({
     ))}
   </ul>
 )
-
-export default CategoryList

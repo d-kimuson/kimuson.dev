@@ -5,9 +5,9 @@ import type { AboutPageQuery } from "@graphql-types"
 import type { MdxAst } from "@declaration"
 import { toUndefinedOrT } from "@funcs/type"
 import { Post } from "@components/templates/post"
-import Layout from "@components/templates/layout"
-import Head from "@components/templates/head"
-import Sidebar from "@components/templates/sidebar"
+import { Layout } from "@components/templates/layout"
+import { Head } from "@components/templates/head"
+import { Sidebar } from "@components/templates/sidebar"
 
 interface AboutPageProps extends PageProps {
   data: AboutPageQuery

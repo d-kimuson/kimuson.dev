@@ -23,7 +23,7 @@ interface TagProps {
   isLink?: boolean
 }
 
-const Tag: React.FC<TagProps> = ({
+export const Tag: React.FC<TagProps> = ({
   tag,
   className,
   isLink = false,
@@ -36,5 +36,3 @@ const Tag: React.FC<TagProps> = ({
     <TagInner tag={tag} className={className} />
   )
 }
-
-export default Tag

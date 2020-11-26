@@ -15,8 +15,8 @@ import {
 import { Mdx, MdxFrontmatter } from "@graphql-types"
 import { FluidImage } from "@declaration"
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import TagList from "@components/molecules/tag-list"
-import Date from "@components/atoms/date"
+import { TagList } from "@components/molecules/tag-list"
+import { Date } from "@components/atoms/date"
 // @ts-ignore
 import styles from "./post.module.scss"
 

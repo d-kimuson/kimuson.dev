@@ -1,7 +1,7 @@
 import React from "react"
 
-import Header from "../organisms/header"
-import Footer from "../organisms/footer"
+import { Header } from "../organisms/header"
+import { Footer } from "../organisms/footer"
 // @ts-ignore
 import styles from "./layout.module.scss"
 
@@ -11,7 +11,7 @@ interface LayoutProps {
   children?: any
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div className={styles.layoutContainer}>
       <Header className={styles.headerWrapper} />
@@ -22,5 +22,3 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
     </div>
   )
 }
-
-export default Layout

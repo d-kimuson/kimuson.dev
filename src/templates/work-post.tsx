@@ -6,9 +6,9 @@ import type { MdxAst } from "@declaration"
 import { getWorkPostLink } from "@funcs/links"
 import { toUndefinedOrT } from "@funcs/type"
 import { Post } from "@components/templates/post"
-import Layout from "@components/templates/layout"
-import Head from "@components/templates/head"
-import Sidebar from "@components/templates/sidebar"
+import { Layout } from "@components/templates/layout"
+import { Head } from "@components/templates/head"
+import { Sidebar } from "@components/templates/sidebar"
 
 interface AroundNav {
   fields: {

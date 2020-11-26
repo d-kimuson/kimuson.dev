@@ -4,8 +4,8 @@ import Image from "gatsby-image"
 
 import { getBlogPostLink } from "@funcs/links"
 import { toGatsbyImageFluidArg } from "@funcs/image"
-import Date from "../atoms/date"
-import TagList from "./tag-list"
+import { Date } from "../atoms/date"
+import { TagList } from "./tag-list"
 // @ts-ignore
 import styles from "./blog-post-preview.module.scss"
 
@@ -15,7 +15,7 @@ interface BlogPostPreviewProps {
 
 const imgStyle = { height: `90px`, width: `120px` }
 
-const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
+export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return (
@@ -49,5 +49,3 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
     </Link>
   )
 }
-
-export default BlogPostPreview

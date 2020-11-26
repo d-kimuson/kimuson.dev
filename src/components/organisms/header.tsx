@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
 import type { HeaderQuery } from "@graphql-types"
-import Navigation from "../molecules/navigation"
+import { Navigation } from "../molecules/navigation"
 // @ts-ignore
 import styles from "./header.module.scss"
 
@@ -20,7 +20,7 @@ interface HeaderProps {
   className?: string
 }
 
-const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
+export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
   const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
@@ -66,5 +66,3 @@ const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
     </header>
   )
 }
-
-export default Header

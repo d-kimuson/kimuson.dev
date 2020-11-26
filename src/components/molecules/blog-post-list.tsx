@@ -1,6 +1,6 @@
 import React from "react"
 
-import BlogPostPreview from "./blog-post-preview"
+import { BlogPostPreview } from "./blog-post-preview"
 // @ts-ignore
 import styles from "./blog-post-list.module.scss"
 
@@ -8,7 +8,7 @@ interface BlogPostListProps {
   blogPosts: BlogPost[]
 }
 
-const BlogPostList: React.FC<BlogPostListProps> = ({
+export const BlogPostList: React.FC<BlogPostListProps> = ({
   blogPosts,
 }: BlogPostListProps) => {
   return (
@@ -30,5 +30,3 @@ const BlogPostList: React.FC<BlogPostListProps> = ({
     </section>
   )
 }
-
-export default BlogPostList

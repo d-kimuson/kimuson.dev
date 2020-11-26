@@ -5,9 +5,9 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import Fuse from "fuse.js"
 
 import type { SearchQuery, MdxEdge } from "@graphql-types"
-import TagChecklist from "./tag-checklist"
+import { TagChecklist } from "./tag-checklist"
 import { convertToBlogPostList } from "@funcs/post"
-import BlogPostList from "./blog-post-list"
+import { BlogPostList } from "./blog-post-list"
 // @ts-ignore
 import styles from "./search.module.scss"
 
@@ -55,7 +55,7 @@ interface SearchProps {
   className?: string
 }
 
-const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
+export const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   const data = useStaticQuery<SearchQuery>(query)
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
@@ -125,5 +125,3 @@ const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
     </section>
   )
 }
-
-export default Search

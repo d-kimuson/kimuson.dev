@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import Tag from "../atoms/tag"
+import { Tag } from "../atoms/tag"
 // @ts-ignore
 import styles from "./tag-checklist.module.scss"
 
@@ -35,7 +35,7 @@ interface TagChecklistProps {
   onUpdate: (selectedTags: string[]) => void
 }
 
-const TagChecklist: React.FC<TagChecklistProps> = ({
+export const TagChecklist: React.FC<TagChecklistProps> = ({
   tags,
   onUpdate,
 }: TagChecklistProps) => {
@@ -63,5 +63,3 @@ const TagChecklist: React.FC<TagChecklistProps> = ({
     </ul>
   )
 }
-
-export default TagChecklist

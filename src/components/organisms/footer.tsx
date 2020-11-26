@@ -19,7 +19,7 @@ interface FooterProps {
   className?: string
 }
 
-const Footer: React.FC<FooterProps> = ({ className }: FooterProps) => {
+export const Footer: React.FC<FooterProps> = ({ className }: FooterProps) => {
   const data = useStaticQuery<FooterQuery>(query)
   const siteTitle = data.site?.siteMetadata?.title
 
@@ -54,5 +54,3 @@ const Footer: React.FC<FooterProps> = ({ className }: FooterProps) => {
     </footer>
   )
 }
-
-export default Footer

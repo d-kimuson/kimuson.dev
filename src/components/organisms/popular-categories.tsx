@@ -5,7 +5,7 @@ import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
 import type { PopularCategoriesQuery } from "@graphql-types"
 import { processDraftPostList } from "@funcs/post"
-import CategoryList from "../molecules/category-list"
+import { CategoryList } from "../molecules/category-list"
 
 const query = graphql`
   query PopularCategories {
@@ -22,7 +22,7 @@ const query = graphql`
   }
 `
 
-const PopularCategories: React.FC = () => {
+export const PopularCategories: React.FC = () => {
   const data = useStaticQuery<PopularCategoriesQuery>(query)
   const blogPostSummaries = processDraftPostList(
     data.allMdx.edges.map(e => ({
@@ -69,5 +69,3 @@ const PopularCategories: React.FC = () => {
     </>
   )
 }
-
-export default PopularCategories

@@ -26,7 +26,11 @@ interface HeadProps {
   slug?: string // TOPページのみ不要
 }
 
-const Head: React.FC<HeadProps> = ({ title, description, slug }: HeadProps) => {
+export const Head: React.FC<HeadProps> = ({
+  title,
+  description,
+  slug,
+}: HeadProps) => {
   const { site } = useStaticQuery<HeadQuery>(query)
   const siteTitle = site?.siteMetadata?.title || ``
   const siteDescription = site?.siteMetadata?.description || ``
@@ -68,5 +72,3 @@ const Head: React.FC<HeadProps> = ({ title, description, slug }: HeadProps) => {
     />
   )
 }
-
-export default Head
