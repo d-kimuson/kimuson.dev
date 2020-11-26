@@ -101,7 +101,7 @@ export const pageQuery = graphql`
         draft
         thumbnail {
           childImageSharp {
-            fluid(maxWidth: 590, traceSVG: { background: "#fafafa" }) {
+            fluid(maxWidth: 590, traceSVG: { background: "#333846" }) {
               aspectRatio
               base64
               sizes
