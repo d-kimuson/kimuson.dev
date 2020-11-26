@@ -11,10 +11,12 @@ $skyblue: #00b0ff !default;
 $blue: #4554df !default;
 // color
 // $theme-color: color.scale($black, $lightness: 20%) !default;
-$theme-color: $blue !default;
-$theme-text-color: #fff;
-$bg-color: $white-weak;
-$text-color: $black !default;
+$theme-color: #21242d !default;
+$theme-reverse-color: $white-weak !default;
+$theme-strong-color: color.scale($theme-color, $lightness: -30%) !default;
+$theme-weak-color: color.scale($theme-color, $lightness: 10%) !default;
+// $bg-color: $theme-color !default;
+$text-color: $theme-reverse-color !default;
 $link-color: $skyblue !default;
 $success-color: $green !default;
 // font

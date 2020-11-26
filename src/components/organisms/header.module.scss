@@ -5,9 +5,9 @@ $-header-title-width: 250px;
 $-header-nav-min-width: 420px;
 
 .header {
-  background: transparentize(g.$theme-color, $amount: 0.3);
+  background: transparentize(g.$theme-strong-color, $amount: 0.1);
   backdrop-filter: blur(6px);
-  color: g.$theme-text-color;
+  color: g.$text-color;
   display: flex;
   padding: 0 30px;
 
@@ -111,7 +111,7 @@ $-button-inner-height: $-button-height - $-button-line-height;
   height: calc(100vh - #{g.$header-height});
   width: 45vw;
   background: transparentize(g.$theme-color, 0.3);
-  color: g.$theme-text-color;
+  color: g.$text-color;
 
   &[aria-hidden="true"] {
     display: none;

@@ -25,14 +25,15 @@
   margin: 0 0 20px 0;
 
   // styles
-  background: g.$white;
-  box-shadow: 0 0 7px 3px color.scale(g.$bg-color, $lightness: -10%);
+  background: g.$theme-weak-color;
+  color: g.$text-color;
+  box-shadow: g.$theme-strong-color;
   overflow: hidden;
 
   &__title {
     padding: 5px;
-    background: g.$theme-color;
-    color: g.$theme-text-color;
+    background: g.$theme-strong-color;
+    color: g.$text-color;
     font-size: 1.1rem;
     font-weight: normal;
     text-align: center;
@@ -43,6 +44,7 @@
   }
 
   &__content {
+    background: g.$theme-weak-color;
     padding: 10px;
   }
 }

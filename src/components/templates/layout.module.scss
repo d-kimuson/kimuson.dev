@@ -15,7 +15,6 @@
 
 .contentWrapper {
   min-height: calc(100vh - (#{g.$header-height} + #{g.$footer-height}));
-  background-color: g.$bg-color;
   * {
     // ページ内リンクジャンプで固定ヘッダに隠れないようにする
     scroll-margin-top: g.$header-height;

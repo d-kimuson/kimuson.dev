@@ -2,8 +2,8 @@
 @use "sass:color";
 
 .footer {
-  background-color: color.scale(g.$black-weak, $lightness: 20%);
-  color: g.$theme-text-color;
+  background: g.$theme-strong-color;
+  color: g.$text-color;
   display: flex;
   flex-direction: column;
   justify-content: center;

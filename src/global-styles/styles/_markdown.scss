@@ -10,15 +10,14 @@
     line-height: 2rem;
     padding: 1rem 0.5rem;
     margin: 1.8rem 0;
-    border-block-end: solid 2px g.$black-thin;
+    border-block-end: solid 2px g.$theme-reverse-color;
   }
   h3 {
     font-size: 1.3rem;
     line-height: 1.8rem;
     margin: 1.5rem 0;
     padding: 0.5rem 0 0.5rem 0.8rem;
-    border-inline-start: solid 8px g.$theme-color;
-    box-shadow: 0 0 0 color.scale(g.$bg-color, $lightness: -30%);
+    border-inline-start: solid 8px g.$theme-strong-color;
   }
   h4 {
     font-size: 1.3rem;
@@ -82,16 +81,16 @@
   }
   table {
     border-collapse: collapse;
-    box-shadow: 0 0 8px 1px g.$black-thin;
+    box-shadow: 0 0 8px 1px g.$theme-weak-color;
     th,
     td {
-      border: solid 1px g.$black-thin;
+      border: solid 1px g.$theme-reverse-color;
       padding: 0.5rem 1rem;
       font-weight: 400;
     }
     th {
-      background-color: g.$theme-color;
-      color: g.$theme-text-color;
+      background-color: g.$theme-strong-color;
+      color: g.$text-color;
     }
   }
   img[src*="gif"] {
@@ -110,14 +109,15 @@
   }
   // for `example`
   :not(pre) > code {
-    background-color: g.$white-weak;
+    background: g.$theme-color;
     height: 100%;
-    padding: 0.2rem 0.4rem;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.4rem;
     border-radius: 3px;
   }
   hr {
     display: block;
-    background-color: g.$black-thin;
+    background-color: g.$theme-color;
     height: 2px;
     border: none;
     margin: 1.2rem 0;
@@ -143,8 +143,7 @@ $-code-block-y-margin: 20px;
   padding: 2px 15px;
   border-radius: 5px 5px 0 0;
   // style
-  background: g.$theme-color;
-  color: g.$theme-text-color;
+  color: g.$text-color;
 }
 // Copy Button
 .gatsby-code-button-container {
