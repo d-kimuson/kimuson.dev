@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "../../global-styles/global/" as g;
+@use "@styles/global/" as g;
 
 .toc-wrapper {
   width: 100%;
@@ -33,6 +33,5 @@
 }
 
 .tocActive {
-  font-weight: bold;
   color: g.$link-color;
 }
