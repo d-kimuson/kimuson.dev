@@ -1,5 +1,5 @@
 import React from "react"
-import { GatsbySeo } from "gatsby-plugin-next-seo"
+import { GatsbySeo, OpenGraphImages } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
 import type { HeadQuery } from "@graphql-types"
@@ -23,12 +23,14 @@ const query = graphql`
 interface HeadProps {
   title?: string // TOPページのみ不要
   description?: string // TOPページのみ不要
+  imageUrl?: string
   slug?: string // TOPページのみ不要
 }
 
 export const Head: React.FC<HeadProps> = ({
   title,
   description,
+  imageUrl,
   slug,
 }: HeadProps) => {
   const { site } = useStaticQuery<HeadQuery>(query)
@@ -43,11 +45,7 @@ export const Head: React.FC<HeadProps> = ({
     typeof description === `undefined` ? siteDescription : description
 
   const siteDomain = siteUrl.split(`//`)[1].split(`/`)[0]
-
-  const pageUrl =
-    typeof siteUrl === `string`
-      ? `https://${siteDomain}${getBlogPostLink(slug || ``)}`
-      : undefined
+  const pageUrl = `https://${siteDomain}${getBlogPostLink(slug || ``)}`
 
   console.log(pageTitle, pageDescription, pageUrl)
   console.log(
@@ -55,6 +53,17 @@ export const Head: React.FC<HeadProps> = ({
       `description: ${pageDescription}` +
       `url: ${pageUrl}`
   )
+
+  let ogImages: OpenGraphImages[] | undefined
+  if (typeof imageUrl === `string`) {
+    ogImages = [
+      {
+        url: siteUrl + imageUrl,
+      },
+    ]
+  } else {
+    ogImages = undefined
+  }
 
   return (
     <GatsbySeo
@@ -65,6 +74,7 @@ export const Head: React.FC<HeadProps> = ({
         url: pageUrl,
         title: pageTitle,
         description: pageDescription,
+        images: ogImages,
         // eslint のルールと引数定義が競合するので無効にする
         // eslint-disable-next-line @typescript-eslint/camelcase
         site_name: siteTitle,

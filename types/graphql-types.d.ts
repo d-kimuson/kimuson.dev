@@ -726,12 +726,12 @@ export enum FileFieldsEnum {
   ChildMdxFrontmatterThumbnailPublicUrl = 'childMdx___frontmatter___thumbnail___publicURL',
   ChildMdxFrontmatterThumbnailId = 'childMdx___frontmatter___thumbnail___id',
   ChildMdxFrontmatterThumbnailChildren = 'childMdx___frontmatter___thumbnail___children',
+  ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
+  ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
+  ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
   ChildMdxFrontmatterDescription = 'childMdx___frontmatter___description',
   ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
   ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
-  ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
-  ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
-  ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
   ChildMdxSlug = 'childMdx___slug',
   ChildMdxBody = 'childMdx___body',
   ChildMdxExcerpt = 'childMdx___excerpt',
@@ -1556,12 +1556,12 @@ export enum MdxFieldsEnum {
   FrontmatterThumbnailChildMdxTimeToRead = 'frontmatter___thumbnail___childMdx___timeToRead',
   FrontmatterThumbnailChildMdxId = 'frontmatter___thumbnail___childMdx___id',
   FrontmatterThumbnailChildMdxChildren = 'frontmatter___thumbnail___childMdx___children',
+  FrontmatterDate = 'frontmatter___date',
+  FrontmatterWeight = 'frontmatter___weight',
+  FrontmatterDraft = 'frontmatter___draft',
   FrontmatterDescription = 'frontmatter___description',
   FrontmatterTags = 'frontmatter___tags',
   FrontmatterCategory = 'frontmatter___category',
-  FrontmatterDate = 'frontmatter___date',
-  FrontmatterDraft = 'frontmatter___draft',
-  FrontmatterWeight = 'frontmatter___weight',
   Slug = 'slug',
   Body = 'body',
   Excerpt = 'excerpt',
@@ -1692,12 +1692,12 @@ export type MdxFrontmatter = {
   __typename?: 'MdxFrontmatter';
   title: Scalars['String'];
   thumbnail?: Maybe<File>;
+  date?: Maybe<Scalars['Date']>;
+  weight?: Maybe<Scalars['Int']>;
+  draft?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   category?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-  draft?: Maybe<Scalars['Boolean']>;
-  weight?: Maybe<Scalars['Int']>;
 };
 
 
@@ -1711,12 +1711,12 @@ export type MdxFrontmatterDateArgs = {
 export type MdxFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   thumbnail?: Maybe<FileFilterInput>;
+  date?: Maybe<DateQueryOperatorInput>;
+  weight?: Maybe<IntQueryOperatorInput>;
+  draft?: Maybe<BooleanQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
   category?: Maybe<StringQueryOperatorInput>;
-  date?: Maybe<DateQueryOperatorInput>;
-  draft?: Maybe<BooleanQueryOperatorInput>;
-  weight?: Maybe<IntQueryOperatorInput>;
 };
 
 export type MdxGroupConnection = {
@@ -2623,7 +2623,6 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsFeedsTitle = 'pluginCreator___pluginOptions___feeds___title',
   PluginCreatorPluginOptionsFeedsMatch = 'pluginCreator___pluginOptions___feeds___match',
   PluginCreatorPluginOptionsTrackingId = 'pluginCreator___pluginOptions___trackingId',
-  PluginCreatorPluginOptionsPublisherId = 'pluginCreator___pluginOptions___publisherId',
   PluginCreatorPluginOptionsShortName = 'pluginCreator___pluginOptions___short_name',
   PluginCreatorPluginOptionsStartUrl = 'pluginCreator___pluginOptions___start_url',
   PluginCreatorPluginOptionsBackgroundColor = 'pluginCreator___pluginOptions___background_color',
@@ -2650,9 +2649,19 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsOpenGraphLocale = 'pluginCreator___pluginOptions___openGraph___locale',
   PluginCreatorPluginOptionsOpenGraphUrl = 'pluginCreator___pluginOptions___openGraph___url',
   PluginCreatorPluginOptionsOpenGraphSiteName = 'pluginCreator___pluginOptions___openGraph___site_name',
+  PluginCreatorPluginOptionsTwitterHandle = 'pluginCreator___pluginOptions___twitter___handle',
+  PluginCreatorPluginOptionsTwitterSite = 'pluginCreator___pluginOptions___twitter___site',
+  PluginCreatorPluginOptionsTwitterCardType = 'pluginCreator___pluginOptions___twitter___cardType',
   PluginCreatorPluginOptionsOutput = 'pluginCreator___pluginOptions___output',
   PluginCreatorPluginOptionsHost = 'pluginCreator___pluginOptions___host',
   PluginCreatorPluginOptionsSitemap = 'pluginCreator___pluginOptions___sitemap',
+  PluginCreatorPluginOptionsHeadersXxhtml = 'pluginCreator___pluginOptions___headers____xxhtml',
+  PluginCreatorPluginOptionsHeadersPageData = 'pluginCreator___pluginOptions___headers____page_data__',
+  PluginCreatorPluginOptionsHeadersPageDataAppDataJson = 'pluginCreator___pluginOptions___headers____page_data_app_data_json',
+  PluginCreatorPluginOptionsHeadersStatic = 'pluginCreator___pluginOptions___headers____static__',
+  PluginCreatorPluginOptionsHeadersSwJs = 'pluginCreator___pluginOptions___headers____sw_js',
+  PluginCreatorPluginOptionsHeadersXxxxxjs = 'pluginCreator___pluginOptions___headers____xxxxxjs',
+  PluginCreatorPluginOptionsHeadersXxxxxcss = 'pluginCreator___pluginOptions___headers____xxxxxcss',
   PluginCreatorPluginOptionsPathCheck = 'pluginCreator___pluginOptions___pathCheck',
   PluginCreatorNodeApIs = 'pluginCreator___nodeAPIs',
   PluginCreatorBrowserApIs = 'pluginCreator___browserAPIs',
@@ -2864,7 +2873,6 @@ export enum SitePluginFieldsEnum {
   PluginOptionsFeedsTitle = 'pluginOptions___feeds___title',
   PluginOptionsFeedsMatch = 'pluginOptions___feeds___match',
   PluginOptionsTrackingId = 'pluginOptions___trackingId',
-  PluginOptionsPublisherId = 'pluginOptions___publisherId',
   PluginOptionsShortName = 'pluginOptions___short_name',
   PluginOptionsStartUrl = 'pluginOptions___start_url',
   PluginOptionsBackgroundColor = 'pluginOptions___background_color',
@@ -2891,10 +2899,20 @@ export enum SitePluginFieldsEnum {
   PluginOptionsOpenGraphLocale = 'pluginOptions___openGraph___locale',
   PluginOptionsOpenGraphUrl = 'pluginOptions___openGraph___url',
   PluginOptionsOpenGraphSiteName = 'pluginOptions___openGraph___site_name',
+  PluginOptionsTwitterHandle = 'pluginOptions___twitter___handle',
+  PluginOptionsTwitterSite = 'pluginOptions___twitter___site',
+  PluginOptionsTwitterCardType = 'pluginOptions___twitter___cardType',
   PluginOptionsOutput = 'pluginOptions___output',
   PluginOptionsHost = 'pluginOptions___host',
   PluginOptionsSitemap = 'pluginOptions___sitemap',
   PluginOptionsEnvProductionPolicy = 'pluginOptions___env___production___policy',
+  PluginOptionsHeadersXxhtml = 'pluginOptions___headers____xxhtml',
+  PluginOptionsHeadersPageData = 'pluginOptions___headers____page_data__',
+  PluginOptionsHeadersPageDataAppDataJson = 'pluginOptions___headers____page_data_app_data_json',
+  PluginOptionsHeadersStatic = 'pluginOptions___headers____static__',
+  PluginOptionsHeadersSwJs = 'pluginOptions___headers____sw_js',
+  PluginOptionsHeadersXxxxxjs = 'pluginOptions___headers____xxxxxjs',
+  PluginOptionsHeadersXxxxxcss = 'pluginOptions___headers____xxxxxcss',
   PluginOptionsPathCheck = 'pluginOptions___pathCheck',
   NodeApIs = 'nodeAPIs',
   BrowserApIs = 'browserAPIs',
@@ -3026,7 +3044,6 @@ export type SitePluginPluginOptions = {
   query?: Maybe<Scalars['String']>;
   feeds?: Maybe<Array<Maybe<SitePluginPluginOptionsFeeds>>>;
   trackingId?: Maybe<Scalars['String']>;
-  publisherId?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
@@ -3050,10 +3067,12 @@ export type SitePluginPluginOptions = {
   syntax?: Maybe<Scalars['String']>;
   files?: Maybe<Array<Maybe<Scalars['String']>>>;
   openGraph?: Maybe<SitePluginPluginOptionsOpenGraph>;
+  twitter?: Maybe<SitePluginPluginOptionsTwitter>;
   output?: Maybe<Scalars['String']>;
   host?: Maybe<Scalars['String']>;
   sitemap?: Maybe<Scalars['String']>;
   env?: Maybe<SitePluginPluginOptionsEnv>;
+  headers?: Maybe<SitePluginPluginOptionsHeaders>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
@@ -3118,7 +3137,6 @@ export type SitePluginPluginOptionsFilterInput = {
   query?: Maybe<StringQueryOperatorInput>;
   feeds?: Maybe<SitePluginPluginOptionsFeedsFilterListInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
-  publisherId?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
@@ -3142,11 +3160,34 @@ export type SitePluginPluginOptionsFilterInput = {
   syntax?: Maybe<StringQueryOperatorInput>;
   files?: Maybe<StringQueryOperatorInput>;
   openGraph?: Maybe<SitePluginPluginOptionsOpenGraphFilterInput>;
+  twitter?: Maybe<SitePluginPluginOptionsTwitterFilterInput>;
   output?: Maybe<StringQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
   sitemap?: Maybe<StringQueryOperatorInput>;
   env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
+  headers?: Maybe<SitePluginPluginOptionsHeadersFilterInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsHeaders = {
+  __typename?: 'SitePluginPluginOptionsHeaders';
+  _xxhtml?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _page_data__?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _page_data_app_data_json?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _static__?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _sw_js?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _xxxxxjs?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _xxxxxcss?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPluginOptionsHeadersFilterInput = {
+  _xxhtml?: Maybe<StringQueryOperatorInput>;
+  _page_data__?: Maybe<StringQueryOperatorInput>;
+  _page_data_app_data_json?: Maybe<StringQueryOperatorInput>;
+  _static__?: Maybe<StringQueryOperatorInput>;
+  _sw_js?: Maybe<StringQueryOperatorInput>;
+  _xxxxxjs?: Maybe<StringQueryOperatorInput>;
+  _xxxxxcss?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsImplementation = {
@@ -3194,6 +3235,19 @@ export type SitePluginPluginOptionsPluginsFilterInput = {
 
 export type SitePluginPluginOptionsPluginsFilterListInput = {
   elemMatch?: Maybe<SitePluginPluginOptionsPluginsFilterInput>;
+};
+
+export type SitePluginPluginOptionsTwitter = {
+  __typename?: 'SitePluginPluginOptionsTwitter';
+  handle?: Maybe<Scalars['String']>;
+  site?: Maybe<Scalars['String']>;
+  cardType?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsTwitterFilterInput = {
+  handle?: Maybe<StringQueryOperatorInput>;
+  site?: Maybe<StringQueryOperatorInput>;
+  cardType?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginSortInput = {
@@ -3647,6 +3701,7 @@ export type BlogPostBySlugQuery = (
       & Pick<MdxFrontmatter, 'title' | 'date' | 'description' | 'category' | 'tags' | 'draft'>
       & { thumbnail?: Maybe<(
         { __typename?: 'File' }
+        & Pick<File, 'publicURL'>
         & { childImageSharp?: Maybe<(
           { __typename?: 'ImageSharp' }
           & { fluid?: Maybe<(

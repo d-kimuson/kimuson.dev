@@ -50,6 +50,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
       <Head
         title={title}
         description={description}
+        imageUrl={toUndefinedOrT(post?.frontmatter?.thumbnail?.publicURL)}
         slug={post?.fields?.slug || ``}
       />
       <Layout>
@@ -93,6 +94,7 @@ export const pageQuery = graphql`
         tags
         draft
         thumbnail {
+          publicURL
           childImageSharp {
             fluid(maxWidth: 590, traceSVG: { background: "#333846" }) {
               aspectRatio
