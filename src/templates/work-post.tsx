@@ -2,7 +2,6 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { WorkPostBySlugQuery } from "@graphql-types"
-import type { MdxAst } from "@declaration"
 import { getWorkPostLink } from "@funcs/links"
 import { toUndefinedOrT } from "@funcs/type"
 import { Post } from "@components/templates/post"
@@ -34,7 +33,6 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   const title = post?.frontmatter?.title || ``
   const description = post?.frontmatter?.description || post?.excerpt || ``
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
-  const mdxAst: MdxAst = post?.mdxAST
 
   return (
     <>
@@ -51,7 +49,11 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
             thumbnail={toUndefinedOrT(thumbnail)}
             post={toUndefinedOrT(post)}
           />
-          <Sidebar bio={true} toc={{ mdxAst: mdxAst }} commonSidebar={true} />
+          <Sidebar
+            bio={true}
+            toc={{ tableOfContents: post?.tableOfContents }}
+            commonSidebar={true}
+          />
         </div>
       </Layout>
     </>
@@ -66,7 +68,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       body
-      mdxAST
+      tableOfContents
       fields {
         slug
       }

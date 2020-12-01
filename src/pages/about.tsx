@@ -2,7 +2,6 @@ import React from "react"
 import { PageProps, graphql } from "gatsby"
 
 import type { AboutPageQuery } from "@graphql-types"
-import type { MdxAst } from "@declaration"
 import { toUndefinedOrT } from "@funcs/type"
 import { Post } from "@components/templates/post"
 import { Layout } from "@components/templates/layout"
@@ -16,7 +15,6 @@ interface AboutPageProps extends PageProps {
 const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
   const title = data.mdx?.frontmatter?.title || `About`
   const description = data.mdx?.frontmatter?.description || ``
-  const mdxAst: MdxAst = data.mdx?.mdxAST
 
   return (
     <>
@@ -24,7 +22,11 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
       <Layout>
         <div className="l-page-container">
           <Post title={title} post={toUndefinedOrT(data?.mdx)} />
-          <Sidebar bio={true} commonSidebar={true} toc={{ mdxAst: mdxAst }} />
+          <Sidebar
+            bio={true}
+            commonSidebar={true}
+            toc={{ tableOfContents: data.mdx?.tableOfContents }}
+          />
         </div>
       </Layout>
     </>
@@ -41,7 +43,7 @@ export const pageQuery = graphql`
         description
       }
       body
-      mdxAST
+      tableOfContents
     }
   }
 `

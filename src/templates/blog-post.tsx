@@ -2,7 +2,6 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
-import type { MdxAst } from "@declaration"
 import { getBlogPostLink } from "@funcs/links"
 import { convertToBlogPostList, filterDraft } from "@funcs/post"
 import { toUndefinedOrT } from "@funcs/type"
@@ -43,8 +42,6 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
     data.allMdx.edges.filter((e): e is MdxEdge => typeof e !== `undefined`)
   ).filter(filterDraft)
 
-  const mdxAst: MdxAst = post?.mdxAST
-
   return (
     <>
       <Head
@@ -63,7 +60,11 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
             post={toUndefinedOrT(post)}
           />
 
-          <Sidebar bio={true} toc={{ mdxAst: mdxAst }} commonSidebar={true} />
+          <Sidebar
+            bio={true}
+            toc={{ tableOfContents: post?.tableOfContents }}
+            commonSidebar={true}
+          />
         </div>
 
         {relatedArticle.length !== 0 ? (
@@ -82,7 +83,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       body
-      mdxAST
+      tableOfContents
       fields {
         slug
       }

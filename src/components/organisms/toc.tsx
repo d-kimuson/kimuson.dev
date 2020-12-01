@@ -3,8 +3,6 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
 
-import type { MdxAst } from "@declaration"
-import { toValidSlug } from "@funcs/links"
 // @ts-ignore
 import styles from "./toc.module.scss"
 
@@ -19,29 +17,45 @@ interface Heading {
   elm?: HTMLElement
 }
 
-interface TocProps {
-  mdxAst: MdxAst
+interface TableOfContent {
+  url: string
+  title: string
+  items?: TableOfContent[]
 }
 
-export const Toc: React.FC<TocProps> = ({ mdxAst }: TocProps) => {
-  const [headings, setHeadings] = useState<Heading[]>(
-    (mdxAst.children || [])
-      .filter(node => node.type === `heading`)
-      .filter(node => node.depth && [2, 3].includes(node.depth))
-      .map(node => {
-        const value = node.children?.find(item => item.type == `text`)?.value
+export interface TableOfContents {
+  items: TableOfContent[]
+}
 
-        return {
-          tag: node.depth ? `h${node.depth}` : node.depth,
-          id: value ? toValidSlug(value) : value,
+interface TocProps {
+  tableOfContents: TableOfContents
+}
+
+export const Toc: React.FC<TocProps> = ({ tableOfContents }: TocProps) => {
+  const [headings, setHeadings] = useState<Heading[]>(
+    tableOfContents.items.reduce(
+      (s: Heading[], t: TableOfContent): Heading[] => {
+        s.push({
+          tag: `h2`,
+          id: t.url.replace(`#`, ``),
+          value: t.title,
           active: false,
-          value: value,
-        }
-      })
-      .filter(
-        (h): h is Heading => typeof (h.tag && h.id && h.value) !== `undefined`
-      )
+        })
+        ;(t.items || []).forEach((item: TableOfContent) => {
+          s.push({
+            tag: `h3`,
+            id: item.url.replace(`#`, ``),
+            value: item.title,
+            active: false,
+          })
+        })
+
+        return s
+      },
+      []
+    )
   )
+
   const [pageYOffset, setPageYOffset] = useState<number>(0)
 
   // functions

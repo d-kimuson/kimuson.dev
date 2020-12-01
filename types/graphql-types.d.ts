@@ -3592,7 +3592,7 @@ export type AboutPageQuery = (
   { __typename?: 'Query' }
   & { mdx?: Maybe<(
     { __typename?: 'Mdx' }
-    & Pick<Mdx, 'body' | 'mdxAST'>
+    & Pick<Mdx, 'body' | 'tableOfContents'>
     & { frontmatter: (
       { __typename?: 'MdxFrontmatter' }
       & Pick<MdxFrontmatter, 'title' | 'description'>
@@ -3692,7 +3692,7 @@ export type BlogPostBySlugQuery = (
   { __typename?: 'Query' }
   & { mdx?: Maybe<(
     { __typename?: 'Mdx' }
-    & Pick<Mdx, 'id' | 'excerpt' | 'body' | 'mdxAST'>
+    & Pick<Mdx, 'id' | 'excerpt' | 'body' | 'tableOfContents'>
     & { fields?: Maybe<(
       { __typename?: 'MdxFields' }
       & Pick<MdxFields, 'slug'>
@@ -3837,7 +3837,7 @@ export type WorkPostBySlugQuery = (
   { __typename?: 'Query' }
   & { mdx?: Maybe<(
     { __typename?: 'Mdx' }
-    & Pick<Mdx, 'id' | 'excerpt' | 'body' | 'mdxAST'>
+    & Pick<Mdx, 'id' | 'excerpt' | 'body' | 'tableOfContents'>
     & { fields?: Maybe<(
       { __typename?: 'MdxFields' }
       & Pick<MdxFields, 'slug'>
