@@ -66,7 +66,6 @@ export const pageQuery = graphql`
   query WorkPostBySlug($slug: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
       id
-      excerpt(pruneLength: 160)
       body
       tableOfContents
       fields {

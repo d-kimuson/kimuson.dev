@@ -34,7 +34,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   const post = data.mdx
 
   const title = post?.frontmatter.title || ``
-  const description = post?.frontmatter?.description || post?.excerpt || ``
+  const description = post?.frontmatter?.description || ``
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
   const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
   const postUrl = siteUrl + getBlogPostLink(post?.fields?.slug || ``)
@@ -81,7 +81,6 @@ export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!, $category: String!) {
     mdx(fields: { slug: { eq: $slug } }) {
       id
-      excerpt(pruneLength: 160)
       body
       tableOfContents
       fields {
@@ -125,7 +124,6 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          excerpt(truncate: true)
           fields {
             slug
           }
