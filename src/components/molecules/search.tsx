@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
-import Fuse from "fuse.js"
 
 import type { SearchQuery, MdxEdge } from "@graphql-types"
 import { TagChecklist } from "./tag-checklist"
@@ -60,12 +59,11 @@ export const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const blogPosts: BlogPost[] = convertToBlogPostList(edges)
+  const blogPosts = convertToBlogPostList(edges).map(post => ({
+    ...post,
+    searchTitle: post.title.toLowerCase(),
+  }))
   const tags = Array.from(new Set(blogPosts.flatMap(article => article.tags)))
-
-  const fuse = new Fuse(blogPosts, {
-    keys: [`title`],
-  })
 
   const [keyword, setKeyword] = useState<string>(``)
   const [results, setResults] = useState<BlogPost[]>(blogPosts)
@@ -80,7 +78,9 @@ export const Search: React.FC<SearchProps> = ({ className }: SearchProps) => {
     if (keyword === ``) {
       updatedBlogPosts = blogPosts
     } else {
-      updatedBlogPosts = fuse.search(keyword).map(_ => _.item)
+      updatedBlogPosts = blogPosts.filter(
+        post => post.searchTitle.indexOf(keyword.toLowerCase()) > -1
+      )
     }
 
     if (selectedTags.length !== 0) {
