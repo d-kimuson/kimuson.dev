@@ -11,7 +11,7 @@ weight: 5
 draft: false
 ---
 
-## TLDR;
+## TL;DR
 
 Django REST framework で、ビューへのパーミッションをカスタマイズする方法についてです。
 
