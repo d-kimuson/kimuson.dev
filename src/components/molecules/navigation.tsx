@@ -54,7 +54,7 @@ export const Navigation: React.FC<NavigationProps> = (
           <li key={route.to}>
             <Link
               to={route.to}
-              className={`m-remove-a-decoration ${styles.navLink}`}
+              className={`m-un-selectable m-remove-a-decoration ${styles.navLink}`}
             >
               {route.text}
             </Link>

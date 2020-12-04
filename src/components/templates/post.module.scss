@@ -53,6 +53,10 @@
   position: sticky;
   top: calc(50vh - #{g.$header-height});
   left: 0;
+
+  button {
+    outline: none;
+  }
 }
 
 // Responsive

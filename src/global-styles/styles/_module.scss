@@ -2,6 +2,10 @@
 @use '../global/' as g;
 @use 'variable' as l;
 
+.m-un-selectable {
+  user-select: none;
+}
+
 .m-remove-a-decoration {
   &,
   &:visited,
@@ -63,6 +67,7 @@
   background-color: g.$black-weak;
   color: g.$white;
   font-size: 0.8rem;
+  user-select: none;
   // animation
   transition: 300ms ease;
 }

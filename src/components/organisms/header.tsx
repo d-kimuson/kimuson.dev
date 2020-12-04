@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
 
   return (
     <header
-      className={`${styles.header} ${
+      className={`m-un-selectable ${styles.header} ${
         typeof className === `string` ? className : ``
       }`}
     >
