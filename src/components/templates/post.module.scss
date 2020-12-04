@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "sass:map";
 @use "@styles/global" as g;
+@use '@styles/styles/_variable' as l;
 
 .contentContainer {
   padding: 10px 20px;
@@ -23,5 +24,45 @@
 
   div {
     margin: 10px 0;
+  }
+}
+
+.articleMetaContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post {
+  display: grid;
+  grid-template: "left main" 1fr / 60px 1fr;
+  position: relative;
+}
+
+.main {
+  grid-area: main;
+}
+
+.left {
+  grid-area: left;
+  margin-bottom: 20px; // m-card と揃える
+}
+
+.snsArena {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: calc(50vh - #{g.$header-height});
+  left: 0;
+}
+
+// Responsive
+@media screen and (max-width: l.$main-width + 2 * l.$page-x-padding) {
+  .post {
+    grid-template: "main" "left";
+  }
+
+  .snsArena {
+    flex-direction: row;
+    justify-content: center;
   }
 }

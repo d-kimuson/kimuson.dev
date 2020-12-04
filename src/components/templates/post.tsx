@@ -35,16 +35,16 @@ export const Post: React.FC<PostProps> = ({
   frontmatter,
   post,
 }: PostProps) => {
-  const articleSize = 40
+  const shareButtonSize = 35
 
   const tags = (frontmatter?.tags || []).filter(
     (tag): tag is string => typeof tag === `string`
   )
 
   return (
-    <div className="l-main-wrapper">
-      <main role="main">
-        <article className={`m-card l-main-width`}>
+    <div className="l-main-wrapper l-main-width">
+      <main role="main" className={styles.post}>
+        <article className={`m-card ${styles.main}`}>
           {typeof thumbnail === `object` && thumbnail !== null ? (
             <Image
               fluid={toGatsbyImageFluidArg(thumbnail)}
@@ -58,7 +58,13 @@ export const Post: React.FC<PostProps> = ({
               {frontmatter?.draft ? `[非公開]` : ``}
               {title}
             </h1>
-            <Date date={frontmatter?.date} />
+
+            <div className={styles.articleMetaContainer}>
+              <div className={styles.tagArea}>
+                <TagList tags={tags} isLink={true} />
+              </div>
+              <Date date={frontmatter?.date} />
+            </div>
 
             <div className="m-article-body">
               <MDXRenderer>{post?.body || ``}</MDXRenderer>
@@ -66,35 +72,29 @@ export const Post: React.FC<PostProps> = ({
           </div>
 
           <hr className={styles.sepLine} />
-
-          <footer className={styles.footerContainer}>
-            {postUrl ? (
-              <div className={styles.snsArea}>
-                <FacebookShareButton url={postUrl}>
-                  <FacebookIcon size={articleSize} round />
-                </FacebookShareButton>
-
-                <LineShareButton url={postUrl}>
-                  <LineIcon size={articleSize} round />
-                </LineShareButton>
-
-                <LinkedinShareButton url={postUrl}>
-                  <LinkedinIcon size={articleSize} round />
-                </LinkedinShareButton>
-
-                <TwitterShareButton title={title} via="_kimuson" url={postUrl}>
-                  <TwitterIcon size={articleSize} round />
-                </TwitterShareButton>
-              </div>
-            ) : null}
-
-            {tags.length !== 0 ? (
-              <div className={styles.tagArea}>
-                <TagList tags={tags} isLink={true} />
-              </div>
-            ) : null}
-          </footer>
         </article>
+
+        {postUrl ? (
+          <div className={styles.left}>
+            <div className={styles.snsArena}>
+              <FacebookShareButton url={postUrl}>
+                <FacebookIcon size={shareButtonSize} round />
+              </FacebookShareButton>
+
+              <LineShareButton url={postUrl}>
+                <LineIcon size={shareButtonSize} round />
+              </LineShareButton>
+
+              <LinkedinShareButton url={postUrl}>
+                <LinkedinIcon size={shareButtonSize} round />
+              </LinkedinShareButton>
+
+              <TwitterShareButton title={title} via="_kimuson" url={postUrl}>
+                <TwitterIcon size={shareButtonSize} round />
+              </TwitterShareButton>
+            </div>
+          </div>
+        ) : null}
       </main>
     </div>
   )
