@@ -25,6 +25,9 @@
       "@components/*": [
         "./src/components/*"
       ],
+      "@mdx": [
+        "./src/components/_mdx"
+      ],
     },
     "module": "esnext",
     "moduleResolution": "node",

@@ -31,7 +31,7 @@ type ChildrenProps = ChildrenPropsBase & {
   className: string
 }
 
-const PreComponent: React.FC<PreProps<ChildrenProps>> = (
+export const Pre: React.FC<PreProps<ChildrenProps>> = (
   preProps: PreProps<ChildrenProps>
 ) => {
   const props = preToCodeBlock<ChildrenProps>(preProps)
@@ -47,5 +47,3 @@ const PreComponent: React.FC<PreProps<ChildrenProps>> = (
     return <pre {...preProps} />
   }
 }
-
-export default PreComponent
