@@ -31,7 +31,7 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
 }: WorkPostTemplateProps) => {
   const post = data.mdx
   const title = post?.frontmatter?.title || ``
-  const description = post?.frontmatter?.description || post?.excerpt || ``
+  const description = post?.frontmatter?.description || ``
   const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
 
   return (
