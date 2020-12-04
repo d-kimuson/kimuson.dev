@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
+import loadable from "loadable-components"
 
 import type { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
 import { getBlogPostLink } from "@funcs/links"
@@ -9,7 +10,13 @@ import { Post } from "@components/templates/post"
 import { Layout } from "@components/templates/layout"
 import { Head } from "@components/templates/head"
 import { Sidebar } from "@components/templates/sidebar"
-import { BlogPostListRow } from "@components/molecules/blog-post-list-row"
+
+const BlogPostListRow = loadable(async () => {
+  const { BlogPostListRow } = await import(
+    `../components/molecules/blog-post-list-row`
+  )
+  return BlogPostListRow
+})
 
 interface AroundNav {
   fields: {
