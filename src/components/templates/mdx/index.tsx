@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react"
 import { MDXProvider, MDXProviderComponents } from "@mdx-js/react"
-import Pre from "./components/pre"
+import loadable from "loadable-components"
 
 const components: MDXProviderComponents = {
-  pre: Pre,
+  pre: loadable(() => import(`./components/pre`)),
 }
 
 export const wrapRootElement = ({

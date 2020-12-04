@@ -114,5 +114,8 @@
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "loadable-components": "^2.2.3"
   }
 }
