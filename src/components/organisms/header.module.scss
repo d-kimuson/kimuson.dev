@@ -12,7 +12,6 @@ $-header-nav-min-width: 420px;
   padding: 0 30px;
 
   .headerTitleArea {
-    grid-area: title;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -24,7 +23,6 @@ $-header-nav-min-width: 420px;
   }
 
   .headerNavArea {
-    grid-area: nav;
     display: flex;
     justify-content: flex-end;
     align-items: center;
