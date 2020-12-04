@@ -16,6 +16,9 @@
       "@graphql-types": [
         "types/graphql-types.d.ts"
       ],
+      "@static/*": [
+        "static/*"
+      ],
       "@styles/*": [
         "src/global-styles/*"
       ],

@@ -3538,7 +3538,16 @@ export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HeaderQuery = (
   { __typename?: 'Query' }
-  & { site?: Maybe<(
+  & { file?: Maybe<(
+    { __typename?: 'File' }
+    & { childImageSharp?: Maybe<(
+      { __typename?: 'ImageSharp' }
+      & { fixed?: Maybe<(
+        { __typename?: 'ImageSharpFixed' }
+        & Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet' | 'base64' | 'srcWebp' | 'srcSetWebp'>
+      )> }
+    )> }
+  )>, site?: Maybe<(
     { __typename?: 'Site' }
     & { siteMetadata?: Maybe<(
       { __typename?: 'SiteSiteMetadata' }
@@ -3611,7 +3620,6 @@ export type IndexQuery = (
       { __typename?: 'MdxEdge' }
       & { node: (
         { __typename?: 'Mdx' }
-        & Pick<Mdx, 'excerpt'>
         & { fields?: Maybe<(
           { __typename?: 'MdxFields' }
           & Pick<MdxFields, 'slug'>
@@ -3652,7 +3660,6 @@ export type WorkPageQuery = (
       { __typename?: 'MdxEdge' }
       & { node: (
         { __typename?: 'Mdx' }
-        & Pick<Mdx, 'excerpt'>
         & { fields?: Maybe<(
           { __typename?: 'MdxFields' }
           & Pick<MdxFields, 'slug'>
@@ -3674,7 +3681,6 @@ export type WorkPageQuery = (
     )> }
   ), site?: Maybe<(
     { __typename?: 'Site' }
-    & Pick<Site, 'id'>
     & { siteMetadata?: Maybe<(
       { __typename?: 'SiteSiteMetadata' }
       & Pick<SiteSiteMetadata, 'title'>
@@ -3692,7 +3698,7 @@ export type BlogPostBySlugQuery = (
   { __typename?: 'Query' }
   & { mdx?: Maybe<(
     { __typename?: 'Mdx' }
-    & Pick<Mdx, 'id' | 'excerpt' | 'body' | 'tableOfContents'>
+    & Pick<Mdx, 'id' | 'body' | 'tableOfContents'>
     & { fields?: Maybe<(
       { __typename?: 'MdxFields' }
       & Pick<MdxFields, 'slug'>
@@ -3723,7 +3729,6 @@ export type BlogPostBySlugQuery = (
       { __typename?: 'MdxEdge' }
       & { node: (
         { __typename?: 'Mdx' }
-        & Pick<Mdx, 'excerpt'>
         & { fields?: Maybe<(
           { __typename?: 'MdxFields' }
           & Pick<MdxFields, 'slug'>
@@ -3837,7 +3842,7 @@ export type WorkPostBySlugQuery = (
   { __typename?: 'Query' }
   & { mdx?: Maybe<(
     { __typename?: 'Mdx' }
-    & Pick<Mdx, 'id' | 'excerpt' | 'body' | 'tableOfContents'>
+    & Pick<Mdx, 'id' | 'body' | 'tableOfContents'>
     & { fields?: Maybe<(
       { __typename?: 'MdxFields' }
       & Pick<MdxFields, 'slug'>
