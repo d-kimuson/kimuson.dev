@@ -20,6 +20,7 @@
   display: grid;
   grid-template: "left main" 1fr / 60px 1fr;
   position: relative;
+  width: 100%;
 }
 
 .main {
