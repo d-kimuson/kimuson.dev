@@ -4,7 +4,6 @@ description: "DRFでサードパーティクッキーでログイン状態を持
 thumbnail: "/thumbnails/Django.png"
 tags:
   - "Python"
-  - "セキュリティ"
   - "Django"
 category: "Django"
 date: "2020-04-15T08:41:57+09:00"

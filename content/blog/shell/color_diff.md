@@ -1,17 +1,17 @@
 ---
-title: "Text Diffを見やすくする"
-thumbnail: "/thumbnails/prog_g.png"
-tags:
-  - "Shell"
+title: "diff コマンドを見やすくする"
+thumbnail: "/thumbnails/shell.png"
 category: "shell"
 date: "2020-06-16T15:01:10+09:00"
 weight: 5
-draft: true
+draft: false
 ---
 
-`diff` コマンドが見づらい問題を解消する.
+## TL;DR
 
-bash 標準の diff はだいぶ見づらい.
+Mac 標準の diff コマンドが見づらいので、見やすくするメモ。
+
+標準の diff コマンドは、
 
 ``` bash
 $ diff file1 file2
@@ -21,17 +21,38 @@ $ diff file1 file2
 > hello world
 ```
 
-一応差分はわかるけど, ソースコードの全体像もはっきりしないしわかりにくい.
+こんな感じで、一応差分はわかるけど見にくいので、みやすくします
+
+## 環境
+
+``` bash
+$ sw_vers
+ProductName:    Mac OS X
+ProductVersion: 10.15.7
+BuildVersion:   19H2
+
+$ diff -v
+diff (GNU diffutils) 2.8.1
+Copyright (C) 2002 Free Software Foundation, Inc.
+
+This program comes with NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of this program
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING.
+
+Written by Paul Eggert, Mike Haertel, David Hayes,
+Richard Stallman, and Len Tower.
+```
 
 ## colordiff の導入
 
-`diff` をカラーリングできる `colordiff` の導入.
+`diff` をカラーリングできる [colordiff](https://www.colordiff.org/) を brew から導入します
 
 ``` bash
 $ brew install colordiff
 ```
 
-`shell` の設定ファイルにて, `colordiff` に `diff` のエイリアスをつけておく.
+`.zshrc` にエイリアスを貼って `diff` で呼ばれるようにします
 
 ``` bash
 if [[ -x `which colordiff` ]]; then
@@ -39,38 +60,59 @@ if [[ -x `which colordiff` ]]; then
 fi
 ```
 
-これでカラーリングされるようになった.
+これでカラーリングされるようになりました
 
-## Git Like な Diff
+## Git っぽい diff を表示する
 
-`-u` オプションで `Git` っぽい見た目で差分が見られる.
+色付けがされただけでもだいぶ見やすくなったんですが、`-u` オプションを付けると `git diff` っぽい見た目で差分を表示できます
 
 ``` bash
 $ diff -u file1 file2
+--- file1	YYYY-MM-DD hh:mm:ss.000000000 +0900
++++ file2	YYYY-MM-DD hh:mm:ss.000000000 +0900
+@@ -1,2 +1,2 @@
+ hello world
+-hello world1
++hello world2
 ```
 
-## 横並びで比較
+うん、見慣れた感じでとても見やすい
 
-`-y` オプションで, 横並びで比較できるのでとてもみやすい.
+## 横並びで比較する
 
-併用できるオプションとして,
+`-y` オプションで、横並びで比較できます
 
-- `--left-column`: 左側は全表示, 右側は差分表示に
+併用できるオプションとして、
+
+- `--left-column`: 左側は全表示、右側は差分表示に
 - `--suppress-common-lines`: 差分だけ表示
 
-があるけど, 個人的には `--left-column` が使いやすかった.
+があります
 
 ``` bash
-$ diff diff -y --left-column file1 file2
+$ diff -y file1 file2
+hello world                                                     hello world
+hello world1                                                  | hello world2
+
+$ diff -y --left-column file1 file2
+hello world                                                   (
+hello world1                                                  | hello world2
+
+$ diff -y --suppress-common-lines file1 file2
+hello world1                                                  | hello world2
 ```
+
+どれもみやすいですね
+
+この中なら、`--left-column` が良さそう
 
 ## エイリアス
 
-最後にエイリアスを貼っておく.
+オプション付きだと長くて普段使いしにくいので、エイリアスを貼っておきます
 
 ``` bash
-alias diffy='diff -y --left-column'
 alias diffg='diff -u'
+alias diffy='diff -y --left-column'
 ```
 
-以上.
+以上になります

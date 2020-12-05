@@ -5,7 +5,6 @@ category: Gatsby
 tags:
   - "ブログ"
   - Gatsby
-  - React
 date: "2020-08-30T22:40:32.169Z"
 thumbnail: 'thumbnails/Gatsby.png'
 draft: false

@@ -8,10 +8,10 @@ tags:
 category: "Django"
 date: "2020-02-21T00:18:07+09:00"
 weight: 5
-draft: true
+draft: false
 ---
 
-Djangoで Slack Bot作ったので, 簡単に手順をまとめておきます.
+Django で Slack Bot 作ったので、簡単に手順をメモしておきます
 
 ## 環境
 
@@ -28,15 +28,15 @@ $ pip -V
 pip 20.0.2
 ```
 
-## Django Project を建てる
+## Django でプロジェクトを作る
 
 ``` bash
 $ pip install django django_rest_framework slackclient requests
 ```
 
-この辺を使うので, インストールしておきます.
+この辺を使うので、インストールしておきます
 
-プロジェクト作成は本筋と逸れるので割愛しますが, 以下のような構成です.
+プロジェクト作成は本筋と逸れるので割愛しますが、以下のような構成です
 
 ``` bash
 $ tree .
@@ -64,22 +64,21 @@ $ tree .
 
 ## ざっくりと流れ
 
-フローとしては,
+フローとしては、
 
 1. Slackにメッセージが送信される
 2. 予め登録しておいたエンドポイントにリクエストが送られる
 3. サーバー側でメッセージ送信用APIを呼ぶ
 
-って感じでBotを動作させます.
+って感じで Bot を動かすことができます
 
 ## Slack App の作成と初期設定
 
-https://api.slack.com/apps にアクセスして, Create New App から App を作成します.
+https://api.slack.com/apps にアクセスして、Create New App から App を作成します
 
-Client ID, Client Secret, Verification Tokenをコピって config/settings.py に記述しておきます.
+Client ID, Client Secret, `Verification Token` をコピって `config/settings.py` に記述しておきます
 
-``` python
-# config/settings.py
+``` python:config/settings.py
 
 ...
 SLACK_CLIENT_ID = "コピったやつ"
@@ -88,13 +87,15 @@ SLACK_VERIFICATION_TOKEN = "コピったやつ"
 ...
 ```
 
-次に, **OAuth & Permissions** タブから, http://localhost:8000/slack/oauth/ を Redirect URL に追加しておきます.
+次に, **OAuth & Permissions** タブから, http://localhost:8000/slack/oauth/ を Redirect URL に追加しておきます
 
-最後に, **App Home** タブから Review scoped to add => Scopes => bot token scopes と進み, 適当にスコープを追加しておきます(Bot Userを作るためなのでなんでもOK).
+最後に, **App Home** タブから Review scoped to add => Scopes => bot token scopes と進み、適当にスコープを追加しておきます
+
+とりあえず、Bot User を作るためなのでなんでもOKです
 
 ## Bot のワークスペース追加用ページの作成
 
-以下のようにルーティングをします.
+以下のようにルーティングをします
 
 ``` python
 from django.contrib import admin
@@ -106,8 +107,7 @@ urlpatterns = [
 ]
 ```
 
-``` python
-# slack_app/urls.py
+``` python:slack_app/urls.py
 from django.urls import path
 
 from . import views
@@ -118,10 +118,10 @@ urlpatterns = [
 ]
 ```
 
-これで, /slack/ に 追加ボタンを置いておいて, クリックされると /slack/oauth/ がリダイレクトで呼ばれます(さっき上で登録しておいた).
-requestには, パラメータとして code: 一時コード が送られてくるので, これをそのまま使って認証してあげます.
+これで, `/slack/` に 追加ボタンを置いておいて, クリックされると `/slack/oauth/` がリダイレクトで呼ばれます(さっき上で登録しておいた)
+requestには, パラメータとして `code: 一時コード` が送られてくるので、これをそのまま使って認証してあげます
 
-index.htmlと, viewを書きます.
+index.htmlと、view を書きます
 
 ``` html
 <!-- slack_app/templates/slack/index.html -->
@@ -144,8 +144,7 @@ index.htmlと, viewを書きます.
 </html>
 ```
 
-``` python
-# slack_app/views.py
+``` python:slack_app/views.py
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 import requests
@@ -200,12 +199,11 @@ def oauth(request: HttpRequest) -> HttpResponse:
         return HttpResponse('失敗しました！リトライしてね！')
 ```
 
-これで, http://localhost:8000/slack/ => ボタンをクリック => 適当に進めると ボットがワークスペースに参加しました! と表示されるはずです. わーい
+これで, http://localhost:8000/slack/ => ボタンをクリック => 適当に進めると ボットがワークスペースに参加しました! と表示されるはずです。 わーい
 
-ついでに, **OAuth & Permissions** タブに行くと, Bot Token が追加されているはずなので, こちらもコピってきて config/settings.py に書いておきます.
+ついでに, **OAuth & Permissions** タブに行くと、Bot Token が追加されているはずなので、こちらもコピってきて `config/settings.py` に書いておきます
 
-``` python
-# config/settings.py
+``` python:config/settings.py
 
 ...
 SLACK_CLIENT_ID = "コピったやつ"
@@ -219,8 +217,7 @@ SLACK_BOT_USER_TOKEN = "xoxb-hogehoge"
 
 チャンネルにメッセージが流れたときに呼ばれるエンドポイントを作っていきます.
 
-``` python
-# slack_app/views.py
+``` python:slack_app/views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -272,20 +269,19 @@ class Events(APIView):
         return Response(status=status.HTTP_200_OK)
 ```
 
-会話ロジックを書く前に, 
+会話ロジックを書く前に
 
 - トークン認証
-- エンドポイント認証(事前に, slackに対してこのエンドポイントの認証をするのでその時用のもの)
-- Botからの送信をスキップする(例えばオウム返しロジックだと, Botのメッセージにも反応して無限に呼ばれてしまう)
+- エンドポイント認証(事前に、slackに対してこのエンドポイントの認証をするのでその時用のもの)
+- Botからの送信をスキップする(例えばオウム返しロジックだと、Botのメッセージにも反応して無限に呼ばれてしまう)
 
-を書いて上げてから, ロジックの部分を書いてあげます.
+を書いて上げてから、ロジックの部分を書いてあげます
 
-今回は, hi を受け取ったら hi を返すというシンプルなものです.
+今回は、hi を受け取ったら hi を返すというシンプルなものです
 
-viewができたので, ルーティングもつけてあげます.
+viewができたので、ルーティングもつけてあげます
 
-``` python
-# slack_app/urls.py
+``` python:slack_app/urls.py
 from django.urls import path
 
 from . import views
@@ -297,9 +293,9 @@ urlpatterns = [
 ]
 ```
 
-一応これで完成ですが, slackからこのAPIを呼んであげないといけないので外部に公開する必要があります.
+一応これで完成ですが、slack からこのAPIを呼んであげないといけないので外部に公開する必要があります
 
-デプロイするのも手ですが, [ngrok](https://ngrok.com/) というローカルのサーバーを外部に公開(というか繋いでくれる?)できる素晴らしいサービスがあるので, こちらを使います.
+デプロイするのも手ですが、[ngrok](https://ngrok.com/) というローカルのサーバーを外部に公開(というか繋いでくれる?)できる素晴らしいサービスがあるので、こちらを使います
 
 ``` bash
 $ brew cask install ngrok
@@ -318,18 +314,16 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
                               54      0       0.00    0.00    0.72    92.44
 ```
 
-あとは, Slack API側から **Event Subscriptions** タブ => Redirect URLに https://xxx.ngrok.io/slack/events/ を追加してあげて, Verified! と表示されればOK.
+あとは, Slack API側から **Event Subscriptions** タブ => Redirect URLに https://xxx.ngrok.io/slack/events/ を追加してあげて、Verified! と表示されればOKです
 
-保存して, Slackのワークスペースからボットに hi と送ってあげると, ローカルのサーバーが反応します.
+保存して、Slackのワークスペースからボットに hi と送ってあげると、ローカルのサーバーが反応します
 
-ただまだスコープをちゃんと設定してないので, エラーが吐かれるはずです.
+ただまだスコープをちゃんと設定してないので、エラーが吐かれるはずです
 
 ``` bash
 The server responded with: {'ok': False, 'error': 'missing_scope', 'needed': 'chat:write:bot', 'provided': 'calls:read,channels:history'}
 ```
 
-chat:writeが必要そうなので, **OAuth & Permissions** から chat:write を追加して再度試せば返事が帰ってきます.
+`chat:write` が必要だそうなので, **OAuth & Permissions** から chat:write を追加して再度試せば返事が帰ってきます
 
-ずっと ngrok 動かしとくわけにもいかないので, お試しじゃなくてちゃんとやるなら VPS なり Heroku なりで本番環境を用意して同じように動きます！
-
-わーい！
+ずっと ngrok 動かしとくわけにもいかないので、お試しじゃなくてちゃんとやるなら VPS なり Heroku なりで本番環境を用意して同じように動きます

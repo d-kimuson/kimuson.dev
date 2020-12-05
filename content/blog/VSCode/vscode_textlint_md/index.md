@@ -1,13 +1,12 @@
 ---
 title: "マークダウンブログにtextlintを導入して執筆体験を向上する"
 description: "VSCodeにtextlintプラグインを導入して、記事執筆の体験を良くする方法を紹介します。"
-category: "editor"
+category: "VSCode"
 tags:
   - ブログ
   - VSCode
-  - textlint
 date: "2020-10-22T11:49:58Z"
-thumbnail: "thumbnails/editor.png"
+thumbnail: "thumbnails/VSCode.png"
 draft: false
 ---
 

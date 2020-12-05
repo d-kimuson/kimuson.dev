@@ -8,18 +8,16 @@ tags:
 category: "Django"
 date: "2019-09-25T18:54:07+09:00"
 weight: 5
-draft: true
+draft: false
 ---
 
-django rest frameworkのトークン認証のメモ.
+Django REST framework でトークン認証をするメモ
 
 ## トークンの作成と取得
 
-まずは, `INSTALLED_APPS` に `rest_framework.authtoken` を追加しておく.
+まずは, `INSTALLED_APPS` に `rest_framework.authtoken` を追加しておく
 
-**settings.py**
-
-``` python
+``` python:settings.py
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,15 +38,15 @@ REST_FRAMEWORK = {
 }
 ```
 
-これでトークン用モデルが定義されたので, マイグレーションを実行する.
+これでトークン用モデルが定義されたので、マイグレーションを実行する
 
 ``` bash
 $ python manage.py makemigrations && python manage.py migrate
 ```
 
-### トークンを取得するAPIエンドポイントの作成
+## トークンを取得するAPIエンドポイントの作成
 
-`rest_framework.authtoken` にトークン取得用の view が定義されているのでルーティングをつけてあげる.
+`rest_framework.authtoken` にトークン取得用の view が定義されているのでルーティングをつけてあげる
 
 ``` python
 import rest_framework.authtoken.views as auth_views
@@ -61,9 +59,9 @@ urlpatterns = [
 ]
 ```
 
-### トークンの作成
+## トークンの作成
 
-引数にUserモデルのインスタンスを渡して, 普通に作ればOK.
+引数に User モデルのインスタンスを渡して、普通に作ればOK
 
 ``` python
 from rest_framework.authtoken.models import Token
@@ -73,11 +71,11 @@ Token.objects.create(
 )
 ```
 
-ユーザーが作成されると同時にトークンも自動生成するようにすることが望ましい.
+ユーザーが作成されると同時にトークンも自動生成するようにすることが望ましいので、ユーザーモデルをカスタマイズして自動的にトークンを作るようにしておく
 
 ## カスタムユーザーの定義
 
-トークンと紐付けるカスタムユーザーを, `AbstarctBaseUser` から定義していく.
+トークンと紐付けるカスタムユーザーを, `AbstarctBaseUser` から定義していく
 
 トークン認証に使うユーザーモデルは, `settings.py` で
 
@@ -86,13 +84,13 @@ Token.objects.create(
 AUTH_USER_MODEL = 'api.User'
 ```
 
-と指定しておく必要がある.
+と指定しておく必要がある
 
-ただこうすると, 管理ページへのログインもこの User を使うようになるので, superuser 関連の設定もしておく.
+ただこうすると、管理ページへのログインもこの User を使うようになるので、 superuser 関連の設定もしておく
 
 **カスタムユーザーモデル**
 
-``` python
+``` python:models.py
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
@@ -139,11 +137,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 ```
 
-あとは普通に, `serializer` と `view` とルーティングを書く.
+あとは普通に、`serializer` と `view` とルーティングを書く
 
-### serializers.py
-
-``` python
+``` python:serializers.py
 from api.models import User
 
 
@@ -162,9 +158,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
 ```
 
-### views.py
-
-``` python
+``` python:views.py
 from api.serializers import UserSerializer
 
 
@@ -173,9 +167,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 ```
 
-### urls.py
-
-``` python
+``` python:urls.py
 from rest_framework import routers
 from .views import UserViewSet
 
@@ -183,15 +175,15 @@ router = routers.DefaultRouter()
 router.register('users', UserViewSet)
 ```
 
-これで完成.
+これで完成
 
-マイグレーションすれば,
+マイグレーションすれば、
 
 ``` bash
 $ python manage.py makemigrations && python manage.py migrate
 ```
 
-また, 既存のユーザーにトークンを付与するなら, 面倒だけどシェルから走らせるのが良いだろう.
+また、既存のユーザーには
 
 ``` bash
 $ python manage.py shell
@@ -206,9 +198,11 @@ In [3]: for user in User.objects.all():
                 pass
 ```
 
+こんな感じで付与できる
+
 ## トークンの取得
 
-開発サーバーを建てた状態で, [httpie](https://httpie.org/) でAPIを叩いてみる.
+開発サーバーを建てた状態で, [httpie](https://httpie.org/) でAPIを叩いてみる
 
 ``` bash
 $ http POST http://127.0.0.1:8000/api-token-auth/ username=hoge@example.com password=hoge
@@ -227,7 +221,7 @@ X-Frame-Options: DENY
 }
 ```
 
-ここで, `username` とは, UserモデルにてUSERNAME_FIELDに規定したものである.
+ここで、`username` は、Userモデルにて `USERNAME_FIELD` に規定したもの
 
 ``` python
 class User(AbstractBaseUser, PermissionsMixin):
@@ -238,11 +232,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 ## トークン認証
 
-まだトークン認証をシステム的には持っているものの, 各エンドポイントには認証なしでアクセスできるという状態なので, パーミッションクラスを書き換えておく.
+まだトークン認証はできるようになったが、各エンドポイントには認証なしでアクセスできるという状態なので、パーミッションクラスを書き換えておく
 
-### settings.py
-
-``` python
+``` python:settings.py
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -254,11 +246,11 @@ REST_FRAMEWORK = {
 }
 ```
 
-基本的にはトークン認証だけで良いが, DRFでは各エンドポイントにアクセスしたときにAPIリファレンス(っぽいもの)が見れるので, セッションベースの認証を追加しておくとフロントエンド開発がしやすい(APIの各エンドポイントをブラウザで叩くことで実際のレスポンスが見られる).
+基本的にはトークン認証だけで良いが、DRFでは各エンドポイントにアクセスしたときにAPIリファレンス(っぽいもの)が見れるので、セッションベースの認証を追加しておくとフロントエンド開発がしやすい(APIの各エンドポイントをブラウザで叩くことで実際のレスポンスが見られる)
 
-これで, 全ての `view` のパーミッションがデフォルトが認証済みユーザー指定になった.
+これで, 全ての `view` のパーミッションがデフォルトが認証済みユーザー指定になった
 
-認証いらずの `View` は,
+認証いらずの `View` は、
 
 ``` python
 from rest_framework.permissions import AllowAny
@@ -268,6 +260,4 @@ class HogeViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 ```
 
-のように各ビューで上書きできる.
-
-当然他のパーミッションを指定して上げても良い.
+のように各ビューで上書きできる
