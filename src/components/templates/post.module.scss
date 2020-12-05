@@ -11,22 +11,6 @@
   max-height: 50vh;
 }
 
-.sepLine {
-  display: block;
-  background-color: g.$theme-reverse-color;
-  height: 2px;
-  border: none;
-  margin: 1.2rem 5px;
-}
-
-.footerContainer {
-  margin: 40px 20px;
-
-  div {
-    margin: 10px 0;
-  }
-}
-
 .articleMetaContainer {
   display: flex;
   justify-content: space-between;

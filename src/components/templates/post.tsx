@@ -70,8 +70,6 @@ export const Post: React.FC<PostProps> = ({
               <MDXRenderer>{post?.body || ``}</MDXRenderer>
             </div>
           </div>
-
-          <hr className={styles.sepLine} />
         </article>
 
         {postUrl ? (
