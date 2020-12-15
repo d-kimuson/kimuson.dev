@@ -5,6 +5,8 @@ description: "これはAboutPageです."
 
 このブログは、Webに関連する技術を中心に個人的なアウトプットの場にしているものです。
 
+備忘録ついでのメモ書き程度のものも多いので、ご了承ください。
+
 このブログは [Gatsby.js](https://www.gatsbyjs.com/) で構築されています。
 
 このブログ自体に関連する記事には、[ブログタグ](/tags/ブログ/) が付加されています。
@@ -15,7 +17,7 @@ description: "これはAboutPageです."
 
 Web技術全般に関する記事をメインに書いていきます。
 
-フロントに関しては、[Vue。js](https://jp.vuejs.org/index.html)、バックに関しては、[Python](https://www.python.org/) や [TypeScript](https://www.typescriptlang.org/) が好きなので、この辺に関する記事が多くなると思います。
+フロントに関しては、[Vue.js](https://jp.vuejs.org/index.html)、バックに関しては、[Python](https://www.python.org/) や [TypeScript](https://www.typescriptlang.org/) が好きなので、この辺に関する記事が多くなると思います。
 
 ### ご連絡
 
