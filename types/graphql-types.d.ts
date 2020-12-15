@@ -726,12 +726,12 @@ export enum FileFieldsEnum {
   ChildMdxFrontmatterThumbnailPublicUrl = 'childMdx___frontmatter___thumbnail___publicURL',
   ChildMdxFrontmatterThumbnailId = 'childMdx___frontmatter___thumbnail___id',
   ChildMdxFrontmatterThumbnailChildren = 'childMdx___frontmatter___thumbnail___children',
+  ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
   ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
   ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
   ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
-  ChildMdxFrontmatterDescription = 'childMdx___frontmatter___description',
   ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
-  ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
+  ChildMdxFrontmatterDescription = 'childMdx___frontmatter___description',
   ChildMdxSlug = 'childMdx___slug',
   ChildMdxBody = 'childMdx___body',
   ChildMdxExcerpt = 'childMdx___excerpt',
@@ -1556,12 +1556,12 @@ export enum MdxFieldsEnum {
   FrontmatterThumbnailChildMdxTimeToRead = 'frontmatter___thumbnail___childMdx___timeToRead',
   FrontmatterThumbnailChildMdxId = 'frontmatter___thumbnail___childMdx___id',
   FrontmatterThumbnailChildMdxChildren = 'frontmatter___thumbnail___childMdx___children',
+  FrontmatterCategory = 'frontmatter___category',
   FrontmatterDate = 'frontmatter___date',
   FrontmatterWeight = 'frontmatter___weight',
   FrontmatterDraft = 'frontmatter___draft',
-  FrontmatterDescription = 'frontmatter___description',
   FrontmatterTags = 'frontmatter___tags',
-  FrontmatterCategory = 'frontmatter___category',
+  FrontmatterDescription = 'frontmatter___description',
   Slug = 'slug',
   Body = 'body',
   Excerpt = 'excerpt',
@@ -1692,12 +1692,12 @@ export type MdxFrontmatter = {
   __typename?: 'MdxFrontmatter';
   title: Scalars['String'];
   thumbnail?: Maybe<File>;
+  category?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
   weight?: Maybe<Scalars['Int']>;
   draft?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
-  category?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 
@@ -1711,12 +1711,12 @@ export type MdxFrontmatterDateArgs = {
 export type MdxFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   thumbnail?: Maybe<FileFilterInput>;
+  category?: Maybe<StringQueryOperatorInput>;
   date?: Maybe<DateQueryOperatorInput>;
   weight?: Maybe<IntQueryOperatorInput>;
   draft?: Maybe<BooleanQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
-  category?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
 };
 
 export type MdxGroupConnection = {
@@ -3459,40 +3459,6 @@ export type GatsbyImageSharpSizes_WithWebp_NoBase64Fragment = (
   & Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>
 );
 
-export type SearchQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SearchQuery = (
-  { __typename?: 'Query' }
-  & { allMdx: (
-    { __typename?: 'MdxConnection' }
-    & { edges: Array<(
-      { __typename?: 'MdxEdge' }
-      & { node: (
-        { __typename?: 'Mdx' }
-        & Pick<Mdx, 'excerpt'>
-        & { fields?: Maybe<(
-          { __typename?: 'MdxFields' }
-          & Pick<MdxFields, 'slug'>
-        )>, frontmatter: (
-          { __typename?: 'MdxFrontmatter' }
-          & Pick<MdxFrontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
-          & { thumbnail?: Maybe<(
-            { __typename?: 'File' }
-            & { childImageSharp?: Maybe<(
-              { __typename?: 'ImageSharp' }
-              & { fluid?: Maybe<(
-                { __typename?: 'ImageSharpFluid' }
-                & Pick<ImageSharpFluid, 'aspectRatio' | 'base64' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'tracedSVG'>
-              )> }
-            )> }
-          )> }
-        ) }
-      ) }
-    )> }
-  ) }
-);
-
 export type BioQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3607,6 +3573,40 @@ export type AboutPageQuery = (
       & Pick<MdxFrontmatter, 'title' | 'description'>
     ) }
   )> }
+);
+
+export type BlogPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogPageQuery = (
+  { __typename?: 'Query' }
+  & { allMdx: (
+    { __typename?: 'MdxConnection' }
+    & { edges: Array<(
+      { __typename?: 'MdxEdge' }
+      & { node: (
+        { __typename?: 'Mdx' }
+        & Pick<Mdx, 'excerpt'>
+        & { fields?: Maybe<(
+          { __typename?: 'MdxFields' }
+          & Pick<MdxFields, 'slug'>
+        )>, frontmatter: (
+          { __typename?: 'MdxFrontmatter' }
+          & Pick<MdxFrontmatter, 'title' | 'description' | 'date' | 'draft' | 'category' | 'tags'>
+          & { thumbnail?: Maybe<(
+            { __typename?: 'File' }
+            & { childImageSharp?: Maybe<(
+              { __typename?: 'ImageSharp' }
+              & { fluid?: Maybe<(
+                { __typename?: 'ImageSharpFluid' }
+                & Pick<ImageSharpFluid, 'aspectRatio' | 'base64' | 'sizes' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'tracedSVG'>
+              )> }
+            )> }
+          )> }
+        ) }
+      ) }
+    )> }
+  ) }
 );
 
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
