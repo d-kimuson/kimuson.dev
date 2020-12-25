@@ -21,7 +21,7 @@
     "post": "git rev-parse --show-toplevel && git add content && git commit -m '[auto] post article' && git push origin master",
     "sort:package": "npx sort-package-json",
     "start": "npm run develop",
-    "try:prod": "yarn build && http-server public",
+    "try:prod": "yarn build && http-server public -p 80",
     "type:check": "tsc --noEmit"
   },
   "husky": {
