@@ -52,7 +52,9 @@ export const TagChecklist: React.FC<TagChecklistProps> = ({
               if (isChecked) {
                 updatedTags = selectedTags.concat([tag])
               } else {
-                updatedTags = selectedTags.filter(tag => tag !== tag)
+                updatedTags = selectedTags.filter(
+                  selectedTag => selectedTag !== tag
+                )
               }
               onUpdate(updatedTags)
               setSelectedTags(updatedTags)
