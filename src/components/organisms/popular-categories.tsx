@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
 import type { PopularCategoriesQuery } from "@graphql-types"
-import { processDraftPostList } from "@funcs/post"
+import { toCategorySummaryList } from "@gateways/category"
 import { CategoryList } from "../molecules/category-list"
 
 const query = graphql`
@@ -24,32 +24,7 @@ const query = graphql`
 
 export const PopularCategories: React.FC = () => {
   const data = useStaticQuery<PopularCategoriesQuery>(query)
-  const blogPostSummaries = processDraftPostList(
-    data.allMdx.edges.map(e => ({
-      category: e.node.frontmatter.category,
-      draft: e.node.frontmatter.draft || false,
-    }))
-  )
-  const categories: CategorySummary[] = []
-  for (const blogPost of blogPostSummaries) {
-    const categoryName = blogPost.category
-    if (!categoryName) continue
-
-    const targetCategorySummary = categories.find(
-      node => node.name === categoryName
-    )
-
-    if (typeof categoryName === `string`) {
-      if (typeof targetCategorySummary === `undefined`) {
-        categories.push({
-          name: categoryName,
-          count: 1,
-        })
-      } else {
-        targetCategorySummary.count = targetCategorySummary.count + 1
-      }
-    }
-  }
+  const categories = toCategorySummaryList(data.allMdx.edges)
 
   return (
     <>

@@ -3,8 +3,8 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-import { getBlogPostLink } from "@funcs/links"
-import { toGatsbyImageFluidArg } from "@funcs/image"
+import type { BlogPost } from "@entities/post"
+import { toBlogPostLink } from "@presenters/links"
 import { Date } from "../atoms/date"
 import { TagList } from "./tag-list"
 // @ts-ignore
@@ -22,13 +22,13 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
 }: BlogPostPreviewProps) => {
   return (
     <Link
-      to={getBlogPostLink(blogPost.slug)}
+      to={toBlogPostLink(blogPost.slug)}
       className={`m-card l-main-width m-remove-a-decoration ${styles.blogPostLink}`}
     >
       <div className={styles.imageWrapper}>
         {typeof blogPost.thumbnail === `object` ? (
           <Image
-            fluid={toGatsbyImageFluidArg(blogPost.thumbnail)}
+            fluid={blogPost.thumbnail}
             imgStyle={imgStyle}
             className={styles.image}
           />

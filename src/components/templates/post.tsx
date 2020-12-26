@@ -12,88 +12,86 @@ import {
   TwitterIcon,
 } from "react-share"
 
-import { Mdx, MdxFrontmatter } from "@graphql-types"
-import { FluidImage } from "@declaration"
-import { toGatsbyImageFluidArg } from "@funcs/image"
+import type { Detail, Post as BasePost } from "@entities/post"
+import type { Tag } from "@entities/post"
+import { Head } from "@components/templates/head"
 import { TagList } from "@components/molecules/tag-list"
 import { Date } from "@components/atoms/date"
 // @ts-ignore
 import styles from "./post.module.scss"
 
-interface PostProps {
-  postUrl?: string
-  title: string
-  thumbnail?: FluidImage
-  frontmatter?: Pick<MdxFrontmatter, "tags" | "draft" | "date">
-  post?: Pick<Mdx, "body">
+interface PostProps<T extends BasePost> {
+  post: Detail<T> & {
+    tags?: Tag[]
+  }
 }
 
-export const Post: React.FC<PostProps> = ({
-  postUrl,
-  title,
-  thumbnail,
-  frontmatter,
-  post,
-}: PostProps) => {
+export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({ post }: PostProps<T>) => {
   const shareButtonSize = 35
 
-  const tags = (frontmatter?.tags || []).filter(
-    (tag): tag is string => typeof tag === `string`
-  )
-
   return (
-    <div className="l-main-wrapper l-main-width">
-      <main role="main" className={styles.post}>
-        <article className={`m-card ${styles.main}`}>
-          {typeof thumbnail === `object` && thumbnail !== null ? (
-            <Image
-              fluid={toGatsbyImageFluidArg(thumbnail)}
-              className={styles.thumbnail}
-            />
-          ) : (
-            <div />
-          )}
-          <div className={styles.contentContainer}>
-            <h1 className="m-page-title">
-              {frontmatter?.draft ? `[非公開]` : ``}
-              {title}
-            </h1>
+    <>
+      <Head
+        title={post.title}
+        description={post.description}
+        imageUrl={post.ogtImageUrl}
+        slug={post.slug}
+      />
+      <div className="l-main-wrapper l-main-width">
+        <main role="main" className={styles.post}>
+          <article className={`m-card ${styles.main}`}>
+            {typeof post.thumbnail !== `undefined` ? (
+              <Image
+                fluid={post.thumbnail}
+                className={styles.thumbnail}
+              />
+            ) : (
+              <div />
+            )}
+            <div className={styles.contentContainer}>
+              <h1 className="m-page-title">
+                {post.draft ? `[非公開]` : ``}
+                {post.title}
+              </h1>
 
-            <div className={styles.articleMetaContainer}>
-              <div className={styles.tagArea}>
-                <TagList tags={tags} isLink={true} />
+              <div className={styles.articleMetaContainer}>
+                {typeof post?.tags === `object` ? (
+                  <div className={styles.tagArea}>
+                    <TagList tags={post.tags} isLink={true} />
+                  </div>
+                ) : <div/> }
+                <Date date={post.date} />
               </div>
-              <Date date={frontmatter?.date} />
+
+              <div className="m-article-body">
+                <MDXRenderer>{post.body || ``}</MDXRenderer>
+              </div>
             </div>
+          </article>
 
-            <div className="m-article-body">
-              <MDXRenderer>{post?.body || ``}</MDXRenderer>
+          {post.postUrl ? (
+            <div className={styles.left}>
+              <div className={styles.snsArena}>
+                <FacebookShareButton url={post.postUrl}>
+                  <FacebookIcon size={shareButtonSize} round />
+                </FacebookShareButton>
+
+                <LineShareButton url={post.postUrl}>
+                  <LineIcon size={shareButtonSize} round />
+                </LineShareButton>
+
+                <LinkedinShareButton url={post.postUrl}>
+                  <LinkedinIcon size={shareButtonSize} round />
+                </LinkedinShareButton>
+
+                <TwitterShareButton title={post.title} via="_kimuson" url={post.postUrl}>
+                  <TwitterIcon size={shareButtonSize} round />
+                </TwitterShareButton>
+              </div>
             </div>
-          </div>
-        </article>
-
-        {postUrl ? (
-          <div className={styles.left}>
-            <div className={styles.snsArena}>
-              <FacebookShareButton url={postUrl}>
-                <FacebookIcon size={shareButtonSize} round />
-              </FacebookShareButton>
-
-              <LineShareButton url={postUrl}>
-                <LineIcon size={shareButtonSize} round />
-              </LineShareButton>
-
-              <LinkedinShareButton url={postUrl}>
-                <LinkedinIcon size={shareButtonSize} round />
-              </LinkedinShareButton>
-
-              <TwitterShareButton title={title} via="_kimuson" url={postUrl}>
-                <TwitterIcon size={shareButtonSize} round />
-              </TwitterShareButton>
-            </div>
-          </div>
-        ) : null}
-      </main>
-    </div>
+          ) : null}
+        </main>
+      </div>
+    </>
   )
 }

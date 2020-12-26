@@ -6,7 +6,7 @@ import { Sidebar } from "@components/templates/sidebar"
 import { Layout } from "@components/templates/layout"
 import { Head } from "@components/templates/head"
 import { WorkPostList } from "@components/molecules/work-post-list"
-import { convertToWorkPostList } from "@funcs/post"
+import { toWorkPostList } from "@gateways/post"
 
 interface WorkPageProps extends PageProps {
   data: WorkPageQuery
@@ -16,7 +16,7 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const workPosts = convertToWorkPostList(edges)
+  const workPosts = toWorkPostList(edges)
 
   return (
     <>

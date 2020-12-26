@@ -1,7 +1,8 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { getCategoryLink } from "@funcs/links"
+import type { CategorySummary } from "@entities/post"
+import { toCategoryLink } from "@presenters/links"
 // @ts-ignore
 import styles from "./category-list.module.scss"
 
@@ -13,13 +14,13 @@ export const CategoryList: React.FC<CategoryListProps> = ({
   categoryList,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
-    {categoryList.map(category => (
-      <li key={category.name} className={styles.category}>
+    {categoryList.map(categorySummary => (
+      <li key={categorySummary.category} className={styles.category}>
         <Link
-          to={getCategoryLink(category.name)}
+          to={toCategoryLink(categorySummary.category)}
           className="m-remove-a-decoration"
         >
-          {category.name} ({category.count})
+          {categorySummary.category} ({categorySummary.count})
         </Link>
       </li>
     ))}

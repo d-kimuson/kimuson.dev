@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react"
+import { pipe } from "ramda"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 
+import { SearchBlogPost, searchByKeyword, filterByTags } from "@usecases/searchBlogPost"
 import { TagChecklist } from "./tag-checklist"
 import { BlogPostList } from "./blog-post-list"
 // @ts-ignore
 import styles from "./search.module.scss"
 
 interface SearchProps {
-  blogPosts: BlogPost[]
+  blogPosts: SearchBlogPost[]
   className?: string
 }
 
@@ -16,42 +18,18 @@ export const Search: React.FC<SearchProps> = ({
   blogPosts,
   className,
 }: SearchProps) => {
-  const searchBlogPosts = blogPosts.map(post => ({
-    ...post,
-    searchTitle: post.title.toLowerCase(),
-  }))
-  const tags = Array.from(
-    new Set(searchBlogPosts.flatMap(article => article.tags))
-  )
+  const tags = Array.from(new Set(blogPosts.flatMap(blogPost => blogPost.tags)))
 
+  // State
   const [keyword, setKeyword] = useState<string>(``)
-  const [results, setResults] = useState<BlogPost[]>(searchBlogPosts)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const [results, setResults] = useState<SearchBlogPost[]>(blogPosts)
 
-  const tagsUpdated = (tags: string[]): void => {
-    setSelectedTags(tags)
-  }
-
+  // キーワード更新 & タグの更新 (選択 / 選択解除)
   useEffect(() => {
-    let updatedBlogPosts
-    if (keyword === ``) {
-      updatedBlogPosts = searchBlogPosts
-    } else {
-      updatedBlogPosts = searchBlogPosts.filter(
-        post => post.searchTitle.indexOf(keyword.toLowerCase()) > -1
-      )
-    }
-
-    if (selectedTags.length !== 0) {
-      updatedBlogPosts = updatedBlogPosts.filter(article =>
-        selectedTags.reduce(
-          (s: boolean, tag: string) => s || article.tags.includes(tag),
-          false
-        )
-      )
-    }
-
-    setResults(updatedBlogPosts)
+    const search = searchByKeyword(keyword)
+    const filter = filterByTags(selectedTags)
+    pipe(search, filter, setResults)(blogPosts)
   }, [keyword, selectedTags])
 
   return (
@@ -77,7 +55,10 @@ export const Search: React.FC<SearchProps> = ({
 
       <details>
         <summary className={styles.tagFilterDropdown}>タグで絞り込む</summary>
-        <TagChecklist tags={tags} onUpdate={tagsUpdated} />
+        <TagChecklist
+          tags={tags}
+          onUpdate={(tags: string[]): void => setSelectedTags(tags)}
+        />
       </details>
 
       <BlogPostList blogPosts={results} />

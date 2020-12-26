@@ -1,5 +1,6 @@
 import React from "react"
 
+import type { BlogPost } from "@entities/post"
 import { BlogPostPreview } from "./blog-post-preview"
 // @ts-ignore
 import styles from "./blog-post-list.module.scss"

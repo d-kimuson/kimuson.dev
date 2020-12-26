@@ -2,7 +2,8 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import { toGatsbyImageFluidArg } from "@funcs/image"
+import type { WorkPost } from "@entities/post"
+import { toFluidImage } from "@gateways/image"
 import { Date } from "../atoms/date"
 // @ts-ignore
 import styles from "./work-post-list.module.scss"
@@ -16,12 +17,14 @@ const imgStyle = { height: `200px`, width: `300px` }
 const WorkPreview: React.FC<WorkPreviewProps> = ({
   workPost,
 }: WorkPreviewProps) => {
+  const thumbnail = toFluidImage(workPost.thumbnail)
+
   return (
     <Link to={workPost.slug} className={`m-remove-a-decoration`}>
       <div className={`m-card ${styles.workPreview}`}>
-        {typeof workPost.thumbnail === `object` ? (
+        {typeof thumbnail !== `undefined` ? (
           <Image
-            fluid={toGatsbyImageFluidArg(workPost.thumbnail)}
+            fluid={thumbnail}
             imgStyle={imgStyle}
             className={styles.image}
           />

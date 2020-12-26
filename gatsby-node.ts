@@ -9,12 +9,13 @@ import type {
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"
 import { createFilePath } from "gatsby-source-filesystem"
 
+import { filterDraftPostList } from "@presenters/post"
 import {
-  getBlogPostLink,
-  getWorkPostLink,
-  getCategoryLink,
-  getTagLink,
-} from "@funcs/links"
+  toBlogPostLink,
+  toWorkPostLink,
+  toCategoryLink,
+  toTagLink,
+} from "@presenters/links"
 import { AllMdxQuery, MdxEdge } from "@graphql-types"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
@@ -27,7 +28,6 @@ export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
       plugins: [new TsconfigPathsPlugin()],
       alias: {
         "@styles": path.resolve(__dirname, `src/global-styles`),
-        "@modules": path.resolve(__dirname, `src/css-modules`),
       },
     },
   })
@@ -39,8 +39,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(`./src/templates/blog-post.tsx`)
-  const workPost = path.resolve(`./src/templates/work-post.tsx`)
+  const blogPost = path.resolve(__dirname, `src/templates/blog-post.tsx`)
+  const workPost = path.resolve(__dirname, `src/templates/work-post.tsx`)
 
   const result = await graphql<AllMdxQuery>(`
     query AllMdx {
@@ -66,46 +66,68 @@ export const createPages: GatsbyNode["createPages"] = async ({
     throw result.errors
   }
 
-  const edges =
-    result?.data?.allMdx.edges.filter(
-      (e): e is MdxEdge => typeof e !== `undefined`
-    ) || []
-  const postsNotDraft = (edges || []).filter(
-    edge =>
-      process.env.NODE_ENV === `development` || !edge.node.frontmatter.draft
+  const posts = filterDraftPostList(
+    (result?.data?.allMdx.edges || [])
+      .filter(
+        (e): e is MdxEdge => typeof e !== `undefined`
+      )
+      .map(e => ({
+        title: e.node.frontmatter?.title,
+        draft: Boolean(e.node.frontmatter?.draft),
+        slug: e.node.fields?.slug,
+        category: e.node.frontmatter?.category,
+        tags: e.node.frontmatter?.tags,
+        node: e.node
+      }))
   )
 
-  const blogPosts = postsNotDraft
-    .filter(post => post.node.fields?.slug?.includes(`/blog/`))
-    .filter(post => typeof post.node.frontmatter?.title === `string`)
-    .filter(post => typeof post.node.frontmatter?.category === `string`)
+  console.log(
+    `BUILD PAGES`,
+    result?.data?.allMdx.edges,
+    (result?.data?.allMdx.edges || [])
+      .filter(
+        (e): e is MdxEdge => typeof e !== `undefined`
+      )
+      .map(e => ({
+        title: e.node.frontmatter?.title,
+        draft: Boolean(e.node.frontmatter?.draft),
+        slug: e.node.fields?.slug,
+        category: e.node.frontmatter?.category,
+        tags: e.node.frontmatter?.tags,
+        node: e.node
+      })))
 
-  const workPosts = postsNotDraft
-    .filter(post => post.node.fields?.slug?.includes(`/work/`))
-    .filter(post => typeof post.node.frontmatter.title === `string`)
+  const blogPosts = posts
+    .filter(post => post.slug?.includes(`/blog/`))
+    .filter(post => typeof post.title === `string`)
+    .filter(post => typeof post.category === `string`)
+
+  const workPosts = posts
+    .filter(post => post.slug?.includes(`/work/`))
+    .filter(post => typeof post.title === `string`)
 
   // ブログ記事ページ
   blogPosts.forEach(post => {
-    const slug = post.node.fields?.slug
+    const slug = post.slug
 
-    if (!slug || !post.node.frontmatter.category) {
+    if (!slug || !post.category) {
       console.log(`slug or category が存在しないのでスキップします`)
       return
     }
 
     createPage({
-      path: getBlogPostLink(slug),
+      path: toBlogPostLink(slug),
       component: blogPost,
       context: {
         slug: slug,
-        category: post.node.frontmatter.category,
+        category: post.category,
       },
     })
   })
 
   // Work記事ページ
   workPosts.forEach((post, index) => {
-    const slug = post.node.fields?.slug
+    const slug = post.slug
 
     if (!slug) {
       console.log(`slug が存在しないのでスキップします`)
@@ -117,7 +139,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     const next = index === 0 ? null : workPosts[index - 1].node
 
     createPage({
-      path: getWorkPostLink(slug),
+      path: toWorkPostLink(slug),
       component: workPost,
       context: {
         slug: slug,
@@ -136,8 +158,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
 
     createPage({
-      path: getCategoryLink(category),
-      component: path.resolve(`./src/templates/category.tsx`),
+      path: toCategoryLink(category),
+      component: path.resolve(__dirname, `src/templates/category.tsx`),
       context: {
         category: category,
       },
@@ -153,8 +175,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
 
     createPage({
-      path: getTagLink(tag),
-      component: path.resolve(`./src/templates/tag.tsx`),
+      path: toTagLink(tag),
+      component: path.resolve(__dirname, `src/templates/tag.tsx`),
       context: {
         tag: tag,
       },

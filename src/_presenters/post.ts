@@ -1,0 +1,18 @@
+interface Draftable { draft?: boolean }
+
+export const isDraft = (post: Draftable): boolean => !post.draft
+
+export const filterDraftPostList = <T extends Draftable>(posts: T[]): T[] =>
+  posts.filter(post => isDraft(post) || process.env.NODE_ENV === `development`)
+
+export const postSortKey = (a: Draftable, b: Draftable): number =>
+  a.draft && !b.draft ? 1 : !a.draft && b.draft ? -1 : 0
+
+export const sortDraftPostList = <T extends Draftable>(posts: T[]): T[] =>
+  posts.sort(postSortKey)
+
+export const processDraftPostList = <T extends Draftable>(posts: T[]): T[] => {
+  return process.env.NODE_ENV === `development`
+    ? sortDraftPostList(posts)
+    : filterDraftPostList(posts)
+}

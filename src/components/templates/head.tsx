@@ -3,7 +3,7 @@ import { GatsbySeo, OpenGraphImages } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
 import type { HeadQuery } from "@graphql-types"
-import { getBlogPostLink } from "@funcs/links"
+import { toBlogPostLink } from "@presenters/links"
 
 const query = graphql`
   query Head {
@@ -45,7 +45,7 @@ export const Head: React.FC<HeadProps> = ({
     typeof description === `undefined` ? siteDescription : description
 
   const siteDomain = siteUrl.split(`//`)[1].split(`/`)[0]
-  const pageUrl = `https://${siteDomain}${getBlogPostLink(slug || ``)}`
+  const pageUrl = `https://${siteDomain}${toBlogPostLink(slug || ``)}`
 
   console.log(pageTitle, pageDescription, pageUrl)
   console.log(

@@ -1,15 +1,15 @@
 import React from "react"
 
+import type { Heading } from "@entities/post"
 import { Bio } from "../organisms/bio"
 import { PopularCategories } from "../organisms/popular-categories"
-import type { TableOfContents } from "../organisms/toc"
 import { Toc } from "../organisms/toc"
 
 interface SidebarProps {
   bio?: boolean
   commonSidebar?: boolean
   toc?: {
-    tableOfContents: TableOfContents
+    headings: Heading[]
   }
   ad?: boolean
 }
@@ -24,7 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {bio ? <Bio /> : null}
       <div className="l-sidebar-sticky-area">
         {typeof toc !== `undefined` ? (
-          <Toc tableOfContents={toc?.tableOfContents} />
+          <Toc headings={toc?.headings} />
         ) : null}
         {commonSidebar ? <PopularCategories /> : null}
       </div>

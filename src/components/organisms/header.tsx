@@ -3,8 +3,7 @@ import Image from "gatsby-image"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
 import type { HeaderQuery } from "@graphql-types"
-import { toUndefinedOrT } from "@funcs/type"
-import { toGatsbyImageFixedArg } from "@funcs/image"
+import { toFixedImage } from "@gateways/image"
 import { Navigation } from "../molecules/navigation"
 // @ts-ignore
 import styles from "./header.module.scss"
@@ -40,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
   const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
-  const logoImage = toUndefinedOrT(data.file?.childImageSharp?.fixed)
+  const logoImage = toFixedImage(data.file?.childImageSharp?.fixed)
 
   return (
     <header
@@ -55,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
       >
         <h1 className={styles.headerTitle}>
           {typeof logoImage !== `undefined` ? (
-            <Image fixed={toGatsbyImageFixedArg(logoImage)} />
+            <Image fixed={logoImage} />
           ) : (
             data.site?.siteMetadata?.title || `No Title`
           )}

@@ -6,8 +6,8 @@ import { Sidebar } from "@components/templates/sidebar"
 import { Layout } from "@components/templates/layout"
 import { Head } from "@components/templates/head"
 import { BlogPostList } from "@components/molecules/blog-post-list"
-import { convertToBlogPostList } from "@funcs/post"
-import { getCategoryLink } from "@funcs/links"
+import { toBlogPostList } from "@gateways/post"
+import { toCategoryLink } from "@presenters/links"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
@@ -18,7 +18,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const blogPosts = convertToBlogPostList(edges)
+  const blogPosts = toBlogPostList(edges)
   const category = pageContext.category || `No Category`
   const siteTitle = data.site?.siteMetadata?.title || ``
 
@@ -27,7 +27,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
       <Head
         title={`${category}カテゴリ`}
         description={`${siteTitle}の${category}カテゴリページです。${category}カテゴリの記事を探すことができます。`}
-        slug={getCategoryLink(category)}
+        slug={toCategoryLink(category)}
       />
       <Layout>
         <div className="l-page-container">

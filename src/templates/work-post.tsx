@@ -2,21 +2,12 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { WorkPostBySlugQuery } from "@graphql-types"
-import { getWorkPostLink } from "@funcs/links"
-import { toUndefinedOrT } from "@funcs/type"
+import type { AroundNav } from "@external-graphql-types"
+import { toDetailWorkPost } from "@gateways/post"
+import { toWorkPostLink } from "@presenters/links"
 import { Post } from "@components/templates/post"
 import { Layout } from "@components/templates/layout"
-import { Head } from "@components/templates/head"
 import { Sidebar } from "@components/templates/sidebar"
-
-interface AroundNav {
-  fields: {
-    slug: string
-  }
-  frontmatter: {
-    title: string
-  }
-}
 
 interface WorkPostTemplateProps extends PageProps {
   data: WorkPostBySlugQuery
@@ -29,34 +20,33 @@ interface WorkPostTemplateProps extends PageProps {
 const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   data,
 }: WorkPostTemplateProps) => {
-  const post = data.mdx
-  const title = post?.frontmatter?.title || ``
-  const description = post?.frontmatter?.description || ``
-  const thumbnail = post?.frontmatter?.thumbnail?.childImageSharp?.fluid
+  const mdx = data.mdx
+  if (!mdx) {
+    throw Error
+  }
+
+  const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
+  const postUrl = siteUrl + toWorkPostLink(mdx?.fields?.slug || ``)
+
+  const post = toDetailWorkPost(postUrl, mdx)
 
   return (
-    <>
-      <Head
-        title={title}
-        description={description}
-        slug={getWorkPostLink(post?.fields?.slug || ``)}
-      />
-      <Layout>
-        <div className="l-page-container">
-          <Post
-            title={title}
-            frontmatter={post?.frontmatter}
-            thumbnail={toUndefinedOrT(thumbnail)}
-            post={toUndefinedOrT(post)}
-          />
-          <Sidebar
-            bio={true}
-            toc={{ tableOfContents: post?.tableOfContents }}
-            commonSidebar={true}
-          />
-        </div>
-      </Layout>
-    </>
+    <Layout>
+      <div className="l-page-container">
+        {typeof post !== `undefined` ? (
+          <>
+            <Post post={post}/>
+            <Sidebar
+              bio={true}
+              toc={{ headings: post.headings }}
+              commonSidebar={true}
+            />
+          </>
+        )
+          : <div/>
+        }
+      </div>
+    </Layout>
   )
 }
 

@@ -3,8 +3,7 @@ import type { Language } from "prism-react-renderer"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import dracula from "prism-react-renderer/themes/dracula"
 
-import { copy } from "@funcs/clipboard"
-import { replaceAll } from "@funcs/util"
+import { replaceAll, copy } from "@utils/index"
 // @ts-ignore
 import styles from "./code.module.scss"
 
@@ -19,8 +18,7 @@ export const Code: React.FC<CodeProps> = ({
   codeString,
   language,
   title,
-}: // ...props
-CodeProps) => {
+}: CodeProps) => {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = (event: MouseEvent): void => {
@@ -35,17 +33,6 @@ CodeProps) => {
     event.preventDefault()
   }
 
-  // 削除予定
-  // if (props[`react-live`]) {
-  //   return (
-  //     <LiveProvider code={codeString} noInline={true}>
-  //       <LiveEditor />
-  //       <LiveError />
-  //       <LivePreview />
-  //     </LiveProvider>
-  //   )
-  // } else {
-  // }
   return (
     <div>
       <Highlight

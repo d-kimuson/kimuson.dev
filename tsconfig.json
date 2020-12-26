@@ -10,26 +10,44 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      "@declaration": [
-        "types/declaration.d.ts"
+      // Types
+      "@util-types": [
+        "types/utils.d.ts"
       ],
       "@graphql-types": [
         "types/graphql-types.d.ts"
       ],
-      "@static/*": [
-        "static/*"
+      "@external-graphql-types": [
+        "types/external-graphql-types.d.ts"
       ],
-      "@styles/*": [
-        "src/global-styles/*"
+      // Clean Architecture
+      "@entities/*": [
+        "./src/_entities/*"
       ],
-      "@funcs/*": [
-        "./src/helper-functions/*"
+      "@usecases/*": [
+        "./src/_usecases/*"
       ],
+      "@gateways/*": [
+        "./src/_gateways/*"
+      ],
+      "@presenters/*": [
+        "./src/_presenters/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      // Gatsby
       "@components/*": [
         "./src/components/*"
       ],
       "@mdx": [
         "./src/components/_mdx"
+      ],
+      "@styles/*": [
+        "./src/global-styles/*"
+      ],
+      "@static/*": [
+        "static/*"
       ],
     },
     "module": "esnext",

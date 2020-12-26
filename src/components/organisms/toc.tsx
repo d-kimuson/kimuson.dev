@@ -3,81 +3,56 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
 
+import type { Heading } from "@entities/post"
 // @ts-ignore
 import styles from "./toc.module.scss"
 
 const infty = 100000
 const headerHeight = 60
 
-interface Heading {
-  tag: string
-  id: string
-  value: string
+interface TocHeading extends Heading {
   active: boolean
+  top: number
   elm?: HTMLElement
 }
 
-interface TableOfContent {
-  url: string
-  title: string
-  items?: TableOfContent[]
-}
-
-export interface TableOfContents {
-  items: TableOfContent[]
-}
+const toTocHeading = (heading: Heading): TocHeading => ({
+  ...heading,
+  top: infty,
+  active: false
+})
 
 interface TocProps {
-  tableOfContents: TableOfContents
+  headings: Heading[]
 }
 
-export const Toc: React.FC<TocProps> = ({ tableOfContents }: TocProps) => {
-  const [headings, setHeadings] = useState<Heading[]>(
-    tableOfContents.items.reduce(
-      (s: Heading[], t: TableOfContent): Heading[] => {
-        s.push({
-          tag: `h2`,
-          id: t.url.replace(`#`, ``),
-          value: t.title,
-          active: false,
-        })
-        ;(t.items || []).forEach((item: TableOfContent) => {
-          s.push({
-            tag: `h3`,
-            id: item.url.replace(`#`, ``),
-            value: item.title,
-            active: false,
-          })
-        })
-
-        return s
-      },
-      []
-    )
+export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
+  const [tocHeadings, setTocHeadings] = useState<TocHeading[]>(
+    headings.map(toTocHeading)
   )
 
   const [pageYOffset, setPageYOffset] = useState<number>(0)
 
   // functions
-  const setHeadingTop = (heading: Heading): { top: number } & Heading => ({
+  const setHeadingTop = (heading: TocHeading): { top: number } & TocHeading => ({
     ...heading,
     top: heading.elm?.getBoundingClientRect().top || infty,
   })
 
-  // 最初のみ呼ばれる処理
+  // 処理化処理
   useEffect(() => {
-    // Init Heading Element
-    setHeadings(
-      headings.map(heading => {
-        const elm = document.getElementById(heading.id)
+    // 対応するHTML要素をセット
+    setTocHeadings(
+      tocHeadings.map(tocHeading => {
+        const elm = document.getElementById(tocHeading.id)
         return {
-          ...heading,
+          ...tocHeading,
           elm: elm === null ? undefined : elm,
         }
       })
     )
 
-    // Add Scroll Event Lister
+    // スクロールイベントで座標を更新するリスナー
     document.addEventListener(`scroll`, () =>
       setPageYOffset(window.pageYOffset)
     )
@@ -85,20 +60,20 @@ export const Toc: React.FC<TocProps> = ({ tableOfContents }: TocProps) => {
 
   // 画面位置の変更
   useEffect(() => {
-    if (typeof headings[0]?.elm === `undefined`) return
+    if (typeof tocHeadings[0]?.elm === `undefined`) return
 
-    const activeHeading = headings
+    const activeHeading = tocHeadings
       .map(setHeadingTop)
-      .filter(heading => heading.top <= headerHeight + 5)
+      .filter(tocHeading => tocHeading.top <= headerHeight + 5)
       .slice(-1)[0]
 
     const activeId =
       typeof activeHeading === `undefined` ? headings[0].id : activeHeading.id
 
-    setHeadings(
-      headings.map(heading => ({
-        ...heading,
-        active: heading.id === activeId,
+    setTocHeadings(
+      tocHeadings.map(tocHeading => ({
+        ...tocHeading,
+        active: tocHeading.id === activeId,
       }))
     )
   }, [pageYOffset])
@@ -111,12 +86,12 @@ export const Toc: React.FC<TocProps> = ({ tableOfContents }: TocProps) => {
       </h1>
       <div className="m-card__content">
         <ul className={styles.toc}>
-          {headings.map(h => (
+          {tocHeadings.map(tocHeading => (
             <li
-              key={h.id}
-              className={`toc-${h.tag} ${h.active ? styles.tocActive : ``}`}
+              key={tocHeading.id}
+              className={`toc-${tocHeading.tag} ${tocHeading.active ? styles.tocActive : ``}`}
             >
-              <Link to={`#${h.id}`}>{h.value}</Link>
+              <Link to={`#${tocHeading.id}`}>{tocHeading.title}</Link>
             </li>
           ))}
         </ul>

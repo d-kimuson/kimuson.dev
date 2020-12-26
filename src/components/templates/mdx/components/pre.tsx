@@ -2,7 +2,7 @@ import React from "react"
 import type { Language } from "prism-react-renderer"
 import { preToCodeBlock, ChildrenPropsBase, PreProps } from "mdx-utils"
 
-import { Code } from "@components/atoms/code"
+import { Code } from "./code"
 
 const separateTitle = (
   maybeLanguage: string

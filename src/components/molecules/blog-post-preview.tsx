@@ -2,8 +2,8 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import { getBlogPostLink } from "@funcs/links"
-import { toGatsbyImageFluidArg } from "@funcs/image"
+import type { BlogPost } from "@entities/post"
+import { toBlogPostLink } from "@presenters/links"
 import { Date } from "../atoms/date"
 import { TagList } from "./tag-list"
 // @ts-ignore
@@ -20,13 +20,13 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
 }: BlogPostPreviewProps) => {
   return (
     <Link
-      to={getBlogPostLink(blogPost.slug)}
+      to={toBlogPostLink(blogPost.slug)}
       className={`${styles.blogPost} m-card l-main-width m-remove-a-decoration`}
     >
       {typeof blogPost.thumbnail === `object` ? (
         <div className={styles.imageWrapper}>
           <Image
-            fluid={toGatsbyImageFluidArg(blogPost.thumbnail)}
+            fluid={blogPost.thumbnail}
             className={styles.image}
             imgStyle={imgStyle}
           />

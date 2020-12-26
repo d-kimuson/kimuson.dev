@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 
 import type { BioQuery } from "@graphql-types"
+import { toFixedImage } from "@gateways/image"
 // @ts-ignore
 import styles from "./bio.module.scss"
-import { toGatsbyImageFixedArg } from "@funcs/image"
 
 const query = graphql`
   query Bio {
@@ -41,7 +41,7 @@ const imageStyle = { height: `200px`, width: `200px` }
 export const Bio: React.FC = () => {
   const data = useStaticQuery<BioQuery>(query)
   const author = data.site?.siteMetadata?.author
-  const avatarImage = data.avatar?.childImageSharp?.fixed
+  const avatarImage = toFixedImage(data.avatar?.childImageSharp?.fixed)
 
   return (
     <section className={`m-card ${styles.bio}`}>
@@ -51,9 +51,9 @@ export const Bio: React.FC = () => {
       </h1>
       <div className="m-card__content">
         <div className={styles.bioImageWrapper}>
-          {typeof avatarImage === `object` && avatarImage !== null ? (
+          {typeof avatarImage !== `undefined` ? (
             <Image
-              fixed={toGatsbyImageFixedArg(avatarImage)}
+              fixed={avatarImage}
               style={imageStyle}
             />
           ) : (

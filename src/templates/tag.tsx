@@ -2,12 +2,12 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { TagPageQuery, MdxEdge } from "@graphql-types"
+import { toBlogPostList } from "@gateways/post"
+import { toTagLink } from "@presenters/links"
 import { Sidebar } from "@components/templates/sidebar"
 import { Layout } from "@components/templates/layout"
 import { Head } from "@components/templates/head"
 import { BlogPostList } from "@components/molecules/blog-post-list"
-import { convertToBlogPostList } from "@funcs/post"
-import { getTagLink } from "@funcs/links"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 
@@ -18,7 +18,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const blogPosts = convertToBlogPostList(edges)
+  const blogPosts = toBlogPostList(edges)
   const tag = pageContext.tag || `No Tag`
 
   const siteTitle = data.site?.siteMetadata?.title || ``
@@ -28,7 +28,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
       <Head
         title={`${tag}タグ`}
         description={`${siteTitle}の${tag}タグページです。｢${tag}｣に関連する記事を探すことができます。`}
-        slug={getTagLink(tag)}
+        slug={toTagLink(tag)}
       />
       <Layout>
         <div className="l-page-container">
