@@ -3,6 +3,8 @@
   "files.associations": {
     "*.tsx": "typescriptreact",
     "*.jsx": "javascriptreact",
+    "*.md": "markdown, mdx",
+    "*.mdx": "markdown, mdx"
   },
   // ESLint
   "eslint.options": {
