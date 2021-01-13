@@ -12,13 +12,13 @@ interface AboutPageProps extends PageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
-
   const mdx = data.mdx
   if (!mdx) {
     throw Error
   }
 
   const post = toDetailAboutPost(undefined, mdx)
+  console.log(mdx, post)
 
   return (
     <Layout>
@@ -46,6 +46,9 @@ export const pageQuery = graphql`
       frontmatter {
         title
         description
+      }
+      fields {
+        slug
       }
       body
       tableOfContents
