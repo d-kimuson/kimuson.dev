@@ -1,0 +1,80 @@
+---
+title: "Next.jsをSSGで配信するときの画像最適化について"
+description: まだ書かれていません
+category: "Next"
+tags:
+  - "Next.js"
+date: "2021-01-11T18:40:49Z"
+thumbnail: "thumbnails/Next.png"
+draft: true
+---
+
+## tl;dr
+
+- Vercel を使うなら next/image でできるけど、SSGホスティングだと無理
+  - サードパーティ製の対応もできるけど、お高い(T_T)
+- ローカルのランタイムで最適化する
+  - png/jpeg → webp へ変換 & 配信
+  - tracedSVG (Gatsby と同じやつ)
+
+## 準備
+
+[GitHub - cyrilwanner/next-optimized-images: 🌅 next-optimized-images automatically optimizes images used in next.js projects (jpeg, png, svg, webp and gif).](https://github.com/cyrilwanner/next-optimized-images)
+
+``` bash
+$ yarn add next-compose-plugins next-optimized-images webp-loader image-trace-loader
+```
+
+``` javascript:next.config.js
+const withPlugins = require('next-compose-plugins');
+const optimizedImages = require('next-optimized-images');
+
+module.exports = withPlugins([
+  [optimizedImages, {
+    /* config for next-optimized-images */
+  }],
+
+  // your other plugins here
+]);
+```
+
+``` json:.babelrc
+{
+  "presets": ["next/babel"],
+  "plugins": ["react-optimized-image/plugin"]
+}
+```
+
+``` typescript:next-env.d.ts
+/// <reference types="optimized-images-loader" />
+```
+
+## webp 対応
+
+``` typescript
+import Image from 'react-optimized-image';
+import logo from '@images/logo.jpg';
+
+export const LogoImage: React.FC = () => (
+  <Image src={logo} sizes={[500, 2000]} alt="alt text" height={60} width={100} />
+)
+```
+
+sizes は想定してるデバイスサイズ
+
+上の例なら、
+
+- 〜500
+- 501〜
+
+用の2種類が生成される
+
+## tracedSVG
+
+ほげほげ
+
+## 終わりに
+
+ここにサンプルを置いておくぜ
+
+さよなら

@@ -1,0 +1,55 @@
+---
+title: "ts-jestでtsconfigのパスエイリアスを適用する"
+description: まだ書かれていません
+category: "TypeScript"
+tags:
+  - ブログ
+  - Gatsby
+date: "2021-01-13T14:27:36Z"
+thumbnail: "thumbnails/TypeScript.png"
+draft: true
+---
+
+## 問題
+
+tsconfig の `paths` は名前解決をしてくれない
+
+一元管理にしたいから、ランタイムでは、
+
+- [tsconfig-paths](https://www.npmjs.com/package/tsconfig-paths)
+- [tsconfig-paths-webpack-plugin](https://www.npmjs.com/package/tsconfig-paths-webpack-plugin)
+
+この辺で解決することが多いけど、`ts-jest` だと解決してくれなかった
+
+一応、
+
+``` js:jest.config.js
+module.exports = {
+  // ...
+  moduleNameMapper: {
+    "@hoge/(.*)": "<rootDir>/hoge/$1",
+  },
+}
+```
+
+こんな風に手動で書けるみたいだけど、めんどいから tsconfig を尊重したい
+
+## pathsToModuleNameMapper
+
+utils から マッピング用の関数が提供されるみたい
+
+ドキュメントに乗ってなくて苦労した
+
+``` js:jest.config.js
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+
+const { compilerOptions } = require('./tsconfig.json')
+
+module.exports = {
+  // ...
+  preset: "ts-jest",
+  moduleNameMapper: pathsToModuleNameMapper(
+    compilerOptions.paths , { prefix: '<rootDir>/' }
+  )
+}
+```
