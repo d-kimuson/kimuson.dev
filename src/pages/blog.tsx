@@ -3,9 +3,10 @@ import { graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
 import type { BlogPageQuery, MdxEdge } from "@graphql-types"
-import { toBlogPostList } from "@gateways/post"
 import type { BlogPost } from "@entities/post"
+import { toBlogPostList } from "@gateways/post"
 import { toSearchBlogPost } from "@usecases/searchBlogPost"
+import { filterDraftPostList } from "@presenters/post"
 import { Head } from "@components/templates/head"
 import { Layout } from "@components/templates/layout"
 import { Sidebar } from "@components/templates/sidebar"
@@ -22,7 +23,8 @@ const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   const searchBlogPosts = pipe(
     (edges: BlogPageQuery["allMdx"]["edges"]) => edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
     toBlogPostList,
-    (blogPosts: BlogPost[]) => blogPosts.map(toSearchBlogPost)
+    (blogPosts: BlogPost[]) => blogPosts.map(toSearchBlogPost),
+    filterDraftPostList
   )(data.allMdx.edges)
 
 

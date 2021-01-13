@@ -1,8 +1,10 @@
 import React from "react"
 import { Link, graphql, PageProps } from "gatsby"
+import { pipe } from "ramda"
 
 import type { IndexQuery, MdxEdge } from "@graphql-types"
 import { toBlogPostList } from "@gateways/post"
+import { filterDraftPostList } from "@presenters/post"
 import { Sidebar } from "@components/templates/sidebar"
 import { Layout } from "@components/templates/layout"
 import { Head } from "@components/templates/head"
@@ -18,7 +20,10 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const blogPosts = toBlogPostList(edges)
+  const blogPosts = pipe(
+    toBlogPostList,
+    filterDraftPostList
+  )(edges)
 
   console.log(edges)
   console.log(blogPosts)

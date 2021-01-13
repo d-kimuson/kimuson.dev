@@ -54,14 +54,14 @@ export const toBlogPost = (mdx: PostMdx): BlogPost | undefined => {
 
 export const toDetailBlogPost = toDetail(toBlogPost) as ((postUrl: string | undefined, mdx: PostMdx) => Detail<BlogPost> | undefined)
 
-export const toBlogPostList = (mdxs: MdxEdge[]): BlogPost[] => {
-  return mdxs
+export const toBlogPostList = (mdxs: MdxEdge[]): BlogPost[] =>
+  mdxs
     .map(edge => toBlogPost(edge.node))
     .filter(
       (maybeBlogPost): maybeBlogPost is BlogPost =>
         typeof maybeBlogPost !== `undefined`
     )
-}
+
 
 export const toWorkPost = (mdx: PostMdx): WorkPost | undefined =>
   mdx.fields?.slug ? {
