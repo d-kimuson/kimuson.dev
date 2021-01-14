@@ -7,17 +7,14 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      // Types
       "@util-types": ["types/utils.d.ts"],
       "@graphql-types": ["types/graphql-types.d.ts"],
       "@external-graphql-types": ["types/external-graphql-types.d.ts"],
-      // Clean Architecture
       "@entities/*": ["./src/_entities/*"],
       "@usecases/*": ["./src/_usecases/*"],
       "@gateways/*": ["./src/_gateways/*"],
       "@presenters/*": ["./src/_presenters/*"],
       "@utils/*": ["./src/utils/*"],
-      // Gatsby
       "@components/*": ["./src/components/*"],
       "@mdx": ["./src/components/_mdx"],
       "@styles/*": ["./src/global-styles/*"],

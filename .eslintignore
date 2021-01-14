@@ -1,3 +1,4 @@
+jest.config.js
 gatsby-config.js
 gatsby-config.ts
 .eslintrc.js
