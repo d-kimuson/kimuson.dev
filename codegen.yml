@@ -1,20 +1,6 @@
 overwrite: true
 schema: "http://localhost:2828/__graphql"
 documents:
-  # - "./node_modules/gatsby-*/**/*.js"  # 型生成が必要なライブラリだけ追加する
-  - "./node_modules/gatsby-core-utils/**/*.js"
-  - "./node_modules/gatsby-graphiql-explorer/**/*.js"
-  - "./node_modules/gatsby-legacy-polyfills/**/*.js"
-  - "./node_modules/gatsby-link/**/*.js"
-  - "./node_modules/gatsby-page-utils/**/*.js"
-  - "./node_modules/gatsby-source-filesystem/**/*.js"
-  - "./node_modules/gatsby-telemetry/**/*.js"
-  - "./node_modules/gatsby-transformer-sharp/**/*.js"
-  - "./node_modules/gatsby-image/**/*.js"
-  - "./node_modules/gatsby-source-sharp/**/*.js"
-  - "./node_modules/gatsby-plugin-*/**/*.js"
-  - "./node_modules/gatsby-remark-*/**/*.js"
-  - "./node_modules/gatsby-transformer-*/**/*.js"
   - "./src/**/*.{ts,tsx,js,jsx}"
   - "./*.{ts,tsx,js,jsx}"
 generates:
