@@ -20,16 +20,13 @@
   "eslint.alwaysShowStatus": true,
   // Stylelint
   "stylelint.enable": true,
-  "stylelint.validate": [
-    "css",
-    "scss",
-  ],
+  "stylelint.validate": ["css", "scss"],
   // Lint On Save
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true,
-    "source.fixAll.textlint": true,
+    "source.fixAll.textlint": true
   },
   // Invalidate other formatters
   "css.validate": false,

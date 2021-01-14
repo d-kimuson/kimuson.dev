@@ -1,35 +1,40 @@
 {
-  "name": "kimuemon-tech-blog",
+  "name": "kimuson.dev",
   "version": "0.1.0",
   "private": true,
   "description": "My tech blog produced by gatsby",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/techblog1/gatsby-blog"
+    "url": "git+https://github.com/d-kimuson/kimuson.dev.git"
   },
   "license": "0BSD",
   "author": "Kaito Kimura <dev.kimuson@gmail.com>",
   "main": "n/a",
   "scripts": {
     "blog:new": "git rev-parse --show-toplevel && ./bin/create.sh",
-    "build": "NODE_ENV=production gatsby build",
+    "build": "gatsby build",
     "clean": "gatsby clean",
     "codegen": "graphql-codegen --config codegen.yml",
     "dev": "gatsby develop -p 2828",
-    "dev:codegen": "NODE_ENV=development IS_CODEGEN=true gatsby develop",
-    "lint": "yarn run eslint src --ext .tsx,.ts,.jsx,.js --fix && yarn run stylelint 'src/**/*.{scss,.css}' --fix",
+    "dev:codegen": "IS_CODEGEN=true gatsby develop",
+    "fix": "run-p fix:*",
+    "fix:eslint": "eslint src --ext .tsx,.ts,.jsx,.js --fix",
+    "fix:prettier": "prettier '**/*.json' --write",
+    "fix:stylelint": "stylelint 'src/**/*.{scss,.css}' --fix",
+    "now": "date +'%Y-%m-%dT%TZ'",
     "post": "git rev-parse --show-toplevel && git add content && git commit -m '[auto] post article' && git push origin master",
-    "sort:package": "npx sort-package-json",
-    "start": "npm run develop",
-    "try:prod": "yarn build && http-server public -p 80",
-    "type:check": "tsc --noEmit",
-    "now": "date +'%Y-%m-%dT%TZ'"
+    "sort:package": "sort-package-json",
+    "start": "yarn build && http-server public -p 80",
+    "typecheck": "tsc -p . --noEmit"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn type:check && yarn lint",
+      "pre-commit": "yarn run run-p typecheck fix sort:package",
       "pre-push": "yarn build"
     }
+  },
+  "dependencies": {
+    "ramda": "^0.27.1"
   },
   "devDependencies": {
     "@danbruegge/gatsby-plugin-stylelint": "^4.1.0",
@@ -91,6 +96,7 @@
     "loadable-components": "^2.2.3",
     "mdx-utils": "^0.2.0",
     "modern-css-reset": "^1.1.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^7.0.34",
     "postcss-flexbugs-fixes": "^4.2.1",
     "prettier": "^2.1.1",
@@ -102,6 +108,7 @@
     "react-live": "^2.2.3",
     "react-share": "^4.3.0",
     "sass": "^1.26.11",
+    "sort-package-json": "^1.48.1",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended": "^3.0.0",
@@ -117,8 +124,5 @@
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^4.0.2"
-  },
-  "dependencies": {
-    "ramda": "^0.27.1"
   }
 }

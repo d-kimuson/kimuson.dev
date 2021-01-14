@@ -4,6 +4,6 @@
     "taichi.vscode-textlint",
     // develop
     "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint",
+    "stylelint.vscode-stylelint"
   ]
 }

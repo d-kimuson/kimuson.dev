@@ -3,52 +3,25 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
       // Types
-      "@util-types": [
-        "types/utils.d.ts"
-      ],
-      "@graphql-types": [
-        "types/graphql-types.d.ts"
-      ],
-      "@external-graphql-types": [
-        "types/external-graphql-types.d.ts"
-      ],
+      "@util-types": ["types/utils.d.ts"],
+      "@graphql-types": ["types/graphql-types.d.ts"],
+      "@external-graphql-types": ["types/external-graphql-types.d.ts"],
       // Clean Architecture
-      "@entities/*": [
-        "./src/_entities/*"
-      ],
-      "@usecases/*": [
-        "./src/_usecases/*"
-      ],
-      "@gateways/*": [
-        "./src/_gateways/*"
-      ],
-      "@presenters/*": [
-        "./src/_presenters/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ],
+      "@entities/*": ["./src/_entities/*"],
+      "@usecases/*": ["./src/_usecases/*"],
+      "@gateways/*": ["./src/_gateways/*"],
+      "@presenters/*": ["./src/_presenters/*"],
+      "@utils/*": ["./src/utils/*"],
       // Gatsby
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@mdx": [
-        "./src/components/_mdx"
-      ],
-      "@styles/*": [
-        "./src/global-styles/*"
-      ],
-      "@static/*": [
-        "static/*"
-      ],
+      "@components/*": ["./src/components/*"],
+      "@mdx": ["./src/components/_mdx"],
+      "@styles/*": ["./src/global-styles/*"],
+      "@static/*": ["static/*"]
     },
     "module": "esnext",
     "moduleResolution": "node",
@@ -61,15 +34,10 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
-  "files": [
-    "./@types/globals.d.ts",
-    "./@types/vendor.d.ts",
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "files": ["./@types/globals.d.ts", "./@types/vendor.d.ts"],
+  "exclude": ["node_modules"],
   "include": [
     "./gatsby-node.ts",
     "./gatsby-config.ts",

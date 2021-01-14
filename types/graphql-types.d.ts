@@ -726,12 +726,12 @@ export enum FileFieldsEnum {
   ChildMdxFrontmatterThumbnailPublicUrl = 'childMdx___frontmatter___thumbnail___publicURL',
   ChildMdxFrontmatterThumbnailId = 'childMdx___frontmatter___thumbnail___id',
   ChildMdxFrontmatterThumbnailChildren = 'childMdx___frontmatter___thumbnail___children',
-  ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
-  ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
-  ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
-  ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
-  ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
   ChildMdxFrontmatterDescription = 'childMdx___frontmatter___description',
+  ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
+  ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
+  ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
+  ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
+  ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
   ChildMdxSlug = 'childMdx___slug',
   ChildMdxBody = 'childMdx___body',
   ChildMdxExcerpt = 'childMdx___excerpt',
@@ -1556,12 +1556,12 @@ export enum MdxFieldsEnum {
   FrontmatterThumbnailChildMdxTimeToRead = 'frontmatter___thumbnail___childMdx___timeToRead',
   FrontmatterThumbnailChildMdxId = 'frontmatter___thumbnail___childMdx___id',
   FrontmatterThumbnailChildMdxChildren = 'frontmatter___thumbnail___childMdx___children',
-  FrontmatterCategory = 'frontmatter___category',
-  FrontmatterDate = 'frontmatter___date',
-  FrontmatterWeight = 'frontmatter___weight',
-  FrontmatterDraft = 'frontmatter___draft',
-  FrontmatterTags = 'frontmatter___tags',
   FrontmatterDescription = 'frontmatter___description',
+  FrontmatterCategory = 'frontmatter___category',
+  FrontmatterTags = 'frontmatter___tags',
+  FrontmatterDate = 'frontmatter___date',
+  FrontmatterDraft = 'frontmatter___draft',
+  FrontmatterWeight = 'frontmatter___weight',
   Slug = 'slug',
   Body = 'body',
   Excerpt = 'excerpt',
@@ -1692,12 +1692,12 @@ export type MdxFrontmatter = {
   __typename?: 'MdxFrontmatter';
   title: Scalars['String'];
   thumbnail?: Maybe<File>;
-  category?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['Date']>;
-  weight?: Maybe<Scalars['Int']>;
-  draft?: Maybe<Scalars['Boolean']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   description?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  date?: Maybe<Scalars['Date']>;
+  draft?: Maybe<Scalars['Boolean']>;
+  weight?: Maybe<Scalars['Int']>;
 };
 
 
@@ -1711,12 +1711,12 @@ export type MdxFrontmatterDateArgs = {
 export type MdxFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   thumbnail?: Maybe<FileFilterInput>;
-  category?: Maybe<StringQueryOperatorInput>;
-  date?: Maybe<DateQueryOperatorInput>;
-  weight?: Maybe<IntQueryOperatorInput>;
-  draft?: Maybe<BooleanQueryOperatorInput>;
-  tags?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+  date?: Maybe<DateQueryOperatorInput>;
+  draft?: Maybe<BooleanQueryOperatorInput>;
+  weight?: Maybe<IntQueryOperatorInput>;
 };
 
 export type MdxGroupConnection = {
@@ -2622,7 +2622,6 @@ export enum SitePageFieldsEnum {
   PluginCreatorPluginOptionsFeedsOutput = 'pluginCreator___pluginOptions___feeds___output',
   PluginCreatorPluginOptionsFeedsTitle = 'pluginCreator___pluginOptions___feeds___title',
   PluginCreatorPluginOptionsFeedsMatch = 'pluginCreator___pluginOptions___feeds___match',
-  PluginCreatorPluginOptionsTrackingId = 'pluginCreator___pluginOptions___trackingId',
   PluginCreatorPluginOptionsShortName = 'pluginCreator___pluginOptions___short_name',
   PluginCreatorPluginOptionsStartUrl = 'pluginCreator___pluginOptions___start_url',
   PluginCreatorPluginOptionsBackgroundColor = 'pluginCreator___pluginOptions___background_color',
@@ -2872,7 +2871,6 @@ export enum SitePluginFieldsEnum {
   PluginOptionsFeedsOutput = 'pluginOptions___feeds___output',
   PluginOptionsFeedsTitle = 'pluginOptions___feeds___title',
   PluginOptionsFeedsMatch = 'pluginOptions___feeds___match',
-  PluginOptionsTrackingId = 'pluginOptions___trackingId',
   PluginOptionsShortName = 'pluginOptions___short_name',
   PluginOptionsStartUrl = 'pluginOptions___start_url',
   PluginOptionsBackgroundColor = 'pluginOptions___background_color',
@@ -3043,7 +3041,6 @@ export type SitePluginPluginOptions = {
   mediaTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
   query?: Maybe<Scalars['String']>;
   feeds?: Maybe<Array<Maybe<SitePluginPluginOptionsFeeds>>>;
-  trackingId?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
@@ -3136,7 +3133,6 @@ export type SitePluginPluginOptionsFilterInput = {
   mediaTypes?: Maybe<StringQueryOperatorInput>;
   query?: Maybe<StringQueryOperatorInput>;
   feeds?: Maybe<SitePluginPluginOptionsFeedsFilterListInput>;
-  trackingId?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
@@ -3571,7 +3567,10 @@ export type AboutPageQuery = (
     & { frontmatter: (
       { __typename?: 'MdxFrontmatter' }
       & Pick<MdxFrontmatter, 'title' | 'description'>
-    ) }
+    ), fields?: Maybe<(
+      { __typename?: 'MdxFields' }
+      & Pick<MdxFields, 'slug'>
+    )> }
   )> }
 );
 
