@@ -1,15 +1,15 @@
 import { curry } from "ramda"
 
-import type { BlogPost } from "@entities/post"
+import type { BlogPost, FeedPost } from "@entities/post"
 
-export interface SearchBlogPost extends BlogPost {
+export type SearchBlogPost = (BlogPost | FeedPost) & {
   searchTitle: string
 }
 
 export const toSearchBlogPost = curry(
-  (blogPost: BlogPost): SearchBlogPost => ({
-    ...blogPost,
-    searchTitle: blogPost.title.toLowerCase(),
+  (post: BlogPost | FeedPost): SearchBlogPost => ({
+    ...post,
+    searchTitle: post.title.toLowerCase(),
   })
 )
 
@@ -24,10 +24,10 @@ export const searchByKeyword = curry(
 )
 
 const haveTag = (blogPost: SearchBlogPost, tags: string[]): boolean =>
-  tags.reduce(
+  blogPost.__typename === `BlogPost` ? tags.reduce(
     (s: boolean, tag: string) => s || blogPost.tags.includes(tag),
     false
-  )
+  ) : false
 
 export const filterByTags = curry(
   (tags: string[], blogPosts: SearchBlogPost[]): SearchBlogPost[] =>

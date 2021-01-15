@@ -726,12 +726,12 @@ export enum FileFieldsEnum {
   ChildMdxFrontmatterThumbnailPublicUrl = 'childMdx___frontmatter___thumbnail___publicURL',
   ChildMdxFrontmatterThumbnailId = 'childMdx___frontmatter___thumbnail___id',
   ChildMdxFrontmatterThumbnailChildren = 'childMdx___frontmatter___thumbnail___children',
+  ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
+  ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
   ChildMdxFrontmatterDate = 'childMdx___frontmatter___date',
   ChildMdxFrontmatterWeight = 'childMdx___frontmatter___weight',
   ChildMdxFrontmatterDraft = 'childMdx___frontmatter___draft',
   ChildMdxFrontmatterDescription = 'childMdx___frontmatter___description',
-  ChildMdxFrontmatterCategory = 'childMdx___frontmatter___category',
-  ChildMdxFrontmatterTags = 'childMdx___frontmatter___tags',
   ChildMdxSlug = 'childMdx___slug',
   ChildMdxBody = 'childMdx___body',
   ChildMdxExcerpt = 'childMdx___excerpt',
@@ -1556,12 +1556,12 @@ export enum MdxFieldsEnum {
   FrontmatterThumbnailChildMdxTimeToRead = 'frontmatter___thumbnail___childMdx___timeToRead',
   FrontmatterThumbnailChildMdxId = 'frontmatter___thumbnail___childMdx___id',
   FrontmatterThumbnailChildMdxChildren = 'frontmatter___thumbnail___childMdx___children',
+  FrontmatterTags = 'frontmatter___tags',
+  FrontmatterCategory = 'frontmatter___category',
   FrontmatterDate = 'frontmatter___date',
   FrontmatterWeight = 'frontmatter___weight',
   FrontmatterDraft = 'frontmatter___draft',
   FrontmatterDescription = 'frontmatter___description',
-  FrontmatterCategory = 'frontmatter___category',
-  FrontmatterTags = 'frontmatter___tags',
   Slug = 'slug',
   Body = 'body',
   Excerpt = 'excerpt',
@@ -1692,12 +1692,12 @@ export type MdxFrontmatter = {
   __typename?: 'MdxFrontmatter';
   title: Scalars['String'];
   thumbnail?: Maybe<File>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  category?: Maybe<Scalars['String']>;
   date?: Maybe<Scalars['Date']>;
   weight?: Maybe<Scalars['Int']>;
   draft?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
-  category?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 
@@ -1711,12 +1711,12 @@ export type MdxFrontmatterDateArgs = {
 export type MdxFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   thumbnail?: Maybe<FileFilterInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
   date?: Maybe<DateQueryOperatorInput>;
   weight?: Maybe<IntQueryOperatorInput>;
   draft?: Maybe<BooleanQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
-  category?: Maybe<StringQueryOperatorInput>;
-  tags?: Maybe<StringQueryOperatorInput>;
 };
 
 export type MdxGroupConnection = {
@@ -3384,6 +3384,40 @@ export type AllMdxQuery = (
   ) }
 );
 
+export type QiitaLogoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QiitaLogoQuery = (
+  { __typename?: 'Query' }
+  & { file?: Maybe<(
+    { __typename?: 'File' }
+    & { childImageSharp?: Maybe<(
+      { __typename?: 'ImageSharp' }
+      & { fluid?: Maybe<(
+        { __typename?: 'ImageSharpFluid' }
+        & Pick<ImageSharpFluid, 'aspectRatio' | 'base64' | 'sizes' | 'src' | 'srcSetWebp' | 'srcSet' | 'tracedSVG'>
+      )> }
+    )> }
+  )> }
+);
+
+export type ZennLogoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ZennLogoQuery = (
+  { __typename?: 'Query' }
+  & { file?: Maybe<(
+    { __typename?: 'File' }
+    & { childImageSharp?: Maybe<(
+      { __typename?: 'ImageSharp' }
+      & { fluid?: Maybe<(
+        { __typename?: 'ImageSharpFluid' }
+        & Pick<ImageSharpFluid, 'aspectRatio' | 'base64' | 'sizes' | 'src' | 'srcSetWebp' | 'srcSet' | 'tracedSVG'>
+      )> }
+    )> }
+  )> }
+);
+
 export type BioQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3534,7 +3568,20 @@ export type BlogPageQuery = (
         ) }
       ) }
     )> }
-  ) }
+  ), site?: Maybe<(
+    { __typename?: 'Site' }
+    & { siteMetadata?: Maybe<(
+      { __typename?: 'SiteSiteMetadata' }
+      & { posts?: Maybe<Array<Maybe<(
+        { __typename?: 'SiteSiteMetadataPosts' }
+        & Pick<SiteSiteMetadataPosts, 'isoDate' | 'link' | 'title'>
+        & { site?: Maybe<(
+          { __typename?: 'SiteSiteMetadataPostsSite' }
+          & Pick<SiteSiteMetadataPostsSite, 'feedUrl' | 'name'>
+        )> }
+      )>>> }
+    )> }
+  )> }
 );
 
 export type IndexQueryVariables = Exact<{ [key: string]: never; }>;
@@ -3573,6 +3620,14 @@ export type IndexQuery = (
     & { siteMetadata?: Maybe<(
       { __typename?: 'SiteSiteMetadata' }
       & Pick<SiteSiteMetadata, 'title'>
+      & { posts?: Maybe<Array<Maybe<(
+        { __typename?: 'SiteSiteMetadataPosts' }
+        & Pick<SiteSiteMetadataPosts, 'isoDate' | 'link' | 'title'>
+        & { site?: Maybe<(
+          { __typename?: 'SiteSiteMetadataPostsSite' }
+          & Pick<SiteSiteMetadataPostsSite, 'feedUrl' | 'name'>
+        )> }
+      )>>> }
     )> }
   )> }
 );

@@ -10,6 +10,7 @@ $-image-width: 120px;
   grid-template: "image description" 1fr;
   grid-template-columns: 150px 1fr;
   height: auto;
+  min-height: 130px;
   margin: 10px 0;
 
   .title {

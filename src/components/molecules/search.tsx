@@ -18,7 +18,10 @@ export const Search: React.FC<SearchProps> = ({
   blogPosts,
   className,
 }: SearchProps) => {
-  const tags = Array.from(new Set(blogPosts.flatMap(blogPost => blogPost.tags)))
+  const tags = Array.from(new Set(
+    blogPosts
+      .flatMap(blogPost => blogPost.__typename === `BlogPost` ? blogPost.tags : [])
+  ))
 
   // State
   const [keyword, setKeyword] = useState<string>(``)

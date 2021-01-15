@@ -2,11 +2,11 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
-import type { BlogPageQuery, MdxEdge } from "@graphql-types"
-import type { BlogPost } from "@entities/post"
-import { toBlogPostList } from "@gateways/post"
+import type { BlogPageQuery, MdxEdge, SiteSiteMetadataPosts } from "@graphql-types"
+import type { BlogPost, FeedPost } from "@entities/post"
+import { toBlogPostList, toFeedPostList } from "@gateways/post"
 import { toSearchBlogPost } from "@usecases/searchBlogPost"
-import { filterDraftPostList } from "@presenters/post"
+import { filterDraftPostList, sortPostList } from "@presenters/post"
 import { Head } from "@components/templates/head"
 import { Layout } from "@components/templates/layout"
 import { Sidebar } from "@components/templates/sidebar"
@@ -20,13 +20,19 @@ const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   const title = `検索`
   const description = `検索することができます。`
 
+  const feedPosts = toFeedPostList(
+    (data.site?.siteMetadata?.posts || [])
+      .filter((maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost))
+  )
+
   const searchBlogPosts = pipe(
     (edges: BlogPageQuery["allMdx"]["edges"]) => edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
     toBlogPostList,
-    (blogPosts: BlogPost[]) => blogPosts.map(toSearchBlogPost),
-    filterDraftPostList
+    (blogPosts: BlogPost[]) => [...blogPosts, ...feedPosts],
+    (blogPosts: (BlogPost | FeedPost)[]) => blogPosts.map(toSearchBlogPost),
+    filterDraftPostList,
+    sortPostList
   )(data.allMdx.edges)
-
 
   return (
     <>
@@ -82,6 +88,19 @@ export const pageQuery = graphql`
                 }
               }
             }
+          }
+        }
+      }
+    }
+    site {
+      siteMetadata {
+        posts {
+          isoDate
+          link
+          title
+          site {
+            feedUrl
+            name
           }
         }
       }

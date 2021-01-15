@@ -1,4 +1,6 @@
-export const sites = [
+import type { FeedSite } from "./types"
+
+export const sites: FeedSite[] = [
   {
     name: `Zenn`,
     feedUrl: `https://zenn.dev/kimuson/feed`,

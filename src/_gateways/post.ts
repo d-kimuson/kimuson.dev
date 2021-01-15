@@ -1,8 +1,8 @@
 import { curry } from "ramda"
 import dayjs from "dayjs"
 
-import type { MdxEdge, Mdx, MdxFrontmatter, MdxFields, Maybe, File } from "@graphql-types"
-import type { Detail, Post, BlogPost, WorkPost, AboutPost } from "@entities/post"
+import type { MdxEdge, Mdx, MdxFrontmatter, MdxFields, Maybe, File, SiteSiteMetadataPosts } from "@graphql-types"
+import type { Detail, Post, BlogPost, WorkPost, AboutPost, FeedPost, FeedSiteName } from "@entities/post"
 import type { RawFluidImage } from "@entities/image"
 import { toFluidImage } from "@gateways/image"
 import { toHeadings } from "@gateways/heading"
@@ -36,6 +36,7 @@ export const toDetail = curry(
 export const toBlogPost = (mdx: PostMdx): BlogPost | undefined => {
   return mdx.fields?.slug && mdx.frontmatter?.category
     ? {
+      __typename: `BlogPost`,
       slug: mdx.fields?.slug,
       title: mdx.frontmatter?.title || `No Title`,
       description:
@@ -65,6 +66,7 @@ export const toBlogPostList = (mdxs: MdxEdge[]): BlogPost[] =>
 
 export const toWorkPost = (mdx: PostMdx): WorkPost | undefined =>
   mdx.fields?.slug ? {
+    __typename: `WorkPost`,
     slug: mdx.fields?.slug,
     title: mdx.frontmatter?.title || `No Title`,
     description:
@@ -89,6 +91,7 @@ export const toWorkPostList = (mdxs: MdxEdge[]): WorkPost[] => {
 
 export const toAboutPost = (mdx: PostMdx): AboutPost | undefined =>
   mdx.fields?.slug ? {
+    __typename: `AboutPost`,
     slug: mdx.fields?.slug,
     title: mdx.frontmatter?.title || `No Title`,
     description:
@@ -99,3 +102,25 @@ export const toAboutPost = (mdx: PostMdx): AboutPost | undefined =>
   } : undefined
 
 export const toDetailAboutPost = toDetail(toAboutPost) as ((postUrl: string | undefined, mdx: PostMdx) => Detail<AboutPost> | undefined)
+
+export const toFeedPost = (post: SiteSiteMetadataPosts): FeedPost | undefined => 
+  typeof post.link === `string` && typeof post.title === `string` && typeof post.isoDate === `string` && typeof post.site?.name === `string` ? {
+    __typename: `FeedPost`,
+    slug: post.link,
+    title: post.title,
+    description: `nothing`,
+    date: dayjs(post.isoDate).locale(`Asia/Tokyo`),
+    siteName: post.site?.name as FeedSiteName,
+    thumbnail: undefined,
+    draft: false
+  } : undefined
+
+
+export const toFeedPostList = (posts: SiteSiteMetadataPosts[]): FeedPost[] => {
+  return posts
+    .map(post => toFeedPost(post))
+    .filter(
+      (maybeFeedPost): maybeFeedPost is FeedPost =>
+        typeof maybeFeedPost !== `undefined`
+    )
+}

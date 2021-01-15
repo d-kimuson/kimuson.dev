@@ -20,12 +20,25 @@ export interface Post {
 }
 
 export interface BlogPost extends Post {
+  __typename: 'BlogPost'
   category: Category
   tags: Tag[]
 }
 
-export type WorkPost = Post
-export type AboutPost = Post
+export interface WorkPost extends Post {
+  __typename: 'WorkPost'
+}
+
+export interface AboutPost extends Post {
+  __typename: 'AboutPost'
+}
+
+export type FeedSiteName = `Zenn` | `Qiita`
+
+export interface FeedPost extends Post {
+  __typename: 'FeedPost'
+  siteName: FeedSiteName
+}
 
 export interface Heading {
   tag: `h2` | `h3`

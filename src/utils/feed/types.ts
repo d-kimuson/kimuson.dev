@@ -1,3 +1,5 @@
+import type { FeedSiteName } from "@entities/post"
+
 export interface FeedItem {
   title: string
   link: string
@@ -5,7 +7,7 @@ export interface FeedItem {
 }
 
 export interface FeedSite {
-  name: string
+  name: FeedSiteName
   feedUrl: string
 }
 

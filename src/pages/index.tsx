@@ -2,9 +2,10 @@ import React from "react"
 import { Link, graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
-import type { IndexQuery, MdxEdge } from "@graphql-types"
-import { toBlogPostList } from "@gateways/post"
-import { filterDraftPostList } from "@presenters/post"
+import type { IndexQuery, MdxEdge, SiteSiteMetadataPosts } from "@graphql-types"
+import type { BlogPost } from "@entities/post"
+import { toBlogPostList, toFeedPostList } from "@gateways/post"
+import { filterDraftPostList, sortPostList } from "@presenters/post"
 import { Sidebar } from "@components/templates/sidebar"
 import { Layout } from "@components/templates/layout"
 import { Head } from "@components/templates/head"
@@ -17,15 +18,20 @@ interface IndexProps extends PageProps {
 }
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
-  const edges = data.allMdx.edges.filter(
-    (e): e is MdxEdge => typeof e !== `undefined`
+  const feedPosts = toFeedPostList(
+    (data.site?.siteMetadata?.posts || [])
+      .filter((maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost))
   )
-  const blogPosts = pipe(
-    toBlogPostList,
-    filterDraftPostList
-  )(edges)
 
-  console.log(edges)
+  const blogPosts = pipe(
+    (edges: IndexQuery["allMdx"]["edges"]) => edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
+    toBlogPostList,
+    (blogPosts: BlogPost[]) => [...blogPosts, ...feedPosts],
+    filterDraftPostList,
+    sortPostList
+  )(data.allMdx.edges)
+    .slice(0, 5)
+
   console.log(blogPosts)
 
   return (
@@ -95,6 +101,15 @@ export const pageQuery = graphql`
       id
       siteMetadata {
         title
+        posts {
+          isoDate
+          link
+          title
+          site {
+            feedUrl
+            name
+          }
+        }
       }
     }
   }
