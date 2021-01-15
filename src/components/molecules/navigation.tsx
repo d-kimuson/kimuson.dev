@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faRss } from "@fortawesome/free-solid-svg-icons"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
 
 // @ts-ignore
 import styles from "./navigation.module.scss"
@@ -27,9 +28,13 @@ const navRoutes = [
 
 const navIcons = [
   {
+    to: `https://github.com/d-kimuson/kimuson.dev`,
+    icon: faGithub
+  },
+  {
     to: `/rss.xml`,
     icon: faRss,
-  },
+  }
 ]
 
 interface NavigationProps {
