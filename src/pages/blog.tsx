@@ -17,8 +17,8 @@ interface BlogProps extends PageProps {
 }
 
 const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
-  const title = `検索`
-  const description = `検索することができます。`
+  const title = `ブログ`
+  const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 
   const feedPosts = toFeedPostList(
     (data.site?.siteMetadata?.posts || [])

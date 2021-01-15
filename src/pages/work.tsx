@@ -20,7 +20,7 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
 
   return (
     <>
-      <Head />
+      <Head title={`Works`} description={`開発物を紹介します。`} />
       <Layout>
         <div className="l-page-container">
           <div className="l-main-wrapper">

@@ -1,5 +1,5 @@
 ---
-title: "きむそん.dev | Gatsby.jsで構築した技術ブログ"
+title: "Gatsbyで構築した技術ブログ"
 thumbnail: "/work/gatsby-blog/thumbnail.png"
 date: "2020-09-01T21:00:45Z"
 weight: 5
