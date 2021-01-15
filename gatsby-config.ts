@@ -1,9 +1,10 @@
+import type { MdxEdge, Site } from "@graphql-types"
+import { readPosts } from "@utils/feed"
+
 const siteName = `きむそん.dev`
 const siteDomain = `kimuson.dev`
 const siteUrl = `https://${siteDomain}`
 const description = `技術ブログです。特にWebについて書いています.`
-
-import type { MdxEdge, Site } from "@graphql-types"
 
 export default {
   siteMetadata: {
@@ -18,6 +19,7 @@ export default {
     social: {
       twitter: `_kimuemon`,
     },
+    posts: readPosts()
   },
   plugins: [
     {

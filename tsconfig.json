@@ -10,14 +10,14 @@
       "@util-types": ["types/utils.d.ts"],
       "@graphql-types": ["types/graphql-types.d.ts"],
       "@external-graphql-types": ["types/external-graphql-types.d.ts"],
-      "@entities/*": ["./src/_entities/*"],
-      "@usecases/*": ["./src/_usecases/*"],
-      "@gateways/*": ["./src/_gateways/*"],
-      "@presenters/*": ["./src/_presenters/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@components/*": ["./src/components/*"],
-      "@mdx": ["./src/components/_mdx"],
-      "@styles/*": ["./src/global-styles/*"],
+      "@entities/*": ["src/_entities/*"],
+      "@usecases/*": ["src/_usecases/*"],
+      "@gateways/*": ["src/_gateways/*"],
+      "@presenters/*": ["src/_presenters/*"],
+      "@utils/*": ["src/utils/*"],
+      "@components/*": ["src/components/*"],
+      "@mdx": ["src/components/_mdx"],
+      "@styles/*": ["src/global-styles/*"],
       "@static/*": ["static/*"]
     },
     "module": "esnext",
@@ -40,6 +40,7 @@
     "./gatsby-config.ts",
     "./gatsby-browser.ts",
     "./src/**/*",
+    "./bin/**/*",
     "./gatsby/**/*"
   ]
 }
