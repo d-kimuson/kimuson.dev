@@ -230,6 +230,7 @@ export default {
       resolve: 'gatsby-plugin-webpack-bundle-analyzer',
       options: {
         analyzerPort: 3000,
+        disable: process.env.NODE_ENV !== `production`,
         production: true,
       },
     },
