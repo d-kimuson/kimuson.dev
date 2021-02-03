@@ -1,0 +1,196 @@
+---
+title: "ESLintとstylelintをpluginなしでprettierと共存させるvscode設定について"
+description: "eslint-plugin-prettier と stylelint-plugin-prettier が非推奨に変わったので、これらを剥がしつつ VSCode で保存時修正をかける設定について紹介します。"
+category: "VSCode"
+tags:
+  - ESlint
+  - styelint
+  - prettier
+  - VSCode
+date: "2021-02-03T17:14:48Z"
+thumbnail: "thumbnails/VSCode.png"
+draft: false
+---
+
+## TLDR;
+
+[Prettier と ESLint の組み合わせの公式推奨が変わり plugin が不要になった](https://blog.ojisan.io/prettier-eslint-cli)
+
+こちらの記事で紹介されているように、ESLint でのプラグイン系が非推奨になったそうです。てことで、今後は config 系で競合ルールだけ無効にして、それぞれコード修正を走らせることになります。
+
+で、CLIに関してはそれぞれのCLIで走らせれば良いのですが、VSCode でのファイル保存時修正もそれぞれのプラグインで走らせないといけなくて、その辺の設定を試したので紹介します。
+
+## ESLint と stylelint の設定
+
+まずは、最小限の ESLint と styelint 環境だけ用意します
+
+``` bash
+$ yarn add -D eslint stylelint prettier eslint-config-prettier stylelint-config-prettier npm-run-all
+```
+
+それぞれ `{linter}-config-prettier` で競合ルールのみ無効にします
+
+``` js:.eslintrc.js
+module.exports = {
+  extends: [
+    "eslint:recommended",
+    "prettier",
+  ],
+}
+```
+
+``` js:.stylelintrc.js
+module.exports = {
+  extends: [
+    "stylelint-config-recommended",
+    "stylelint-config-prettier",
+  ],
+}
+```
+
+末尾に extend してあげると、競合ルールを全てオフってくれます
+
+CLI からは、
+
+``` json:package.json
+{
+  "scripts": {
+    // ...
+    "fix": "run-p fix:*",
+    "fix:eslint": "eslint . --ext .js --fix",
+    "fix:stylelint": "stylelint './**/*.css' --fix",
+    "fix:prettier": "prettier './**/*.{js,json,css}' --write",
+  }
+}
+```
+
+とかでまわすと、競合無くフォーマットされてくれます。
+
+## VSCode の設定
+
+リンター用のプラグインとして以下を使います
+
+- [dbaeumer.vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [stylelint.vscode-stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+- [esbenp.prettier-vscode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+保存時コード修正の設定ですが、
+
+ESLint, stylelint は `source.fixAll.{linter}` で有効にします
+
+``` json:.vscode/settings.json
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+}
+```
+
+prettier は、`editor.formatOnsave`, `editor.defaultFormatter` 設定を各言語に適用することで有効にします
+
+``` json:.vscode/settings.json
+{
+  "editor.formatOnSave": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+}
+```
+
+まとめると、
+
+``` json:.vscode/settings.json
+{
+  // ESLint
+  "eslint.workingDirectories": ["./"],
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "eslint.validate": [
+    "javascript"
+  ],
+  // stylelint
+  "stylelint.enable": true,
+  "stylelint.configBasedir": ".",
+  "stylelint.validate": ["css"],
+  "css.validate": false,
+  "scss.validate": false,
+  // Lint On Save
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}
+```
+
+これで、それぞれのプラグインで OnSave の修正が周ります。
+
+`editor.defaultFormatter` は言語毎に設定する必要があるみたいで、Reactとか、TypeScriptとか、SCSSとか色々使うってなるとめちゃくちゃ長くなります。
+
+``` json
+{
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}
+```
+
+うっ。。。
+
+この辺まとめて書きたくて `["javascript", "javascriptreact"]` 的な書き方ができないかなーと調べてみたんですけど、
+
+[Multiple languages specific editor settings · Issue #51935 · microsoft/vscode · GitHub](https://github.com/microsoft/vscode/issues/51935)
+
+この辺のイシューが建ってはいるものの対応される予定はなさそうでした。残念。
+
+## 参考
+
+- [Prettier と ESLint の組み合わせの公式推奨が変わり plugin が不要になった](https://blog.ojisan.io/prettier-eslint-cli)
+- [Integrating with Linters · Prettier](https://prettier.io/docs/en/integrating-with-linters.html)
+- [dbaeumer.vscode-eslint - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [stylelint.vscode-stylelint - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
+- [esbenp.prettier-vscode - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
