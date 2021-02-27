@@ -68,16 +68,14 @@ export const createPages: GatsbyNode["createPages"] = async ({
 
   const posts = filterDraftPostList(
     (result?.data?.allMdx.edges || [])
-      .filter(
-        (e): e is MdxEdge => typeof e !== `undefined`
-      )
-      .map(e => ({
+      .filter((e): e is MdxEdge => typeof e !== `undefined`)
+      .map((e) => ({
         title: e.node.frontmatter?.title,
         draft: Boolean(e.node.frontmatter?.draft),
         slug: e.node.fields?.slug,
         category: e.node.frontmatter?.category,
         tags: e.node.frontmatter?.tags,
-        node: e.node
+        node: e.node,
       }))
   )
 
@@ -85,29 +83,28 @@ export const createPages: GatsbyNode["createPages"] = async ({
     `BUILD PAGES`,
     result?.data?.allMdx.edges,
     (result?.data?.allMdx.edges || [])
-      .filter(
-        (e): e is MdxEdge => typeof e !== `undefined`
-      )
-      .map(e => ({
+      .filter((e): e is MdxEdge => typeof e !== `undefined`)
+      .map((e) => ({
         title: e.node.frontmatter?.title,
         draft: Boolean(e.node.frontmatter?.draft),
         slug: e.node.fields?.slug,
         category: e.node.frontmatter?.category,
         tags: e.node.frontmatter?.tags,
-        node: e.node
-      })))
+        node: e.node,
+      }))
+  )
 
   const blogPosts = posts
-    .filter(post => post.slug?.includes(`/blog/`))
-    .filter(post => typeof post.title === `string`)
-    .filter(post => typeof post.category === `string`)
+    .filter((post) => post.slug?.includes(`/blog/`))
+    .filter((post) => typeof post.title === `string`)
+    .filter((post) => typeof post.category === `string`)
 
   const workPosts = posts
-    .filter(post => post.slug?.includes(`/work/`))
-    .filter(post => typeof post.title === `string`)
+    .filter((post) => post.slug?.includes(`/work/`))
+    .filter((post) => typeof post.title === `string`)
 
   // ブログ記事ページ
-  blogPosts.forEach(post => {
+  blogPosts.forEach((post) => {
     const slug = post.slug
 
     if (!slug || !post.category) {
@@ -150,9 +147,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
   })
 
   // カテゴリページ
-  const categories = blogPosts.map(post => post.node.frontmatter?.category)
+  const categories = blogPosts.map((post) => post.node.frontmatter?.category)
 
-  Array.from(new Set(categories)).forEach(category => {
+  Array.from(new Set(categories)).forEach((category) => {
     if (!category) {
       return
     }
@@ -167,9 +164,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
   })
 
   // タグページ
-  const tags = blogPosts.flatMap(post => post.node.frontmatter?.tags)
+  const tags = blogPosts.flatMap((post) => post.node.frontmatter?.tags)
 
-  Array.from(new Set(tags)).forEach(tag => {
+  Array.from(new Set(tags)).forEach((tag) => {
     if (!tag) {
       return
     }

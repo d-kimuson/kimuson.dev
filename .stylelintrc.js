@@ -2,12 +2,9 @@ module.exports = {
   extends: [
     "stylelint-config-recommended",
     "stylelint-config-standard-scss",
-    "stylelint-prettier/recommended"
+    "stylelint-config-prettier",
   ],
-  "plugins": [
-    "stylelint-scss",
-    "stylelint-prettier"
-  ],
+  plugins: ["stylelint-scss"],
   rules: {
     "unit-no-unknown": true,
     "property-no-unknown": true,
@@ -15,11 +12,16 @@ module.exports = {
     "selector-pseudo-element-no-unknown": true,
     "selector-type-no-unknown": true,
     "media-feature-name-no-unknown": true,
-    "declaration-block-no-duplicate-properties": [true, { "severity": "warning" }],
-    "declaration-block-no-shorthand-property-overrides": [true, { "severity": "warning" }],
-    "block-no-empty": [true, { "severity": "warning" }],
-    "no-duplicate-selectors": [true, { "severity": "warning" }],
+    "declaration-block-no-duplicate-properties": [
+      true,
+      { severity: "warning" },
+    ],
+    "declaration-block-no-shorthand-property-overrides": [
+      true,
+      { severity: "warning" },
+    ],
+    "block-no-empty": [true, { severity: "warning" }],
+    "no-duplicate-selectors": [true, { severity: "warning" }],
     "no-descending-specificity": null,
-    "prettier/prettier": true,
-  }
+  },
 }

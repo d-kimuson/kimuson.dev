@@ -19,7 +19,7 @@ export default {
     social: {
       twitter: `_kimuemon`,
     },
-    posts: readPosts()
+    posts: readPosts(),
   },
   plugins: [
     {
@@ -33,9 +33,7 @@ export default {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
-        plugins: [
-          `gatsby-remark-images`
-        ],
+        plugins: [`gatsby-remark-images`],
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
@@ -49,7 +47,7 @@ export default {
               removeAccents: true,
               isIconAfterHeader: false,
               elements: [`h2`, `h3`],
-            }
+            },
           },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
@@ -77,15 +75,21 @@ export default {
               const allMdxTyped: { edges: MdxEdge[] } = allMdx
               const siteTyped: Site = site
 
-              return allMdxTyped.edges.map(edge => {
+              return allMdxTyped.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
-                  url: siteTyped.siteMetadata?.siteUrl + "/blog" + edge.node.fields?.slug,
-                  guid: siteTyped.siteMetadata?.siteUrl + "/blog" + edge.node.fields?.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }]
-                });
-              });
+                  url:
+                    siteTyped.siteMetadata?.siteUrl +
+                    "/blog" +
+                    edge.node.fields?.slug,
+                  guid:
+                    siteTyped.siteMetadata?.siteUrl +
+                    "/blog" +
+                    edge.node.fields?.slug,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
+                })
+              })
             },
             query: `
               {
@@ -111,17 +115,17 @@ export default {
             `,
             output: "/rss.xml",
             title: `${siteName}'s RSS Feed`,
-            match: "^/blog/"
-          }
-        ]
-      }
+            match: "^/blog/",
+          },
+        ],
+      },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING,
       },
     },
     {
@@ -176,20 +180,6 @@ export default {
       },
     },
     `gatsby-transformer-typescript-css-modules`,
-    // Linter
-    {
-      resolve: `gatsby-plugin-eslint`,
-      options: {
-        test: /\.ts$|\.tsx$|\.js$|\.jsx$/,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-stylelint`,
-      options: {
-        syntax: `scss`,
-        files: [`**/*.scss`],
-      },
-    },
     // SEO
     {
       resolve: `gatsby-plugin-next-seo`,
@@ -201,9 +191,9 @@ export default {
           site_name: siteName,
         },
         twitter: {
-          handle: '@d-kimuson',
-          site: 'kimuson.dev',
-          cardType: 'summary_large_image',
+          handle: "@d-kimuson",
+          site: "kimuson.dev",
+          cardType: "summary_large_image",
         },
       },
     },
@@ -227,7 +217,7 @@ export default {
       },
     },
     {
-      resolve: 'gatsby-plugin-webpack-bundle-analyzer',
+      resolve: "gatsby-plugin-webpack-bundle-analyzer",
       options: {
         analyzerPort: 3000,
         disable: process.env.NODE_ENV !== `production`,

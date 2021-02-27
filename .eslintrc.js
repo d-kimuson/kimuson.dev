@@ -3,36 +3,25 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       jsx: true
-    }
+    },
+    project: "./**/tsconfig.json",
   },
   extends: [
+    "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    // "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/react",
+    "prettier",
   ],
-  plugins: ["@typescript-eslint"],
-  parserOptions: {
-    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: "module", // Allows for the use of imports
-  },
+  plugins: ["react", "@typescript-eslint"],
   env: {
     browser: true,
     node: true,
   },
   rules: {
-    quotes: "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/quotes": [
-      2,
-      "backtick",
-      {
-        avoidEscape: true,
-      },
-    ],
-    indent: ["error", 2, { SwitchCase: 1 }]
+    "react/react-in-jsx-scope": "off",
+    "no-console": "off",
   },
   settings: {
     react: {

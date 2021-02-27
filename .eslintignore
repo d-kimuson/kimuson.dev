@@ -1,6 +1,2 @@
-jest.config.js
-gatsby-config.js
 gatsby-config.ts
-.eslintrc.js
-.stylelintrc.js
 types/graphql-types.d.ts

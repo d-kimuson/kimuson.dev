@@ -7,32 +7,58 @@
     "*.mdx": "markdown, mdx"
   },
   // ESLint
+  "eslint.workingDirectories": ["./"],
   "eslint.options": {
-    "configFile": "./.eslintrc.js"
+    "configFile": ".eslintrc.js",
+    "extensions": ["ts", "tsx", "jsx"]
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.validate": ["javascriptreact", "typescript", "typescriptreact"],
   "eslint.alwaysShowStatus": true,
   // Stylelint
   "stylelint.enable": true,
+  "stylelint.configBasedir": ".",
   "stylelint.validate": ["css", "scss"],
+  // prettier
+  "prettier.configPath": "./.prettierrc.js",
   // Lint On Save
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true,
-    "source.fixAll.textlint": true
+    "source.fixAll.stylelint": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
   },
   // Invalidate other formatters
   "css.validate": false,
-  "scss.validate": false,
-  // artcile related
-  "textlint.nodePath": "/Users/kaito/Blogs/gatsby-tech-blog/node_modules",
-  "textlint.configPath": "/Users/kaito/Blogs/gatsby-tech-blog/.textlintrc",
-  "textlint.autoFixOnSave": false
+  "scss.validate": false
 }
