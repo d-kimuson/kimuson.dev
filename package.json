@@ -30,7 +30,7 @@
     "fix:prettier": "prettier './**/*.{tsx,ts,jsx,json}' --write",
     "fix:stylelint": "yarn lint:stylelint --fix",
     "now": "date +'%Y-%m-%dT%TZ'",
-    "post": "git rev-parse --show-toplevel && git add content && git commit -m '[auto] post article' && git push origin master",
+    "post": "git rev-parse --show-toplevel && git add content && git commit -m '[article] post article' && git push origin master",
     "start": "yarn build && http-server public -p 80",
     "test": "jest"
   },
