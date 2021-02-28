@@ -7,9 +7,9 @@ import { toFluidImage } from "@gateways/image"
 
 const query = graphql`
   query ZennLogo {
-    file(absolutePath: {regex: "/external-sites/zenn-logo/"}) {
+    file(absolutePath: { regex: "/external-sites/zenn-logo/" }) {
       childImageSharp {
-        fluid(maxHeight: 90, traceSVG: {background: "#ffffff"}) {
+        fluid(maxHeight: 90, traceSVG: { background: "#ffffff" }) {
           aspectRatio
           base64
           sizes
@@ -24,18 +24,23 @@ const query = graphql`
 `
 
 interface ZennLogoProps {
-  className?: string,
+  className?: string
   imgStyle: {
-    height: string,
+    height: string
     width: string
   }
 }
 
-export const ZennLogo: React.FC<ZennLogoProps> = ({ className, imgStyle }: ZennLogoProps) => {
+export const ZennLogo: React.FC<ZennLogoProps> = ({
+  className,
+  imgStyle,
+}: ZennLogoProps) => {
   const { file } = useStaticQuery<ZennLogoQuery>(query)
   const logoImage = toFluidImage(file?.childImageSharp?.fluid)
 
-  return typeof logoImage !== `undefined`
-    ? <Image fluid={logoImage} className={className} imgStyle={imgStyle} />
-    : <div className={className} style={imgStyle} />
+  return typeof logoImage !== `undefined` ? (
+    <Image fluid={logoImage} className={className} imgStyle={imgStyle} />
+  ) : (
+    <div className={className} style={imgStyle} />
+  )
 }

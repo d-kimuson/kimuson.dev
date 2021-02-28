@@ -26,7 +26,9 @@ interface PostProps<T extends BasePost> {
   }
 }
 
-export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({ post }: PostProps<T>) => {
+export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({
+  post,
+}: PostProps<T>) => {
   const shareButtonSize = 35
 
   return (
@@ -41,10 +43,7 @@ export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({ post }
         <main role="main" className={styles.post}>
           <article className={`m-card ${styles.main}`}>
             {typeof post.thumbnail !== `undefined` ? (
-              <Image
-                fluid={post.thumbnail}
-                className={styles.thumbnail}
-              />
+              <Image fluid={post.thumbnail} className={styles.thumbnail} />
             ) : (
               <div />
             )}
@@ -59,7 +58,9 @@ export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({ post }
                   <div className={styles.tagArea}>
                     <TagList tags={post.tags} isLink={true} />
                   </div>
-                ) : <div/> }
+                ) : (
+                  <div />
+                )}
                 <Date date={post.date} />
               </div>
 
@@ -84,7 +85,11 @@ export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({ post }
                   <LinkedinIcon size={shareButtonSize} round />
                 </LinkedinShareButton>
 
-                <TwitterShareButton title={post.title} via="_kimuson" url={post.postUrl}>
+                <TwitterShareButton
+                  title={post.title}
+                  via="_kimuson"
+                  url={post.postUrl}
+                >
                   <TwitterIcon size={shareButtonSize} round />
                 </TwitterShareButton>
               </div>

@@ -22,7 +22,8 @@ export type RawFluidImage = Pick<
   | "base64"
   | "tracedSVG"
   | "srcWebp"
-  | "srcSetWebp">
+  | "srcSetWebp"
+>
 
 export type FixedImage = ExcludeNullProps<RawFixedImage>
 export type FluidImage = ExcludeNullProps<RawFluidImage>

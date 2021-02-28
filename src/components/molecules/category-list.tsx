@@ -14,7 +14,7 @@ export const CategoryList: React.FC<CategoryListProps> = ({
   categoryList,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
-    {categoryList.map(categorySummary => (
+    {categoryList.map((categorySummary) => (
       <li key={categorySummary.category} className={styles.category}>
         <Link
           to={toCategoryLink(categorySummary.category)}

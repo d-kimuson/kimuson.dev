@@ -16,7 +16,7 @@ export const BlogPostList: React.FC<BlogPostListProps> = ({
     <section>
       {blogPosts.length > 0 ? (
         <ul className={styles.blogPostList}>
-          {blogPosts.map(blogPost => (
+          {blogPosts.map((blogPost) => (
             <li
               key={blogPost.slug}
               className="animate__animated animate__fadeIn"

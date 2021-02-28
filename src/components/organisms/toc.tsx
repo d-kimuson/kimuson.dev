@@ -19,7 +19,7 @@ interface TocHeading extends Heading {
 const toTocHeading = (heading: Heading): TocHeading => ({
   ...heading,
   top: infty,
-  active: false
+  active: false,
 })
 
 interface TocProps {
@@ -34,7 +34,9 @@ export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
   const [pageYOffset, setPageYOffset] = useState<number>(0)
 
   // functions
-  const setHeadingTop = (heading: TocHeading): { top: number } & TocHeading => ({
+  const setHeadingTop = (
+    heading: TocHeading
+  ): { top: number } & TocHeading => ({
     ...heading,
     top: heading.elm?.getBoundingClientRect().top || infty,
   })
@@ -43,7 +45,7 @@ export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
   useEffect(() => {
     // 対応するHTML要素をセット
     setTocHeadings(
-      tocHeadings.map(tocHeading => {
+      tocHeadings.map((tocHeading) => {
         const elm = document.getElementById(tocHeading.id)
         return {
           ...tocHeading,
@@ -64,14 +66,14 @@ export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
 
     const activeHeading = tocHeadings
       .map(setHeadingTop)
-      .filter(tocHeading => tocHeading.top <= headerHeight + 5)
+      .filter((tocHeading) => tocHeading.top <= headerHeight + 5)
       .slice(-1)[0]
 
     const activeId =
       typeof activeHeading === `undefined` ? headings[0].id : activeHeading.id
 
     setTocHeadings(
-      tocHeadings.map(tocHeading => ({
+      tocHeadings.map((tocHeading) => ({
         ...tocHeading,
         active: tocHeading.id === activeId,
       }))
@@ -86,10 +88,12 @@ export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
       </h1>
       <div className="m-card__content">
         <ul className={styles.toc}>
-          {tocHeadings.map(tocHeading => (
+          {tocHeadings.map((tocHeading) => (
             <li
               key={tocHeading.id}
-              className={`toc-${tocHeading.tag} ${tocHeading.active ? styles.tocActive : ``}`}
+              className={`toc-${tocHeading.tag} ${
+                tocHeading.active ? styles.tocActive : ``
+              }`}
             >
               <Link to={`#${tocHeading.id}`}>{tocHeading.title}</Link>
             </li>

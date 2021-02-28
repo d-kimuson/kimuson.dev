@@ -29,12 +29,12 @@ const navRoutes = [
 const navIcons = [
   {
     to: `https://github.com/d-kimuson/kimuson.dev`,
-    icon: faGithub
+    icon: faGithub,
   },
   {
     to: `/rss.xml`,
     icon: faRss,
-  }
+  },
 ]
 
 interface NavigationProps {
@@ -55,7 +55,7 @@ export const Navigation: React.FC<NavigationProps> = (
       aria-hidden={props[`aria-hidden`]}
     >
       <ul className={styles.navLinkList}>
-        {navRoutes.map(route => (
+        {navRoutes.map((route) => (
           <li key={route.to}>
             <Link
               to={route.to}
@@ -65,7 +65,7 @@ export const Navigation: React.FC<NavigationProps> = (
             </Link>
           </li>
         ))}
-        {navIcons.map(link => (
+        {navIcons.map((link) => (
           <li key={link.to}>
             <a
               href={link.to}

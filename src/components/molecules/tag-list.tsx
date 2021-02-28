@@ -15,7 +15,7 @@ export const TagList: React.FC<TagListProps> = ({
 }: TagListProps) => {
   return (
     <ul className={styles.tagList}>
-      {tags.map(tag => (
+      {tags.map((tag) => (
         <li key={tag}>
           <Tag tag={tag} isLink={isLink} />
         </li>

@@ -50,9 +50,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
       <div className="l-page-container">
         {typeof post !== `undefined` ? (
           <>
-            <Post
-              post={post}
-            />
+            <Post post={post} />
 
             <Sidebar
               bio={true}
@@ -60,7 +58,9 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
               commonSidebar={true}
             />
           </>
-        ) : <div/>}
+        ) : (
+          <div />
+        )}
       </div>
 
       {relatedArticle.length !== 0 ? (

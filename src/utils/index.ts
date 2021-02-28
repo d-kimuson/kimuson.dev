@@ -2,11 +2,8 @@ import { curry } from "ramda"
 import type { ExcludeNullProps } from "@util-types"
 
 export const replaceAll = curry(
-  (
-    baseString: string,
-    beforeString: string,
-    afterString: string
-  ): string => baseString.split(beforeString).join(afterString)
+  (baseString: string, beforeString: string, afterString: string): string =>
+    baseString.split(beforeString).join(afterString)
 )
 
 export const copy = (content: string): void => {
@@ -25,7 +22,9 @@ export function excludeNull<T>(prop: T | null | undefined): T | undefined {
   return prop === null ? undefined : prop
 }
 
-export function excludeNullProps<T>(target: T | null | undefined): ExcludeNullProps<T | undefined> {
+export function excludeNullProps<T>(
+  target: T | null | undefined
+): ExcludeNullProps<T | undefined> {
   if (typeof target === `undefined`) {
     return target
   } else if (target === null) {

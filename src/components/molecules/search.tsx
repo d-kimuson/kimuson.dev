@@ -3,7 +3,11 @@ import { pipe } from "ramda"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 
-import { SearchBlogPost, searchByKeyword, filterByTags } from "@usecases/searchBlogPost"
+import {
+  SearchBlogPost,
+  searchByKeyword,
+  filterByTags,
+} from "@usecases/searchBlogPost"
 import { TagChecklist } from "./tag-checklist"
 import { BlogPostList } from "./blog-post-list"
 // @ts-ignore
@@ -18,10 +22,13 @@ export const Search: React.FC<SearchProps> = ({
   blogPosts,
   className,
 }: SearchProps) => {
-  const tags = Array.from(new Set(
-    blogPosts
-      .flatMap(blogPost => blogPost.__typename === `BlogPost` ? blogPost.tags : [])
-  ))
+  const tags = Array.from(
+    new Set(
+      blogPosts.flatMap((blogPost) =>
+        blogPost.__typename === `BlogPost` ? blogPost.tags : []
+      )
+    )
+  )
 
   // State
   const [keyword, setKeyword] = useState<string>(``)

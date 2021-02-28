@@ -20,23 +20,23 @@ export interface Post {
 }
 
 export interface BlogPost extends Post {
-  __typename: 'BlogPost'
+  __typename: "BlogPost"
   category: Category
   tags: Tag[]
 }
 
 export interface WorkPost extends Post {
-  __typename: 'WorkPost'
+  __typename: "WorkPost"
 }
 
 export interface AboutPost extends Post {
-  __typename: 'AboutPost'
+  __typename: "AboutPost"
 }
 
 export type FeedSiteName = `Zenn` | `Qiita`
 
 export interface FeedPost extends Post {
-  __typename: 'FeedPost'
+  __typename: "FeedPost"
   siteName: FeedSiteName
 }
 

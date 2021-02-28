@@ -14,6 +14,8 @@ interface DateProps {
 export const Date: React.FC<DateProps> = ({ date }: DateProps) => (
   <div className={styles.date}>
     <FontAwesomeIcon icon={faCalendar} />
-    <time itemProp="datePublished" dateTime={formatDate(date, `YYYY-MM-DD`)}>{formatDate(date)}</time>
+    <time itemProp="datePublished" dateTime={formatDate(date, `YYYY-MM-DD`)}>
+      {formatDate(date)}
+    </time>
   </div>
 )

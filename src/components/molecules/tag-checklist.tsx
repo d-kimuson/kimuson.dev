@@ -43,7 +43,7 @@ export const TagChecklist: React.FC<TagChecklistProps> = ({
 
   return (
     <ul className="m-tag-list">
-      {tags.map(tag => (
+      {tags.map((tag) => (
         <li key={tag}>
           <TagButton
             tag={tag}
@@ -53,7 +53,7 @@ export const TagChecklist: React.FC<TagChecklistProps> = ({
                 updatedTags = selectedTags.concat([tag])
               } else {
                 updatedTags = selectedTags.filter(
-                  selectedTag => selectedTag !== tag
+                  (selectedTag) => selectedTag !== tag
                 )
               }
               onUpdate(updatedTags)

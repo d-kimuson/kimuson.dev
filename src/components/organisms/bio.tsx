@@ -52,10 +52,7 @@ export const Bio: React.FC = () => {
       <div className="m-card__content">
         <div className={styles.bioImageWrapper}>
           {typeof avatarImage !== `undefined` ? (
-            <Image
-              fixed={avatarImage}
-              style={imageStyle}
-            />
+            <Image fixed={avatarImage} style={imageStyle} />
           ) : (
             <div style={imageStyle} />
           )}

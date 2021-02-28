@@ -75,8 +75,6 @@ export const Head: React.FC<HeadProps> = ({
         title: pageTitle,
         description: pageDescription,
         images: ogImages,
-        // eslint のルールと引数定義が競合するので無効にする
-        // eslint-disable-next-line @typescript-eslint/camelcase
         site_name: siteTitle,
       }}
     />

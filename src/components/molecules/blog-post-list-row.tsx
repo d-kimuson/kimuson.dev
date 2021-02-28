@@ -79,7 +79,7 @@ export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
           onSlideChange={(): void => console.log(`slide change`)}
           onSwiper={(swiper): void => console.log(swiper)}
         >
-          {blogPosts.map(blogPost => (
+          {blogPosts.map((blogPost) => (
             <SwiperSlide tag={`div`} key={blogPost.slug}>
               <BlogPostPreview blogPost={blogPost} />
             </SwiperSlide>

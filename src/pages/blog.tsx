@@ -2,7 +2,11 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
-import type { BlogPageQuery, MdxEdge, SiteSiteMetadataPosts } from "@graphql-types"
+import type {
+  BlogPageQuery,
+  MdxEdge,
+  SiteSiteMetadataPosts,
+} from "@graphql-types"
 import type { BlogPost, FeedPost } from "@entities/post"
 import { toBlogPostList, toFeedPostList } from "@gateways/post"
 import { toSearchBlogPost } from "@usecases/searchBlogPost"
@@ -21,12 +25,16 @@ const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 
   const feedPosts = toFeedPostList(
-    (data.site?.siteMetadata?.posts || [])
-      .filter((maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost))
+    (
+      data.site?.siteMetadata?.posts || []
+    ).filter((maybePost): maybePost is SiteSiteMetadataPosts =>
+      Boolean(maybePost)
+    )
   )
 
   const searchBlogPosts = pipe(
-    (edges: BlogPageQuery["allMdx"]["edges"]) => edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
+    (edges: BlogPageQuery["allMdx"]["edges"]) =>
+      edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
     toBlogPostList,
     (blogPosts: BlogPost[]) => [...blogPosts, ...feedPosts],
     (blogPosts: (BlogPost | FeedPost)[]) => blogPosts.map(toSearchBlogPost),

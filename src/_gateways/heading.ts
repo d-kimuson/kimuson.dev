@@ -11,20 +11,23 @@ export interface TableOfContents {
 }
 
 export const toHeadings = (tableOfContents: TableOfContents): Heading[] => {
-  return tableOfContents.items.reduce((headings: Heading[], t: TableOfContent) => {
-    headings.push({
-      tag: `h2`,
-      id: t.url.replace(`#`, ``),
-      title: t.title,
-    })
-    ;(t.items || []).forEach((item: TableOfContent) => {
+  return tableOfContents.items.reduce(
+    (headings: Heading[], t: TableOfContent) => {
       headings.push({
-        tag: `h3`,
-        id: item.url.replace(`#`, ``),
-        title: item.title,
+        tag: `h2`,
+        id: t.url.replace(`#`, ``),
+        title: t.title,
       })
-    })
+      ;(t.items || []).forEach((item: TableOfContent) => {
+        headings.push({
+          tag: `h3`,
+          id: item.url.replace(`#`, ``),
+          title: item.title,
+        })
+      })
 
-    return headings
-  }, [])
+      return headings
+    },
+    []
+  )
 }

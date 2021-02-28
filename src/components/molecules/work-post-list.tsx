@@ -56,7 +56,7 @@ export const WorkPostList: React.FC<WorkListProps> = ({
     <section className="l-main-width">
       {workPosts.length > 0 ? (
         <ul className={styles.workList}>
-          {workPosts.map(workPost => (
+          {workPosts.map((workPost) => (
             <li
               key={workPost.slug}
               className="animate__animated animate__fadeIn"

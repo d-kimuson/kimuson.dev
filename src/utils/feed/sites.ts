@@ -8,5 +8,5 @@ export const sites: FeedSite[] = [
   {
     name: `Qiita`,
     feedUrl: `https://qiita.com/d-kimuson/feed`,
-  }
+  },
 ]

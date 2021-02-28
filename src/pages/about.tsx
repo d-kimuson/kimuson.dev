@@ -32,7 +32,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
               toc={{ headings: post.headings }}
             />
           </>
-        ) : <div/> }
+        ) : (
+          <div />
+        )}
       </div>
     </Layout>
   )

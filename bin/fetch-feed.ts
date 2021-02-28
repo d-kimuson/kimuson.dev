@@ -1,5 +1,4 @@
 import { writePosts } from "@utils/feed"
-
-(async (): Promise<void> => {
+;(async (): Promise<void> => {
   await writePosts()
 })()

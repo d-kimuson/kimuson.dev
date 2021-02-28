@@ -23,9 +23,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     <div className="l-sidebar-container">
       {bio ? <Bio /> : null}
       <div className="l-sidebar-sticky-area">
-        {typeof toc !== `undefined` ? (
-          <Toc headings={toc?.headings} />
-        ) : null}
+        {typeof toc !== `undefined` ? <Toc headings={toc?.headings} /> : null}
         {commonSidebar ? <PopularCategories /> : null}
       </div>
     </div>

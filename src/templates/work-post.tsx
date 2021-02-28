@@ -35,16 +35,16 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
       <div className="l-page-container">
         {typeof post !== `undefined` ? (
           <>
-            <Post post={post}/>
+            <Post post={post} />
             <Sidebar
               bio={true}
               toc={{ headings: post.headings }}
               commonSidebar={true}
             />
           </>
-        )
-          : <div/>
-        }
+        ) : (
+          <div />
+        )}
       </div>
     </Layout>
   )

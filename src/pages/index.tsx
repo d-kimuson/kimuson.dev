@@ -19,18 +19,21 @@ interface IndexProps extends PageProps {
 
 const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const feedPosts = toFeedPostList(
-    (data.site?.siteMetadata?.posts || [])
-      .filter((maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost))
+    (
+      data.site?.siteMetadata?.posts || []
+    ).filter((maybePost): maybePost is SiteSiteMetadataPosts =>
+      Boolean(maybePost)
+    )
   )
 
   const blogPosts = pipe(
-    (edges: IndexQuery["allMdx"]["edges"]) => edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
+    (edges: IndexQuery["allMdx"]["edges"]) =>
+      edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
     toBlogPostList,
     (blogPosts: BlogPost[]) => [...blogPosts, ...feedPosts],
     filterDraftPostList,
     sortPostList
-  )(data.allMdx.edges)
-    .slice(0, 5)
+  )(data.allMdx.edges).slice(0, 5)
 
   console.log(blogPosts)
 
