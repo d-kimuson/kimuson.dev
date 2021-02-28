@@ -2,7 +2,7 @@
   "name": "kimuson.dev",
   "version": "0.1.0",
   "private": true,
-  "description": "My tech blog produced by gatsby",
+  "description": "Personal blog 'kimuson.dev' created by gatsby.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/d-kimuson/kimuson.dev.git"
@@ -129,7 +129,7 @@
     "tsc": "^1.20150623.0",
     "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
-    "typescript": "^4.2.2",
+    "typescript": "4.1",
     "websocket": "^1.0.33"
   }
 }
