@@ -4,3 +4,4 @@ package-lock.json
 public
 node_modules
 types/graphql-types.d.ts
+content/feed-posts.json
