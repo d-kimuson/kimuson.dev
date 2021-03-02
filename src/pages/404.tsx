@@ -1,9 +1,9 @@
 import React from "react"
 import { PageProps } from "gatsby"
 
-import { Layout } from "~/components/templates/layout"
-import { Head } from "~/components/templates/head"
-import { Sidebar } from "~/components/templates/sidebar"
+import { Head } from "~/components/common/head"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 
 const NotFoundPage: React.FC<PageProps> = () => {
   const title = `404: Not Found`

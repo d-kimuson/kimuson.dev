@@ -1,22 +1,29 @@
 import React from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
-import type { IndexQuery, MdxEdge, SiteSiteMetadataPosts } from "@graphql-types"
-import type { BlogPost } from "~/service/entities/post"
+import type {
+  BlogPageQuery,
+  MdxEdge,
+  SiteSiteMetadataPosts,
+} from "@graphql-types"
+import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
+import { toSearchBlogPost } from "./search/searchBlogPost"
 import { Head } from "~/components/common/head"
-import { Sidebar } from "~/components/sidebar"
 import { Layout } from "~/components/layout"
-import { BlogPostList } from "~/components/common/blog-post-list"
-import styles from "./index.module.scss"
+import { Sidebar } from "~/components/sidebar"
+import { Search } from "./search"
 
-interface IndexProps extends PageProps {
-  data: IndexQuery
+interface BlogProps extends PageProps {
+  data: BlogPageQuery
 }
 
-const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
+const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
+  const title = `ブログ`
+  const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
+
   const feedPosts = toFeedPostList(
     (
       data.site?.siteMetadata?.posts || []
@@ -25,31 +32,25 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
     )
   )
 
-  const blogPosts = pipe(
-    (edges: IndexQuery["allMdx"]["edges"]) =>
+  const searchBlogPosts = pipe(
+    (edges: BlogPageQuery["allMdx"]["edges"]) =>
       edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
     toBlogPostList,
     (blogPosts: BlogPost[]) => [...blogPosts, ...feedPosts],
+    (blogPosts: (BlogPost | FeedPost)[]) => blogPosts.map(toSearchBlogPost),
     filterDraftPostList,
     sortPostList
-  )(data.allMdx.edges).slice(0, 5)
-
-  console.log(blogPosts)
+  )(data.allMdx.edges)
 
   return (
     <>
-      <Head />
+      <Head title={title} description={description} />
       <Layout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">Latest Posts</h1>
-
-                <BlogPostList blogPosts={blogPosts} />
-                <div className={styles.blogLinkWrapper}>
-                  <Link to="/blog/">もっと記事を見る</Link>
-                </div>
+            <main role="main" style={{ width: `100%` }}>
+              <section style={{ width: `100%` }}>
+                <Search blogPosts={searchBlogPosts} />
               </section>
             </main>
           </div>
@@ -60,17 +61,17 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )
 }
 
-export default Index
+export default BlogPage
 
 export const pageQuery = graphql`
-  query Index {
+  query BlogPage {
     allMdx(
       filter: { fields: { slug: { regex: "//blog/" } } }
       sort: { fields: [frontmatter___date], order: DESC }
-      limit: 5
     ) {
       edges {
         node {
+          excerpt
           fields {
             slug
           }
@@ -100,9 +101,7 @@ export const pageQuery = graphql`
       }
     }
     site {
-      id
       siteMetadata {
-        title
         posts {
           isoDate
           link

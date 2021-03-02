@@ -1,0 +1,30 @@
+@use "~/styles/_variable.scss" as var;
+@use "sass:color";
+
+.footer {
+  background: var.$theme-strong-color;
+  color: var.$text-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.footerLinks {
+  list-style: none;
+  display: flex;
+  &.footerLinks {
+    padding-top: 20px;
+  }
+  li {
+    &:not(:first-child)::before {
+      content: "|";
+      padding: 0 10px;
+    }
+  }
+
+  a:hover {
+    color: var.$link-color;
+  }
+}

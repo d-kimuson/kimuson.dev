@@ -1,4 +1,4 @@
-import type { FeedSiteName } from "~/_entities/post"
+import type { FeedSiteName } from "~/service/entities/post"
 
 export interface FeedItem {
   title: string

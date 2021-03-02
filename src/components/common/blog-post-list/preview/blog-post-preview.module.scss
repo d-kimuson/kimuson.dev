@@ -1,0 +1,70 @@
+@use "~/styles/_variable.scss" as var;
+
+// 最適化したサイズを配信するために, 変更時は graphql も変更すること
+$-image-height: 90px;
+$-image-width: 120px;
+
+.blogPost {
+  display: grid;
+  grid-template: "image description" 1fr;
+  grid-template-columns: 150px 1fr;
+  height: auto;
+  min-height: 130px;
+  margin: 10px 0;
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    .title {
+      color: var.$link-color;
+    }
+
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.title,
+.date {
+  margin: 7px 0;
+}
+
+.imageWrapper {
+  grid-area: image;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  height: $-image-height;
+  width: $-image-width;
+  border-radius: 20%;
+
+  img {
+    transition: 300ms ease !important; // inline-style で書かれているのでやむを得ず
+  }
+}
+
+.infoContainer {
+  grid-area: description;
+  width: 100%;
+  padding: 10px 10px;
+  // style
+  color: var.$text-color;
+  text-decoration: none;
+}
+
+.description {
+  // 暫定の複数行折込
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

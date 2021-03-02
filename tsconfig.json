@@ -9,7 +9,7 @@
       "~/*": ["src/*"],
       "types": ["types"],
       "@graphql-types": ["types/graphql-types.d.ts"],
-      "@mdx": ["src/components/_mdx.ts"],
+      "@mdx": ["src/components/common/mdx.ts"],
       "@static/*": ["static/*"]
     },
     "esModuleInterop": true,

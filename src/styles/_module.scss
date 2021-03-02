@@ -1,0 +1,83 @@
+@use "sass:color";
+@use 'variable' as var;
+
+.m-un-selectable {
+  user-select: none;
+}
+
+.m-remove-a-decoration {
+  &,
+  &:visited,
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.m-page-title {
+  font-size: 1.5rem;
+  margin: 15px 0;
+}
+
+.m-section-title {
+  font-size: 1.2rem;
+}
+
+.m-card {
+  border-radius: 3px;
+  margin: 0 0 20px 0;
+
+  // styles
+  background: var.$theme-weak-color;
+  color: var.$text-color;
+  box-shadow: var.$theme-strong-color;
+  overflow: hidden;
+
+  &__title {
+    padding: 5px;
+    background: var.$theme-strong-color;
+    color: var.$text-color;
+    font-size: 1.1rem;
+    font-weight: normal;
+    text-align: center;
+
+    svg {
+      margin-inline-end: 7px;
+    }
+  }
+
+  &__content {
+    background: var.$theme-weak-color;
+    padding: 10px;
+  }
+}
+
+.m-tag-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.m-tag {
+  margin: 5px 3px;
+  padding: 4px 12px;
+  // style
+  border-radius: 15px;
+  background-color: var.$black-weak;
+  color: var.$white;
+  font-size: 0.8rem;
+  user-select: none;
+  // animation
+  transition: 300ms ease;
+}
+
+.m-tag-link {
+  &:hover .m-tag {
+    color: var.$white;
+    background-color: var.$link-color;
+  }
+}
+
+.m-tag--active {
+  background-color: var.$link-color;
+}

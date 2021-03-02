@@ -3,11 +3,11 @@ import { graphql, PageProps } from "gatsby"
 
 import type { WorkPostBySlugQuery } from "@graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { toDetailWorkPost } from "~/_gateways/post"
-import { toWorkPostLink } from "~/_presenters/links"
-import { Post } from "~/components/templates/post"
-import { Layout } from "~/components/templates/layout"
-import { Sidebar } from "~/components/templates/sidebar"
+import { toDetailWorkPost } from "~/service/gateways/post"
+import { toWorkPostLink } from "~/service/presenters/links"
+import { Post } from "~/components/common/post"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 
 interface WorkPostTemplateProps extends PageProps {
   data: WorkPostBySlugQuery

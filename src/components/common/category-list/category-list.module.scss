@@ -1,0 +1,20 @@
+@use "~/styles/_variable.scss" as var;
+
+.categoryList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  color: var.$text-color;
+
+  li + li {
+    margin-top: 10px;
+  }
+
+  .category {
+    margin-left: 20px;
+
+    &:hover {
+      color: var.$link-color;
+    }
+  }
+}

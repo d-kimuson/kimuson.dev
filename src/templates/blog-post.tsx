@@ -5,16 +5,16 @@ import { pipe } from "ramda"
 
 import type { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { toDetailBlogPost, toBlogPostList } from "~/_gateways/post"
-import { filterDraftPostList } from "~/_presenters/post"
-import { toBlogPostLink } from "~/_presenters/links"
-import { Post } from "~/components/templates/post"
-import { Layout } from "~/components/templates/layout"
-import { Sidebar } from "~/components/templates/sidebar"
+import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
+import { filterDraftPostList } from "~/service/presenters/post"
+import { toBlogPostLink } from "~/service/presenters/links"
+import { Post } from "~/components/common/post"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 
 const BlogPostListRow = loadable(async () => {
   const { BlogPostListRow } = await import(
-    `../components/molecules/blog-post-list-row`
+    `../components/common/blog-post-list-row`
   )
   return BlogPostListRow
 })

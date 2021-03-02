@@ -3,7 +3,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import Image from "gatsby-image"
 
 import type { QiitaLogoQuery } from "@graphql-types"
-import { toFluidImage } from "~/_gateways/image"
+import { toFluidImage } from "~/service/gateways/image"
 
 const query = graphql`
   query QiitaLogo {

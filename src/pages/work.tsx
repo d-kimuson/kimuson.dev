@@ -2,11 +2,11 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
-import { Sidebar } from "~/components/templates/sidebar"
-import { Layout } from "~/components/templates/layout"
-import { Head } from "~/components/templates/head"
-import { WorkPostList } from "~/components/molecules/work-post-list"
-import { toWorkPostList } from "~/_gateways/post"
+import { toWorkPostList } from "~/service/gateways/post"
+import { Head } from "~/components/common/head"
+import { Sidebar } from "~/components/sidebar"
+import { Layout } from "~/components/layout"
+import { WorkPostList } from "~/components/common/work-post-list"
 
 interface WorkPageProps extends PageProps {
   data: WorkPageQuery

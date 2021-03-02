@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { toTagLink } from "~/_presenters/links"
+import { toTagLink } from "~/service/presenters/links"
 
 interface TagInnerProps {
   tag: string

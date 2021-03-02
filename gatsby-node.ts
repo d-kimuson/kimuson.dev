@@ -9,13 +9,13 @@ import type {
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"
 import { createFilePath } from "gatsby-source-filesystem"
 
-import { filterDraftPostList } from "~/_presenters/post"
+import { filterDraftPostList } from "~/service/presenters/post"
 import {
   toBlogPostLink,
   toWorkPostLink,
   toCategoryLink,
   toTagLink,
-} from "~/_presenters/links"
+} from "~/service/presenters/links"
 import { AllMdxQuery, MdxEdge } from "@graphql-types"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({

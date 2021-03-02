@@ -2,10 +2,10 @@ import React from "react"
 import { PageProps, graphql } from "gatsby"
 
 import type { AboutPageQuery } from "@graphql-types"
-import { toDetailAboutPost } from "~/_gateways/post"
-import { Post } from "~/components/templates/post"
-import { Layout } from "~/components/templates/layout"
-import { Sidebar } from "~/components/templates/sidebar"
+import { toDetailAboutPost } from "~/service/gateways/post"
+import { Post } from "~/components/common/post"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 
 interface AboutPageProps extends PageProps {
   data: AboutPageQuery
