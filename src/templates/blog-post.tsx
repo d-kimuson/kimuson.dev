@@ -4,13 +4,13 @@ import loadable from "loadable-components"
 import { pipe } from "ramda"
 
 import type { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
-import type { AroundNav } from "@external-graphql-types"
-import { toDetailBlogPost, toBlogPostList } from "@gateways/post"
-import { filterDraftPostList } from "@presenters/post"
-import { toBlogPostLink } from "@presenters/links"
-import { Post } from "@components/templates/post"
-import { Layout } from "@components/templates/layout"
-import { Sidebar } from "@components/templates/sidebar"
+import type { AroundNav } from "types/external-graphql-types"
+import { toDetailBlogPost, toBlogPostList } from "~/_gateways/post"
+import { filterDraftPostList } from "~/_presenters/post"
+import { toBlogPostLink } from "~/_presenters/links"
+import { Post } from "~/components/templates/post"
+import { Layout } from "~/components/templates/layout"
+import { Sidebar } from "~/components/templates/sidebar"
 
 const BlogPostListRow = loadable(async () => {
   const { BlogPostListRow } = await import(

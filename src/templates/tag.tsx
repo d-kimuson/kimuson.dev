@@ -2,12 +2,12 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { TagPageQuery, MdxEdge } from "@graphql-types"
-import { toBlogPostList } from "@gateways/post"
-import { toTagLink } from "@presenters/links"
-import { Sidebar } from "@components/templates/sidebar"
-import { Layout } from "@components/templates/layout"
-import { Head } from "@components/templates/head"
-import { BlogPostList } from "@components/molecules/blog-post-list"
+import { toBlogPostList } from "~/_gateways/post"
+import { toTagLink } from "~/_presenters/links"
+import { Sidebar } from "~/components/templates/sidebar"
+import { Layout } from "~/components/templates/layout"
+import { Head } from "~/components/templates/head"
+import { BlogPostList } from "~/components/molecules/blog-post-list"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 

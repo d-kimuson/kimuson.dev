@@ -1,4 +1,4 @@
-import { writePosts } from "@utils/feed"
+import { writePosts } from "~/utils/feed"
 ;(async (): Promise<void> => {
   await writePosts()
 })()

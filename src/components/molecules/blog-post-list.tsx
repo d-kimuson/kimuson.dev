@@ -1,9 +1,8 @@
 import React from "react"
 
-import type { BlogPost, FeedPost } from "@entities/post"
-import { BlogPostPreview } from "./blog-post-preview"
-// @ts-ignore
 import styles from "./blog-post-list.module.scss"
+import type { BlogPost, FeedPost } from "~/_entities/post"
+import { BlogPostPreview } from "./blog-post-preview"
 
 interface BlogPostListProps {
   blogPosts: (BlogPost | FeedPost)[]

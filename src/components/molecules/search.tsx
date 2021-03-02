@@ -3,15 +3,14 @@ import { pipe } from "ramda"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 
+import styles from "./search.module.scss"
 import {
   SearchBlogPost,
   searchByKeyword,
   filterByTags,
-} from "@usecases/searchBlogPost"
+} from "~/_usecases/searchBlogPost"
 import { TagChecklist } from "./tag-checklist"
 import { BlogPostList } from "./blog-post-list"
-// @ts-ignore
-import styles from "./search.module.scss"
 
 interface SearchProps {
   blogPosts: SearchBlogPost[]

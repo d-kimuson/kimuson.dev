@@ -1,6 +1,6 @@
 import React from "react"
 
-import type { Heading } from "@entities/post"
+import type { Heading } from "~/_entities/post"
 import { Bio } from "../organisms/bio"
 import { PopularCategories } from "../organisms/popular-categories"
 import { Toc } from "../organisms/toc"

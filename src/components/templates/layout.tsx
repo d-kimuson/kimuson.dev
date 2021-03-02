@@ -1,14 +1,11 @@
 import React from "react"
 
-import { Header } from "../organisms/header"
-import { Footer } from "../organisms/footer"
-// @ts-ignore
 import styles from "./layout.module.scss"
+import { Header } from "~/components/organisms/header"
+import { Footer } from "~/components/organisms/footer"
 
 interface LayoutProps {
-  // 参考: https://github.com/Microsoft/TypeScript/issues/6471
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children?: any
+  children?: React.ReactNode
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {

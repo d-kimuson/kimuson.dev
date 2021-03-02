@@ -1,10 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import type { CategorySummary } from "@entities/post"
-import { toCategoryLink } from "@presenters/links"
-// @ts-ignore
 import styles from "./category-list.module.scss"
+import type { CategorySummary } from "~/_entities/post"
+import { toCategoryLink } from "~/_presenters/links"
 
 interface CategoryListProps {
   categoryList: CategorySummary[]

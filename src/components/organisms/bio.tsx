@@ -4,10 +4,9 @@ import Image from "gatsby-image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons"
 
-import type { BioQuery } from "@graphql-types"
-import { toFixedImage } from "@gateways/image"
-// @ts-ignore
 import styles from "./bio.module.scss"
+import type { BioQuery } from "@graphql-types"
+import { toFixedImage } from "~/_gateways/image"
 
 const query = graphql`
   query Bio {

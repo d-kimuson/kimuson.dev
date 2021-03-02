@@ -1,4 +1,4 @@
-import { Heading } from "@entities/post"
+import { Heading } from "~/_entities/post"
 
 interface TableOfContent {
   url: string

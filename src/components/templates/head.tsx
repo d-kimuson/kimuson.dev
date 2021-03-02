@@ -3,7 +3,7 @@ import { GatsbySeo, OpenGraphImages } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
 import type { HeadQuery } from "@graphql-types"
-import { toBlogPostLink } from "@presenters/links"
+import { toBlogPostLink } from "~/_presenters/links"
 
 const query = graphql`
   query Head {

@@ -2,11 +2,10 @@ import React, { useState } from "react"
 import Image from "gatsby-image"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
-import type { HeaderQuery } from "@graphql-types"
-import { toFixedImage } from "@gateways/image"
-import { Navigation } from "../molecules/navigation"
-// @ts-ignore
 import styles from "./header.module.scss"
+import type { HeaderQuery } from "@graphql-types"
+import { toFixedImage } from "~/_gateways/image"
+import { Navigation } from "~/components/molecules/navigation"
 
 const query = graphql`
   query Header {

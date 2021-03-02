@@ -3,12 +3,11 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-import type { BlogPost } from "@entities/post"
-import { toBlogPostLink } from "@presenters/links"
-import { Date } from "../atoms/date"
-import { TagList } from "./tag-list"
-// @ts-ignore
 import styles from "./blog-post-list-row.module.scss"
+import type { BlogPost } from "~/_entities/post"
+import { toBlogPostLink } from "~/_presenters/links"
+import { Date } from "~/components/atoms/date"
+import { TagList } from "./tag-list"
 
 interface BlogPostPreviewProps {
   blogPost: BlogPost

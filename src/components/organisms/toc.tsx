@@ -3,9 +3,8 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
 
-import type { Heading } from "@entities/post"
-// @ts-ignore
 import styles from "./toc.module.scss"
+import type { Heading } from "~/_entities/post"
 
 const infty = 100000
 const headerHeight = 60

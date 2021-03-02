@@ -8,7 +8,8 @@
     "paths": {
       "~/*": ["src/*"],
       "types": ["types"],
-      "@graphql-types": ["./types/graphql-types.d.ts"],
+      "@graphql-types": ["types/graphql-types.d.ts"],
+      "@mdx": ["src/components/_mdx.ts"],
       "@static/*": ["static/*"]
     },
     "esModuleInterop": true,

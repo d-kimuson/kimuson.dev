@@ -3,9 +3,8 @@ import type { Language } from "prism-react-renderer"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import dracula from "prism-react-renderer/themes/dracula"
 
-import { replaceAll, copy } from "@utils/index"
-// @ts-ignore
 import styles from "./code.module.scss"
+import { replaceAll, copy } from "~/utils/index"
 
 interface CodeProps {
   codeString: string

@@ -2,16 +2,15 @@ import React from "react"
 import { Link, graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
-import type { IndexQuery, MdxEdge, SiteSiteMetadataPosts } from "@graphql-types"
-import type { BlogPost } from "@entities/post"
-import { toBlogPostList, toFeedPostList } from "@gateways/post"
-import { filterDraftPostList, sortPostList } from "@presenters/post"
-import { Sidebar } from "@components/templates/sidebar"
-import { Layout } from "@components/templates/layout"
-import { Head } from "@components/templates/head"
-import { BlogPostList } from "@components/molecules/blog-post-list"
-// @ts-ignore
 import styles from "./index.module.scss"
+import type { IndexQuery, MdxEdge, SiteSiteMetadataPosts } from "@graphql-types"
+import type { BlogPost } from "~/_entities/post"
+import { toBlogPostList, toFeedPostList } from "~/_gateways/post"
+import { filterDraftPostList, sortPostList } from "~/_presenters/post"
+import { Sidebar } from "~/components/templates/sidebar"
+import { Layout } from "~/components/templates/layout"
+import { Head } from "~/components/templates/head"
+import { BlogPostList } from "~/components/molecules/blog-post-list"
 
 interface IndexProps extends PageProps {
   data: IndexQuery

@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 
-import { Tag } from "../atoms/tag"
-// @ts-ignore
 import styles from "./tag-checklist.module.scss"
+import { Tag } from "~/components/atoms/tag"
 
 interface TagButtonProps {
   tag: string

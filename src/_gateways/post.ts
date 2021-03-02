@@ -18,11 +18,11 @@ import type {
   AboutPost,
   FeedPost,
   FeedSiteName,
-} from "@entities/post"
-import type { RawFluidImage } from "@entities/image"
-import { toFluidImage } from "@gateways/image"
-import { toHeadings } from "@gateways/heading"
-import { excludeNull } from "@utils/index"
+} from "~/_entities/post"
+import type { RawFluidImage } from "~/_entities/image"
+import { toFluidImage } from "~/_gateways/image"
+import { toHeadings } from "~/_gateways/heading"
+import { excludeNull } from "~/utils"
 
 type PostMdx = Pick<Mdx, "tableOfContents" | "body"> &
   Maybe<{

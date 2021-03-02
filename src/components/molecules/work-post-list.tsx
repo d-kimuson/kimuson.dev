@@ -2,11 +2,10 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import type { WorkPost } from "@entities/post"
-import { toFluidImage } from "@gateways/image"
-import { Date } from "../atoms/date"
-// @ts-ignore
 import styles from "./work-post-list.module.scss"
+import type { WorkPost } from "~/_entities/post"
+import { toFluidImage } from "~/_gateways/image"
+import { Date } from "~/components/atoms/date"
 
 interface WorkPreviewProps {
   workPost: WorkPost

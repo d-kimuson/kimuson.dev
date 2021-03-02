@@ -2,13 +2,12 @@ import React from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import type { BlogPost, FeedPost } from "@entities/post"
-import { toBlogPostLink } from "@presenters/links"
-import { Date } from "../atoms/date"
-import { SiteLogo } from "../atoms/site-logo"
-import { TagList } from "./tag-list"
-// @ts-ignore
 import styles from "./blog-post-preview.module.scss"
+import type { BlogPost, FeedPost } from "~/_entities/post"
+import { toBlogPostLink } from "~/_presenters/links"
+import { Date } from "~/components/atoms/date"
+import { SiteLogo } from "~/components/atoms/site-logo"
+import { TagList } from "./tag-list"
 
 interface BlogPostPreviewProps {
   blogPost: BlogPost | FeedPost

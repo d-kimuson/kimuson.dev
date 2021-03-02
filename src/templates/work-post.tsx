@@ -2,12 +2,12 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { WorkPostBySlugQuery } from "@graphql-types"
-import type { AroundNav } from "@external-graphql-types"
-import { toDetailWorkPost } from "@gateways/post"
-import { toWorkPostLink } from "@presenters/links"
-import { Post } from "@components/templates/post"
-import { Layout } from "@components/templates/layout"
-import { Sidebar } from "@components/templates/sidebar"
+import type { AroundNav } from "types/external-graphql-types"
+import { toDetailWorkPost } from "~/_gateways/post"
+import { toWorkPostLink } from "~/_presenters/links"
+import { Post } from "~/components/templates/post"
+import { Layout } from "~/components/templates/layout"
+import { Sidebar } from "~/components/templates/sidebar"
 
 interface WorkPostTemplateProps extends PageProps {
   data: WorkPostBySlugQuery

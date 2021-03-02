@@ -1,5 +1,5 @@
 import type { Dayjs } from "dayjs"
-import type { FluidImage } from "@entities/image"
+import type { FluidImage } from "~/_entities/image"
 
 export type Tag = string
 export type Category = string

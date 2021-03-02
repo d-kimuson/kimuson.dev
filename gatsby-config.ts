@@ -1,5 +1,5 @@
 import type { MdxEdge, Site } from "@graphql-types"
-import { readPosts } from "@utils/feed"
+import { readPosts } from "~/utils/feed"
 
 const siteName = `きむそん.dev`
 const siteDomain = `kimuson.dev`

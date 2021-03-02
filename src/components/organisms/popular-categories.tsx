@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 
 import type { PopularCategoriesQuery } from "@graphql-types"
-import { toCategorySummaryList } from "@gateways/category"
+import { toCategorySummaryList } from "~/_gateways/category"
 import { CategoryList } from "../molecules/category-list"
 
 const query = graphql`

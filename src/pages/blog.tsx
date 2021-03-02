@@ -7,14 +7,14 @@ import type {
   MdxEdge,
   SiteSiteMetadataPosts,
 } from "@graphql-types"
-import type { BlogPost, FeedPost } from "@entities/post"
-import { toBlogPostList, toFeedPostList } from "@gateways/post"
-import { toSearchBlogPost } from "@usecases/searchBlogPost"
-import { filterDraftPostList, sortPostList } from "@presenters/post"
-import { Head } from "@components/templates/head"
-import { Layout } from "@components/templates/layout"
-import { Sidebar } from "@components/templates/sidebar"
-import { Search } from "@components/molecules/search"
+import type { BlogPost, FeedPost } from "~/_entities/post"
+import { toBlogPostList, toFeedPostList } from "~/_gateways/post"
+import { toSearchBlogPost } from "~/_usecases/searchBlogPost"
+import { filterDraftPostList, sortPostList } from "~/_presenters/post"
+import { Head } from "~/components/templates/head"
+import { Layout } from "~/components/templates/layout"
+import { Sidebar } from "~/components/templates/sidebar"
+import { Search } from "~/components/molecules/search"
 
 interface BlogProps extends PageProps {
   data: BlogPageQuery

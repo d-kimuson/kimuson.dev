@@ -1,8 +1,8 @@
 import { pipe } from "ramda"
 
-import type { FluidImage, FixedImage } from "@entities/image"
-import type { RawFluidImage, RawFixedImage } from "@entities/image"
-import { excludeNull, excludeNullProps } from "@utils/index"
+import type { FluidImage, FixedImage } from "~/_entities/image"
+import type { RawFluidImage, RawFixedImage } from "~/_entities/image"
+import { excludeNull, excludeNullProps } from "~/utils/index"
 
 export function toFluidImage(
   fluid: RawFluidImage | null | undefined

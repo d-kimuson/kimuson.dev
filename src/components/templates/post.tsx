@@ -12,13 +12,12 @@ import {
   TwitterIcon,
 } from "react-share"
 
-import type { Detail, Post as BasePost } from "@entities/post"
-import type { Tag } from "@entities/post"
-import { Head } from "@components/templates/head"
-import { TagList } from "@components/molecules/tag-list"
-import { Date } from "@components/atoms/date"
-// @ts-ignore
 import styles from "./post.module.scss"
+import type { Detail, Post as BasePost } from "~/_entities/post"
+import type { Tag } from "~/_entities/post"
+import { Head } from "~/components/templates/head"
+import { TagList } from "~/components/molecules/tag-list"
+import { Date } from "~/components/atoms/date"
 
 interface PostProps<T extends BasePost> {
   post: Detail<T> & {
