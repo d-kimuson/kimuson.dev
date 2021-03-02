@@ -44,7 +44,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
           <div className="l-main-wrapper">
             <main role="main">
               <section>
-                <h1 className="m-page-title">Latest Posts</h1>
+                <h1 className="m-page-title">最近の投稿</h1>
 
                 <BlogPostList blogPosts={blogPosts} />
                 <div className={styles.blogLinkWrapper}>

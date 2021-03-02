@@ -71,6 +71,9 @@ $-required-1-column-width: var.$page-x-padding * 2 +
   .l-page-container {
     padding: 0;
   }
+  .l-main-wrapper {
+    padding: 25px 0;
+  }
   .l-main-width,
   .l-main-wrapper {
     width: 100vw;
