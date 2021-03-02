@@ -10,11 +10,11 @@ import type {
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { toSearchBlogPost } from "./search/searchBlogPost"
+import { toSearchBlogPost } from "~/components/search/searchBlogPost"
 import { Head } from "~/components/common/head"
 import { Layout } from "~/components/layout"
 import { Sidebar } from "~/components/sidebar"
-import { Search } from "./search"
+import { Search } from "~/components/search"
 
 interface BlogProps extends PageProps {
   data: BlogPageQuery
