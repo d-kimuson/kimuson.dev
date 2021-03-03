@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, memo } from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -8,6 +8,7 @@ import type { BlogPost } from "~/service/entities/post"
 import { toBlogPostLink } from "~/service/presenters/links"
 import { Date } from "~/components/atoms/date"
 import { TagList } from "~/components/common/tag-list"
+import { comparePost } from "~/utils/compare/entities"
 
 interface BlogPostPreviewProps {
   blogPost: BlogPost
@@ -16,7 +17,7 @@ interface BlogPostPreviewProps {
 const imgWidth = 300
 const imgStyle = { height: `200px`, width: `${imgWidth}px` }
 
-const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
+const BlogPostPreview: React.VFC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return (
@@ -51,11 +52,15 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   )
 }
 
+const BlogPostPreviewMemorized = memo(BlogPostPreview, (prev, next) =>
+  comparePost(prev.blogPost, next.blogPost)
+)
+
 interface BlogPostListRowProps {
   blogPosts: BlogPost[]
 }
 
-export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
+const Component: React.VFC<BlogPostListRowProps> = ({
   blogPosts,
 }: BlogPostListRowProps) => {
   const [windowSize, setWindowSize] = useState<number>(-1)
@@ -80,7 +85,7 @@ export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
         >
           {blogPosts.map((blogPost) => (
             <SwiperSlide tag={`div`} key={blogPost.slug}>
-              <BlogPostPreview blogPost={blogPost} />
+              <BlogPostPreviewMemorized blogPost={blogPost} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -90,3 +95,5 @@ export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
     </section>
   )
 }
+
+export const BlogPostListRow = memo(Component)

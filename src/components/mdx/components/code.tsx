@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react"
+import React, { useState, MouseEvent, memo } from "react"
 import type { Language } from "prism-react-renderer"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import dracula from "prism-react-renderer/themes/dracula"
@@ -13,7 +13,7 @@ interface CodeProps {
   "react-live"?: boolean
 }
 
-export const Code: React.FC<CodeProps> = ({
+const Component: React.VFC<CodeProps> = ({
   codeString,
   language,
   title,
@@ -69,3 +69,5 @@ export const Code: React.FC<CodeProps> = ({
     </div>
   )
 }
+
+export const Code = memo(Component)

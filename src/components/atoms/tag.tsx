@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "gatsby"
 
 import { toTagLink } from "~/service/presenters/links"
@@ -8,7 +8,7 @@ interface TagInnerProps {
   className?: string
 }
 
-const TagInner: React.FC<TagInnerProps> = ({
+const TagInner: React.VFC<TagInnerProps> = ({
   tag,
   className,
 }: TagInnerProps) => (
@@ -23,7 +23,7 @@ interface TagProps {
   isLink?: boolean
 }
 
-export const Tag: React.FC<TagProps> = ({
+const Component: React.VFC<TagProps> = ({
   tag,
   className,
   isLink = false,
@@ -36,3 +36,5 @@ export const Tag: React.FC<TagProps> = ({
     <TagInner tag={tag} className={className} />
   )
 }
+
+export const Tag = memo(Component)

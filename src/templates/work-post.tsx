@@ -17,7 +17,7 @@ interface WorkPostTemplateProps extends PageProps {
   }
 }
 
-const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
+const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
   data,
 }: WorkPostTemplateProps) => {
   const mdx = data.mdx

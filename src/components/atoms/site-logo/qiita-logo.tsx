@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Image from "gatsby-image"
 
@@ -31,7 +31,7 @@ interface QiitaLogoProps {
   }
 }
 
-export const QiitaLogo: React.FC<QiitaLogoProps> = ({
+const Component: React.VFC<QiitaLogoProps> = ({
   className,
   imgStyle,
 }: QiitaLogoProps) => {
@@ -44,3 +44,5 @@ export const QiitaLogo: React.FC<QiitaLogoProps> = ({
     <div className={className} style={imgStyle} />
   )
 }
+
+export const QiitaLogo = memo(Component)

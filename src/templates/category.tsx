@@ -11,7 +11,7 @@ import { toCategoryLink } from "~/service/presenters/links"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
-const BlogPostTemplate: React.FC<CategoryPageProps> = ({
+const BlogPostTemplate: React.VFC<CategoryPageProps> = ({
   data,
   pageContext,
 }: CategoryPageProps) => {

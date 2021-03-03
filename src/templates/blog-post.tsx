@@ -27,7 +27,7 @@ interface BlogPostTemplateProps extends PageProps {
   }
 }
 
-const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
+const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
   data,
 }: BlogPostTemplateProps) => {
   const mdx = data.mdx

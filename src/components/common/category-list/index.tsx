@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "gatsby"
 
 import styles from "./category-list.module.scss"
@@ -9,7 +9,7 @@ interface CategoryListProps {
   categoryList: CategorySummary[]
 }
 
-export const CategoryList: React.FC<CategoryListProps> = ({
+const Component: React.VFC<CategoryListProps> = ({
   categoryList,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>
@@ -25,3 +25,5 @@ export const CategoryList: React.FC<CategoryListProps> = ({
     ))}
   </ul>
 )
+
+export const CategoryList = memo(Component)

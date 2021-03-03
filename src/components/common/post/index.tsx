@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "gatsby-image"
 import {
@@ -18,6 +18,7 @@ import type { Tag } from "~/service/entities/post"
 import { Head } from "~/components/common/head"
 import { TagList } from "~/components/common/tag-list"
 import { Date } from "~/components/atoms/date"
+import { comparePost } from "~/utils/compare/entities"
 
 interface PostProps<T extends BasePost> {
   post: Detail<T> & {
@@ -25,7 +26,7 @@ interface PostProps<T extends BasePost> {
   }
 }
 
-export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({
+const Component: React.VFC<PostProps<BasePost>> = <T extends BasePost>({
   post,
 }: PostProps<T>) => {
   const shareButtonSize = 35
@@ -99,3 +100,7 @@ export const Post: React.FC<PostProps<BasePost>> = <T extends BasePost>({
     </>
   )
 }
+
+export const Post = memo(Component, (prev, next) =>
+  comparePost(prev.post, next.post)
+)

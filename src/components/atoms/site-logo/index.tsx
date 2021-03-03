@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo, useMemo } from "react"
 import loadable from "loadable-components"
 
 const QiitaLogo = loadable(async () => {
@@ -20,16 +20,21 @@ interface SiteLogoProps {
   }
 }
 
-export const SiteLogo: React.FC<SiteLogoProps> = ({
+const Component: React.VFC<SiteLogoProps> = ({
   siteName,
   className,
   imgStyle,
 }: SiteLogoProps) => {
-  const props = {
-    className,
-    imgStyle,
-  }
+  const props = useMemo(
+    () => ({
+      className,
+      imgStyle,
+    }),
+    []
+  )
   const Logo = siteName === `Zenn` ? ZennLogo : QiitaLogo
 
   return <Logo {...props} />
 }
+
+export const SiteLogo = memo(Component)

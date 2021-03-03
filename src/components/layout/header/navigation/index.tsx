@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faRss } from "@fortawesome/free-solid-svg-icons"
@@ -42,9 +42,7 @@ interface NavigationProps {
   "aria-hidden"?: boolean
 }
 
-export const Navigation: React.FC<NavigationProps> = (
-  props: NavigationProps
-) => {
+const Component: React.VFC<NavigationProps> = (props: NavigationProps) => {
   const { className, id } = props
   return (
     <nav
@@ -78,3 +76,5 @@ export const Navigation: React.FC<NavigationProps> = (
     </nav>
   )
 }
+
+export const Navigation = memo(Component)

@@ -37,7 +37,7 @@ const query = graphql`
 
 const imageStyle = { height: `200px`, width: `200px` }
 
-export const Bio: React.FC = () => {
+const Component: React.VFC = () => {
   const data = useStaticQuery<BioQuery>(query)
   const author = data.site?.siteMetadata?.author
   const avatarImage = toFixedImage(data.avatar?.childImageSharp?.fixed)
@@ -66,3 +66,5 @@ export const Bio: React.FC = () => {
     </section>
   )
 }
+
+export const Bio = Component

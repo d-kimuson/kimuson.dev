@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, memo } from "react"
 import { pipe } from "ramda"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
@@ -13,7 +13,7 @@ interface SearchProps {
   className?: string
 }
 
-export const Search: React.FC<SearchProps> = ({
+const Component: React.VFC<SearchProps> = ({
   blogPosts,
   className,
 }: SearchProps) => {
@@ -70,3 +70,5 @@ export const Search: React.FC<SearchProps> = ({
     </section>
   )
 }
+
+export const Search = memo(Component)

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
 import styles from "./footer.module.scss"
@@ -18,7 +18,7 @@ interface FooterProps {
   className?: string
 }
 
-export const Footer: React.FC<FooterProps> = ({ className }: FooterProps) => {
+const Component: React.VFC<FooterProps> = ({ className }: FooterProps) => {
   const data = useStaticQuery<FooterQuery>(query)
   const siteTitle = data.site?.siteMetadata?.title
 
@@ -53,3 +53,5 @@ export const Footer: React.FC<FooterProps> = ({ className }: FooterProps) => {
     </footer>
   )
 }
+
+export const Footer = memo(Component)

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 
 import styles from "./tag-list.module.scss"
 import { Tag } from "~/components/atoms/tag"
@@ -8,7 +8,7 @@ interface TagListProps {
   isLink?: boolean
 }
 
-export const TagList: React.FC<TagListProps> = ({
+export const Component: React.VFC<TagListProps> = ({
   tags,
   isLink = false,
 }: TagListProps) => {
@@ -22,3 +22,5 @@ export const TagList: React.FC<TagListProps> = ({
     </ul>
   )
 }
+
+export const TagList = memo(Component)

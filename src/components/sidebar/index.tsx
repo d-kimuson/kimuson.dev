@@ -1,5 +1,4 @@
 import React from "react"
-
 import type { Heading } from "~/service/entities/post"
 import { Bio } from "./bio"
 import { PopularCategories } from "./popular-categories"
@@ -14,7 +13,7 @@ interface SidebarProps {
   ad?: boolean
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+const Component: React.VFC<SidebarProps> = ({
   bio = false,
   commonSidebar = false,
   toc = undefined,
@@ -29,3 +28,5 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </div>
   )
 }
+
+export const Sidebar = Component

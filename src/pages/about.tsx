@@ -11,7 +11,7 @@ interface AboutPageProps extends PageProps {
   data: AboutPageQuery
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
+const AboutPage: React.VFC<AboutPageProps> = ({ data }: AboutPageProps) => {
   const mdx = data.mdx
   if (!mdx) {
     throw Error

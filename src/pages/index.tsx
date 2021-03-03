@@ -16,7 +16,7 @@ interface IndexProps extends PageProps {
   data: IndexQuery
 }
 
-const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
+const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
   const feedPosts = toFeedPostList(
     (
       data.site?.siteMetadata?.posts || []

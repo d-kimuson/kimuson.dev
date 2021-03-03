@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Image from "gatsby-image"
 
@@ -31,7 +31,7 @@ interface ZennLogoProps {
   }
 }
 
-export const ZennLogo: React.FC<ZennLogoProps> = ({
+const Component: React.VFC<ZennLogoProps> = ({
   className,
   imgStyle,
 }: ZennLogoProps) => {
@@ -44,3 +44,5 @@ export const ZennLogo: React.FC<ZennLogoProps> = ({
     <div className={className} style={imgStyle} />
   )
 }
+
+export const ZennLogo = memo(Component)

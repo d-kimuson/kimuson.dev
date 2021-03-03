@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, memo } from "react"
 import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
@@ -25,7 +25,7 @@ interface TocProps {
   headings: Heading[]
 }
 
-export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
+const Component: React.VFC<TocProps> = ({ headings }: TocProps) => {
   const [tocHeadings, setTocHeadings] = useState<TocHeading[]>(
     headings.map(toTocHeading)
   )
@@ -102,3 +102,5 @@ export const Toc: React.FC<TocProps> = ({ headings }: TocProps) => {
     </section>
   )
 }
+
+export const Toc = memo(Component)

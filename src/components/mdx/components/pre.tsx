@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import type { Language } from "prism-react-renderer"
 import { preToCodeBlock, ChildrenPropsBase, PreProps } from "mdx-utils"
 
@@ -31,7 +31,7 @@ type ChildrenProps = ChildrenPropsBase & {
   className: string
 }
 
-export const Pre: React.FC<PreProps<ChildrenProps>> = (
+const Component: React.VFC<PreProps<ChildrenProps>> = (
   preProps: PreProps<ChildrenProps>
 ) => {
   const props = preToCodeBlock<ChildrenProps>(preProps)
@@ -47,3 +47,5 @@ export const Pre: React.FC<PreProps<ChildrenProps>> = (
     return <pre {...preProps} />
   }
 }
+
+export const Pre = memo(Component)

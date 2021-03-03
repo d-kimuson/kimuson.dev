@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
@@ -6,6 +6,7 @@ import styles from "./work-post-list.module.scss"
 import type { WorkPost } from "~/service/entities/post"
 import { toFluidImage } from "~/service/gateways/image"
 import { Date } from "~/components/atoms/date"
+import { comparePost } from "~/utils/compare/entities"
 
 interface WorkPreviewProps {
   workPost: WorkPost
@@ -13,7 +14,7 @@ interface WorkPreviewProps {
 
 const imgStyle = { height: `200px`, width: `300px` }
 
-const WorkPreview: React.FC<WorkPreviewProps> = ({
+const WorkPreview: React.VFC<WorkPreviewProps> = ({
   workPost,
 }: WorkPreviewProps) => {
   const thumbnail = toFluidImage(workPost.thumbnail)
@@ -44,13 +45,15 @@ const WorkPreview: React.FC<WorkPreviewProps> = ({
   )
 }
 
+const WorkPreviewMemorized = memo(WorkPreview, (prev, next) =>
+  comparePost(prev.workPost, next.workPost)
+)
+
 interface WorkListProps {
   workPosts: WorkPost[]
 }
 
-export const WorkPostList: React.FC<WorkListProps> = ({
-  workPosts,
-}: WorkListProps) => {
+const Component: React.VFC<WorkListProps> = ({ workPosts }: WorkListProps) => {
   return (
     <section className="l-main-width">
       {workPosts.length > 0 ? (
@@ -60,7 +63,7 @@ export const WorkPostList: React.FC<WorkListProps> = ({
               key={workPost.slug}
               className="animate__animated animate__fadeIn"
             >
-              <WorkPreview workPost={workPost} />
+              <WorkPreviewMemorized workPost={workPost} />
             </li>
           ))}
         </ul>
@@ -70,3 +73,5 @@ export const WorkPostList: React.FC<WorkListProps> = ({
     </section>
   )
 }
+
+export const WorkPostList = memo(Component)

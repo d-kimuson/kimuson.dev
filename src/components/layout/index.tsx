@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo, useMemo } from "react"
 
 import styles from "./layout.module.scss"
 import { Header } from "./header"
@@ -8,14 +8,18 @@ interface LayoutProps {
   children?: React.ReactNode
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+const Component: React.VFC<LayoutProps> = ({ children }: LayoutProps) => {
+  const cachedStyles = useMemo(() => styles, [children])
+
   return (
     <div className={styles.layoutContainer}>
-      <Header className={styles.headerWrapper} />
+      <Header className={cachedStyles.headerWrapper} />
 
       <div className={styles.contentWrapper}>{children}</div>
 
-      <Footer className={styles.footerWrapper} />
+      <Footer className={cachedStyles.footerWrapper} />
     </div>
   )
 }
+
+export const Layout = memo(Component)

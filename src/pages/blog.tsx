@@ -20,7 +20,7 @@ interface BlogProps extends PageProps {
   data: BlogPageQuery
 }
 
-const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
+const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
   const title = `ブログ`
   const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
@@ -8,6 +8,7 @@ import { toBlogPostLink } from "~/service/presenters/links"
 import { Date } from "~/components/atoms/date"
 import { SiteLogo } from "~/components/atoms/site-logo"
 import { TagList } from "~/components/common/tag-list"
+import { comparePost } from "~/utils/compare/entities"
 
 interface BlogPostPreviewProps {
   blogPost: BlogPost | FeedPost
@@ -15,7 +16,7 @@ interface BlogPostPreviewProps {
 
 const imgStyle = { height: `90px`, width: `120px` }
 
-const Inner: React.FC<BlogPostPreviewProps> = ({
+const Inner: React.VFC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return (
@@ -58,7 +59,11 @@ const Inner: React.FC<BlogPostPreviewProps> = ({
   )
 }
 
-export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
+const InnerMemorized = memo(Inner, (prev, next) => {
+  return comparePost(prev.blogPost, next.blogPost)
+})
+
+export const Component: React.VFC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return blogPost.__typename === `BlogPost` ? (
@@ -66,14 +71,16 @@ export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
       to={toBlogPostLink(blogPost.slug)}
       className={`${styles.blogPost} m-card l-main-width m-remove-a-decoration`}
     >
-      <Inner blogPost={blogPost} />
+      <InnerMemorized blogPost={blogPost} />
     </Link>
   ) : (
     <a
       href={blogPost.slug}
       className={`${styles.blogPost} m-card l-main-width m-remove-a-decoration`}
     >
-      <Inner blogPost={blogPost} />
+      <InnerMemorized blogPost={blogPost} />
     </a>
   )
 }
+
+export const BlogPostPreview = memo(Component)

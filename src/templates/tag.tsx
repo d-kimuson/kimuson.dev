@@ -11,7 +11,7 @@ import { BlogPostList } from "~/components/common/blog-post-list"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 
-const BlogPostTemplate: React.FC<TagPageProps> = ({
+const TagPageTemplate: React.VFC<TagPageProps> = ({
   data,
   pageContext,
 }: TagPageProps) => {
@@ -48,7 +48,7 @@ const BlogPostTemplate: React.FC<TagPageProps> = ({
   )
 }
 
-export default BlogPostTemplate
+export default TagPageTemplate
 
 export const pageQuery = graphql`
   query TagPage($tag: String!) {

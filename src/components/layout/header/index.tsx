@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, memo } from "react"
 import Image from "gatsby-image"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
@@ -34,7 +34,9 @@ interface HeaderProps {
   className?: string
 }
 
-export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
+export const Component: React.VFC<HeaderProps> = ({
+  className,
+}: HeaderProps) => {
   const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
@@ -86,3 +88,5 @@ export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
     </header>
   )
 }
+
+export const Header = memo(Component)

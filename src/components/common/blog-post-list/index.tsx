@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 
 import styles from "./blog-post-list.module.scss"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
@@ -8,7 +8,7 @@ interface BlogPostListProps {
   blogPosts: (BlogPost | FeedPost)[]
 }
 
-export const BlogPostList: React.FC<BlogPostListProps> = ({
+const Component: React.VFC<BlogPostListProps> = ({
   blogPosts,
 }: BlogPostListProps) => {
   return (
@@ -30,3 +30,5 @@ export const BlogPostList: React.FC<BlogPostListProps> = ({
     </section>
   )
 }
+
+export const BlogPostList = memo(Component)

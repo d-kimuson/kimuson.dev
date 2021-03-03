@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import type { Dayjs } from "dayjs"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendar } from "@fortawesome/free-solid-svg-icons"
@@ -10,7 +10,7 @@ interface DateProps {
   date: Dayjs
 }
 
-export const Date: React.FC<DateProps> = ({ date }: DateProps) => (
+const Component: React.VFC<DateProps> = ({ date }: DateProps) => (
   <div className={styles.date}>
     <FontAwesomeIcon icon={faCalendar} />
     <time itemProp="datePublished" dateTime={formatDate(date, `YYYY-MM-DD`)}>
@@ -18,3 +18,5 @@ export const Date: React.FC<DateProps> = ({ date }: DateProps) => (
     </time>
   </div>
 )
+
+export const Date = memo(Component)

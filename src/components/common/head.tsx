@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { GatsbySeo, OpenGraphImages } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
 
@@ -27,7 +27,7 @@ interface HeadProps {
   slug?: string // TOPページのみ不要
 }
 
-export const Head: React.FC<HeadProps> = ({
+const Component: React.VFC<HeadProps> = ({
   title,
   description,
   imageUrl,
@@ -80,3 +80,5 @@ export const Head: React.FC<HeadProps> = ({
     />
   )
 }
+
+export const Head = memo(Component)
