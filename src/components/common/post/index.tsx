@@ -48,7 +48,7 @@ const Component: React.VFC<PostProps<BasePost>> = <T extends BasePost>({
               <div />
             )}
             <div className={styles.contentContainer}>
-              <h1 className="m-page-title">
+              <h1 className="m-article-title">
                 {post.draft ? `[非公開]` : ``}
                 {post.title}
               </h1>
