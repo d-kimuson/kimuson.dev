@@ -23,6 +23,9 @@ export default {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-preact`,
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content`,

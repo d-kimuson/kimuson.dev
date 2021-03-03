@@ -40,6 +40,8 @@
     }
   },
   "dependencies": {
+    "preact": "^10.5.12",
+    "preact-render-to-string": "^5.1.12",
     "ramda": "^0.27.1"
   },
   "devDependencies": {
@@ -83,6 +85,7 @@
     "gatsby-plugin-netlify": "^2.11.0",
     "gatsby-plugin-next-seo": "^1.7.0",
     "gatsby-plugin-offline": "^3.10.2",
+    "gatsby-plugin-preact": "^5.0.0",
     "gatsby-plugin-purgecss": "^5.0.0",
     "gatsby-plugin-remove-console": "^0.0.2",
     "gatsby-plugin-robots-txt": "^1.5.5",
