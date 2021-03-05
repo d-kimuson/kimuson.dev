@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
-import styles from "./blog-post-list-row.module.scss"
+import * as styles from "./blog-post-list-row.module.scss"
 import type { BlogPost } from "~/service/entities/post"
 import { toBlogPostLink } from "~/service/presenters/links"
 import { Date } from "~/components/atoms/date"

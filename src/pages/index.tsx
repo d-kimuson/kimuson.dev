@@ -10,7 +10,7 @@ import { Head } from "~/components/common/head"
 import { Sidebar } from "~/components/sidebar"
 import { Layout } from "~/components/layout"
 import { BlogPostList } from "~/components/common/blog-post-list"
-import styles from "./index.module.scss"
+import * as styles from "./index.module.scss"
 
 interface IndexProps extends PageProps {
   data: IndexQuery
@@ -33,8 +33,6 @@ const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
     filterDraftPostList,
     sortPostList
   )(data.allMdx.edges).slice(0, 5)
-
-  console.log(blogPosts)
 
   return (
     <>

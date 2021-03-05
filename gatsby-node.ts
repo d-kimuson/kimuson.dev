@@ -1,6 +1,6 @@
 import path from "path"
 import type {
-  Actions,
+  CreateWebpackConfigArgs,
   GatsbyNode,
   CreateSchemaCustomizationArgs,
   PluginOptions,
@@ -20,15 +20,10 @@ import { AllMdxQuery, MdxEdge } from "@graphql-types"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
-}: {
-  actions: Actions
-}): void => {
+}: CreateWebpackConfigArgs): void => {
   actions.setWebpackConfig({
     resolve: {
       plugins: [new TsconfigPathsPlugin()],
-      alias: {
-        "@styles": path.resolve(__dirname, `src/global-styles`),
-      },
     },
   })
 }

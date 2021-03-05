@@ -6,7 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { SearchBlogPost, searchByKeyword, filterByTags } from "./searchBlogPost"
 import { TagChecklist } from "~/components/common/tag-checklist"
 import { BlogPostList } from "~/components/common/blog-post-list"
-import styles from "./search.module.scss"
+import * as styles from "./search.module.scss"
 
 interface SearchProps {
   blogPosts: SearchBlogPost[]

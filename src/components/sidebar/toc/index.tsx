@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
 
-import styles from "./toc.module.scss"
+import * as styles from "./toc.module.scss"
 import type { Heading } from "~/service/entities/post"
 
 const infty = 100000

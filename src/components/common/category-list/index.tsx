@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import { Link } from "gatsby"
 
-import styles from "./category-list.module.scss"
+import * as styles from "./category-list.module.scss"
 import type { CategorySummary } from "~/service/entities/post"
 import { toCategoryLink } from "~/service/presenters/links"
 

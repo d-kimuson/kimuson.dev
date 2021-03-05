@@ -166,6 +166,9 @@ export default {
         implementation: require(`sass`),
         sassRuleTest: /\.scss$/,
         sassRuleModulesTest: /\.module\.scss$/,
+        cssLoaderOptions: {
+          modules: true,
+        },
         postCssPlugins: [
           require(`autoprefixer`)({
             grid: `autoplace`,
@@ -182,7 +185,6 @@ export default {
         ignore: [`/src`, `/node_modules/prismjs`],
       },
     },
-    `gatsby-transformer-typescript-css-modules`,
     // SEO
     {
       resolve: `gatsby-plugin-next-seo`,

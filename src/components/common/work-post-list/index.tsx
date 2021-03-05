@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import styles from "./work-post-list.module.scss"
+import * as styles from "./work-post-list.module.scss"
 import type { WorkPost } from "~/service/entities/post"
 import { toFluidImage } from "~/service/gateways/image"
 import { Date } from "~/components/atoms/date"

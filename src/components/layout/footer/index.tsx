@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
-import styles from "./footer.module.scss"
+import * as styles from "./footer.module.scss"
 import type { FooterQuery } from "@graphql-types"
 
 const query = graphql`

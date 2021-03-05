@@ -12,7 +12,7 @@ import {
   TwitterIcon,
 } from "react-share"
 
-import styles from "./post.module.scss"
+import * as styles from "./post.module.scss"
 import type { Detail, Post as BasePost } from "~/service/entities/post"
 import type { Tag } from "~/service/entities/post"
 import { Head } from "~/components/common/head"

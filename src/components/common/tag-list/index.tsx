@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 
-import styles from "./tag-list.module.scss"
+import * as styles from "./tag-list.module.scss"
 import { Tag } from "~/components/atoms/tag"
 
 interface TagListProps {

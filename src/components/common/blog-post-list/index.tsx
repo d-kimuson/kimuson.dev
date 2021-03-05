@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 
-import styles from "./blog-post-list.module.scss"
+import * as styles from "./blog-post-list.module.scss"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { BlogPostPreview } from "./preview"
 

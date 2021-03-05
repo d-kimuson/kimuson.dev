@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
 
-import styles from "./blog-post-preview.module.scss"
+import * as styles from "./preview.module.scss"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { toBlogPostLink } from "~/service/presenters/links"
 import { Date } from "~/components/atoms/date"

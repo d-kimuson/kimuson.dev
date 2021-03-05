@@ -2,7 +2,7 @@ import React, { useState, memo } from "react"
 import Image from "gatsby-image"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
-import styles from "./header.module.scss"
+import * as styles from "./header.module.scss"
 import type { HeaderQuery } from "@graphql-types"
 import { toFixedImage } from "~/service/gateways/image"
 import { Navigation } from "./navigation"

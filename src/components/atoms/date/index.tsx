@@ -3,7 +3,7 @@ import type { Dayjs } from "dayjs"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCalendar } from "@fortawesome/free-solid-svg-icons"
 
-import styles from "./date.module.scss"
+import * as styles from "./date.module.scss"
 import { formatDate } from "~/service/presenters/time"
 
 interface DateProps {
