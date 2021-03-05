@@ -1,5 +1,5 @@
 import type { Dayjs } from "dayjs"
-import type { FluidImage } from "~/service/entities/image"
+import type { IGatsbyImageData } from "gatsby-plugin-image"
 
 export type Tag = string
 export type Category = string
@@ -15,7 +15,7 @@ export interface Post {
   title: string
   description: string
   date: Dayjs
-  thumbnail: FluidImage | undefined
+  thumbnail: IGatsbyImageData | undefined
   draft: boolean
 }
 

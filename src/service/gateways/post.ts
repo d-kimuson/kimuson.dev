@@ -1,15 +1,8 @@
 import { curry } from "ramda"
 import dayjs from "dayjs"
 
-import type {
-  MdxEdge,
-  Mdx,
-  MdxFrontmatter,
-  MdxFields,
-  Maybe,
-  File,
-  SiteSiteMetadataPosts,
-} from "@graphql-types"
+import type { SiteSiteMetadataPosts } from "@graphql-types"
+import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type {
   Detail,
   Post,
@@ -19,27 +12,8 @@ import type {
   FeedPost,
   FeedSiteName,
 } from "~/service/entities/post"
-import type { RawFluidImage } from "~/service/entities/image"
-import { toFluidImage } from "~/service/gateways/image"
 import { toHeadings } from "~/service/gateways/heading"
 import { excludeNull } from "~/utils"
-
-type PostMdx = Pick<Mdx, "tableOfContents" | "body"> &
-  Maybe<{
-    fields?: Maybe<Pick<MdxFields, "slug">>
-    frontmatter: Pick<
-      MdxFrontmatter,
-      "category" | "title" | "tags" | "draft" | "description" | "date"
-    > & {
-      thumbnail?: Maybe<
-        Pick<File, "publicURL"> & {
-          childImageSharp?: Maybe<{
-            fluid?: Maybe<RawFluidImage>
-          }>
-        }
-      >
-    }
-  }>
 
 export const toDetail = curry(
   <T extends Post>(
@@ -68,9 +42,7 @@ export const toBlogPost = (mdx: PostMdx): BlogPost | undefined => {
         title: mdx.frontmatter?.title || `No Title`,
         description: mdx.frontmatter?.description || `No Description`,
         date: dayjs(mdx.frontmatter?.date).locale(`Asia/Tokyo`),
-        thumbnail: toFluidImage(
-          mdx.frontmatter?.thumbnail?.childImageSharp?.fluid
-        ),
+        thumbnail: mdx.frontmatter?.thumbnail?.childImageSharp?.gatsbyImageData,
         draft: mdx.frontmatter?.draft || false,
         category: mdx.frontmatter?.category,
         tags: mdx.frontmatter?.tags?.map((tag) => String(tag)) || [],
@@ -83,7 +55,7 @@ export const toDetailBlogPost = toDetail(toBlogPost) as (
   mdx: PostMdx
 ) => Detail<BlogPost> | undefined
 
-export const toBlogPostList = (mdxs: MdxEdge[]): BlogPost[] =>
+export const toBlogPostList = (mdxs: PostMdxEdge[]): BlogPost[] =>
   mdxs
     .map((edge) => toBlogPost(edge.node))
     .filter(
@@ -99,9 +71,7 @@ export const toWorkPost = (mdx: PostMdx): WorkPost | undefined =>
         title: mdx.frontmatter?.title || `No Title`,
         description: mdx.frontmatter?.description || `No Description`,
         date: dayjs(mdx.frontmatter?.date).locale(`Asia/Tokyo`),
-        thumbnail: toFluidImage(
-          mdx.frontmatter?.thumbnail?.childImageSharp?.fluid
-        ),
+        thumbnail: mdx.frontmatter?.thumbnail?.childImageSharp?.gatsbyImageData,
         draft: mdx.frontmatter?.draft || false,
       }
     : undefined
@@ -111,7 +81,7 @@ export const toDetailWorkPost = toDetail(toWorkPost) as (
   mdx: PostMdx
 ) => Detail<WorkPost> | undefined
 
-export const toWorkPostList = (mdxs: MdxEdge[]): WorkPost[] => {
+export const toWorkPostList = (mdxs: PostMdxEdge[]): WorkPost[] => {
   return mdxs
     .map((edge) => toWorkPost(edge.node))
     .filter(

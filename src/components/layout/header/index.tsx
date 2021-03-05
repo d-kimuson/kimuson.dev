@@ -1,27 +1,13 @@
 import React, { useState, memo } from "react"
-import Image from "gatsby-image"
+import { StaticImage } from "gatsby-plugin-image"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
 import * as styles from "./header.module.scss"
 import type { HeaderQuery } from "@graphql-types"
-import { toFixedImage } from "~/service/gateways/image"
 import { Navigation } from "./navigation"
 
 const query = graphql`
   query Header {
-    file(relativePath: { eq: "assets/logo_transparent.png" }) {
-      childImageSharp {
-        fixed(height: 60) {
-          width
-          height
-          src
-          srcSet
-          base64
-          srcWebp
-          srcSetWebp
-        }
-      }
-    }
     site {
       siteMetadata {
         title
@@ -40,8 +26,6 @@ export const Component: React.VFC<HeaderProps> = ({
   const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
-  const logoImage = toFixedImage(data.file?.childImageSharp?.fixed)
-
   return (
     <header
       className={`m-un-selectable ${styles.header} ${
@@ -54,11 +38,12 @@ export const Component: React.VFC<HeaderProps> = ({
         className={`${styles.headerTitleArea} m-remove-a-decoration`}
       >
         <h1 className={styles.headerTitle}>
-          {typeof logoImage !== `undefined` ? (
-            <Image fixed={logoImage} />
-          ) : (
-            data.site?.siteMetadata?.title || `No Title`
-          )}
+          <StaticImage
+            src="./logo_transparent.png"
+            layout="fixed"
+            height={60}
+            alt={data.site?.siteMetadata?.title ?? ""}
+          />
         </h1>
       </Link>
 

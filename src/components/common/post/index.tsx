@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -43,7 +43,11 @@ const Component: React.VFC<PostProps<BasePost>> = <T extends BasePost>({
         <main role="main" className={styles.post}>
           <article className={`m-card ${styles.main}`}>
             {typeof post.thumbnail !== `undefined` ? (
-              <Image fluid={post.thumbnail} className={styles.thumbnail} />
+              <GatsbyImage
+                image={post.thumbnail}
+                className={styles.thumbnail}
+                alt=""
+              />
             ) : (
               <div />
             )}

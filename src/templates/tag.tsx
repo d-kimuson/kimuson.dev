@@ -1,7 +1,8 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
 
-import type { TagPageQuery, MdxEdge } from "@graphql-types"
+import type { TagPageQuery } from "@graphql-types"
+import type { PostMdxEdge } from "types/external-graphql-types"
 import { toBlogPostList } from "~/service/gateways/post"
 import { toTagLink } from "~/service/presenters/links"
 import { Sidebar } from "~/components/sidebar"
@@ -15,10 +16,7 @@ const TagPageTemplate: React.VFC<TagPageProps> = ({
   data,
   pageContext,
 }: TagPageProps) => {
-  const edges = data.allMdx.edges.filter(
-    (e): e is MdxEdge => typeof e !== `undefined`
-  )
-  const blogPosts = toBlogPostList(edges)
+  const blogPosts = toBlogPostList(data.allMdx.edges as PostMdxEdge[])
   const tag = pageContext.tag || `No Tag`
 
   const siteTitle = data.site?.siteMetadata?.title || ``
@@ -70,16 +68,13 @@ export const pageQuery = graphql`
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxHeight: 200, traceSVG: { background: "#333846" }) {
-                  aspectRatio
-                  base64
-                  sizes
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  tracedSVG
-                }
+                gatsbyImageData(
+                  height: 90
+                  width: 120
+                  layout: FIXED
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }

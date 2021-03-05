@@ -2,11 +2,8 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 import { pipe } from "ramda"
 
-import type {
-  BlogPageQuery,
-  MdxEdge,
-  SiteSiteMetadataPosts,
-} from "@graphql-types"
+import type { BlogPageQuery, SiteSiteMetadataPosts } from "@graphql-types"
+import type { PostMdxEdge } from "types/external-graphql-types"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
@@ -33,14 +30,12 @@ const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
   )
 
   const searchBlogPosts = pipe(
-    (edges: BlogPageQuery["allMdx"]["edges"]) =>
-      edges.filter((e): e is MdxEdge => typeof e !== `undefined`),
     toBlogPostList,
     (blogPosts: BlogPost[]) => [...blogPosts, ...feedPosts],
     (blogPosts: (BlogPost | FeedPost)[]) => blogPosts.map(toSearchBlogPost),
     filterDraftPostList,
     sortPostList
-  )(data.allMdx.edges)
+  )(data.allMdx.edges as PostMdxEdge[])
 
   return (
     <>
@@ -84,16 +79,13 @@ export const pageQuery = graphql`
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxHeight: 90, traceSVG: { background: "#333846" }) {
-                  aspectRatio
-                  base64
-                  sizes
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  tracedSVG
-                }
+                gatsbyImageData(
+                  height: 90
+                  width: 120
+                  layout: FIXED
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }

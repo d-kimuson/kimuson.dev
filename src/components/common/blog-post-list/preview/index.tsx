@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import { Link } from "gatsby"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import * as styles from "./preview.module.scss"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
@@ -14,7 +14,7 @@ interface BlogPostPreviewProps {
   blogPost: BlogPost | FeedPost
 }
 
-const imgStyle = { height: `90px`, width: `120px` }
+const imgStyle = { height: 90, width: 120 }
 
 const Inner: React.VFC<BlogPostPreviewProps> = ({
   blogPost,
@@ -24,10 +24,10 @@ const Inner: React.VFC<BlogPostPreviewProps> = ({
       <div className={styles.imageWrapper}>
         {blogPost.__typename === `BlogPost` ? (
           typeof blogPost.thumbnail === `object` ? (
-            <Image
-              fluid={blogPost.thumbnail}
+            <GatsbyImage
+              image={blogPost.thumbnail}
               className={styles.image}
-              imgStyle={imgStyle}
+              alt=""
             />
           ) : (
             <div style={imgStyle}></div>

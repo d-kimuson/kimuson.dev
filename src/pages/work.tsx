@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
+import type { PostMdxEdge } from "types/external-graphql-types"
 import { toWorkPostList } from "~/service/gateways/post"
 import { Head } from "~/components/common/head"
 import { Sidebar } from "~/components/sidebar"
@@ -16,7 +17,7 @@ const WorkPage: React.VFC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const workPosts = toWorkPostList(edges)
+  const workPosts = toWorkPostList(edges as PostMdxEdge[])
 
   return (
     <>
@@ -59,16 +60,11 @@ export const pageQuery = graphql`
             draft
             thumbnail {
               childImageSharp {
-                fluid(maxHeight: 200, traceSVG: { background: "#333846" }) {
-                  aspectRatio
-                  base64
-                  sizes
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  tracedSVG
-                }
+                gatsbyImageData(
+                  layout: FULL_WIDTH
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }

@@ -1,10 +1,9 @@
 import React, { memo } from "react"
 import { Link } from "gatsby"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import * as styles from "./work-post-list.module.scss"
 import type { WorkPost } from "~/service/entities/post"
-import { toFluidImage } from "~/service/gateways/image"
 import { Date } from "~/components/atoms/date"
 import { comparePost } from "~/utils/compare/entities"
 
@@ -17,16 +16,15 @@ const imgStyle = { height: `200px`, width: `300px` }
 const WorkPreview: React.VFC<WorkPreviewProps> = ({
   workPost,
 }: WorkPreviewProps) => {
-  const thumbnail = toFluidImage(workPost.thumbnail)
-
   return (
     <Link to={workPost.slug} className={`m-remove-a-decoration`}>
       <div className={`m-card ${styles.workPreview}`}>
-        {typeof thumbnail !== `undefined` ? (
-          <Image
-            fluid={thumbnail}
+        {typeof workPost?.thumbnail !== `undefined` ? (
+          <GatsbyImage
+            image={workPost?.thumbnail}
             imgStyle={imgStyle}
             className={styles.image}
+            alt=""
           />
         ) : (
           <div style={imgStyle} className={styles.image}></div>

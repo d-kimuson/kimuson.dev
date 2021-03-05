@@ -3,7 +3,8 @@ import { graphql, PageProps } from "gatsby"
 import loadable from "loadable-components"
 import { pipe } from "ramda"
 
-import type { BlogPostBySlugQuery, MdxEdge } from "@graphql-types"
+import type { BlogPostBySlugQuery } from "@graphql-types"
+import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
 import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
 import { filterDraftPostList } from "~/service/presenters/post"
@@ -38,12 +39,12 @@ const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
   const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
   const postUrl = siteUrl + toBlogPostLink(mdx?.fields?.slug || ``)
 
-  const post = toDetailBlogPost(postUrl, mdx)
+  const post = toDetailBlogPost(postUrl, mdx as PostMdx)
 
   const relatedArticle = pipe(
     toBlogPostList,
     filterDraftPostList
-  )(data.allMdx.edges.filter((e): e is MdxEdge => typeof e !== `undefined`))
+  )(data.allMdx.edges.filter((e): e is PostMdxEdge => typeof e !== `undefined`))
 
   return (
     <Layout>
@@ -91,16 +92,11 @@ export const pageQuery = graphql`
         thumbnail {
           publicURL
           childImageSharp {
-            fluid(maxWidth: 590, traceSVG: { background: "#333846" }) {
-              aspectRatio
-              base64
-              sizes
-              src
-              srcSet
-              srcWebp
-              srcSetWebp
-              tracedSVG
-            }
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
           }
         }
       }
@@ -131,16 +127,11 @@ export const pageQuery = graphql`
             tags
             thumbnail {
               childImageSharp {
-                fluid(maxHeight: 200, traceSVG: { background: "#333846" }) {
-                  aspectRatio
-                  base64
-                  sizes
-                  src
-                  srcSet
-                  srcWebp
-                  srcSetWebp
-                  tracedSVG
-                }
+                gatsbyImageData(
+                  layout: FULL_WIDTH
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }

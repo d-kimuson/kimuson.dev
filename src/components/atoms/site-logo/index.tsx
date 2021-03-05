@@ -15,8 +15,8 @@ interface SiteLogoProps {
   siteName: "Zenn" | "Qiita"
   className?: string
   imgStyle: {
-    height: string
-    width: string
+    height: number
+    width: number
   }
 }
 

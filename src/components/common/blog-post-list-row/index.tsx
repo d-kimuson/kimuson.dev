@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from "react"
 import { Link } from "gatsby"
-import Image from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import * as styles from "./blog-post-list-row.module.scss"
@@ -27,10 +27,11 @@ const BlogPostPreview: React.VFC<BlogPostPreviewProps> = ({
     >
       <div className={styles.imageWrapper}>
         {typeof blogPost.thumbnail === `object` ? (
-          <Image
-            fluid={blogPost.thumbnail}
+          <GatsbyImage
+            image={blogPost.thumbnail}
             imgStyle={imgStyle}
             className={styles.image}
+            alt=""
           />
         ) : (
           <div style={imgStyle} className={styles.image}></div>

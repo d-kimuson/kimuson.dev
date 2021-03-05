@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, PageProps } from "gatsby"
 
 import type { WorkPostBySlugQuery } from "@graphql-types"
+import type { PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
 import { toDetailWorkPost } from "~/service/gateways/post"
 import { toWorkPostLink } from "~/service/presenters/links"
@@ -28,7 +29,7 @@ const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
   const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
   const postUrl = siteUrl + toWorkPostLink(mdx?.fields?.slug || ``)
 
-  const post = toDetailWorkPost(postUrl, mdx)
+  const post = toDetailWorkPost(postUrl, mdx as PostMdx)
 
   return (
     <Layout>
@@ -68,16 +69,11 @@ export const pageQuery = graphql`
         draft
         thumbnail {
           childImageSharp {
-            fluid(maxWidth: 590, traceSVG: { background: "#333846" }) {
-              aspectRatio
-              base64
-              sizes
-              src
-              srcSet
-              srcWebp
-              srcSetWebp
-              tracedSVG
-            }
+            gatsbyImageData(
+              layout: FULL_WIDTH
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
           }
         }
       }
