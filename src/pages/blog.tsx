@@ -82,9 +82,9 @@ export const pageQuery = graphql`
                 gatsbyImageData(
                   height: 90
                   width: 120
-                  layout: FIXED
-                  placeholder: BLURRED
+                  layout: FULL_WIDTH
                   formats: [AUTO, WEBP, AVIF]
+                  placeholder: TRACED_SVG
                 )
               }
             }
