@@ -43,6 +43,7 @@ export const Component: React.VFC<HeaderProps> = ({
             layout="fixed"
             height={60}
             alt={data.site?.siteMetadata?.title ?? ""}
+            backgroundColor={"transparent"}
           />
         </h1>
       </Link>
