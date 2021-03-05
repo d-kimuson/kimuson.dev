@@ -1,3 +1,5 @@
+import { MDXRenderer } from "gatsby-plugin-mdx"
+
 import type { MdxEdge, Site } from "@graphql-types"
 import { readPosts } from "~/utils/feed"
 
@@ -90,7 +92,8 @@ export default {
                     siteTyped.siteMetadata?.siteUrl +
                     "/blog" +
                     edge.node.fields?.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
+                  custom_elements: [], // html クエリが帰ってこないので臨時で Issue: https://github.com/gatsbyjs/gatsby/issues/29983
+                  // custom_elements: [{ "content:encoded": edge.node.html }],
                 })
               })
             },
@@ -103,7 +106,6 @@ export default {
                   edges {
                     node {
                       excerpt
-                      html
                       fields {
                         slug
                       }
