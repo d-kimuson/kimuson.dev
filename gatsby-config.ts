@@ -1,5 +1,3 @@
-import { MDXRenderer } from "gatsby-plugin-mdx"
-
 import type { MdxEdge, Site } from "@graphql-types"
 import { readPosts } from "~/utils/feed"
 
