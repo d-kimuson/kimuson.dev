@@ -18,17 +18,8 @@ $-header-nav-min-width: 420px;
     width: $-header-title-width;
   }
 
-  .gatsby-image-wrapper {
-    background: transparentize(var.$theme-strong-color, $amount: 0.1);
-  }
-
   .headerTitle {
     font-size: 1.6rem;
-    background: transparentize(var.$theme-strong-color, $amount: 0.1);
-  }
-
-  img {
-    background: transparentize(var.$theme-strong-color, $amount: 0.1);
   }
 
   .headerNavArea {
