@@ -167,9 +167,6 @@ export default {
         implementation: require(`sass`),
         sassRuleTest: /\.scss$/,
         sassRuleModulesTest: /\.module\.scss$/,
-        cssLoaderOptions: {
-          modules: true,
-        },
         postCssPlugins: [
           require(`autoprefixer`)({
             grid: `autoplace`,

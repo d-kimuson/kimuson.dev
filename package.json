@@ -91,7 +91,7 @@
     "gatsby-plugin-purgecss": "^5.0.0",
     "gatsby-plugin-remove-console": "^0.0.2",
     "gatsby-plugin-robots-txt": "^1.5.5",
-    "gatsby-plugin-sass": "^4.0.1",
+    "gatsby-plugin-sass": "^4.0.2",
     "gatsby-plugin-sharp": "^3.0.0",
     "gatsby-plugin-sitemap": "^3.0.0",
     "gatsby-plugin-typescript": "^3.0.0",
