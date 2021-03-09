@@ -8,7 +8,7 @@
 
 ## 開発サーバーを建てる
 
-``` bash
+```bash
 $ yarn dev
 ```
 
@@ -18,9 +18,9 @@ $ yarn dev
 
 ### Frontmatter
 
-(work, aboutはまた別だが)ブログ記事のマークダウンファイルでは, 以下の形式をサポートする
+(work, about はまた別だが)ブログ記事のマークダウンファイルでは, 以下の形式をサポートする
 
-``` markdown
+```markdown
 ---
 title: マークダウンチートシート
 description: マークダウンのチートシートです。
@@ -29,7 +29,7 @@ tags:
   - Markdown
   - Blog
 date: "2015-05-28T22:40:32.169Z"
-thumbnail: 'thumbnails/blog.png'
+thumbnail: "thumbnails/blog.png"
 draft: true
 ---
 
@@ -41,12 +41,12 @@ draft: true
 
 サムネイル画像については,
 
-| frontmatter | ファイルのパス |
-| :---: | :---: |
-| thumbails/\*.png | content/assets/thumbails/\*.png |
+|        frontmatter        |          ファイルのパス          |
+| :-----------------------: | :------------------------------: |
+|     thumbails/\*.png      | content/assets/thumbails/\*.png  |
 | /blog/article-name/\*.png | content/blog/article-name/\*.png |
 
-のように, サムネ用フォルダに置く場合と, 記事のディレクトリに置く場合の2種類がある.
+のように, サムネ用フォルダに置く場合と, 記事のディレクトリに置く場合の 2 種類がある.
 
 一般にサムネ画像を準備するのはめんどうなので, カテゴリ毎に用意したサムネ画像を `thumbnails` から引っ張ってくる.
 
@@ -56,7 +56,7 @@ draft: true
 
 記事ファイルの `Frontmatter` を毎回書くのは大変なのでスクリプトを用意してある
 
-``` bash
+```bash
 $ yarn post:new
 yarn run v1.22.4
 $ git rev-parse --show-toplevel && ./bin/create.sh
@@ -73,11 +73,11 @@ content/blog/tutorial/test.mdに記事ファイルを作成しました
 ✨  Done in 10.85s.
 ```
 
-## GraphQLスキーマに応じてTypeScript型定義ファイルを生成する
+## GraphQL スキーマに応じて TypeScript 型定義ファイルを生成する
 
 GraphQL スキーマに変更があるたびに, 以下のコマンドで型定義ファイルを生成します.
 
-``` bash
+```bash
 $ yarn codegen
 ```
 
@@ -86,11 +86,12 @@ $ yarn codegen
 <details>
 <summary>【非推奨】`onSave` で型定義ファイルを自動生成する</summary>
 
-ホットリロードが重くなって, 型定義をわざわざ作り直す必要がないタイミングでのDXがとても落ちるのでおすすめはしないけど,
+ホットリロードが重くなって, 型定義をわざわざ作り直す必要がないタイミングでの DX がとても落ちるのでおすすめはしないけど,
 
-``` bash
+```bash
 $ yarn dev:codegen
 ```
 
 で開発サーバーを立てれば, 型定義ファイルも自動生成できる
+
 </details>

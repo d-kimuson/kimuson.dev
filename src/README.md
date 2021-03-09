@@ -1,7 +1,11 @@
 # ファイル配置ルール
 
+- components
+  - atom: 最小単位の部品
+  - common: 再利用可能なコンポーネントを適当にいれる
+  - 他: 再利用しないもの
 - pages: 単一のページ
-- templates: 展開して複数のページを構成するためのテンプレート
-- components: `Atomic Design` に従ってサブディレクトリに配置
-- helper-functions: ヘルパー関数
-- global-styles: 共通のCSSファイル
+- service: ドメインモデルと外界との変換とかとか
+- styles: 共通の CSS ファイル
+- templates: テンプレートページ
+- utils: 困ったらここにいれる
