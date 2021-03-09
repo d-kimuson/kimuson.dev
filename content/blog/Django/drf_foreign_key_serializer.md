@@ -6,7 +6,7 @@ tags:
   - Django
   - DRF
 date: "2020-10-01T22:40:32.169Z"
-thumbnail: 'thumbnails/Django.png'
+thumbnail: "thumbnails/Django.png"
 draft: false
 ---
 
@@ -16,7 +16,7 @@ Django REST framework の `ModelSerializer` では, `ForeignKey` のフィール
 
 例をあげますと,
 
-``` python:title=models.py
+```python:title=models.py
 from django.db import models
 import uuid
 
@@ -39,36 +39,36 @@ class SampleModel(models.Model):
     foreign = models.ForeignKey(ForeignModel, on_delete=models.CASCADE)
 ```
 
-のようにモデル定義されているとき, GETメソッドのレスポンスは
+のようにモデル定義されているとき, GET メソッドのレスポンスは
 
-``` json
+```json
 {
-    "id": "xxxxxx",
-    "foreign": {
-        "id": "yyyyy",
-        "name": "myname"
-    }
+  "id": "xxxxxx",
+  "foreign": {
+    "id": "yyyyy",
+    "name": "myname"
+  }
 }
 ```
 
-このように展開されて, POSTメソッドのパラメータは,
+このように展開されて, POST メソッドのパラメータは,
 
-``` json
+```json
 {
-    "foreign": {
-        "name": "myname"
-    }
+  "foreign": {
+    "name": "myname"
+  }
 }
 ```
 
 の形で指定する必要があります.
 
-GETメソッドに関しては望ましいですが, POSTメソッドのパラメータに関しては既存のオブジェクトのプライマリーキーが欲しい場合が多いと思います.
+GET メソッドに関しては望ましいですが, POST メソッドのパラメータに関しては既存のオブジェクトのプライマリーキーが欲しい場合が多いと思います.
 
 ということで,
 
-- GETメソッドでは, インスタンスをJSONに展開する
-- POSTのパラメータでは, プライマリーキーのみを受け取る
+- GET メソッドでは, インスタンスを JSON に展開する
+- POST のパラメータでは, プライマリーキーのみを受け取る
 
 という形でシリアライザを実装するのが主題です.
 
@@ -76,7 +76,7 @@ GETメソッドに関しては望ましいですが, POSTメソッドのパラ�
 
 環境は以下の通りです.
 
-``` bash
+```bash
 $ sw_vers
 ProductName:    Mac OS X
 ProductVersion: 10.15.6
@@ -94,13 +94,13 @@ packaging                 20.4
 
 ## 解決策
 
-シリアライザのフィールドには, `write_only` や `read_only` を指定ができるので, `read_only` を指定したGETメソッド用のシリアライザフィールドと, `write_only` を指定したPOSTメソッドのシリアライザフィールドを定義してあげることで, 期待する動作を実装できます.
+シリアライザのフィールドには, `write_only` や `read_only` を指定ができるので, `read_only` を指定した GET メソッド用のシリアライザフィールドと, `write_only` を指定した POST メソッドのシリアライザフィールドを定義してあげることで, 期待する動作を実装できます.
 
-### GETメソッドを展開して受け取る
+### GET メソッドを展開して受け取る
 
-GETメソッドの要求は元々満たしていますが, 私は, APIドキュメントの自動生成ツールである [drf_yasg](https://github.com/axnsan12/drf-yasg) を使っていて, 適切なビルドのため `MethodSerializer` にて実装します.
+GET メソッドの要求は元々満たしていますが, 私は, API ドキュメントの自動生成ツールである [drf_yasg](https://github.com/axnsan12/drf-yasg) を使っていて, 適切なビルドのため `MethodSerializer` にて実装します.
 
-``` python:title=serializers.py
+```python:title=serializers.py
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
 from drf_yasg.utils import swagger_serializer_method
@@ -129,13 +129,13 @@ class SampleSerializer(serializers.ModelSerializer):
 
 `drf_yasg` を使っていないなら `Meta.fields` に追加して, `read_only` を指定してあげるだけで大丈夫なはずです.
 
-### POSTパラメータには, プライマリーキーを渡す
+### POST パラメータには, プライマリーキーを渡す
 
-POSTメソッド用のフィールドには `PrimaryKeyRelatedField` を使います.
+POST メソッド用のフィールドには `PrimaryKeyRelatedField` を使います.
 
 `write_only` にしつつ, シリアライズメソッドを上書きすることで対応します.
 
-``` python:title=serializers.py
+```python:title=serializers.py
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
 from drf_yasg.utils import swagger_serializer_method
@@ -177,16 +177,16 @@ class SampleSerializer(serializers.ModelSerializer):
 
 これで,
 
-- GETメソッド => `foreign` にインスタンス情報が展開される
-- POSTメソッド => `foreign_pk` にプライマリーキーを渡す
+- GET メソッド => `foreign` にインスタンス情報が展開される
+- POST メソッド => `foreign_pk` にプライマリーキーを渡す
 
 という形になりました.
 
-## 実際にAPIを叩いてみる
+## 実際に API を叩いてみる
 
-一応APIを叩いてみます. クライアントは, [HTTPie](https://httpie.org/) を使っています.
+一応 API を叩いてみます. クライアントは, [HTTPie](https://httpie.org/) を使っています.
 
-``` bash
+```bash
 $ http http://localhost:8080/samples/
 HTTP/1.1 200 OK
 Allow: GET, POST, HEAD, OPTIONS

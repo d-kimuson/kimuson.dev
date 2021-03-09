@@ -13,12 +13,12 @@ draft: false
 ## TL;DR
 
 - Heroku に Docker イメージをデプロイします
-- SPAを同一オリジンでDjangoから配信するアーキテクチャです
-- Docker関連以外の話はしません (静的ファイル配信、DB等)
+- SPA を同一オリジンで Django から配信するアーキテクチャです
+- Docker 関連以外の話はしません (静的ファイル配信、DB 等)
 
 ## Heroku には Docker イメージもデプロイできる
 
-Heroku といえば、Git からデプロイのイメージが強かったんですが、Dockerイメージでのデプロイにも対応しているらしいです
+Heroku といえば、Git からデプロイのイメージが強かったんですが、Docker イメージでのデプロイにも対応しているらしいです
 
 [Deploying with Docker \| Heroku Dev Center](https://devcenter.heroku.com/categories/deploying-with-docker)
 
@@ -27,23 +27,23 @@ Heroku といえば、Git からデプロイのイメージが強かったんで
 - 手元で Docker イメージをビルドして、Heroku に投げる
 - `heroku.yml` を使って、リポジトリからイメージをビルドする
 
-の2つがあります
+の 2 つがあります
 
-この記事では、前者を使いますが、CI/CDを絡ませるなら、手元でビルドするのではなく `heroku.yml` にしたがって Heroku 上でビルドできるので後者のが良さそうな印象でした
+この記事では、前者を使いますが、CI/CD を絡ませるなら、手元でビルドするのではなく `heroku.yml` にしたがって Heroku 上でビルドできるので後者のが良さそうな印象でした
 
-どちらも単一のイメージから建てるものですが、Heroku にはもともと Heroku Postgres があり、Dockerイメージならマルチステージビルドも行えるので
+どちらも単一のイメージから建てるものですが、Heroku にはもともと Heroku Postgres があり、Docker イメージならマルチステージビルドも行えるので
 
 - フロント: SPA / SSG
-- バック: APIサーバー
+- バック: API サーバー
 - RDB: Heroku Postgres
 
 みたいなアーキテクチャなら対応できます
 
-逆に、APIサーバーも建てるけどフロントではSSRしたいとかは無理なはずなので、別の形を考える必要があると思います
+逆に、API サーバーも建てるけどフロントでは SSR したいとかは無理なはずなので、別の形を考える必要があると思います
 
 ## SPA on Django のイメージを作る
 
-Herokuでは、
+Heroku では、
 
 [Using Multiple Buildpacks for an App | Heroku Dev Center](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app)
 
@@ -59,7 +59,7 @@ Herokuでは、
 
 みたいなディレクトリ構成じゃないと(たぶん)ダメです
 
-Dockerのビルドならこの辺の縛りがないのでとても良きです
+Docker のビルドならこの辺の縛りがないのでとても良きです
 
 とりえあず
 
@@ -69,7 +69,7 @@ Dockerのビルドならこの辺の縛りがないのでとても良きです
 
 みたいなディレクトリ構成ということにします
 
-``` Dockerfile
+```Dockerfile
 # Build Frontend Staticfiles
 FROM node:14.15.1-stretch as front-build
 
@@ -105,7 +105,7 @@ CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT  # $PORTは実行時�
 
 Docker-Compose のくせで、
 
-``` Dockerfile
+```Dockerfile
 # ...
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD [ "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:$PORT" ]
@@ -115,7 +115,7 @@ CMD [ "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:$PORT" ]
 
 なので、`ENTRYPOINT` は指定せずに
 
-``` Dockerfile
+```Dockerfile
 # ...
 CMD [ "./entrypoint.sh" ]
 ```
@@ -124,7 +124,7 @@ CMD [ "./entrypoint.sh" ]
 
 起動前に走らせたいものがないなら、直接サーバーを起動しても良いですけど、配列型で指定すると変数が展開されないので注意が必要です
 
-``` Dockerfile
+```Dockerfile
 CMD [ "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:$PORT" ]  # NG
 CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT                 # OK
 ```
@@ -133,7 +133,7 @@ CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT                 # OK
 
 `Heroku CLI` のセットアップとログイン、アプリ作成(`heroku create`)がされていることは前提として、
 
-``` bash
+```bash
 $ heroku container:push web
 ```
 
@@ -141,7 +141,7 @@ $ heroku container:push web
 
 今回のやり方では、デプロイがリポジトリと連動しません
 
-``` bash
+```bash
 $ heroku container:release web
 ```
 
@@ -149,7 +149,7 @@ $ heroku container:release web
 
 一連の流れとして、
 
-``` bash:deploy.sh
+```bash:deploy.sh
 heroku container:push web
 
 if [ $? = "0" ]; then

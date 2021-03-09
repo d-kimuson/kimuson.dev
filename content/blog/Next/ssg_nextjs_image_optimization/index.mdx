@@ -24,7 +24,7 @@ draft: true
 
 今回使うパッケージを取得します
 
-``` bash
+```bash
 $ yarn add next-compose-plugins next-optimized-images@canary webp-loader image-trace-loader
 ```
 
@@ -36,7 +36,7 @@ $ yarn add next-compose-plugins next-optimized-images@canary webp-loader image-t
 
 最低限の設定ファイルを準備します
 
-``` javascript:next.config.js
+```javascript:next.config.js
 const withPlugins = require('next-compose-plugins');
 const optimizedImages = require('next-optimized-images');
 
@@ -51,14 +51,14 @@ module.exports = withPlugins([
 });
 ```
 
-``` json:.babelrc
+```json:.babelrc
 {
   "presets": ["next/babel"],
   "plugins": ["react-optimized-image/plugin"]
 }
 ```
 
-``` typescript:next-env.d.ts
+```typescript:next-env.d.ts
 /// <reference types="optimized-images-loader" />
 ```
 
@@ -66,9 +66,9 @@ module.exports = withPlugins([
 
 `react-optimized-image` コンポーネントで画像を埋め込みます
 
-``` tsx
-import Img from 'react-optimized-image';
-import logo from '@images/logo.jpg';
+```tsx
+import Img from "react-optimized-image"
+import logo from "@images/logo.jpg"
 
 export const LogoImage: React.FC = () => (
   <Img src={logo} sizes={[500, 2000]} alt="alt text" height={60} width={100} />
@@ -82,7 +82,7 @@ sizes は想定してるデバイスサイズで、
 - 〜500
 - 501〜
 
-用の2種類が生成されます
+用の 2 種類が生成されます
 
 ## tracedSVG
 

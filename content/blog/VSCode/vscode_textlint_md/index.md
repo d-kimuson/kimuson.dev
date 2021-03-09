@@ -16,24 +16,24 @@ draft: false
 
 こちらの記事が流れてきて、[ESLint](https://eslint.org/) みたいなノリで文章校正できるのめっちゃ良さそうだなーって思ったので、このブログにも導入してみます。
 
-※ [Zenn](https://zenn.dev/) は、Qiitaのような技術知見共有サービスで、Githubリポジトリで記事を管理できるのでこのブログのようなSSGベースの技術ブログと執筆体験がとても近いです。
+※ [Zenn](https://zenn.dev/) は、Qiita のような技術知見共有サービスで、Github リポジトリで記事を管理できるのでこのブログのような SSG ベースの技術ブログと執筆体験がとても近いです。
 
 ## textlint について
 
 公式リポジトリは [textlint/textlint: The pluggable natural language linter for text and markdown.](https://github.com/textlint/textlint) です。
 
 > The pluggable linting tool for text and markdown.
-textlint is similar to ESLint, but it's for use with natural language.
+> textlint is similar to ESLint, but it's for use with natural language.
 
 とのことです。
 
-CUIからも走らせられますが、[vscode-textlint - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint) という `VSCode` プラグインがあるのでこちらから走らせます。
+CUI からも走らせられますが、[vscode-textlint - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=taichi.vscode-textlint) という `VSCode` プラグインがあるのでこちらから走らせます。
 
 ## とりえあず導入してみる
 
 `textlint` をローカルインストールします。
 
-``` bash
+```bash
 $ yarn add -D textlint
 ```
 
@@ -41,7 +41,7 @@ $ yarn add -D textlint
 
 僕は明示的に推奨設定に書いておきたかったので、`.vscode/extensions.json` に書いてます。
 
-``` json:title=.vscode/extensions.json
+```json:title=.vscode/extensions.json
 {
   "recommendations": [
     "taichi.vscode-textlint",
@@ -51,7 +51,7 @@ $ yarn add -D textlint
 
 自明なのであえて書くこともないですけど、`textlint` がインストールされている `node_modules` のパスと設定ファイルのパスを書いておきます。
 
-``` json:title=.vscode/settings.json
+```json:title=.vscode/settings.json
 {
   "textlint.nodePath": "./node_modules",
   "textlint.configPath": "./.textlintrc",
@@ -63,7 +63,7 @@ $ yarn add -D textlint
 
 ## 日本語ルールの適用
 
-`textlint` では、言語毎のルールを `.textlintrc` に書いていくことで適用したルールに基づいてVSCodeが怒ってくれます。
+`textlint` では、言語毎のルールを `.textlintrc` に書いていくことで適用したルールに基づいて VSCode が怒ってくれます。
 
 ルールについては、
 
@@ -75,13 +75,13 @@ $ yarn add -D textlint
 
 [Collection of textlint rule # Rule Presets: Japanese · textlint/textlint Wiki](https://github.com/textlint/textlint/wiki/Collection-of-textlint-rule#rule-presets-japanese)
 
-まさにって感じの [技術文書向けのtextlintルールプリセット](https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing) があったので、とりあえずこれを使って試してみます。
+まさにって感じの [技術文書向けの textlint ルールプリセット](https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing) があったので、とりあえずこれを使って試してみます。
 
-``` bash
+```bash
 $ yarn add -D textlint-rule-preset-ja-technical-writing
 ```
 
-``` json:title=.textlintrc
+```json:title=.textlintrc
 {
   "rules": {
     "preset-ja-technical-writing": {
@@ -92,7 +92,7 @@ $ yarn add -D textlint-rule-preset-ja-technical-writing
 }
 ```
 
-これでOK。
+これで OK。
 
 ![](./example.png)
 
@@ -102,7 +102,7 @@ $ yarn add -D textlint-rule-preset-ja-technical-writing
 
 修正可能なエラー自体そんな無さそうなのでウザくもないかなーってことで自動修正も適用してみます。
 
-``` json:title=.vscode/settings.json
+```json:title=.vscode/settings.json
 {
   // ...
   "textlint.autoFixOnSave": true

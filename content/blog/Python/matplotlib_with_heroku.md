@@ -19,9 +19,9 @@ Heroku でデプロイしたアプリ上で、matplotlib のグラフ描写す�
 
 を吐かれました
 
-解決策は、tkinter(Mac標準)ではなく Agg を利用するように変更することです
+解決策は、tkinter(Mac 標準)ではなく Agg を利用するように変更することです
 
-``` python
+```python
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 あるいは,
 **matpotlibrc** をカレントディレクトリに設置して
 
-``` txt
+```txt
 backend: Agg
 ```
 
@@ -38,17 +38,17 @@ backend: Agg
 
 こちらの方法なら、毎回記述する必要もありません
 
-## グラフの日本語が文字化けする 
+## グラフの日本語が文字化けする
 
 デフォルトのフォントが日本語対応してないのが原因みたいです
 
 適切なフォントをダウンロードして、matplotlib 側で指定していきます
 
-[IPAexフォント ダウンロードページ](https://ipafont.ipa.go.jp/old/ipaexfont/download.html)より、IPAexゴシックをダウンロードして、ipaexg.ttf ファイルを `<project>`/.fonts/ に移動させます
+[IPAex フォント ダウンロードページ](https://ipafont.ipa.go.jp/old/ipaexfont/download.html)より、IPAex ゴシックをダウンロードして、ipaexg.ttf ファイルを `<project>`/.fonts/ に移動させます
 
 その上で
 
-``` python
+```python
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -60,16 +60,15 @@ fontprop = FontProperties(fname='.fonts/ipaexg.ttf', size=10)
 としておきます
 あとは matplotlib でグラフ描写するときに
 
-``` python
+```python
 plt.xticks(<X軸リスト>, <X軸名前リスト(日本語)>, font_properties=fontprop)
 ```
 
-という風に指定してあげればOKです
-
+という風に指定してあげれば OK です
 
 で、これも **matpotlibrc** に書いてしまえばめんどくさくなくて良きです
 
-``` txt
+```txt
 backend             : Agg
 font.family         : IPAexGothic
 ```

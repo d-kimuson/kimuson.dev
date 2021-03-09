@@ -20,7 +20,7 @@ draft: false
 - ビルド高速化
 - `gatsby-plugin-image` へのリプレイスによる Lighthouse スコアの向上
 
-の3つでした
+の 3 つでした
 
 ## 移行する
 
@@ -36,11 +36,11 @@ draft: false
 
 [Migrating from gatsby-image to gatsby-plugin-image \| Gatsby](https://www.gatsbyjs.com/docs/reference/release-notes/image-migration-guide/)
 
-``` bash
+```bash
 $ yarn add -D gatsby-plugin-image
 ```
 
-``` ts:gatsby-config.js
+```ts:gatsby-config.js
 module.exports = {
   plugins: [
     `gatsby-plugin-image`,
@@ -52,9 +52,9 @@ module.exports = {
 
 しつつ、既存の `gatsby-image` コンポーネントを置き換えていきます
 
-gatsby-plugin-image では、`StaticImage` と `GatsbyImage` の2種類のコンポーネントが用意されていて、動的にクエリから取得する必要がある画像(投稿と紐付いたサムネイルとか)はこれまで通り、特定の画像ファイル(サイトロゴとか)はクエリを介さずに直接 `StaticImage` で使用できます
+gatsby-plugin-image では、`StaticImage` と `GatsbyImage` の 2 種類のコンポーネントが用意されていて、動的にクエリから取得する必要がある画像(投稿と紐付いたサムネイルとか)はこれまで通り、特定の画像ファイル(サイトロゴとか)はクエリを介さずに直接 `StaticImage` で使用できます
 
-``` tsx:StaticImage
+```tsx:StaticImage
 import { StaticImage } from "gatsby-plugin-image"
 
 <StaticImage
@@ -68,9 +68,9 @@ import { StaticImage } from "gatsby-plugin-image"
 
 `fluid` を使っていたところは、`layout="fullWidth"` 使えば良さそうです
 
-画像周りのクエリのAPIも[変更](https://www.gatsbyjs.com/docs/reference/release-notes/image-migration-guide/#api-changes)されています
+画像周りのクエリの API も[変更](https://www.gatsbyjs.com/docs/reference/release-notes/image-migration-guide/#api-changes)されています
 
-``` graphql:query
+```graphql:query
 childImageSharp {
   gatsbyImageData(
     layout: FULL_WIDTH
@@ -80,7 +80,7 @@ childImageSharp {
 }
 ```
 
-``` tsx:GatsbyImage
+```tsx:GatsbyImage
 import { GatsbyImage } from "gatsby-plugin-image"
 
 const image = data.hoge.childImageSharp.gatsbyImageData
@@ -103,7 +103,7 @@ const image = data.hoge.childImageSharp.gatsbyImageData
 
 ツリーシェーキングの為だそうで、たしかに合理的っすね
 
-``` diff
+```diff
 - import styles from "./example.module.css"
 + import { example } from "./example.module.css"
 ```
@@ -114,7 +114,7 @@ const image = data.hoge.childImageSharp.gatsbyImageData
 
 型定義は、デフォルトエクスポートがネームドエクスポートに変わったので
 
-``` diff
+```diff
 declare module "*.module.css" {
   const styles: {
     [key: string]: string
@@ -128,13 +128,13 @@ declare module "*.module.css" {
 
 ### SCSS の Css Modules が使えない
 
-SCSS だと CSS Modules が読み込めなくなっていて、`gatsby-plugin-sass` が追従できてないのかなーと思ったんですけど、[公式の example](https://github.com/gatsbyjs/gatsby/tree/master/examples/using-css-modules) にv3対応版があがっていたので大丈夫そう
+SCSS だと CSS Modules が読み込めなくなっていて、`gatsby-plugin-sass` が追従できてないのかなーと思ったんですけど、[公式の example](https://github.com/gatsbyjs/gatsby/tree/master/examples/using-css-modules) に v3 対応版があがっていたので大丈夫そう
 
 `gatsby-plugin-sass` の実装を読んでみたら、分岐で CSS Modules が有効化されてないパターンがあるみたいでした
 
 とりあえずの対応としては、
 
-``` diff
+```diff
 {
   resolve: `gatsby-plugin-sass`,
   options: {
@@ -159,13 +159,13 @@ SCSS だと CSS Modules が読み込めなくなっていて、`gatsby-plugin-sa
 
 さっそくデプロイしてみました ([v3](https://83706916.kimuson-dev.pages.dev/), [v2](https://9d9ac4dc.kimuson-dev.pages.dev/))
 
-| 指標 | 差分 |
-| :---: | :---: |
-| Transfer | 415.9 KiB → 354.2 KiB |
-| デスクトップ向け Lighthouse パフォーマンス | 95 → 99 |
-| モバイル向け Lighthouse パフォーマンス | 75 → 78 |
+|                    指標                    |         差分          |
+| :----------------------------------------: | :-------------------: |
+|                  Transfer                  | 415.9 KiB → 354.2 KiB |
+| デスクトップ向け Lighthouse パフォーマンス |        95 → 99        |
+|   モバイル向け Lighthouse パフォーマンス   |        75 → 78        |
 
-FCPとTTIはほぼ変わらず(というかもともと高速)ですが、LCPとTBTが結構改善してるっぽいです
+FCP と TTI はほぼ変わらず(というかもともと高速)ですが、LCP と TBT が結構改善してるっぽいです
 
 せっかく Gatsby 使ってるからには速くしておきたいので結構うれしみです
 

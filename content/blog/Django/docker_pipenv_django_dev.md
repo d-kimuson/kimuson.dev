@@ -22,7 +22,7 @@ draft: false
 - Pipfile がパッケージ取得時に自動更新される
   - `pip install <package>` だと `requirements.txt` の更新漏れがあるし, そもそもめんどい
 - scripts に独自コマンドを定義できる
-- 開発用パッケージ(autopep8, mypyとか)を分けて管理できる
+- 開発用パッケージ(autopep8, mypy とか)を分けて管理できる
 
 辺りが便利なので, Pipenv でやろうかなって思ったら結構詰まった
 
@@ -30,7 +30,7 @@ draft: false
 
 コンテナ内だから, わざわざ仮想化する必要もないかなって感じで最初は
 
-``` Dockerfile
+```Dockerfile
 FROM python:3.7.6-stretch
 WORKDIR /django_app
 COPY ./Pipfile /django_app/Pipfile
@@ -43,20 +43,20 @@ CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 こんな感じで, パッケージを `/usr/local/bin/python` に直接インストールする形で構築した.
 
-で, まあ問題なく動くんだけど, 問題点が2つあって
+で, まあ問題なく動くんだけど, 問題点が 2 つあって
 
-1つ目は, scripts が仮想環境を見に行ってしまう点.
+1 つ目は, scripts が仮想環境を見に行ってしまう点.
 
-``` bash
+```bash
 $ docker exec django_app pipenv run which python
 /django_app/.venv/bin/python
 ```
 
 見ての通り.
 
-2つ目が, `pipenv install <package>` において, システムのパッケージが更新されないこと
+2 つ目が, `pipenv install <package>` において, システムのパッケージが更新されないこと
 
---systemオプションは, あくまで本番環境用のものなので, やっぱ開発環境での利用には向かないっぽい
+--system オプションは, あくまで本番環境用のものなので, やっぱ開発環境での利用には向かないっぽい
 
 と言った感じで, Pipenv を使ってる理由がほぼ潰れてしまった.
 
@@ -70,7 +70,7 @@ Pipenv 自体が仮想環境と密に結合しているパッケージマネー�
 
 シンプルに思いつくのは,
 
-``` yml:title=docker-compose.yml
+```yml:title=docker-compose.yml
 version: "3.7"
 
 services:
@@ -84,7 +84,7 @@ services:
       ...
 ```
 
-``` Dockerfile:title=django_app/Dockerfile
+```Dockerfile:title=django_app/Dockerfile
 FROM python:3.7.6-stretch
 WORKDIR /django_app
 COPY ./Pipfile /django_app/Pipfile
@@ -99,10 +99,10 @@ CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 1. イメージ構築 (Dockerfile の RUN) => コンテナ内に .venv が作成される
 2. docker-compose.yml で指定したディレクトリのマウントが働く
-    1. ホストOSの .venv がコンテナにマウントされる
-    2. (マウントで, ホストOSの .venv でコンテナの .venv が上書きされる)
-    3. コンテナ内の .venv をマウント対象から外す
-    4. 結果として, .venv が空ディレクトリに
+   1. ホスト OS の .venv がコンテナにマウントされる
+   2. (マウントで, ホスト OS の .venv でコンテナの .venv が上書きされる)
+   3. コンテナ内の .venv をマウント対象から外す
+   4. 結果として, .venv が空ディレクトリに
 3. コンテナ構築
 
 て感じで進んでしまうので,
@@ -111,15 +111,15 @@ CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 てことで, CMD と ENTRYPOINT を併用してコンテナ構築時に作る
 
-参考: [[docker] CMD とENTRYPOINT の違いを試してみた](https://qiita.com/hihihiroro/items/d7ceaadc9340a4dbeb8f#%E4%BD%B5%E7%94%A8)
+参考: [[docker] CMD と ENTRYPOINT の違いを試してみた](https://qiita.com/hihihiroro/items/d7ceaadc9340a4dbeb8f#%E4%BD%B5%E7%94%A8)
 
-``` Dockerfile:title=Dockerfile
+```Dockerfile:title=Dockerfile
 ...
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
 
-``` bash:title=entrypoint.sh
+```bash:title=entrypoint.sh
 #!/usr/bin/env bash
 
 set -e
@@ -140,13 +140,13 @@ exec $cmd  # cmd := /django_app/.venv/bin/python manage.py runserver 0.0.0.0:800
 
 コンテナ内で作業するときは,
 
-``` bash
+```bash
 $ docker exec -it django_app bash
 ```
 
 をしているのだけど, パッケージが仮想環境にインストールされているので,
 
-``` bash
+```bash
 $ docker exec -it django_app bash
 root@xxx:/django_app# python manage.py check
 Traceback (most recent call last):
@@ -168,7 +168,7 @@ ImportError: Couldn't import Django. Are you sure it's installed and available o
 
 対策として, .bashrc から自動的に仮想環境をアクティベートするようにする
 
-``` bash:title=/django_app/.bashrc
+```bash:title=/django_app/.bashrc
 #!/bin/bash
 
 if [ "`which python`" != "/django_app/.venv/bin/python" ]; then
@@ -176,13 +176,13 @@ if [ "`which python`" != "/django_app/.venv/bin/python" ]; then
 fi
 ```
 
-``` Dockerfile:title="/django_app/Dockerfile"
+```Dockerfile:title="/django_app/Dockerfile"
 RUN echo "source /django_app/.bashrc" >> /root/.bashrc
 ```
 
 これで,
 
-``` bash
+```bash
 $ docker exec -it django_app bash
 (django_app) root@xxx:/django_app# python manage.py check
 System check identified no issues (0 silenced).
@@ -198,7 +198,7 @@ System check identified no issues (0 silenced).
 
 以下追記です。
 
-## PyCharmがパッケージを読んでくれない
+## PyCharm がパッケージを読んでくれない
 
 詳細はよくわからないんだけど, この方法だと PyCharm の `docker-compose` のコンテナを実行環境にする機能が, 仮想環境の利用を想定してないらしくて, 上手く扱えなかった
 
@@ -206,9 +206,9 @@ System check identified no issues (0 silenced).
 
 - Pipfile がパッケージ取得時に自動更新される
 - scripts に独自コマンドを定義できる
-- 開発用パッケージ(autopep8, mypyとか)を分けて管理できる
+- 開発用パッケージ(autopep8, mypy とか)を分けて管理できる
 
-の3つを `Pipenv` の利点としてあげたけど, この辺はパッケージのインストール/アンインストール用の `bash` 関数を用意して, 上記と同様に `.bashrc` で自動適用することで再現した
+の 3 つを `Pipenv` の利点としてあげたけど, この辺はパッケージのインストール/アンインストール用の `bash` 関数を用意して, 上記と同様に `.bashrc` で自動適用することで再現した
 
 詳細は書かない(別記事では書くかも)けど,
 
@@ -221,4 +221,4 @@ System check identified no issues (0 silenced).
 
 他にも `Pipenv` の `scripts` に書きたいようなものは `.bashrc` に書く形にで落ち着いた
 
-僕の中では, Pipenvは便利だけど, Dockerコンテナを使わないときだけ使うかなーという結論になりました
+僕の中では, Pipenv は便利だけど, Docker コンテナを使わないときだけ使うかなーという結論になりました

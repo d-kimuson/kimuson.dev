@@ -6,7 +6,7 @@ tags:
   - "ブログ"
   - Gatsby
 date: "2020-08-30T22:40:32.169Z"
-thumbnail: 'thumbnails/Gatsby.png'
+thumbnail: "thumbnails/Gatsby.png"
 draft: false
 ---
 
@@ -16,11 +16,11 @@ draft: false
 
 以前のブログは [こちら](https://tech-k-labs.xyz/) です.
 
-SSGである [Hugo](https://gohugo.io/) をベースに構築していました.
+SSG である [Hugo](https://gohugo.io/) をベースに構築していました.
 
-Hugo は, フロントのことはよくわからないけど, テーマ選んで手順踏めば簡単に技術ブログ建てられる！みたいな手軽さがあってとても助かっていたのですが, いかんせんGoやGoのテンプレートエンジン(?)がわからないとカスタマイズができない...みたいなツラミがありました.
+Hugo は, フロントのことはよくわからないけど, テーマ選んで手順踏めば簡単に技術ブログ建てられる！みたいな手軽さがあってとても助かっていたのですが, いかんせん Go や Go のテンプレートエンジン(?)がわからないとカスタマイズができない...みたいなツラミがありました.
 
-あとは, 記事が増えてきて検索機能が欲しいなぁとか, 最近はフロントも触るようになってきたので, 細かいところを自分でカスタマイズしたいなぁと思うようになってきたので, フロントエンドのライブラリをベースにしたSSGへの乗り換えを検討していました.
+あとは, 記事が増えてきて検索機能が欲しいなぁとか, 最近はフロントも触るようになってきたので, 細かいところを自分でカスタマイズしたいなぁと思うようになってきたので, フロントエンドのライブラリをベースにした SSG への乗り換えを検討していました.
 
 選択肢としては,
 
@@ -30,7 +30,7 @@ Hugo は, フロントのことはよくわからないけど, テーマ選ん�
 
 辺りがありましたが, ちょっと Gatsby を触る機会があって, 触ってみたら一目惚れでした...
 
-[React](https://ja.reactjs.org/) がベースなので, Reactのエコシステムを活用できますし, 自前でのカスタマイズもしやすいですし, Webp対応がしやすかったり, ビルドしたサイトは高速で, コテコテのバックエンドが必要ないようなサイトならファーストチョイスになる印象でした.
+[React](https://ja.reactjs.org/) がベースなので, React のエコシステムを活用できますし, 自前でのカスタマイズもしやすいですし, Webp 対応がしやすかったり, ビルドしたサイトは高速で, コテコテのバックエンドが必要ないようなサイトならファーストチョイスになる印象でした.
 
 とても気に入ったので, 勢いでこのブログを作りました！
 
@@ -40,7 +40,7 @@ Hugo は, フロントのことはよくわからないけど, テーマ選ん�
 
 環境は以下の通りです.
 
-``` bash
+```bash
 $ sw_vers
 ProductName:    Mac OS X
 ProductVersion: 10.15.6
@@ -57,11 +57,11 @@ Gatsby version: 2.24.51
 
 自前で一から書いて行くと手間なので, [GitHub - gatsbyjs/gatsby-starter-blog: Gatsby starter for creating a blog](https://github.com/gatsbyjs/gatsby-starter-blog) をベースに作りました.
 
-このスターターには, Markdownファイルを使って技術ブログを構築する際に欲しいようなものが最初からある程度セットアップされています.
+このスターターには, Markdown ファイルを使って技術ブログを構築する際に欲しいようなものが最初からある程度セットアップされています.
 
 以下のコマンドでこのスターターをベースにプロジェクトを始めることができます.
 
-``` bash
+```bash
 $ gatsby new my-blog https://github.com/gatsbyjs/gatsby-starter-blog
 ```
 
@@ -69,23 +69,23 @@ $ gatsby new my-blog https://github.com/gatsbyjs/gatsby-starter-blog
 
 いろいろいじるつもりなので, 開発環境周りもある程度丁寧に作っていきます.
 
-### コンポーネントのTypescript化
+### コンポーネントの Typescript 化
 
-スターターにTypeScript対応のプラグインが最初から組み込まれているので, まずは `*.js` で書かれたコンポーネントを `*.tsx` に置き換えます.
+スターターに TypeScript 対応のプラグインが最初から組み込まれているので, まずは `*.js` で書かれたコンポーネントを `*.tsx` に置き換えます.
 
-各コンポーネントでは, GraphQLから取得したデータに型付けをする必要があって面倒ですが, 自動生成するツールがあるのでそちらを使います.
+各コンポーネントでは, GraphQL から取得したデータに型付けをする必要があって面倒ですが, 自動生成するツールがあるのでそちらを使います.
 
-[GraphQL Code Generator](https://graphql-code-generator.com/) をプラグインとして使えるようにした [gatsby-plugin-graphql-codegen](https://www.gatsbyjs.com/plugins/gatsby-plugin-graphql-codegen/) を利用した記事が多く見られましたが, 導入してみると OnSave のたびに自動生成が回ってホットリロードが止められてしまってDXがとても悪かったので, [GraphQL Code Generator](https://graphql-code-generator.com/) を直接使って, 必要なタイミングで CUI から生成するようにしました.
+[GraphQL Code Generator](https://graphql-code-generator.com/) をプラグインとして使えるようにした [gatsby-plugin-graphql-codegen](https://www.gatsbyjs.com/plugins/gatsby-plugin-graphql-codegen/) を利用した記事が多く見られましたが, 導入してみると OnSave のたびに自動生成が回ってホットリロードが止められてしまって DX がとても悪かったので, [GraphQL Code Generator](https://graphql-code-generator.com/) を直接使って, 必要なタイミングで CUI から生成するようにしました.
 
 まずは必要なパッケージを取得してあげます.
 
-``` typescript
+```typescript
 $ yarn add -D @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-operations
 ```
 
-CLIから型定義ファイルを自動生成するためには, `codegen.yml` を設置する必要があります.
+CLI から型定義ファイルを自動生成するためには, `codegen.yml` を設置する必要があります.
 
-``` yml:title=codegen.yml
+```yml:title=codegen.yml
 overwrite: true
 schema: "http://localhost:8000/__graphql"
 documents:
@@ -100,7 +100,7 @@ generates:
 
 これで,
 
-``` bash
+```bash
 $ yarn run graphql-codegen --config codegen.yml
 ```
 
@@ -108,7 +108,7 @@ $ yarn run graphql-codegen --config codegen.yml
 
 少し長いので, `package.json` にスクリプトのエイリアスを貼っておくと良いかもしれません.
 
-``` json:title=package.json
+```json:title=package.json
 {
   ...
   "scripts": {
@@ -120,7 +120,7 @@ $ yarn run graphql-codegen --config codegen.yml
 
 ---
 
-コンポーネント以外に, Gatsbyのコアになる
+コンポーネント以外に, Gatsby のコアになる
 
 - gatsby-config.js
 - gatsby-node.js
@@ -128,13 +128,13 @@ $ yarn run graphql-codegen --config codegen.yml
 
 辺りも TypeScript に置き換える余地はありますが, 結構手間ですし, 置き換えるメリットをあまり感じないのでここはそのままで行きます.
 
-### CSS周りの設定
+### CSS 周りの設定
 
-まず前提として, このブログは自由にカスタマイズしたいことと, CSSの経験が少ないので実際に書く場が欲しいなと思っていたので, UIフレームワークは使いません.
+まず前提として, このブログは自由にカスタマイズしたいことと, CSS の経験が少ないので実際に書く場が欲しいなと思っていたので, UI フレームワークは使いません.
 
-Reactでのスタイリングには,
+React でのスタイリングには,
 
-- 通常のCSS/SASSを読み込む
+- 通常の CSS/SASS を読み込む
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - CSS in JS
   - [Styled Components](https://github.com/styled-components/styled-components)
@@ -142,26 +142,26 @@ Reactでのスタイリングには,
 
 辺りの選択肢があります.
 
-Styled Components を始めとした `CSS in JS` は, スタイルに関することはCSSに責務をわけてるのに, JSに統合しようって考え方自体が個人的にあまり好きはなく,
+Styled Components を始めとした `CSS in JS` は, スタイルに関することは CSS に責務をわけてるのに, JS に統合しようって考え方自体が個人的にあまり好きはなく,
 
-CSSでJSの値が必要な場面自体あまりない気がしますし, 必要なときはインラインスタイルを使うってやり方が一番しっくりくるので, 今回は不採用としました.
+CSS で JS の値が必要な場面自体あまりない気がしますし, 必要なときはインラインスタイルを使うってやり方が一番しっくりくるので, 今回は不採用としました.
 
 また, styled-components は人気のようですが, パフォーマンス的な問題もあるようです.
 
 **参考**
 
-- [CSS-in-JSパフォーマンスコスト - 緩和戦略](https://www.infoq.com/jp/news/2020/01/css-cssinjs-performance-cost/)
-- [Webサイト開発にCSS in JavaScriptを使うのはやめよう | POSTD](https://postd.cc/stop-using-css-in-javascript-for-web-development-fa/)
+- [CSS-in-JS パフォーマンスコスト - 緩和戦略](https://www.infoq.com/jp/news/2020/01/css-cssinjs-performance-cost/)
+- [Web サイト開発に CSS in JavaScript を使うのはやめよう | POSTD](https://postd.cc/stop-using-css-in-javascript-for-web-development-fa/)
 
-ただ, 名前空間に関しては機械的なアプローチが欲しいので, コンポーネントのスタイルに関してはCSS Modulesを使って, それ以外は通常のCSSって感じで運用してみます.
+ただ, 名前空間に関しては機械的なアプローチが欲しいので, コンポーネントのスタイルに関しては CSS Modules を使って, それ以外は通常の CSS って感じで運用してみます.
 
-[gatsby-plugin-sass \| Gatsby](https://www.gatsbyjs.com/plugins/gatsby-plugin-sass/) でSASSを読み込みます, SASSの実装は, [dart-sass](https://github.com/sass/dart-sass) を使います.
+[gatsby-plugin-sass \| Gatsby](https://www.gatsbyjs.com/plugins/gatsby-plugin-sass/) で SASS を読み込みます, SASS の実装は, [dart-sass](https://github.com/sass/dart-sass) を使います.
 
-``` bash
+```bash
 $ yarn add -D gatsby-plugin-sass sass postcss autoprefixer postcss-flexbugs-fixes cssnano
 ```
 
-``` js:title=gatsby-config.js
+```js:title=gatsby-config.js
 module.exports = {
   ...
   plugins: [
@@ -186,22 +186,22 @@ module.exports = {
 }
 ```
 
-PostCSSに関しては, `postCssPlugins` にプラグインをさせば良いだけなので, 簡単でした！わーい
+PostCSS に関しては, `postCssPlugins` にプラグインをさせば良いだけなので, 簡単でした！わーい
 
-ちなみに, CSS Modules は型宣言を生成してくれないので, import文で怒られます.
+ちなみに, CSS Modules は型宣言を生成してくれないので, import 文で怒られます.
 
-[TypeScript + React JSX + CSS Modules で実現するタイプセーフなWeb開発 - Qiita](https://qiita.com/Quramy/items/a5d8967cdbd1b8575130)
+[TypeScript + React JSX + CSS Modules で実現するタイプセーフな Web 開発 - Qiita](https://qiita.com/Quramy/items/a5d8967cdbd1b8575130)
 
-等の記事のように型定義ファイルの自動生成などの手法もあるようですが, もともとTypeScript自体もBabelでトランスパイルしているだけですし, そこまで厳格にすることもないかなってことで今回はとりあえず型チェックを無視することで解決します.
+等の記事のように型定義ファイルの自動生成などの手法もあるようですが, もともと TypeScript 自体も Babel でトランスパイルしているだけですし, そこまで厳格にすることもないかなってことで今回はとりあえず型チェックを無視することで解決します.
 
-``` typescript
+```typescript
 // @ts-ignore
 import styles from "./layout.module.scss"
 ```
 
 eslint で extend している構成によっては `ts-ignore` が怒られてしまうので, ルールセットを上書きしてあげる必要があります.
 
-``` javascript:title=.eslintrc.js
+```javascript:title=.eslintrc.js
 module.exports = {
   ...
   rules: {
@@ -222,7 +222,7 @@ Linter は, オーソドックスに
 
 を使うことにしました.
 
-``` js:title=gatsby-config.js
+```js:title=gatsby-config.js
 module.exports = {
   ...
   plugins: [
@@ -256,16 +256,16 @@ module.exports = {
 }
 ```
 
-VSCodeで整形するみたいな記事がとても多くHitしますが, 個人的にエディタに依存するのが嫌なので, 開発サーバーに整形してもらうようにしてます.
+VSCode で整形するみたいな記事がとても多く Hit しますが, 個人的にエディタに依存するのが嫌なので, 開発サーバーに整形してもらうようにしてます.
 
 **※ 追記**
 
-- 開発サーバーに整形させても, VSCodeがもう一度Saveするまで怒るのをやめてくれない(つまり, 保存を毎回2度実行する必要がある)
+- 開発サーバーに整形させても, VSCode がもう一度 Save するまで怒るのをやめてくれない(つまり, 保存を毎回 2 度実行する必要がある)
 - 定期的に, かつ結構高い頻度で開発サーバーが止まる
 
-辺りのDXが悪いんで, 結局 VSCode 側で整形するようにしました.
+辺りの DX が悪いんで, 結局 VSCode 側で整形するようにしました.
 
-``` js:title=gatsby-config.js
+```js:title=gatsby-config.js
 module.exports = {
   ...
   plugins: [
@@ -293,7 +293,7 @@ module.exports = {
 
 vscode の共有設定も一応書いておきます.
 
-``` json:title=.vscode/extensions.json
+```json:title=.vscode/extensions.json
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
@@ -302,7 +302,7 @@ vscode の共有設定も一応書いておきます.
 }
 ```
 
-``` json:title=.vscode/settings.json
+```json:title=.vscode/settings.json
 {
   "files.associations": {
     "*.tsx": "typescriptreact",
@@ -338,9 +338,9 @@ vscode の共有設定も一応書いておきます.
 
 ### 名前解決のためにエイリアスを使う
 
-名前解決用のエイリアスは, `tsconfig.json` の `paths` を使います(Webpackに挿しても良いですが, typescript で名前解決できてないよってVSCodeが怒ってきてうざいです).
+名前解決用のエイリアスは, `tsconfig.json` の `paths` を使います(Webpack に挿しても良いですが, typescript で名前解決できてないよって VSCode が怒ってきてうざいです).
 
-``` json:title=tsconfig.json
+```json:title=tsconfig.json
 {
   "compilerOptions": {
     ...
@@ -357,9 +357,9 @@ vscode の共有設定も一応書いておきます.
 }
 ```
 
-当然これらは, TypeScript ファイルであることが前提であり, SCSSの名前解決で使うときには使えませんので `gatsby-node.js` から Webpack のエイリアスを噛ませてあげます.
+当然これらは, TypeScript ファイルであることが前提であり, SCSS の名前解決で使うときには使えませんので `gatsby-node.js` から Webpack のエイリアスを噛ませてあげます.
 
-``` js:title=gatsby-node.js
+```js:title=gatsby-node.js
 const path = require(`path`)
 
 exports.onCreateWebpackConfig = ({ actions }) => {
@@ -383,7 +383,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 
 スターターには, カテゴリ&タグ&公開/非公開設定がなかったので, この辺を追加してあげました.
 
-``` markdown
+```markdown
 ---
 title: マークダウンチートシート
 description: マークダウンのチートシートです。
@@ -392,7 +392,7 @@ tags:
   - Markdown
   - Blog
 date: "2015-05-28T22:40:32.169Z"
-thumbnail: 'thumbnails/blog.png'
+thumbnail: "thumbnails/blog.png"
 draft: true
 ---
 
@@ -401,9 +401,9 @@ draft: true
 
 こんな感じです.
 
-サムネイル画像をFrontmatterから取得するのには少し詰まりました.
+サムネイル画像を Frontmatter から取得するのには少し詰まりました.
 
-``` graphql
+```graphql
 allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
   edges {
     node {
@@ -439,7 +439,7 @@ gataby-image を使うために, こんな感じで GraphQL から画像を取�
 
 辺りはしておきたかったので, 少しいじりました.
 
-``` js:title=gatsby-config.js
+```js:title=gatsby-config.js
 {
   resolve: `gatsby-transformer-remark`,
   options: {
@@ -479,9 +479,9 @@ gataby-image を使うために, こんな感じで GraphQL から画像を取�
 }
 ```
 
-いろいろと痒いところに手が届いていなかったので, CSSを書いて上書きしてあげました.
+いろいろと痒いところに手が届いていなかったので, CSS を書いて上書きしてあげました.
 
-``` scss:title=src/global-styles/styles/_markdown.scss
+```scss:title=src/global-styles/styles/_markdown.scss
 @use "sass:color";
 @use "../global/" as g;
 @import "~prismjs/themes/prism-okaidia";
@@ -573,11 +573,11 @@ $-copy-toaster-height: 100px;
 
 ### 記事検索
 
-今の Hugo ベースのブログでは, 記事数が100件近くなってきていて, ｢これ前詰まって記事書いた気がする！どこだっけ?｣ みたいなときに, 探すのに苦労することが多々ありました(T_T)
+今の Hugo ベースのブログでは, 記事数が 100 件近くなってきていて, ｢これ前詰まって記事書いた気がする！どこだっけ?｣ みたいなときに, 探すのに苦労することが多々ありました(T_T)
 
 ですので, 今回は最初から記事検索をできるようにしておきたいと思います.
 
-Gatsbyで記事検索となると, 検索機能が SaaS として提供される [Algolia](https://www.algolia.com/) を利用した例が多いようでしたが,
+Gatsby で記事検索となると, 検索機能が SaaS として提供される [Algolia](https://www.algolia.com/) を利用した例が多いようでしたが,
 
 - 従量課金制であること(収益化目的でないブログなので, 回収できないお金をかけたくない)
 - 本文ではなく, 記事タイトルから部分検索ができれば必要十分なので, オーバースペック
@@ -585,9 +585,9 @@ Gatsbyで記事検索となると, 検索機能が SaaS として提供される
 
 等の理由から, 採用しませんでした.
 
-Gatsbyでは, GraphQLスキーマを用いることで任意のコンポーネントから任意のコンテンツにアクセスできますので, 検索自体は比較的簡単に実装できます.
+Gatsby では, GraphQL スキーマを用いることで任意のコンポーネントから任意のコンテンツにアクセスできますので, 検索自体は比較的簡単に実装できます.
 
-``` tsx:title=src/components/layout/search.tsx
+```tsx:title=src/components/layout/search.tsx
 import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Fuse from "fuse.js"
@@ -674,11 +674,11 @@ export default Search
 
 ### 目次をつける
 
-[Qiita](https://qiita.com/) の目次UIがいつもわかりやすくていいなぁと思っていたので, ほぼ同じ感じで実装しました.
+[Qiita](https://qiita.com/) の目次 UI がいつもわかりやすくていいなぁと思っていたので, ほぼ同じ感じで実装しました.
 
 目次は, スターターの時点から `markdownReamrk.tableOfContents` に入っていたのでこれを直接貼れば良さそうだったのですが, [gatsby-link](https://www.gatsbyjs.com/docs/gatsby-link/) で設置したかったので, 自前で実装しました.
 
-``` tsx:title=src/content/sidebar/toc.tsx
+```tsx:title=src/content/sidebar/toc.tsx
 import React from "react"
 import { Link } from "gatsby"
 
@@ -736,35 +736,35 @@ export default Toc
 
 デフォルトだと, Heading に id 付与がされてないので, `gatsby-transformer-remark` のプラグインに [gatsby-remark-autolink-headers](https://www.gatsbyjs.com/plugins/gatsby-remark-autolink-headers/) を追加しておくか,
 
-記事のHTML展開を `rehypeReact` に任せて自前で付与(参考: [GatsbyJS rehypeReactでマークダウンの内容を変更する](https://ichinari.work/JavaScript_GatsbyJS_Markdown_20190711))してあげる必要があります.
+記事の HTML 展開を `rehypeReact` に任せて自前で付与(参考: [GatsbyJS rehypeReact でマークダウンの内容を変更する](https://ichinari.work/JavaScript_GatsbyJS_Markdown_20190711))してあげる必要があります.
 
 ### その他に追加しているプラグイン
 
 紹介した以外に以下のプラグインを使っています.
 
-| plugin                         | 用途                                                   |
-| :----------------------------- | :----------------------------------------------------- |
-| gatsby-plugin-remove-console   | 本番環境での `console.log` の除去                      |
-| gatsby-plugin-google-analytics | Google Analytics によるアクセス解析                    |
-| gatsby-plugin-next-seo         | より詳細なSEO設定(ページ毎の title, description, etc ) |
-| gatsby-plugin-sitemap          | sitemap.xml の自動生成                                 |
-| gatsby-plugin-robots-txt       | robots.txt の自動生成                                  |
+| plugin                         | 用途                                                     |
+| :----------------------------- | :------------------------------------------------------- |
+| gatsby-plugin-remove-console   | 本番環境での `console.log` の除去                        |
+| gatsby-plugin-google-analytics | Google Analytics によるアクセス解析                      |
+| gatsby-plugin-next-seo         | より詳細な SEO 設定(ページ毎の title, description, etc ) |
+| gatsby-plugin-sitemap          | sitemap.xml の自動生成                                   |
+| gatsby-plugin-robots-txt       | robots.txt の自動生成                                    |
 
 ## Netlify にデプロイする
 
 このブログは [Netlify](https://www.netlify.com/) にデプロイしています.
 
-SSGなので, DBやアプリケーションサーバーを用意する必要がなく, 結果的にコスト面がかなり抑えられるのでありがたいです.
+SSG なので, DB やアプリケーションサーバーを用意する必要がなく, 結果的にコスト面がかなり抑えられるのでありがたいです.
 
 実際このブログも独自ドメイン代しかかかってないです.
 
 詳細なビルド方法には触れませんが, なにか特殊なことをする必要はありません.
 
-`public` ディレクトリに完成品がビルドされるので, ローカルでビルドしたものをあげるなり, リポジトリと連携してリモートでビルドするなり, 基本的なNetlifyのやり方に従えばOKです.
+`public` ディレクトリに完成品がビルドされるので, ローカルでビルドしたものをあげるなり, リポジトリと連携してリモートでビルドするなり, 基本的な Netlify のやり方に従えば OK です.
 
 ### ビルドでもキャッシュを使う
 
-Gatsbyでは, ビルド時間が長くなりがちで `.cache` ディレクトリにキャッシュを置いて改善していますが, リモートでビルドすると, 当然毎回コンテナを立ち上げているのでキャッシュが利用できません.
+Gatsby では, ビルド時間が長くなりがちで `.cache` ディレクトリにキャッシュを置いて改善していますが, リモートでビルドすると, 当然毎回コンテナを立ち上げているのでキャッシュが利用できません.
 
 つまり毎回のビルドにめちゃくちゃ時間がかかります.
 
@@ -773,25 +773,25 @@ Gatsbyでは, ビルド時間が長くなりがちで `.cache` ディレクト�
 
 変更の内容によっては, キャッシュの影響で反映されないときがあるので, そういうときだけキャッシュを使わずにビルドしてあげます.
 
-### 独自ドメインとDNS設定
+### 独自ドメインと DNS 設定
 
 ドメインは, [Google Domains](https://domains.google/intl/ja_jp/) から取得しました.
 
-以前はお名前ドットコムを使っていたのですが, 管理サイトの使いにくさと大量のメール通知にうんざりしていたので乗り換えました(めっちゃ快適です😭 😭 😭 ).
+以前はお名前ドットコムを使っていたのですが, 管理サイトの使いにくさと大量のメール通知にうんざりしていたので乗り換えました(めっちゃ快適です 😭 😭 😭 ).
 
 名前解決には, Google Domains の DNS を使う方法と, Netlify DNS を使う方法があります.
 
-素直にAレコード置いている例をよく見ますが, Netlify DNS は自動的に CDN が使えるらしいです.
+素直に A レコード置いている例をよく見ますが, Netlify DNS は自動的に CDN が使えるらしいです.
 
 > Netlify offers the option to handle DNS management for you. This enables advanced subdomain automation and deployment features, and ensures that your site uses our CDN for the apex domain as well as subdomains like www.
 
 あえて使わない理由もないので, ありがたく恩恵に授かることにしました.
 
-あるいは, 個人規模のものなら無料プランでCDNを設置できる
+あるいは, 個人規模のものなら無料プランで CDN を設置できる
 [Cloudflare CDN |コンテンツ配信ネットワーク | Cloudflare ](https://www.cloudflare.com/ja-jp/cdn/)
 等の選択肢もあると思います.
 
-SSL化については, Netlify側で自動で設定してくれるので, 特に気にすることはありません.
+SSL 化については, Netlify 側で自動で設定してくれるので, 特に気にすることはありません.
 
 ## 終わりに
 
@@ -799,22 +799,22 @@ SSL化については, Netlify側で自動で設定してくれるので, 特に
 
 サイトの [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=ja) スコアも良好で,
 
-|   ページ   | Performance | Best Precties |  SEO  |
-| :--------: | :---------: | :-----------: | :---: |
-| 以前のTOP  |     20      |      85       |  71   | 92  |
-| 以前の記事 |     23      |      78       |  86   | 91  |
-| 今回のTOP  |     91      |      100      |  100  | 100 |
-| 今回の記事 |     96      |      98       |  100  | 100 |
+|   ページ   | Performance | Best Precties | SEO |
+| :--------: | :---------: | :-----------: | :-: | --- |
+| 以前の TOP |     20      |      85       | 71  | 92  |
+| 以前の記事 |     23      |      78       | 86  | 91  |
+| 今回の TOP |     91      |      100      | 100 | 100 |
+| 今回の記事 |     96      |      98       | 100 | 100 |
 
 こんな感じになりました.
 
 気になってるところは, 機能メインで作っていってしまったのとセンスの問題でまだだいぶちゃっちいことと, 記事のビルドに結構時間がかかるので, 記事を書く体験が若干悪いところでしょうか.
 
-せっかくならリアルタイムでブログにどう反映されるか見ながらかけると嬉しいんですけど, ホットリロードに1~2秒の間があるので少しそこがストレスです.
+せっかくならリアルタイムでブログにどう反映されるか見ながらかけると嬉しいんですけど, ホットリロードに 1~2 秒の間があるので少しそこがストレスです.
 
 少しずつ直していこうと思います.
 
 ## 参考にさせて頂きました
 
 - [Gatsby + TypeScript で技術ブログを書くための知見](https://blog.ojisan.io/1st-blog-stack)
-- [Gatsby × TypeScriptでGraphQL Code Generatorを使うと幸せになれる | Kumasan](https://kumaaaaa.com/gatsby-graphql-code-generator/)
+- [Gatsby × TypeScript で GraphQL Code Generator を使うと幸せになれる | Kumasan](https://kumaaaaa.com/gatsby-graphql-code-generator/)

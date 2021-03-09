@@ -13,7 +13,7 @@ draft: false
 
 `Django` アプリの作成の途中(たぶんマイグレーション済み?)で､ ベーシックユーザーからカスタムユーザーに変更すると、マイグレーションに失敗します｡
 
-``` bash
+```bash
 $ python manage.py makemigrations
 django.db.migrations.exceptions.InconsistentMigrationHistory: Migration admin.0001_initial is applied before its dependency user.0001_initial on database 'default'.
 ```
@@ -24,7 +24,7 @@ django.db.migrations.exceptions.InconsistentMigrationHistory: Migration admin.00
 
 ### config/settings.py
 
-``` python
+```python
 INSTALLED_APPS = [
     # 'django.contrib.admin',
     ...
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
 
 ### config/urls.py
 
-``` python
+```python
 urlpatterns = [
     # path('admin/', admin.site.urls),
     ...
@@ -42,7 +42,7 @@ urlpatterns = [
 
 この状態でマイグレーションしてあげます｡
 
-``` bash
+```bash
 $ python manage.py migrate
 Operations to perform:
   Apply all migrations: auth, contenttypes, sessions, user
@@ -60,7 +60,7 @@ Running migrations:
 
 公式ドキュメントの [Customizing authentication in Django # Changing to a custom user model mid-project | Django documentation | Django](https://docs.djangoproject.com/en/3.1/topics/auth/customizing/#changing-to-a-custom-user-model-mid-project) が参考になるかもしれません｡
 
-``` python:title=models.py
+```python:title=models.py
 class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         swappable = 'AUTH_USER_MODEL'
@@ -69,7 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 `class Meta` に､ `swappable` オプションをしてマイグレーションします｡
 
-``` bash
+```bash
 $ dj migrate
 SystemCheckError: System check identified some issues:
 

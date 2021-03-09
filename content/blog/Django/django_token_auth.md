@@ -17,7 +17,7 @@ Django REST framework でトークン認証をするメモ
 
 まずは, `INSTALLED_APPS` に `rest_framework.authtoken` を追加しておく
 
-``` python:settings.py
+```python:settings.py
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,15 +40,15 @@ REST_FRAMEWORK = {
 
 これでトークン用モデルが定義されたので、マイグレーションを実行する
 
-``` bash
+```bash
 $ python manage.py makemigrations && python manage.py migrate
 ```
 
-## トークンを取得するAPIエンドポイントの作成
+## トークンを取得する API エンドポイントの作成
 
 `rest_framework.authtoken` にトークン取得用の view が定義されているのでルーティングをつけてあげる
 
-``` python
+```python
 import rest_framework.authtoken.views as auth_views
 
 
@@ -61,9 +61,9 @@ urlpatterns = [
 
 ## トークンの作成
 
-引数に User モデルのインスタンスを渡して、普通に作ればOK
+引数に User モデルのインスタンスを渡して、普通に作れば OK
 
-``` python
+```python
 from rest_framework.authtoken.models import Token
 
 Token.objects.create(
@@ -79,7 +79,7 @@ Token.objects.create(
 
 トークン認証に使うユーザーモデルは, `settings.py` で
 
-``` python
+```python
 # config/settings.py
 AUTH_USER_MODEL = 'api.User'
 ```
@@ -90,11 +90,23 @@ AUTH_USER_MODEL = 'api.User'
 
 **カスタムユーザーモデル**
 
-``` python:models.py
+```python:models.py
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
+from typing import Any, Optional
+
+from django.conf import settings
+
+
+# ユーザーを作成した後に実行される
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender: str, instance: Optional['User'] = None, created: bool = False, **kwargs: Any) -> None:
+    if created and instance is not None:
+        # トークンの作成と紐付け
+        Token.objects.create(user=instance)
 
 
 class UserManager(BaseUserManager):
@@ -139,7 +151,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 あとは普通に、`serializer` と `view` とルーティングを書く
 
-``` python:serializers.py
+```python:serializers.py
 from api.models import User
 
 
@@ -158,7 +170,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
 ```
 
-``` python:views.py
+```python:views.py
 from api.serializers import UserSerializer
 
 
@@ -167,7 +179,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 ```
 
-``` python:urls.py
+```python:urls.py
 from rest_framework import routers
 from .views import UserViewSet
 
@@ -179,13 +191,13 @@ router.register('users', UserViewSet)
 
 マイグレーションすれば、
 
-``` bash
+```bash
 $ python manage.py makemigrations && python manage.py migrate
 ```
 
 また、既存のユーザーには
 
-``` bash
+```bash
 $ python manage.py shell
 In [1]: from api.models import User
 In [2]: from rest_framework.authtoken.models import Token
@@ -202,9 +214,9 @@ In [3]: for user in User.objects.all():
 
 ## トークンの取得
 
-開発サーバーを建てた状態で, [httpie](https://httpie.org/) でAPIを叩いてみる
+開発サーバーを建てた状態で, [httpie](https://httpie.org/) で API を叩いてみる
 
-``` bash
+```bash
 $ http POST http://127.0.0.1:8000/api-token-auth/ username=hoge@example.com password=hoge
 HTTP/1.1 200 OK
 Allow: POST, OPTIONS
@@ -221,9 +233,9 @@ X-Frame-Options: DENY
 }
 ```
 
-ここで、`username` は、Userモデルにて `USERNAME_FIELD` に規定したもの
+ここで、`username` は、User モデルにて `USERNAME_FIELD` に規定したもの
 
-``` python
+```python
 class User(AbstractBaseUser, PermissionsMixin):
     ...
     USERNAME_FIELD = 'email'
@@ -234,7 +246,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 まだトークン認証はできるようになったが、各エンドポイントには認証なしでアクセスできるという状態なので、パーミッションクラスを書き換えておく
 
-``` python:settings.py
+```python:settings.py
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -246,13 +258,13 @@ REST_FRAMEWORK = {
 }
 ```
 
-基本的にはトークン認証だけで良いが、DRFでは各エンドポイントにアクセスしたときにAPIリファレンス(っぽいもの)が見れるので、セッションベースの認証を追加しておくとフロントエンド開発がしやすい(APIの各エンドポイントをブラウザで叩くことで実際のレスポンスが見られる)
+基本的にはトークン認証だけで良いが、DRF では各エンドポイントにアクセスしたときに API リファレンス(っぽいもの)が見れるので、セッションベースの認証を追加しておくとフロントエンド開発がしやすい(API の各エンドポイントをブラウザで叩くことで実際のレスポンスが見られる)
 
 これで, 全ての `view` のパーミッションがデフォルトが認証済みユーザー指定になった
 
 認証いらずの `View` は、
 
-``` python
+```python
 from rest_framework.permissions import AllowAny
 
 

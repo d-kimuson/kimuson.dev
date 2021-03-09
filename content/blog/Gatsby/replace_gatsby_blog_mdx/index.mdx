@@ -16,15 +16,15 @@ draft: false
 
 まず、Mdx を使うことで記事ファイル中に React のコンポーネントを埋め込めます
 
-``` mdx
+```mdx
 import { TagList } from "@components/molecules/tag-list.tsx"
 
-<TagList tags={[`Gatsby`, `ブログ`, ]} isLink />
+<TagList tags={[`Gatsby`, `ブログ`]} isLink />
 ```
 
 import { TagList } from "@mdx"
 
-<TagList tags={[`Gatsby`, `ブログ`, ]} isLink />
+<TagList tags={[`Gatsby`, `ブログ`]} isLink />
 
 こんな感じです
 
@@ -48,12 +48,12 @@ import { TagList } from "@mdx"
 
 公式のガイド通り `gatsby-transformer-remark` と `gatsby-plugin-feed` を置き換えます
 
-``` bash
+```bash
 $ yarn add gatsby-plugin-mdx gatsby-plugin-feed-mdx @mdx-js/mdx @mdx-js/react
 $ yarn remove gatsby-transformer-remark gatsby-plugin-feed
 ```
 
-``` diff:gatsby-config.js
+```diff:gatsby-config.js
 {
 -  resolve: `gatsby-transformer-remark`,
 +  resolve: `gatsby-plugin-mdx`,
@@ -96,7 +96,7 @@ $ yarn remove gatsby-transformer-remark gatsby-plugin-feed
 
 以下は僕の投稿用テンプレートの例です
 
-``` diff:blog-post.tsx
+```diff:blog-post.tsx
 // ...
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
@@ -140,7 +140,7 @@ export const pageQuery = graphql`
 
 あとは、記事データの展開部分を `MDXRenderer` に置き換えてあげれば完了です
 
-``` diff:tsx
+```diff:tsx
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 - <div dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -153,13 +153,13 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 
 以下のように、ファイルを設置します
 
-``` ts:gatsby-browser.ts
+```ts:gatsby-browser.ts
 import { wrapRootElement as wrap } from "path/to/mdx-root"
 
 export const wrapRootElement = wrap
 ```
 
-``` tsx:mdx-root.tsx
+```tsx:mdx-root.tsx
 import React, { ReactNode } from "react"
 import { MDXProvider, MDXProviderComponents } from "@mdx-js/react"
 
@@ -176,9 +176,9 @@ export const wrapRootElement = ({
 
 これで、`components` に タグ => 置き換え先コンポーネントって感じで任意のタグをカスタマイズできます
 
-例えば、見出し2の要素に id (ページ内リンク) を付与したい場合は、
+例えば、見出し 2 の要素に id (ページ内リンク) を付与したい場合は、
 
-``` tsx:mdx-root.tsx
+```tsx:mdx-root.tsx
 // ...
 const toValidSlug = (baseString: string): string => {
   return baseString.replace(new RegExp(` `, `g`), `_`).toLowerCase()
@@ -209,7 +209,7 @@ Mdx への置き換えに伴って、[gatsby-remark-prismjs](https://www.gatsbyj
 
 代わりに [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) を使ってます
 
-元々、`gatsby-remark-prismjs` には不満が結構大きくて、[Gatsbyで技術ブログを作る際の知見 # コードブロックのカスタマイズ | きむそん.dev](blog/gatsby/gatsby-blog/#%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA)
+元々、`gatsby-remark-prismjs` には不満が結構大きくて、[Gatsby で技術ブログを作る際の知見 # コードブロックのカスタマイズ | きむそん.dev](blog/gatsby/gatsby-blog/#%E3%82%B3%E3%83%BC%E3%83%89%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA)
 にも書いたんですけど、プラグインを指しつつ、スタイルを無理やり上書きしてカスタマイズするみたいな感じでした
 
 あとデフォルトでコードブロックが親要素を飛び出してしまう問題があったりとか、結構面倒だった記憶があります
@@ -222,7 +222,7 @@ Mdx への置き換えに伴って、[gatsby-remark-prismjs](https://www.gatsbyj
 
 `mdx` でコードブロックを書くと `pre` タグの中に展開されるので、ここを `prism-react-renderer` でハイライトしてあげます
 
-``` tsx:mdx-root.tsx
+```tsx:mdx-root.tsx
 import { MDXProvider, MDXProviderComponents } from "@mdx-js/react"
 import Pre from "path/to/pre"
 
@@ -239,7 +239,7 @@ const components: MDXProviderComponents = {
 
 `props` から、コードブロックのメタ情報(コード情報、言語等)を取り出すためにパッケージを追加します
 
-``` bash
+```bash
 $ yarn add mdx-utils
 ```
 
@@ -247,7 +247,7 @@ $ yarn add mdx-utils
 
 [mdx-utils](https://github.com/frontarm/mdx-util) には型ファイルがないみたいなので、最低限のものだけ準備しました
 
-``` ts:vendor.d.ts
+```ts:vendor.d.ts
 declare module "mdx-utils" {
   interface ChildrenPropsBase {
     mdxType: `code`
@@ -274,13 +274,13 @@ declare module "mdx-utils" {
 
 `mdx-utils.preToCodeBlock` を使うことで、メタ情報を抜き出して、`prism-react-render` を使ってハイライトします
 
-``` bash
+```bash
 $ yarn add prism-react-renderer
 ```
 
 ハイライト部分はほぼ [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) のサンプルそのままです
 
-``` tsx:pre.tsx
+```tsx:pre.tsx
 import React from "react"
 import Highlight, { defaultProps, Language } from "prism-react-renderer"
 import dracula from "prism-react-renderer/themes/dracula"

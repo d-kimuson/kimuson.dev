@@ -18,19 +18,19 @@ draft: false
 
 こちらの記事で紹介されているように、ESLint でのプラグイン系が非推奨になったそうです。てことで、今後は config 系で競合ルールだけ無効にして、それぞれコード修正を走らせることになります。
 
-で、CLIに関してはそれぞれのCLIで走らせれば良いのですが、VSCode でのファイル保存時修正もそれぞれのプラグインで走らせないといけなくて、その辺の設定を試したので紹介します。
+で、CLI に関してはそれぞれの CLI で走らせれば良いのですが、VSCode でのファイル保存時修正もそれぞれのプラグインで走らせないといけなくて、その辺の設定を試したので紹介します。
 
 ## ESLint と stylelint の設定
 
 まずは、最小限の ESLint と styelint 環境だけ用意します
 
-``` bash
+```bash
 $ yarn add -D eslint stylelint prettier eslint-config-prettier stylelint-config-prettier npm-run-all
 ```
 
 それぞれ `{linter}-config-prettier` で競合ルールのみ無効にします
 
-``` js:.eslintrc.js
+```js:.eslintrc.js
 module.exports = {
   extends: [
     "eslint:recommended",
@@ -39,7 +39,7 @@ module.exports = {
 }
 ```
 
-``` js:.stylelintrc.js
+```js:.stylelintrc.js
 module.exports = {
   extends: [
     "stylelint-config-recommended",
@@ -52,7 +52,7 @@ module.exports = {
 
 CLI からは、
 
-``` json:package.json
+```json:package.json
 {
   "scripts": {
     // ...
@@ -78,7 +78,7 @@ CLI からは、
 
 ESLint, stylelint は `source.fixAll.{linter}` で有効にします
 
-``` json:.vscode/settings.json
+```json:.vscode/settings.json
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
@@ -89,7 +89,7 @@ ESLint, stylelint は `source.fixAll.{linter}` で有効にします
 
 prettier は、`editor.formatOnsave`, `editor.defaultFormatter` 設定を各言語に適用することで有効にします
 
-``` json:.vscode/settings.json
+```json:.vscode/settings.json
 {
   "editor.formatOnSave": false,
   "[javascript]": {
@@ -101,7 +101,7 @@ prettier は、`editor.formatOnsave`, `editor.defaultFormatter` 設定を各言�
 
 まとめると、
 
-``` json:.vscode/settings.json
+```json:.vscode/settings.json
 {
   // ESLint
   "eslint.workingDirectories": ["./"],
@@ -140,9 +140,9 @@ prettier は、`editor.formatOnsave`, `editor.defaultFormatter` 設定を各言�
 
 これで、それぞれのプラグインで OnSave の修正が周ります。
 
-`editor.defaultFormatter` は言語毎に設定する必要があるみたいで、Reactとか、TypeScriptとか、SCSSとか色々使うってなるとめちゃくちゃ長くなります。
+`editor.defaultFormatter` は言語毎に設定する必要があるみたいで、React とか、TypeScript とか、SCSS とか色々使うってなるとめちゃくちゃ長くなります。
 
-``` json
+```json
 {
   "[json]": {
     "editor.formatOnSave": true,

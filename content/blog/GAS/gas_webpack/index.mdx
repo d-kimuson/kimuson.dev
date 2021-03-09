@@ -20,13 +20,13 @@ Google Apps Script(以下、GAS)は、手軽に色々できて便利なんです
 
 って感じにはできますが、ファイルを跨いだインポートができません。これがまじで致命的で。
 
-外部のパッケージを使えないのはまだ良いとしても、複数のGASプロジェクトを跨いだ部品の共通化とかもできません。
+外部のパッケージを使えないのはまだ良いとしても、複数の GAS プロジェクトを跨いだ部品の共通化とかもできません。
 
 例えば、Slack に通知するなら Slack クライアントは共通部品になるけど、そういうのもプロジェクト毎に書かないといけないわけです。
 
-一応ライブラリっていう他のプロジェクトの関数を利用できる機能はあるんですが、GASからポチポチするとグローバルの名前空間にライブラリの関数が追加される形なので、あまり好ましくないです。
+一応ライブラリっていう他のプロジェクトの関数を利用できる機能はあるんですが、GAS からポチポチするとグローバルの名前空間にライブラリの関数が追加される形なので、あまり好ましくないです。
 
-でまあ、『ブラウザ版JSにモジュールがないから無理矢理バンドルしちゃえ！』って webpack のアプローチがこっちでもできるので、やっていきます
+でまあ、『ブラウザ版 JS にモジュールがないから無理矢理バンドルしちゃえ！』って webpack のアプローチがこっちでもできるので、やっていきます
 
 Node 依存の実装を使ってないライブラリなら外部パッケージも利用できます。
 
@@ -34,7 +34,7 @@ Node 依存の実装を使ってないライブラリなら外部パッケージ
 
 ディレクトリ構成はこんな感じです
 
-``` bash
+```bash
 $ tree . -L 3 -I node_modules
 .
 ├── @types
@@ -69,7 +69,7 @@ project1, project2 のように projects 下に gas プロジェクトを配置�
 
 - Trello の API クライアント
 - Slack の outcoming webhook によるメッセージ送信
-- DB代わりのスプレッドシート (利用メンバー一覧とメタ情報, etc)
+- DB 代わりのスプレッドシート (利用メンバー一覧とメタ情報, etc)
 
 とかとかを lib に切り分けていて、必要に応じて利用できるようにしてあります
 
@@ -77,17 +77,17 @@ project1, project2 のように projects 下に gas プロジェクトを配置�
 
 [GitHub - fossamagna/gas-webpack-plugin: Webpack plugin for Google Apps Script](https://github.com/fossamagna/gas-webpack-plugin)
 
-こちらを使って、GAS向けにビルドができます
+こちらを使って、GAS 向けにビルドができます
 
 必要なパッケージを取得します
 
-``` bash
+```bash
 $ yarn add -D webpack copy-webpack-plugin gas-webpack-plugin typescript ts-loader
 ```
 
 `projects/<ProjectName>/index.ts` を自動的に webpack のエントリにする形で、webpack 設定を書きます
 
-``` typescript:webpack.config.js
+```typescript:webpack.config.js
 const path = require('path');
 const fs = require('fs');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -146,13 +146,13 @@ module.exports = {
 };
 ```
 
-これで、ビルド(`$ webpack`) すると、各GASプロジェクトディレクトリ下にGASに読ませる用の `dist` が生成されます
+これで、ビルド(`$ webpack`) すると、各 GAS プロジェクトディレクトリ下に GAS に読ませる用の `dist` が生成されます
 
 ## GAS 用の型定義を適用する
 
-GAS依存の関数等の型定義は `@types:google-apps-script` で提供されます
+GAS 依存の関数等の型定義は `@types:google-apps-script` で提供されます
 
-``` bash
+```bash
 $ yarn add -D @types/google-apps-script
 ```
 
@@ -162,7 +162,7 @@ $ yarn add -D @types/google-apps-script
 
 こちらの Issue で示されてるように、`$ npm install` のタイミングで `console` をコメントアウトします
 
-``` json:package.json
+```json:package.json
 {
   "scripts": {
     "postinstall": "replace-in-file \"declare var console\" \"//declare var console\" node_modules/@types/google-apps-script/google-apps-script.base.d.ts",
@@ -170,19 +170,19 @@ $ yarn add -D @types/google-apps-script
 }
 ```
 
-## GASプロジェクトをクローンする
+## GAS プロジェクトをクローンする
 
-準備はできたので、GASプロジェクトを引っ張ってきます
+準備はできたので、GAS プロジェクトを引っ張ってきます
 
-``` bash
+```bash
 $ yarn add -g clasp
 ```
 
-初利用なら、[GASのユーザー設定](https://script.google.com/home/usersettings) から `Google Apps Script API` を有効化する必要があります
+初利用なら、[GAS のユーザー設定](https://script.google.com/home/usersettings) から `Google Apps Script API` を有効化する必要があります
 
 クローン用のスクリプトを準備しておきます
 
-``` bash:bin/clone.sh
+```bash:bin/clone.sh
 #!/bin/bash
 
 printf "Input Project Name >> "; read project_name
@@ -191,7 +191,7 @@ mkdir ${project_name} && cd ${project_name} && touch index.ts
 clasp clone --rootDir './dist'
 ```
 
-``` json:package.json
+```json:package.json
 {
   "scripts": {
     // ...
@@ -202,7 +202,7 @@ clasp clone --rootDir './dist'
 
 これで、`$ yarn clone` すれば GAS プロジェクトを引っ張ってこれます
 
-``` bash
+```bash
 $ yarn clone
 yarn run v1.22.10
 $ bin/clone.sh
@@ -225,13 +225,13 @@ Ignored files:
 
 同様に push 用スクリプトを置きます
 
-``` bash:bin/push.sh
+```bash:bin/push.sh
 #!/bin/bash
 
 yarn build && cd projects/$1 && clasp push
 ```
 
-``` json:package.json
+```json:package.json
 {
   "scripts": {
     // ...
@@ -242,7 +242,7 @@ yarn build && cd projects/$1 && clasp push
 
 これで、`$ yarn push <ProjectName>` すれば反映できます
 
-``` bash
+```bash
 $ yarn push hoge
 yarn run v1.22.10
 $ webpack
@@ -258,7 +258,7 @@ Pushed 2 files.
 
 global に生やした関数が gas から実行できる関数になります
 
-``` typescript:index.ts
+```typescript:index.ts
 global.gasFunc = () => {
   console.log('hello world')
 }
@@ -266,7 +266,7 @@ global.gasFunc = () => {
 
 一応これで `$ clasp push` すれば `gasFunc` を実行することができますが、型の問題があります
 
-``` typescript:@types/vendor.d.ts
+```typescript:@types/vendor.d.ts
 export {}
 
 type Any = any
@@ -291,17 +291,17 @@ declare global {
 
 つまり、単体テストをちゃんと書かないと開発効率が死にます
 
-GAS依存の実装(`UrlFetchApp.fetch()`, `SpreadsheetApp.openById()`, えとせとらえとせとら)からデータなりを取り出す部分とそれ以外のロジックをしっかり切り分けておき、後者をローカルのランタイムでテストできるようにしておくことが大事です
+GAS 依存の実装(`UrlFetchApp.fetch()`, `SpreadsheetApp.openById()`, えとせとらえとせとら)からデータなりを取り出す部分とそれ以外のロジックをしっかり切り分けておき、後者をローカルのランタイムでテストできるようにしておくことが大事です
 
 じゃないとまじでコードベースが増えてきたときにしんどいです
 
 ### ソースコードに載せられない情報を置く
 
-APIのキーとか、ソースコードに書くべきでない値は、`ファイル > プロジェクトのプロパティ > スクリプトのプロパティ` にキーとバリューのセットで置いておいて、以下の形で取得できます
+API のキーとか、ソースコードに書くべきでない値は、`ファイル > プロジェクトのプロパティ > スクリプトのプロパティ` にキーとバリューのセットで置いておいて、以下の形で取得できます
 
-``` typescript
+```typescript
 const props = PropertiesService.getScriptProperties().getProperties()
-props.API_KEY  // でアクセスできる 
+props.API_KEY // でアクセスできる
 ```
 
 ※ 最近 GAS のエディタが新しくなりまして、新エディタだとこれがないっぽいです。一時的に旧エディタに戻せば使えます

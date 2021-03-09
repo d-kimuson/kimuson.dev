@@ -13,7 +13,7 @@ Mac 標準の diff コマンドが見づらいので、見やすくするメモ�
 
 標準の diff コマンドは、
 
-``` bash
+```bash
 $ diff file1 file2
 2c2
 < hello world2
@@ -25,7 +25,7 @@ $ diff file1 file2
 
 ## 環境
 
-``` bash
+```bash
 $ sw_vers
 ProductName:    Mac OS X
 ProductVersion: 10.15.7
@@ -48,13 +48,13 @@ Richard Stallman, and Len Tower.
 
 `diff` をカラーリングできる [colordiff](https://www.colordiff.org/) を brew から導入します
 
-``` bash
+```bash
 $ brew install colordiff
 ```
 
 `.zshrc` にエイリアスを貼って `diff` で呼ばれるようにします
 
-``` bash
+```bash
 if [[ -x `which colordiff` ]]; then
     alias diff='colordiff'
 fi
@@ -66,7 +66,7 @@ fi
 
 色付けがされただけでもだいぶ見やすくなったんですが、`-u` オプションを付けると `git diff` っぽい見た目で差分を表示できます
 
-``` bash
+```bash
 $ diff -u file1 file2
 --- file1	YYYY-MM-DD hh:mm:ss.000000000 +0900
 +++ file2	YYYY-MM-DD hh:mm:ss.000000000 +0900
@@ -89,7 +89,7 @@ $ diff -u file1 file2
 
 があります
 
-``` bash
+```bash
 $ diff -y file1 file2
 hello world                                                     hello world
 hello world1                                                  | hello world2
@@ -110,7 +110,7 @@ hello world1                                                  | hello world2
 
 オプション付きだと長くて普段使いしにくいので、エイリアスを貼っておきます
 
-``` bash
+```bash
 alias diffg='diff -u'
 alias diffy='diff -y --left-column'
 ```

@@ -19,7 +19,7 @@ draft: false
 
 ### 環境
 
-``` bash
+```bash
 $ pip freeze | grep fastapi
 fastapi==0.62.0
 
@@ -33,7 +33,7 @@ $ yarn list | grep openapi
 
 例として、以下の `endpoint1`
 
-``` python:server.py
+```python:server.py
 from fastapi import FastAPI, UploadFile, File
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
@@ -61,7 +61,7 @@ async def endpoint2(body: Arg2) -> Dict[str, Any]:
 
 スキーマとしては、以下(多少簡略化してます)
 
-``` json:schema.json
+```json:schema.json
 {
   "openapi": "3.0.3",
   "info": {
@@ -161,23 +161,23 @@ async def endpoint2(body: Arg2) -> Dict[str, Any]:
 
 このスキーマから、以下のコマンドで型定義を生成します
 
-``` bash
+```bash
 $ openapi-generator-cli generate -g typescript-axios -i http://127.0.0.1:5000/schema.json -o ./openapi
 ```
 
 で、以下のように生成されます (`Arg2` は生成されていますが、`Arg1` が生成されていないのがわかります)
 
-``` typescript:openapi/api.ts
+```typescript:openapi/api.ts
 // いろいろ省略
 
 /**
- * 
+ *
  * @export
  * @interface Arg2
  */
 export interface Arg2 {
     /**
-     * 
+     *
      * @type {string}
      * @memberof Arg2
      */
@@ -192,8 +192,8 @@ export interface Arg2 {
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * 
-     * @param {Arg2} [arg2] 
+     *
+     * @param {Arg2} [arg2]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
@@ -203,9 +203,9 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @param {Arg1} arg 
-     * @param {any} file 
+     *
+     * @param {Arg1} arg
+     * @param {any} file
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
@@ -234,9 +234,9 @@ export class DefaultApi extends BaseAPI {
 
 辺りが考えれらます
 
-後者2つは `FastAPI` 側での変更に伴って型宣言を手動で書き換えなくてはならないので、1を採用します
+後者 2 つは `FastAPI` 側での変更に伴って型宣言を手動で書き換えなくてはならないので、1 を採用します
 
-``` python:server.py
+```python:server.py
 from pydantic import BaseModel
 
 

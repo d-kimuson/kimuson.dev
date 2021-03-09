@@ -11,34 +11,34 @@ weight: 5
 draft: false
 ---
 
-REST API + SPAなWebアプリを作っていて, 認証をどうしようかな〜ってなった.
+REST API + SPA な Web アプリを作っていて, 認証をどうしようかな〜ってなった.
 
-本番環境は, Netlify に nuxt で構築したSPA(SSRはしない)を置き, DRFのAPIをHerokuにあげる
+本番環境は, Netlify に nuxt で構築した SPA(SSR はしない)を置き, DRF の API を Heroku にあげる
 
 つまり, クロスドメインでの通信になる
 
 ぼくの持ちうる知識では
 
-1. APIサーバーでセッション認証(サードパーティクッキーとセッションで管理する)
-2. APIサーバーでトークンベースの認証
-    1. トークンを[ローカルストレージ](https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage)に置く
-    2. ~~BFF層を置き、トークンをBFFサーバーのセッションに保存する(SSRしないので無理)~~
+1. API サーバーでセッション認証(サードパーティクッキーとセッションで管理する)
+2. API サーバーでトークンベースの認証
+   1. トークンを[ローカルストレージ](https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage)に置く
+   2. ~~BFF 層を置き、トークンを BFF サーバーのセッションに保存する(SSR しないので無理)~~
 
 辺りが考えられた.
 
-2-1はセキュリティ的によろしくない.
+2-1 はセキュリティ的によろしくない.
 
-参考: [HTML5のLocal Storageを使ってはいけない（翻訳）｜TechRacho（テックラッチョ）〜エンジニアの「？」を「！」に〜｜BPS株式会社](https://techracho.bpsinc.jp/hachi8833/2019_10_09/80851)
+参考: [HTML5 の Local Storage を使ってはいけない（翻訳）｜ TechRacho（テックラッチョ）〜エンジニアの「？」を「！」に〜｜ BPS 株式会社](https://techracho.bpsinc.jp/hachi8833/2019_10_09/80851)
 
 まあそりゃそうだよね.
 
-クロスオリジンでの通信はCSRF対策でブラウザ側の制限が多く, おまけに今回はクッキーも使おうとしているので対応がめんどくなる.
+クロスオリジンでの通信は CSRF 対策でブラウザ側の制限が多く, おまけに今回はクッキーも使おうとしているので対応がめんどくなる.
 
 ## 必要な設定
 
 [オリジン間リソース共有 (CORS) - HTTP \| MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/CORS)
 
-を要約すると, クロスオリジンでのAPI通信を許可して, クッキーを使うには
+を要約すると, クロスオリジンでの API 通信を許可して, クッキーを使うには
 
 - サーバーサイド
   - レスポンスヘッダに `Access-Control-Allow-Origin: <Origin>` を付与
@@ -52,26 +52,26 @@ REST API + SPAなWebアプリを作っていて, 認証をどうしようかな�
 
 今回は nuxt と axios を使ったので, その設定を載せる
 
-``` javascript
+```javascript
 // nuxt用
-$axios.onRequest(config => {
-    config.withCredentials = true;
+$axios.onRequest((config) => {
+  config.withCredentials = true
 })
 ```
 
-``` javascript
+```javascript
 // API コール
 axios
   .get("https://example.com/api/hoge/")
-  .then(response => {
+  .then((response) => {
     // hoge
   })
-  .catch(error => {
+  .catch((error) => {
     // hoge
   })
 ```
 
-これでOK.
+これで OK.
 
 他のライブラリでも XMLHttpRequest.withCredential が True になるように設定してあげれば大丈夫なはず.
 
@@ -81,7 +81,7 @@ axios
 
 前述のようにレスポンスヘッダに,
 
-``` txt
+```txt
 Access-Control-Allow-Origin: <Origin>
 Access-control-Allow-Credentials: True
 ```
@@ -90,13 +90,13 @@ Access-control-Allow-Credentials: True
 
 `Access-Control-Allow-Origin` には ワイルドカード(\*)を付与できるが, ブラウザ側がセキュリティの問題でワイルドカードの使用とクッキーの使用の共存を許可していないので, きちんと Origin を書いてあげる必要がある.
 
-Middleware を書いて実装しても良いが, CORS対応用のパッケージ [django-cors-headers](https://github.com/adamchainz/django-cors-headers) があるのでこれを利用する.
+Middleware を書いて実装しても良いが, CORS 対応用のパッケージ [django-cors-headers](https://github.com/adamchainz/django-cors-headers) があるのでこれを利用する.
 
-``` bash
+```bash
 $ pip install django-cor-headers
 ```
 
-``` python
+```python
 CORS_ORIGIN_WHITELIST = [
     # Access-Control-Allow-Origin: <Origin>
     'http://127.0.0.1:3000',
@@ -125,7 +125,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 はできないって記述をいくつかみた.
 
-``` txt
+```txt
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Credentials: true
 ```
@@ -138,7 +138,7 @@ Access-Control-Allow-Credentials: true
 
 解決にかなり時間を溶かしたのだけれど, まとめると
 
-レスポンスヘッダの Set-Cookie には, SameSite属性があり,
+レスポンスヘッダの Set-Cookie には, SameSite 属性があり,
 
 [HTTP Cookie - HTTP \| MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Cookies) によると,
 
@@ -146,7 +146,7 @@ Access-Control-Allow-Credentials: true
 
 つまり, クロスオリジンでの通信では `SameSite=None; Secure` を指定する必要があるが,
 
-``` bash
+```bash
 $ http POST http://127.0.0.1:8000/api/users/login/ username=xxx password=yyy Origin:http://localhost:3000 Referer:http://localhost:3000/
 HTTP/1.1 200 OK
 Access-Control-Allow-Credentials: true
@@ -168,7 +168,7 @@ X-Frame-Options: DENY
 }
 ```
 
-見ての通りDjangoでは `Lax` が デフォルト値となっている.
+見ての通り Django では `Lax` が デフォルト値となっている.
 
 てことで,
 
@@ -176,14 +176,14 @@ X-Frame-Options: DENY
 
 にしたがって,
 
-``` python
+```python
 SESSION_COOKIE_SAMESITE = None  # default='Lax'
 SESSION_COOKIE_SECURE = True
 ```
 
 を指定することで,
 
-``` bash
+```bash
 $ http POST http://127.0.0.1:8000/api/users/login/ username=xxx password=yyy Origin:http://localhost:3000 Referer:http://localhost:3000/
 HTTP/1.1 200 OK
 Access-Control-Allow-Credentials: true
@@ -205,15 +205,15 @@ X-Frame-Options: DENY
 }
 ```
 
-SameSite未指定(デフォルト値がNone), Secureが付与された.
+SameSite 未指定(デフォルト値が None), Secure が付与された.
 
-ただ, 面倒なことに最近 Chrome がデフォルト値をLaxに変えたらしく, Chromeでは意図通りに動作しなかった.
+ただ, 面倒なことに最近 Chrome がデフォルト値を Lax に変えたらしく, Chrome では意図通りに動作しなかった.
 
 参考: [Cookies default to SameSite=Lax - Chrome Platform Status](https://www.chromestatus.com/feature/5088147346030592)
 
 てことで, Django での対応をしていく.
 
-``` python
+```python
 SESSION_COOKIE_SAMESITE = 'None'  # None => 'None'
 ```
 
@@ -221,15 +221,15 @@ SESSION_COOKIE_SAMESITE = 'None'  # None => 'None'
 
 で色々調べたけど, Django での対応がまだらしく, テキストの None も渡せるようには修正されているが, まだ最新バージョン(3.0.5)にも反映されてなかった.
 
-てことで, 現時点ではライブラリ自体を書き換えるか, 自前で Middlewareを準備するしかないっぽい.
+てことで, 現時点ではライブラリ自体を書き換えるか, 自前で Middleware を準備するしかないっぽい.
 
 #### 参考
 
-- [chrome80でSameSite=Noneを明記しないといけなくなった問題、djangoユーザーはみんなどうしてるんだろう。 - Qiita](https://qiita.com/nakamumu/items/b60d68faf78831aae9a4)
+- [chrome80 で SameSite=None を明記しないといけなくなった問題、django ユーザーはみんなどうしてるんだろう。 - Qiita](https://qiita.com/nakamumu/items/b60d68faf78831aae9a4)
 - [Fixed #30862 -- Allowed setting SameSite cookies flags to 'None'. by danidee10 · Pull Request #11894 · django/django · GitHub](https://github.com/django/django/pull/11894)
 - [django-polaris/middleware.py at master · stellar/django-polaris · GitHub](https://github.com/stellar/django-polaris/blob/master/polaris/polaris/middleware.py)
 
-``` python:title=middleware.py
+```python:title=middleware.py
 class SameSiteMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -249,7 +249,7 @@ class SameSiteMiddleware:
 - ローカル: `SameSite=Lax`
 - 本番環境: `SamSite=None; Secure`
 
-``` python:title=config/settings.py
+```python:title=config/settings.py
 MIDDLEWARE = [
     'middleware.SameSiteMiddleware',
     ...
@@ -260,9 +260,9 @@ MIDDLEWARE = [
 
 ## CSRF Token 認証の無効化
 
-CSRF保護のために, Djangoのセッション認証では `POST`, `PUT`, `DELETE` 等データ変更を伴うリクエストメソッドでは
+CSRF 保護のために, Django のセッション認証では `POST`, `PUT`, `DELETE` 等データ変更を伴うリクエストメソッドでは
 
-1. クッキーでCSRFトークンを渡す
+1. クッキーで CSRF トークンを渡す
 2. リクエストヘッダにトークンを渡す
 
 ように義務付け, 一致するか確認している.
@@ -276,7 +276,7 @@ CSRF保護のために, Djangoのセッション認証では `POST`, `PUT`, `DEL
 
 ただクッキーにはファーストパーティクッキーとサードパーティクッキーがあって, 別ドメインのサーバーから `Set-Cookie` したクッキーはサードパーティクッキーとして管理されるので
 
-``` javascript
+```javascript
 document.cookie
 ```
 
@@ -285,7 +285,7 @@ document.cookie
 実際オリジン(localhost)が一致する開発サーバーでは取得できたが, オリジンが異なる本番環境では, トークンを取得できていなかった.
 
 この辺のクッキーがオリジンごとに管理されてる云々の知識が薄かったので, とても苦労した...
-そりゃそうだよね, document.cookieで全サイトのクッキー拾えちゃったらやばすぎだよね...
+そりゃそうだよね, document.cookie で全サイトのクッキー拾えちゃったらやばすぎだよね...
 
 色々調べてみたけど, javascript から取得する方法はないっぽかった.
 
@@ -293,7 +293,7 @@ document.cookie
 
 ~~よくよく考えたらクッキーは送信してるんだから, ヘッダで送らずとも直接クッキーの中身をサーバーサイドで確認して認証すればよかった気がする.~~
 
-``` python:config/settings.py
+```python:config/settings.py
 CSRF_TRUSTED_ORIGINS = [
     '本番オリジン',
     'localhost',
@@ -309,7 +309,7 @@ REST_FRAMEWORK = {
 }
 ```
 
-``` python:middleware.py
+```python:middleware.py
 from rest_framework.authentication import SessionAuthentication
 
 
@@ -337,14 +337,14 @@ class MySessionAuthentication(SessionAuthentication):
 
 これで意図通り動くようになった
 
-## 今度はiPhoneから覗いたら結局上手く行かない
+## 今度は iPhone から覗いたら結局上手く行かない
 
-MacからもChromeとFirefoxは動くけど, Safariは駄目だった.
+Mac からも Chrome と Firefox は動くけど, Safari は駄目だった.
 
-- [アップル、Safari 13.1であらゆる第三者Cookieをブロックへ。クロスサイトトラッキング防止徹底 - Engadget 日本版](https://japanese.engadget.com/jp-2020-03-24-safari-13-1-cookie.html)
+- [アップル、Safari 13.1 であらゆる第三者 Cookie をブロックへ。クロスサイトトラッキング防止徹底 - Engadget 日本版](https://japanese.engadget.com/jp-2020-03-24-safari-13-1-cookie.html)
 - [Google Developers Japan: ウェブのプライバシー強化: サードパーティ Cookie 廃止への道](https://developers-jp.googleblog.com/2020/01/cookie.html)
 
-Safariはサードパーティクッキーを完全ブロック, Chromeもプライバシー強化に向かいつつ2年以内に完全ブロックを目指すらしい.
+Safari はサードパーティクッキーを完全ブロック, Chrome もプライバシー強化に向かいつつ 2 年以内に完全ブロックを目指すらしい.
 
 てことで, ここまでやっといてなんだけど
 
@@ -355,10 +355,10 @@ Safariはサードパーティクッキーを完全ブロック, Chromeもプラ
 
 て形になりそう.
 
-確かにセッションのがセキュアだけど, そもそもXSSがある時点で驚異の大きさ自体は変わらないので
+確かにセッションのがセキュアだけど, そもそも XSS がある時点で驚異の大きさ自体は変わらないので
 
 - トークンのリセット期間を適切に決める
-- やばい操作にはパスワードでちゃんと認証をする(Githubとかちょくちょくパスワード求めてくるよね)
+- やばい操作にはパスワードでちゃんと認証をする(Github とかちょくちょくパスワード求めてくるよね)
 
 辺りをしっかりやれば良さそう
 

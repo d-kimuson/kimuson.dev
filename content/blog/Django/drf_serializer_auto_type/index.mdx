@@ -14,10 +14,10 @@ draft: false
 
 ## TL;DR
 
-- DRFシリアライザから、OpenAPI スキーマを自動生成するよ
-- OpenAPI スキーマから、TypeScript型を自動生成するよ
-- これによって、シリアライザから自動的にAPIの型定義ができるよ
-- API通信でも手軽に型安全に開発ができるよ
+- DRF シリアライザから、OpenAPI スキーマを自動生成するよ
+- OpenAPI スキーマから、TypeScript 型を自動生成するよ
+- これによって、シリアライザから自動的に API の型定義ができるよ
+- API 通信でも手軽に型安全に開発ができるよ
 
 ## What is OpenAPI?
 
@@ -25,7 +25,7 @@ draft: false
 
 [FAQ - OpenAPI Initiative](https://www.openapis.org/faq) より
 
-つまるところ、REST APIの定義を
+つまるところ、REST API の定義を
 
 - 特定のプログラミング言語に依存しないインタフェースによって
 - 人間と機械の両方に読みやすい形で
@@ -34,23 +34,23 @@ draft: false
 
 ## シリアライザから OpenAPI スキーマを生成する
 
-Django REST framework では、シリアライザを組み合わせることで、APIを定義します
+Django REST framework では、シリアライザを組み合わせることで、API を定義します
 
-シリアライザには、APIレスポンスとしての情報が細かく定義されているので、このシリアライザ定義から、OpenAPI スキーマを自動生成しようという試みがあります
+シリアライザには、API レスポンスとしての情報が細かく定義されているので、このシリアライザ定義から、OpenAPI スキーマを自動生成しようという試みがあります
 
 - [GitHub - axnsan12/drf-yasg: Automated generation of real Swagger/OpenAPI 2.0 schemas from Django REST Framework code.](https://github.com/axnsan12/drf-yasg)
 - [GitHub - tfranzel/drf-spectacular: Sane and flexible OpenAPI 3 schema generation for Django REST framework.](https://github.com/tfranzel/drf-spectacular)
 
-drf-yasg は、手軽にAPIドキュメントを自動生成できるため人気です(Githubスター数19000↑)
+drf-yasg は、手軽に API ドキュメントを自動生成できるため人気です(Github スター数 19000↑)
 
-参考: [DjangoRestFrameworkのコードからSwaggerドキュメントを生成しAPI設計を共有 - Qiita](https://qiita.com/T0000N/items/c982fd9586763747fb11)
+参考: [DjangoRestFramework のコードから Swagger ドキュメントを生成し API 設計を共有 - Qiita](https://qiita.com/T0000N/items/c982fd9586763747fb11)
 
 ただし、
 
 > If you are looking to add Swagger/OpenAPI support to a new project you might want to take a look at drf-spectacular, which is an actively maintained new library that shares most of the goals of this project, while working with OpenAPI 3.0 schemas.
 > OpenAPI 3.0 provides a lot more flexibility than 2.0 in the types of API that can be described. drf-yasg is unlikely to soon, if ever, get support for OpenAPI 3.0.
 
-ってことで、より柔軟なAPI定義ができる `OpenAPI 3.0` を使いたければ drf-spectacular がオススメだよーってことらしいので、こちらを使ってみます
+ってことで、より柔軟な API 定義ができる `OpenAPI 3.0` を使いたければ drf-spectacular がオススメだよーってことらしいので、こちらを使ってみます
 
 触ってみましたが、基本的には drf_yasg と同じ使用感でした
 
@@ -58,11 +58,11 @@ drf-yasg は、手軽にAPIドキュメントを自動生成できるため人�
 
 設定は至ってシンプルで、[公式のインストール](https://github.com/tfranzel/drf-spectacular#installation) 通りです
 
-``` bash
+```bash
 $ pip install drf-spectacular
 ```
 
-``` python:settings.py
+```python:settings.py
 INSTALLED_APPS = [
     # ALL YOUR APPS
     'drf_spectacular',
@@ -80,7 +80,7 @@ REST_FRAMEWORK = {
 
 あとは、
 
-``` bash
+```bash
 $ python manage.py spectacular --file schema.yml
 ```
 
@@ -96,13 +96,13 @@ Open API のスキーマが書き出せたので、これを元に TypeScript �
 
 インストールします
 
-``` bash
+```bash
 $ yarn add -D @openapitools/openapi-generator-cli
 ```
 
 型生成コマンドがちょっと長いので、`package.json` に追加します
 
-``` json:package.json
+```json:package.json
 {
   "scripts": {
     "openapi:gen": "openapi-generator-cli generate -g typescript-axios -i path/to/schema.yml -o ./openapi"
@@ -110,13 +110,13 @@ $ yarn add -D @openapitools/openapi-generator-cli
 }
 ```
 
-とりあえず `typescript-axios` のジェネレータを使っていますが、もともとTSに限ったツールじゃないので多言語含めいろいろあります
+とりあえず `typescript-axios` のジェネレータを使っていますが、もともと TS に限ったツールじゃないので多言語含めいろいろあります
 
 他のジェネレータは [OpenAPITools/openapi-generator/docs/generators](https://github.com/OpenAPITools/openapi-generator/tree/master/docs/generators) から探せます
 
 では、実際に生成してみます
 
-``` bash
+```bash
 $ yarn openapi:gen
 yarn run v1.22.4
 $ openapi-generator-cli generate -g typescript-axios -i path/to/schema.yml -o ./openapi
@@ -147,7 +147,7 @@ openapi
 
 こちらの問題が安定版の `4.3.1` で起きてます、とりあえずグローバルに以下の型定義を適用します
 
-``` typescript
+```typescript
 type AnyType = Record<string, unknown>
 ```
 
@@ -157,7 +157,7 @@ type AnyType = Record<string, unknown>
 
 この辺はとりあえず手動で修正します
 
-## 実際にAPIを叩く
+## 実際に API を叩く
 
 API を使うには、書き出された `api.ts` に定義されている
 
@@ -169,7 +169,7 @@ API を使うには、書き出された `api.ts` に定義されている
 
 一番直感的に感じたので今回は `ApiApiFactory` を使います
 
-``` typescript:api.ts
+```typescript:api.ts
 import axios from "axios"
 
 import { ApiApiFactory as getEndpoints, Configuration } from "path/to/openapi"
@@ -184,45 +184,47 @@ const config = new Configuration({
 export const endpoints = getEndpoints(config, `http://localhost:8000`, api)
 ```
 
-`endpoints` には、各APIエンドポイントに割当られた関数が定義されていて、
+`endpoints` には、各 API エンドポイントに割当られた関数が定義されていて、
 
-``` typescript
+```typescript
 import { endpoints } from "@scripts/api"
 
-endpoints.apiSamplesList()
-  .then(response => {
+endpoints
+  .apiSamplesList()
+  .then((response) => {
     // 処理
   })
-  .catch(error => {
+  .catch((error) => {
     console.log(error)
   })
 
-endpoints.apiSamplesRetrieve(id)
-  .then(response => {
+endpoints
+  .apiSamplesRetrieve(id)
+  .then((response) => {
     // 処理
   })
-  .catch(error => {
+  .catch((error) => {
     console.log(error)
   })
 ```
 
 こんな感じで使うことができます
 
-各エンドポイントに対応する関数には、`Open API` スキーマ基づいた型付けがされているので、型安全にAPIを呼ぶことができるわけです
+各エンドポイントに対応する関数には、`Open API` スキーマ基づいた型付けがされているので、型安全に API を呼ぶことができるわけです
 
 ## 型チェックの無効化
 
 先程は、手動で型を修正しましたが、せっかくスキーマを自動生成できるのでできれば
 
-1. APIが追加/変更した
+1. API が追加/変更した
 2. 自動的に **有効な** 型定義(手を加える必要のないもの)が生成される
-3. APIコールに関しても型チェックが働く
+3. API コールに関しても型チェックが働く
 
 みたいなフローを自動化しておきたいです
 
 何でも良いですけど、とりあえず
 
-``` bash:schema.sh
+```bash:schema.sh
 #!/bin/bash
 yarn run openapi:gen
 
@@ -239,7 +241,7 @@ insertTsNocheck base.ts
 
 ## メソッドシリアライザ
 
-``` json
+```json
 {
   "pk": "xxx",
   "name": "sample",
@@ -250,9 +252,9 @@ insertTsNocheck base.ts
 }
 ```
 
-のような外部キーを使ったリレーションをネストしたようなAPIの場合は、基本的には型が効かない(`AnyType` になる)ので、メソッドシリアライザを使って `extend_schema_field` デコレータで装飾する必要があります
+のような外部キーを使ったリレーションをネストしたような API の場合は、基本的には型が効かない(`AnyType` になる)ので、メソッドシリアライザを使って `extend_schema_field` デコレータで装飾する必要があります
 
-``` python:serializers.py
+```python:serializers.py
 from rest_framework import serializers
 from drf_spectacular.utils import extend_schema_field
 from typing import Any, Dict
@@ -285,11 +287,11 @@ class SampleSerializer(serializers.ModelSerializer):
 `ModelViewSet` 等によって定義される純粋な REST API だけで足りない場合は、`action` デコレータを使うことで追加のエンドポイントを作ったりしますが、こちらも
 
 - 対象の関数がエンドポイントであること
-- APIパラメータ、レスポンス型
+- API パラメータ、レスポンス型
 
 を `extend_schema` デコレータで drf_spectacular に教えてやる必要があります
 
-``` python:views.py
+```python:views.py
 from rest_framework import viewsets
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -326,6 +328,6 @@ class SampleViewSet(viewsets.ModelViewSet):
 
 drf_yasg はよく使ってたので、スキーマ作れるなら型も作れるでしょと思って調べてやってみたんですが、良い感じでした！
 
-今回は、TypeScript型定義の自動生成のために使いましたが、APIドキュメントの自動生成も便利なのでオススメです
+今回は、TypeScript 型定義の自動生成のために使いましたが、API ドキュメントの自動生成も便利なのでオススメです
 
 [公式](https://github.com/tfranzel/drf-spectacular) にしたがって、ルーティングを追加するだけで利用できます

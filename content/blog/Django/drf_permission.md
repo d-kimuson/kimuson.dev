@@ -17,11 +17,11 @@ Django REST framework で、ビューへのパーミッションをカスタマ�
 
 ## DRF のパーミッション
 
-Djangoでは、 `ViewSet` にパーミッションクラスを渡すことでアクセスパーミッションに関する設定をすることができます
+Django では、 `ViewSet` にパーミッションクラスを渡すことでアクセスパーミッションに関する設定をすることができます
 
 例えば、認証済みユーザーに対してのアクセスに制限したい場合は、`permissions.IsAuthenticated` クラスを用います
 
-``` python:views.py
+```python:views.py
 from rest_framework import viewsets
 from rest_framework import permissions
 
@@ -35,14 +35,14 @@ class SampleViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, )
 ```
 
-これで、各HTTPメソッドからのアクセスが認証済みユーザーに制限されました
+これで、各 HTTP メソッドからのアクセスが認証済みユーザーに制限されました
 
 他には標準で,
 
 - [AllowAny](https://www.django-rest-framework.org/api-guide/permissions/#allowany): だれでも
 - [IsAuthenticated](https://www.django-rest-framework.org/api-guide/permissions/#isauthenticated)
 - [IsAdmin](https://www.django-rest-framework.org/api-guide/permissions/#isadminuser): 管理者アカウントのみ
-- [IsAuthenticatedOrReadOnly](https://www.django-rest-framework.org/api-guide/permissions/#isauthenticatedorreadonly): GETメソッドはだれでもOKだけど、それ以外は認証が必要
+- [IsAuthenticatedOrReadOnly](https://www.django-rest-framework.org/api-guide/permissions/#isauthenticatedorreadonly): GET メソッドはだれでも OK だけど、それ以外は認証が必要
 
 などが用意されています
 
@@ -52,16 +52,16 @@ class SampleViewSet(viewsets.ModelViewSet):
 
 | メソッド                                                                      | 対象        |
 | :---------------------------------------------------------------------------- | :---------- |
-| `has_permission(request: Request, view: Callable) -> bool`                    | 全てのView  |
+| `has_permission(request: Request, view: Callable) -> bool`                    | 全ての View |
 | `has_object_permission(request: Request, view: Callable, obj: Model) -> bool` | Detail View |
 
 流れとしては、
 
 1. リクエストが送られてくる
 2. 対象のビュー関数に対して、`has_permission()` メソッドをコールして、権限の有無を確認
-    - ない場合 => `401`
+   - ない場合 => `401`
 3. Detail View が対象なら `has_object_permission()` メソッドをコールして、対象のオブジェクトに対して権限があるかを確認
-    - ない場合 => `403`
+   - ない場合 => `403`
 4. レスポンスを返す！
 
 って感じです
@@ -77,7 +77,7 @@ class SampleViewSet(viewsets.ModelViewSet):
 
 カスタマイズの例として, User モデルに対する権限設定を考えます
 
-Userモデルに対する `CRUD` 操作のうち、
+User モデルに対する `CRUD` 操作のうち、
 
 - アカウント作成は、アカウントを持っていないユーザーにも提供される
 - 閲覧は、認証済みユーザーに制限される
@@ -85,7 +85,7 @@ Userモデルに対する `CRUD` 操作のうち、
 
 と言った形で権限設定をしたい場合は、以下のように実装できます
 
-``` python
+```python
 from rest_framework import permissions
 
 

@@ -10,19 +10,19 @@ weight: 5
 draft: true
 ---
 
-なんとなくExpressを触ってみたかったので, 軽く調査する
+なんとなく Express を触ってみたかったので, 軽く調査する
 
 - 遅いと思ってたけど, だいぶ高速らしい
-- C10Kの解消(アプリケーション・サーバーではそれほど重要でもない?)
-- BFF置くならおそらく最有力候補
+- C10K の解消(アプリケーション・サーバーではそれほど重要でもない?)
+- BFF 置くならおそらく最有力候補
 
-## Typescriptをつかう
+## Typescript をつかう
 
-JSを使うときは, TSを使うのがとても人気のようだし, ぼくも型があるほうが好みなのでTypeScriptを使う.
+JS を使うときは, TS を使うのがとても人気のようだし, ぼくも型があるほうが好みなので TypeScript を使う.
 
 まずは, 設定ファイル(tsconfig.json)を作る
 
-``` typescript
+```typescript
 $ npx tsc -init
 ```
 
@@ -30,18 +30,18 @@ $ npx tsc -init
 
 [Node Target Mapping · microsoft/TypeScript Wiki · GitHub](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping)
 
-ここに, 各Nodejsのバージョンにマップされた設定が載っているので, これで上書きしておく.
+ここに, 各 Nodejs のバージョンにマップされた設定が載っているので, これで上書きしておく.
 
 僕の場合は,
 
-``` bash
+```bash
 $ node -v
 v10.21.0
 ```
 
-Nodejs10系なので,
+Nodejs10 系なので,
 
-``` json
+```json
 {
   "compilerOptions": {
     "lib": ["es2018"],
@@ -53,9 +53,9 @@ Nodejs10系なので,
 
 これをコピってきた.
 
-ただ, `console.log` を使うのに, `dom` が必要なので, 予めlibに追加しておく.
+ただ, `console.log` を使うのに, `dom` が必要なので, 予め lib に追加しておく.
 
-``` json
+```json
 {
   "compilerOptions": {
     "target": "es2018",
@@ -71,12 +71,12 @@ Nodejs10系なので,
 
 その他細かい設定は, 以下がとても参考になる
 
-[tsconfig.jsonを設定する - サバイバルTypeScript](https://book.yyts.org/handson/setting-tsconfig.json)
+[tsconfig.json を設定する - サバイバル TypeScript](https://book.yyts.org/handson/setting-tsconfig.json)
 
 あとは, 実行方法だけど
 
-- tscでコンパイルして, jsで動かす
-- ts-nodeで動かす
+- tsc でコンパイルして, js で動かす
+- ts-node で動かす
 
 どっちでもいいけど, めんどうなので `ts-node` でやる.
 
@@ -84,20 +84,18 @@ Nodejs10系なので,
 
 開発環境では, `nodemon` を使ってホットリロードだけできるようにしておく.
 
-``` bash
+```bash
 $ yarn add typescript ts-node
 $ yarn add -D nodemon
 ```
 
-nodemon用に設定をかいてあげて
+nodemon 用に設定をかいてあげて
 
-``` json
+```json
 // nodemon.json
 {
   "ext": "ts",
-  "watch": [
-    "src"
-  ],
+  "watch": ["src"],
   "exec": "NODE_ENV=development ts-node ./src/app.ts"
 }
 ```
@@ -106,7 +104,7 @@ nodemon用に設定をかいてあげて
 
 あとは, `package.json` に, 起動スクリプトを書いてあげて
 
-``` json
+```json
 // package.json
 {
   ...
@@ -120,34 +118,34 @@ nodemon用に設定をかいてあげて
 
 完成.
 
-あとは, expressの起動用スクリプトを `src/app.ts` に置いてあげれば, 意図通り開発サーバーが起動する.
+あとは, express の起動用スクリプトを `src/app.ts` に置いてあげれば, 意図通り開発サーバーが起動する.
 
-## Expressことはじめ
+## Express ことはじめ
 
 まずは, 最小限のコードで起動してみる
 
-``` javascript
+```javascript
 // src/app.ts
-import express from 'express'
+import express from "express"
 
 const app = express()
 
 app.listen(3000, () => {
-  console.log('start server');
+  console.log("start server")
 })
 ```
 
 めっちゃシンプル.
 
-``` bash
+```bash
 $ yarn run start:dev
 ```
 
 で, 問題なくサーバーが起動した(エンドポイントを作ってないので, とくになにかできるわけではない)
 
-## Expressのらいふさいくる
+## Express のらいふさいくる
 
-Expressの動きはとてもシンプルだ.
+Express の動きはとてもシンプルだ.
 
 [Express ミドルウェアの使用](https://expressjs.com/ja/guide/using-middleware.html)
 
@@ -161,8 +159,8 @@ Expressの動きはとてもシンプルだ.
 
 そして, 基本的なミドルウェアの実態は
 
-``` javascript
-(req: express.Request, res: express.Response, next: express.NextFunction) => {
+```javascript
+;(req: express.Request, res: express.Response, next: express.NextFunction) => {
   // 処理
 }
 ```
@@ -175,108 +173,108 @@ Expressの動きはとてもシンプルだ.
 
 つまり, アプリケーションは以下のように構築される
 
-``` javascript
+```javascript
 // ①
 app.use((req, res, next) => {
   // req & resを用いた処理
-  console.log('middleware1');
+  console.log("middleware1")
   next()
 })
 
 // ②
 app.use((req, res, next) => {
-  console.log('middleware2');
+  console.log("middleware2")
   next()
 })
 
 // ③
 app.use((req, res, next) => {
-  console.log('middleware3');
+  console.log("middleware3")
   next()
 })
 
 app.use((req, res, next) => {
-    res.sendStatus(404)
+  res.sendStatus(404)
 })
 
 // start server
 const portNum = process.env.PORT || 3000
 app.listen(portNum, () => {
-    console.log('start server in port: ', portNum)
+  console.log("start server in port: ", portNum)
 })
 ```
 
-①が呼ばれ, `next()` によって, ②が(以下略)という流れ.
+① が呼ばれ, `next()` によって, ② が(以下略)という流れ.
 
 試しに, http://localhost:3000 にアクセスすると, 全てのミドルウェアが呼ばれていることを確認できる
 
-``` bash
+```bash
 start server in port:  3000
 middleware1
 middleware2
 middleware3
 ```
 
-サーバーからは, 404 Not Foundが帰ってくる.
+サーバーからは, 404 Not Found が帰ってくる.
 
-エンドポイントの作成や, CORS処理層の追加や, 認証層やらいろいろ書くにしても, 全て実態はミドルウェア(req, res, next => {})なのでとても一貫性があってわかりやすい.
+エンドポイントの作成や, CORS 処理層の追加や, 認証層やらいろいろ書くにしても, 全て実態はミドルウェア(req, res, next => {})なのでとても一貫性があってわかりやすい.
 
-## HTTPメソッド
+## HTTP メソッド
 
 ミドルウェアの具体例として, エンドポイントの構築が考えられる
 
-例えば, `/hoge` に対して, GETメソッドの応答をかきたいときは
+例えば, `/hoge` に対して, GET メソッドの応答をかきたいときは
 
-``` javascript
-app.use('/hoge', (req, res, next) => {
-  if (req.method === 'GET') {
-    res.send('Ok!');
+```javascript
+app.use("/hoge", (req, res, next) => {
+  if (req.method === "GET") {
+    res.send("Ok!")
     /*
       res.sendはレスポンスを返すメソッドで, callした時点でレスポンスが返される
       よって, 基本的に以降のミドルウェア(next)を呼ぶ必要はない
     */
   } else {
-    next();
+    next()
   }
 })
 ```
 
 と書ける.
 
-冗長なので, 各HTTPメソッドに割り当てられたメソッドが定義されている
+冗長なので, 各 HTTP メソッドに割り当てられたメソッドが定義されている
 
-``` javascript
-app.get('/hoge', (req, res, next) => {
-  res.send('Ok')
+```javascript
+app.get("/hoge", (req, res, next) => {
+  res.send("Ok")
 })
 ```
 
 基本はこちらで書くことになるだろう.
 
-## JSONを返す
+## JSON を返す
 
-この辺で, JSONを扱えるようにしておく.
+この辺で, JSON を扱えるようにしておく.
 
-``` bash
+```bash
 $ yarn add body-parser
 $ yarn add -D @types/body-parser
 ```
 
 app に インストールしたミドルウェアを追加する
 
-``` typescript
-import express from 'express'
-import bodyParser from 'body-parser'
+```typescript
+import express from "express"
+import bodyParser from "body-parser"
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // json test
-app.get('/hoge', (req, res, next) => {
-    res.send({
-        message: 'Ok'
-    })
+app.get("/hoge", (req, res, next) => {
+  res.send({
+    message: "Ok",
+  })
 })
 ```
 
@@ -284,7 +282,7 @@ app.get('/hoge', (req, res, next) => {
 
 叩いてみる(by [HTTPie – command-line HTTP client for the API era](https://httpie.org/))
 
-``` bash
+```bash
 $ http http://localhost:3000/hoge
 HTTP/1.1 200 OK
 Connection: keep-alive
@@ -303,15 +301,15 @@ X-Powered-By: Express
 
 ## Router
 
-全てのエンドポイントを直接appに書いていては, さすがに管理もしにくいし, わかりにくいので `express.Router` を使うことができる
+全てのエンドポイントを直接 app に書いていては, さすがに管理もしにくいし, わかりにくいので `express.Router` を使うことができる
 
 > ルーター・レベルのミドルウェアは、express.Router() のインスタンスにバインドされる点を除き、アプリケーション・レベルのミドルウェアと同じように動作します。
 
-つまり, appではなく, `router: express.Router` にバインドされるミドルウェアを定義できる.
+つまり, app ではなく, `router: express.Router` にバインドされるミドルウェアを定義できる.
 
-例えば, 一般的なREST APIを定義するなら以下のように書ける
+例えば, 一般的な REST API を定義するなら以下のように書ける
 
-``` javascript
+```javascript
 // controller/article.js
 import express from 'express'
 
@@ -396,18 +394,18 @@ router.delete('/:id', (req, res, next) => {
 export default router
 ```
 
-定義したルーターを, appの特定のルートに紐付ける
+定義したルーターを, app の特定のルートに紐付ける
 
-``` javascript
+```javascript
 // app.js
-import articleRouter from './controller/article'
+import articleRouter from "./controller/article"
 
-app.use('/articles', articleRouter)
+app.use("/articles", articleRouter)
 ```
 
 叩いてみる.
 
-``` bash
+```bash
 $ http http://localhost:3000/articles/
 HTTP/1.1 200 OK
 Connection: keep-alive
@@ -449,38 +447,38 @@ X-Powered-By: Express
 
 ## セッションの利用
 
-ExpressでBFFを構築するなら, セッションを使いたい場面もあるはず.
+Express で BFF を構築するなら, セッションを使いたい場面もあるはず.
 
-``` bash
+```bash
 $ yarn add express-session
 $ yarn add -D @types/express-session
 ```
 
 例によって, これもミドルウェアなので, パッケージを App.use する
 
-``` typescript
+```typescript
 app.use({
-  name: 'session-id',
-  secret: process.env.SESSION_SECRET || 'secretkey(仮)secret',
+  name: "session-id",
+  secret: process.env.SESSION_SECRET || "secretkey(仮)secret",
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    maxAge: 30 * 60 * 1000
-  }
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 30 * 60 * 1000,
+  },
 })
 ```
 
-XSSへの驚異を多少軽減する意味でも, httpOnly=true,
+XSS への驚異を多少軽減する意味でも, httpOnly=true,
 
-開発環境だと必然的に http プロトコルが利用されるため. secureフラグはfalseにして置く必要がある.
-当然本番環境ではtrue.
+開発環境だと必然的に http プロトコルが利用されるため. secure フラグは false にして置く必要がある.
+当然本番環境では true.
 
 あとは, ミドルウェアの中で `req.session` から追加・変更・取得ができる.
 
-``` typescript
+```typescript
 (req, res, next) => {
   req.session.info = 'セッションに置いておく情報';
   const nameFromSession = req.session.info;
@@ -488,58 +486,55 @@ XSSへの驚異を多少軽減する意味でも, httpOnly=true,
 }
 ```
 
-デフォルトだと, メモリにストアすることになるので, Redis等のストアを使うのも良いだろう.
+デフォルトだと, メモリにストアすることになるので, Redis 等のストアを使うのも良いだろう.
 
 今回は割愛する(もう疲れてきた).
 
-## CORS設定
+## CORS 設定
 
-SPA + Web API的なアーキテクチャだと, 開発環境だと別でサーバーを立てることが多いからCORSを許可して上げる必要があることも多いよね.
+SPA + Web API 的なアーキテクチャだと, 開発環境だと別でサーバーを立てることが多いから CORS を許可して上げる必要があることも多いよね.
 
-``` typescript
-const CORS_ALLOW_LIST = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
-]
+```typescript
+const CORS_ALLOW_LIST = ["http://localhost:8000", "http://127.0.0.1:8000"]
 
 app.use((req, res, next) => {
-    const maybeOrigin = req.headers['origin']
+  const maybeOrigin = req.headers["origin"]
 
-    if (maybeOrigin === undefined) {
-        next()
-        return
-    }
+  if (maybeOrigin === undefined) {
+    next()
+    return
+  }
 
-    const origin = <string>maybeOrigin
+  const origin = <string>maybeOrigin
 
-    // CORS オリジン確認
-    if (CORS_ALLOW_LIST.includes(origin)) {
-        // 許可
-        res.header('Access-Control-Allow-Origin', origin)
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    }
+  // CORS オリジン確認
+  if (CORS_ALLOW_LIST.includes(origin)) {
+    // 許可
+    res.header("Access-Control-Allow-Origin", origin)
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+  }
 
-    // OPTIONS
-    if ('OPTIONS' === req.method) {
-        res.sendStatus(204)
-    } else {
-        next()
-    }
+  // OPTIONS
+  if ("OPTIONS" === req.method) {
+    res.sendStatus(204)
+  } else {
+    next()
+  }
 })
 ```
 
 あえて自分で書いてみた.
 全体用にミドルウェア書くだけなので, わかりやすい.
 
-当然, 提供されているcorsパッケージを利用してもOK
+当然, 提供されている cors パッケージを利用しても OK
 
 [cors - npm](https://www.npmjs.com/package/cors)
 
 シンプルに,
 
-``` typescript
-app.use(cors());
+```typescript
+app.use(cors())
 ```
 
 すれば全許可されるっぽいけど, プリフライトのハンドリングは自前で書く必要があるみたい.
@@ -552,4 +547,4 @@ app.use(cors());
 
 ひとまずこれで終わり！
 
-DB周り(TypeORMってのが良さそうだった)とか, もうちょっと試したいことあるけど, 疲れたから別記事に分ける.
+DB 周り(TypeORM ってのが良さそうだった)とか, もうちょっと試したいことあるけど, 疲れたから別記事に分ける.

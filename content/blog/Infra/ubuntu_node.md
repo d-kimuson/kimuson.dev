@@ -10,11 +10,11 @@ weight: 5
 draft: false
 ---
 
-## npm installでサーバーが死んだ
+## npm install でサーバーが死んだ
 
 ubuntu の VPS 借りて
 
-``` bash
+```bash
 $ npm install
 ```
 
@@ -36,7 +36,7 @@ $ npm install
 
 を参考に
 
-``` bash
+```bash
 $ sudo dd if=/dev/zero of=/swapfile bs=1G count=4
 $ sudo fallocate -l 4G /swapfile
 $ sudo chmod 600 /swapfile

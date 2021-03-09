@@ -10,11 +10,11 @@ thumbnail: "thumbnails/Gatsby.png"
 draft: false
 ---
 
-Gatsbyとマークダウン記事の構成でブログを作っている場合, 新しい記事を書くときにマークダウンファイルを用意するのは若干手間だったりします.
+Gatsby とマークダウン記事の構成でブログを作っている場合, 新しい記事を書くときにマークダウンファイルを用意するのは若干手間だったりします.
 
 例えば, このブログでは,
 
-``` markdown
+```markdown
 ---
 title: Gatsbyで技術ブログを作りました！
 description: Gatsby+TypeScriptで技術ブログを作りました。苦労した点などをまとめます。
@@ -23,7 +23,7 @@ tags:
   - Gatsby
   - React
 date: "2020-08-30T22:40:32.169Z"
-thumbnail: 'thumbnails/Blog.png'
+thumbnail: "thumbnails/Blog.png"
 draft: true
 ---
 
@@ -43,7 +43,7 @@ draft: true
 
 あまり凝って作るつもりはないので, シンプルに `bash` で書いて, `package.json` の scripts に差し込みます. 関連するランタイムの環境を貼っておきます.
 
-``` bash
+```bash
 $ node -v
 v14.6.0
 
@@ -55,9 +55,9 @@ GNU bash, version 3.2.57(1)-release (x86_64-apple-darwin19)
 Copyright (C) 2007 Free Software Foundation, Inc.
 ```
 
-Gatsbyのディレクトリ構造は以下の通りです.
+Gatsby のディレクトリ構造は以下の通りです.
 
-``` bash
+```bash
 $ tree -I "node_modules|static|src|public"
 .
 ├── LICENSE
@@ -92,7 +92,7 @@ $ tree -I "node_modules|static|src|public"
 
 まずは, ベースとなるマークダウンファイルを `bin/template.md` に設置します.
 
-``` bash:title=bin/template.md
+```bash:title=bin/template.md
 ---
 title: "@TITLE"
 description: まだ書かれていません
@@ -111,7 +111,7 @@ draft: true
 
 ## 記事ファイル作成用スクリプトの準備
 
-`bin/content.sh` に記事ファイル作成 & Frontmatter置換用のスクリプトを書いていきます.
+`bin/content.sh` に記事ファイル作成 & Frontmatter 置換用のスクリプトを書いていきます.
 
 やることは,
 
@@ -120,7 +120,7 @@ draft: true
 
 だけです.
 
-``` bash:title=bin/create.sh
+```bash:title=bin/create.sh
 #!/bin/bash
 
 printf "記事タイトルを入力してください >> "; read TITLE
@@ -165,13 +165,13 @@ printf "$FILEPATHに記事ファイルを作成しました"
 
 先程作成した `bin/create.sh`に実行権限を付与してあげつつ,
 
-``` bash
+```bash
 $ chmod a+x bin/create.sh
 ```
 
 手打ちしやすいように, `package.json` の scripts に追加しておきます.
 
-``` json:title=package.json
+```json:title=package.json
 {
   ...
   "scripts": {
@@ -183,7 +183,7 @@ $ chmod a+x bin/create.sh
 
 これで完成です.
 
-``` bash
+```bash
 $ yarn post:new
 $ npm run post:new
 ```
@@ -196,7 +196,7 @@ $ npm run post:new
 
 パッケージマネージャは, `yarn` を使っているのでそちらで.
 
-``` bash
+```bash
 $ yarn post:new
 yarn run v1.22.4
 $ git rev-parse --show-toplevel && ./bin/create.sh
@@ -217,7 +217,7 @@ content/blog/tutorial/test.mdに記事ファイルを作成しました
 
 中身を見てみます.
 
-``` markdown:title=content/blog/tutorial/test.md
+```markdown:title=content/blog/tutorial/test.md
 ---
 title: "テスト記事"
 description: まだ書かれていません

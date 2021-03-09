@@ -10,23 +10,23 @@ date: "2019-06-21T23:22:40+09:00"
 draft: false
 ---
 
-PyQtを使ってGUIアプリを作る機会がありました.
+PyQt を使って GUI アプリを作る機会がありました.
 
-せっかくなので, PyQtを使ったPythonでのGUIアプリ開発について, 簡単に流れを紹介します.
+せっかくなので, PyQt を使った Python での GUI アプリ開発について, 簡単に流れを紹介します.
 
-ざっと調べた感じですが, Pythonを使ったクロスプラットフォームGUIアプリ開発の手法としては,
+ざっと調べた感じですが, Python を使ったクロスプラットフォーム GUI アプリ開発の手法としては,
 
 - [Tkinter](https://docs.python.org/ja/3/library/tkinter.html)
 - [PyQt](https://pypi.org/project/PyQt5/)
 - [Kivy](https://kivy.org/#home)
-- [Electron](https://www.electronjs.org/) + Pythonサーバー(Flask, Django, ...etc)
+- [Electron](https://www.electronjs.org/) + Python サーバー(Flask, Django, ...etc)
 
 辺りの選択肢があります.
 
-ただあまりめんどうな方法で見た目を作りたくはないので, GUIの規定方法が
+ただあまりめんどうな方法で見た目を作りたくはないので, GUI の規定方法が
 
-1. GUI操作で見た目を作れる
-2. HTML + CSS等のWeb技術
+1. GUI 操作で見た目を作れる
+2. HTML + CSS 等の Web 技術
 3. 直接座標を用いる
 
 の優先度でなにか良い方法ないかなって探してたんですが,
@@ -37,22 +37,22 @@ PyQtを使ってGUIアプリを作る機会がありました.
 
 ## PyQt?
 
-> PyQtは、クロスプラットフォームなGUIツールキットであるQtのPythonバインディングにして、PythonでGUIプログラミングをするときの選択肢の一つである -- wikipediaより
+> PyQt は、クロスプラットフォームな GUI ツールキットである Qt の Python バインディングにして、Python で GUI プログラミングをするときの選択肢の一つである -- wikipedia より
 
-`PyQt` の強みとしては, PythonのみでクロスプラットフォームのGUIアプリを作れる点でしょうか.
+`PyQt` の強みとしては, Python のみでクロスプラットフォームの GUI アプリを作れる点でしょうか.
 
-Python自体デスクトップアプリケーションに適してるわけではないので, あえてPythonで作ることを検討するなら, Pythonを使う必然性があるはずです. Pythonしか書けない, コアな部分が既にPythonで実装されている等.
+Python 自体デスクトップアプリケーションに適してるわけではないので, あえて Python で作ることを検討するなら, Python を使う必然性があるはずです. Python しか書けない, コアな部分が既に Python で実装されている等.
 
 その場合、
 
-- Pythonでサーバーを立てて, 別でデスクトップクライアントを作る
-- (自分が使うだけなら)1のPythonサーバーをローカルで建てて動かす
+- Python でサーバーを立てて, 別でデスクトップクライアントを作る
+- (自分が使うだけなら)1 の Python サーバーをローカルで建てて動かす
 
 等を検討したほうが良いと思います.
 
 逆に,
 
-- Pythonを使う必然性があり
+- Python を使う必然性があり
 - サーバーを建てられない / 建てたくない
 - だけど, 配布はしたい
 
@@ -60,46 +60,46 @@ Python自体デスクトップアプリケーションに適してるわけで�
 
 ## 環境構築と初期設定
 
-PyQt5を取得します.
+PyQt5 を取得します.
 
-``` bash
+```bash
 $ pip install PyQT5
 $ pip install pyinstaller
 ```
 
-UIの作成に使う
+UI の作成に使う
 [Qt Designer.app](https://build-system.fman.io/qt-designer-download)
 をダウンロードしておきます.
 
-### Qt Designerの初期設定
+### Qt Designer の初期設定
 
-Qt Designerを開き, メニューバーからPreferenceを開きます(Cmd + ,でもOK).
+Qt Designer を開き, メニューバーから Preference を開きます(Cmd + ,でも OK).
 
-- Appearanceタブの User Interface Mode を "Docked Window"に変更
-- 同じくAppearanceタブの Tool Window Font でJapaneseを選択し, フォントや文字サイズを好みのものに変更.
+- Appearance タブの User Interface Mode を "Docked Window"に変更
+- 同じく Appearance タブの Tool Window Font で Japanese を選択し, フォントや文字サイズを好みのものに変更.
 
 これで準備はできたので, 実際に画面を遷移するだけの簡単なアプリを作りながら開発の流れを見ていきます.
 
-## Qt DesignerでUIを規定
+## Qt Designer で UI を規定
 
 ![QtDesigner1](./qtdesigner.png)
 
-まずはGt Designerから上図のように, 画面を2つ作っていきます.
+まずは Gt Designer から上図のように, 画面を 2 つ作っていきます.
 
-1. `New` -> `Dialog without Buttons` から画面を2つ作成し, 保存(それぞれ `page1.ui`, `page2.ui` と名付けます).
+1. `New` -> `Dialog without Buttons` から画面を 2 つ作成し, 保存(それぞれ `page1.ui`, `page2.ui` と名付けます).
 2. 画面左側の `Widget Bot` から `Line Edit` と `Push Button` を `page1.ui` に, `Line Edit` を `page2.ui` にドラッグアンドドロップします.
 3. `Object Inspector`(画面右上)から, `page1.ui` の `Line Edit` を `lineEdit1`, `page2.ui` の `Line Edit` を `lineEdit2` と名前を変更します.
 4. それぞれのウィジェットをダブルクリックして表示されているテキストを画像と同様に変更します.
 
 これで画面は完成です.
 
-## WidgetとPython関数の紐づけ
+## Widget と Python 関数の紐づけ
 
-Pythonでのコーディングに移っていきます.
+Python でのコーディングに移っていきます.
 
 まずは,
 
-``` bash
+```bash
 $ tree .
 .
 ├── test.py
@@ -108,10 +108,10 @@ $ tree .
     └── page2.ui
 ```
 
-となるように, 実行用のtest.pyと作成した.uiファイルを設置します.
-ui_filesをtest.pyと同じディレクトリに設置してしまうと, 実行ファイル化のときに不都合が起きるはずなので注意が必要です.
+となるように, 実行用の test.py と作成した.ui ファイルを設置します.
+ui_files を test.py と同じディレクトリに設置してしまうと, 実行ファイル化のときに不都合が起きるはずなので注意が必要です.
 
-``` python
+```python
 from PyQt5 import QtWidgets, uic
 
 app = QtWidgets.QApplication([])  # アプリケーションを作成
@@ -126,17 +126,17 @@ if __name__ == "__main__":
 
 これがアプリケーションを起動するための最小構成のコードです.
 
-.uiファイルを読み出して, ダイアログ(画面)を2つ作成して, 1つ目の画面を表示してアプリをスタートしています.
+.ui ファイルを読み出して, ダイアログ(画面)を 2 つ作成して, 1 つ目の画面を表示してアプリをスタートしています.
 
 実行してみると, `page1.ui` に規定した見た目の窓が立ち上がります.
 
 ここから処理を記述していきます.
 
-PyQtでは基本的に, イベントが起きた時の処理を記述した関数を用意して, それを各ウィジェットのイベントに紐づけていくことになります.
+PyQt では基本的に, イベントが起きた時の処理を記述した関数を用意して, それを各ウィジェットのイベントに紐づけていくことになります.
 
-まずは, page1.uiのボタンを押すと, 画面が遷移してpage2.uiの画面に遷移するように処理を書いていきます.
+まずは, page1.ui のボタンを押すと, 画面が遷移して page2.ui の画面に遷移するように処理を書いていきます.
 
-``` python
+```python
 from PyQt5 import QtWidgets, uic
 
 app = QtWidgets.QApplication([])
@@ -159,37 +159,37 @@ if __name__ == "__main__":
 
 新たに追加した changeView() 関数では,
 
-page1.uiで規定されたダイアログを隠して, page2.uiで規定されたダイアログを表示させることで画面遷移を実現しています.
+page1.ui で規定されたダイアログを隠して, page2.ui で規定されたダイアログを表示させることで画面遷移を実現しています.
 
 そして,
 
-``` python
+```python
 dlg1.pushButton.clicked.connect(changeView)
 ```
 
-によって, pushButtonのクリック時の処理にchangeView()関数 を指定しています.
+によって, pushButton のクリック時の処理に changeView()関数 を指定しています.
 
-この `pushButton` は `Object` の名前で, `Qt Designer` の `Object Inspector` から編集できます(最初にlineEditの名前を編集したはず).
+この `pushButton` は `Object` の名前で, `Qt Designer` の `Object Inspector` から編集できます(最初に lineEdit の名前を編集したはず).
 
 実行して, 次のページへをクリックすると画面が遷移します.
 
 アプリ作成自体はこれで終わりです.
 
-## Pyinstallerで実行ファイル化
+## Pyinstaller で実行ファイル化
 
-Pyinstallerを使うことで, 簡単にアプリ化が行えます.
+Pyinstaller を使うことで, 簡単にアプリ化が行えます.
 
-``` bash
+```bash
 $ pyinstaller test.py --onefile --noconsole
 ```
 
-※ pyenvで導入したPythonから実行すると上手くいかないことがありますが,
+※ pyenv で導入した Python から実行すると上手くいかないことがありますが,
 [公式の対応方法](https://pyinstaller.readthedocs.io/en/v3.3.1/development/venv.html)
 を参考に, 再インストールして対応できます.
 
 これで, 以下のツリー構造にファイルが生成されるはずです.
 
-``` bash
+```bash
 $ tree .
 .
 ├── build
@@ -209,32 +209,31 @@ $ tree .
 └── test.spec
 ```
 
-dist/test.app が今回作成した .appのアプリですが, 静的ファイル(今回は page1.uiとpage2.ui)のパス関係が狂ってしまうのでうまく動作しません.
+dist/test.app が今回作成した .app のアプリですが, 静的ファイル(今回は page1.ui と page2.ui)のパス関係が狂ってしまうのでうまく動作しません.
 
-pyinstallerでは, 静的ファイルを臨時のフォルダに展開して使うらしいので, 展開されるディレクトリとパスを対応付けないといけません.
+pyinstaller では, 静的ファイルを臨時のフォルダに展開して使うらしいので, 展開されるディレクトリとパスを対応付けないといけません.
 
-そのため, test.py 本体とさきほど生成した test.specファイルを編集します.
+そのため, test.py 本体とさきほど生成した test.spec ファイルを編集します.
 
-ちなみに, .specファイルは, アプリ化の設定ファイルです.
+ちなみに, .spec ファイルは, アプリ化の設定ファイルです.
 
 基本は .spec に設定を記述した上で,
 
-``` bash
+```bash
 $ pyinstaller test.spec
 ```
 
-で実行アプリを作っていきます(最小限の情報が記述された .specがほしかったので最初は test.pyからやりました).
+で実行アプリを作っていきます(最小限の情報が記述された .spec がほしかったので最初は test.py からやりました).
 
 静的ファイルパスとの対応付けの仕方は,
 
-[pyinstallerの*.specファイル作成法。 -- Qiita](https://qiita.com/cheuora/items/39b3203400e1e15248ed)
+[pyinstaller の\*.spec ファイル作成法。 -- Qiita](https://qiita.com/cheuora/items/39b3203400e1e15248ed)
 
-が非常に参考になったので, 参考にしてソースコードとspecファイルを編集します.
-
+が非常に参考になったので, 参考にしてソースコードと spec ファイルを編集します.
 
 ### test.py
 
-``` python
+```python
 from PyQt5 import QtWidgets, uic
 import sys
 import os
@@ -267,7 +266,7 @@ if __name__ == "__main__":
 
 ### test.spec
 
-``` spec
+```spec
 # -*- mode: python -*-
 
 block_cipher = None
@@ -310,20 +309,20 @@ app = BUNDLE(exe,
 
 これで対応付けができたので, 再びアプリ化を試みます.
 
-``` bash
+```bash
 $ pyinstaller test.spec
 ```
 
-成功して, dist/test.appから起動すると, page1.uiで規定したUIの窓が表示され, 期待通りの動作ができているはずです.
+成功して, dist/test.app から起動すると, page1.ui で規定した UI の窓が表示され, 期待通りの動作ができているはずです.
 
 今回は開発の流れを一通りなぞることが目的だったのでこれで終わります.
 
-## PyQt + Qt DesignerでGUIアプリ開発
+## PyQt + Qt Designer で GUI アプリ開発
 
-`PyQt` 関係は3エントリに分けて投稿してます.
+`PyQt` 関係は 3 エントリに分けて投稿してます.
 
 よろしければ他もどうぞ. 今回は一連の流れを追うだけだったので, 次回は主なウィジェットの使い方について紹介します.
 
-1. [[PyQt + QtDesigner] Python で GUIアプリ開発 その1 ~ 開発の流れ ~](./)
-2. **[[PyQt + QtDesigner] Python で GUIアプリ開発 その2 ~ 主なウィジェットの使い方 ~](../pyqt2)**
-3. [[PyQt + QtDesigner] Python で GUIアプリ開発 その3 ~ *.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](../pyqt3)
+1. [[PyQt + QtDesigner] Python で GUI アプリ開発 その 1 ~ 開発の流れ ~](./)
+2. **[[PyQt + QtDesigner] Python で GUI アプリ開発 その 2 ~ 主なウィジェットの使い方 ~](../pyqt2)**
+3. [[PyQt + QtDesigner] Python で GUI アプリ開発 その 3 ~ \*.connect() に引数ごと関数を渡す方法と, 汎用的画面遷移の実装 ~](../pyqt3)

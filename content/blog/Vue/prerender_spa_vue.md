@@ -9,14 +9,14 @@ weight: 5
 draft: false
 ---
 
-SPAのプリレンダリングというものを知ったので、試してみた
+SPA のプリレンダリングというものを知ったので、試してみた
 
-SPAの欠点としてよく、レスポンスで空 div を投げることがあげられる。
+SPA の欠点としてよく、レスポンスで空 div を投げることがあげられる。
 
-対策としてSSRがあげられるけど、そんなめんどいことしなくても
-最初にアクセスしたときに生成されるDOMをそのままコピればいいだけじゃね? って思って調べてたら Prerender なるものをみつけた。まさにこれだ。
+対策として SSR があげられるけど、そんなめんどいことしなくても
+最初にアクセスしたときに生成される DOM をそのままコピればいいだけじゃね? って思って調べてたら Prerender なるものをみつけた。まさにこれだ。
 
-よくみたら、Vueの公式サイトでも紹介されてた。
+よくみたら、Vue の公式サイトでも紹介されてた。
 
 [Vue.js サーバサイドレンダリングガイド #SSR vs プリレンダリング (事前描画) \| Vue SSR ガイド](https://ssr.vuejs.org/ja/#ssr-vs-%E3%83%97%E3%83%AA%E3%83%AC%E3%83%B3%E3%83%80%E3%83%AA%E3%83%B3%E3%82%B0-%E4%BA%8B%E5%89%8D%E6%8F%8F%E7%94%BB)
 
@@ -32,17 +32,17 @@ SPAの欠点としてよく、レスポンスで空 div を投げることがあ
 
 プリレンダリングするためのプラグインで、Vue、React、Angular に対応している
 
-Vue用は、CLIプラグインがあったので、こっちを使った。
+Vue 用は、CLI プラグインがあったので、こっちを使った。
 
 [vue-cli-plugin-prerender-spa - npm](https://www.npmjs.com/package/vue-cli-plugin-prerender-spa)
 
-``` bash
+```bash
 $ vue add prerender-spa
 ```
 
 各質問に答え終わると、`vue.config.js` に設定が追加される.
 
-``` javascript:vue.config.js
+```javascript:vue.config.js
 module.exports = {
   ...
   pluginOptions: {
@@ -67,9 +67,9 @@ module.exports = {
 
 ウキウキでホスティングしてみたら、使用前より Lighthouse のパフォーマンススコアが落ちてた
 
-70 => 55くらい
+70 => 55 くらい
 
-ビルドされたHTML覗いてみたら、Google Fontの読み込みが二重になってた
+ビルドされた HTML 覗いてみたら、Google Font の読み込みが二重になってた
 
 [Web Font Loader](https://github.com/typekit/webfontloader) が、後から挿入してる読み込みタグがビルド時にも生成されて重複してるっぽい。
 
@@ -77,7 +77,7 @@ module.exports = {
 
 [vue-cli-plugin-prerender-spa の公式](https://www.npmjs.com/package/vue-cli-plugin-prerender-spa) を確認してみたらカスタマイズの方法が載ってたので、参考にしつつ除去する
 
-``` javascript:vue.config.js
+```javascript:vue.config.js
 module.exports = {
   ...
   pluginOptions: {
@@ -101,6 +101,6 @@ module.exports = {
 }
 ```
 
-再ビルドしてみたら無事除去されてて、今度はスコアも80超えてた
+再ビルドしてみたら無事除去されてて、今度はスコアも 80 超えてた
 
 わーい
