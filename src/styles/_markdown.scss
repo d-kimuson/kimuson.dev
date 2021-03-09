@@ -60,10 +60,15 @@
   blockquote {
     margin: 25px 5px;
   }
+  ul > li {
+    margin: 5px 25px;
+  }
+  ol > li {
+    margin: 5px 0;
+  }
   ul,
   ol {
     li {
-      margin: 5px 25px;
       & > p,
       ul,
       ol {
