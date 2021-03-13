@@ -84,7 +84,6 @@
     "gatsby-plugin-image": "^1.0.0",
     "gatsby-plugin-manifest": "^3.0.0",
     "gatsby-plugin-mdx": "^2.0.0",
-    "gatsby-plugin-netlify": "^3.0.0",
     "gatsby-plugin-next-seo": "^1.7.0",
     "gatsby-plugin-offline": "^4.0.0",
     "gatsby-plugin-preact": "^5.0.0",
