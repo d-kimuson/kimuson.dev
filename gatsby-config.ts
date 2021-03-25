@@ -226,8 +226,5 @@ export default {
         production: true,
       },
     },
-    {
-      resolve: "gatsby-plugin-brotli",
-    },
   ],
 }
