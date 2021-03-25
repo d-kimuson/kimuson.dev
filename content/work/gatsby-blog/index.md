@@ -1,6 +1,6 @@
 ---
 title: "Gatsbyで構築した技術ブログ"
-thumbnail: "/work/gatsby-blog/thumbnail.png"
+thumbnail: "logo.png"
 date: "2020-09-01T21:00:45Z"
 weight: 5
 draft: false
@@ -13,22 +13,23 @@ Qiita とかに技術記事を投稿するのは気が引けちゃうタイプ�
 ## 使用している技術
 
 - FW: [Gatsby.js](https://www.gatsbyjs.com/)
-- 動くロゴ: [Ztext](https://bennettfeely.com/ztext/)
-- デプロイ: [Netlify](https://www.netlify.com/)
+- デプロイ先: [Cloudflare Pages](https://pages.cloudflare.com/)
 
 その他, このブログを構築する上での知見は, [こちらのエントリ](/blog/gatsby/gatsby-blog) に記事を書きました.
 
+高速化のため、preact を使っています
+
 ## ローカルで記事をかきたかった
 
-実は, 元々書いていた技術ブログがありました( [KLabs](https://tech-k-labs.xyz/) )
+元々書いていた技術ブログがありました
 
-こちらも SSG の [Hugo](https://gohugo.io/) で構築されていて, ローカルの環境で自分の好きなエディタで記事を書ける感じがとても手軽で好きでした.
+SSG の [Hugo](https://gohugo.io/) で構築していたんですが, ローカルの環境で自分の好きなエディタで記事を書ける感じがとても手軽で好きでした.
 
 あとサーバー代がかからないのも 👍
 
 この辺は引き継ぎたかったので, 似たような形でかける [Gatsby.js](https://www.gatsbyjs.com/) で作りました.
 
-## 機能にこだわった
+## こだわったこと
 
 以前のブログは,
 
@@ -38,7 +39,7 @@ Qiita とかに技術記事を投稿するのは気が引けちゃうタイプ�
 
 とかとかに不満がありました.
 
-[Gatsby.js](https://www.gatsbyjs.com/) は, React がベースになっているのでカスタマイズ性が高く, 記事検索や目次の機能を実装できました！
+[Gatsby.js](https://www.gatsbyjs.com/) は, React がベースになっているのでカスタマイズ性が高くて, この辺を簡単に実装できました！
 
 また, Gatsby と言えばビルドされたサイトのパフォーマスが高いことで有名だと思いますが, 実際相当高速化したので, とても満足しています 😍
 

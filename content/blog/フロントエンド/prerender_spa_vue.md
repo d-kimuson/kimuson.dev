@@ -1,9 +1,9 @@
 ---
 title: "Vue の SPA をプリレンダリングする"
-thumbnail: "thumbnails/Vue.png"
+thumbnail: "thumbnails/フロントエンド.png"
 tags:
   - "Vue.js"
-category: "Vue"
+category: "フロントエンド"
 date: "2020-07-17T08:27:14+09:00"
 weight: 5
 draft: false

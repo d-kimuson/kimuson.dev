@@ -10,14 +10,13 @@ export default {
   siteMetadata: {
     title: siteName,
     author: {
-      name: `Kaito Kimura`,
-      summary:
-        `会津大学の4年生です。` + `Webに関する技術記事をメインに書いていきます`,
+      name: `kimuson`,
+      summary: `Webに関する技術記事をメインに書いていきます`,
     },
     description: description,
     siteUrl: siteUrl,
     social: {
-      twitter: `_kimuemon`,
+      twitter: `_kimuson`,
     },
     posts: readPosts(),
   },

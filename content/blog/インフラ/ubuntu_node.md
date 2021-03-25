@@ -1,10 +1,10 @@
 ---
 title: "Ubuntu サーバーで npm install するとサーバーが死ぬことへの対策"
-thumbnail: "thumbnails/Infra.png"
+thumbnail: "thumbnails/インフラ.png"
 tags:
   - "npm"
   - "Node.js"
-category: "Infra"
+category: "インフラ"
 date: "2019-09-12T17:40:27+09:00"
 weight: 5
 draft: false
