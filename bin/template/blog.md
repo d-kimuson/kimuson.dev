@@ -9,3 +9,11 @@ date: "@DATE"
 thumbnail: "thumbnails/@CATEGORY.png"
 draft: true
 ---
+
+## TL;DR
+
+ほげほげするよ
+
+## 参考
+
+- [hoge](hoge)
