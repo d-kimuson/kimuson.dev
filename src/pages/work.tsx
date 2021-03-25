@@ -1,9 +1,11 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
+import { pipe } from "ramda"
 
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
 import type { PostMdxEdge } from "types/external-graphql-types"
 import { toWorkPostList } from "~/service/gateways/post"
+import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
 import { Head } from "~/components/common/head"
 import { Sidebar } from "~/components/sidebar"
 import { Layout } from "~/components/layout"
@@ -17,7 +19,11 @@ const WorkPage: React.VFC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
-  const workPosts = toWorkPostList(edges as PostMdxEdge[])
+  const workPosts = pipe(
+    toWorkPostList,
+    sortPostList,
+    filterDraftPostList
+  )(edges as PostMdxEdge[])
 
   return (
     <>
