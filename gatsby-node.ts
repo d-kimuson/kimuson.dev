@@ -74,21 +74,6 @@ export const createPages: GatsbyNode["createPages"] = async ({
       }))
   )
 
-  console.log(
-    `BUILD PAGES`,
-    result?.data?.allMdx.edges,
-    (result?.data?.allMdx.edges || [])
-      .filter((e): e is MdxEdge => typeof e !== `undefined`)
-      .map((e) => ({
-        title: e.node.frontmatter?.title,
-        draft: Boolean(e.node.frontmatter?.draft),
-        slug: e.node.fields?.slug,
-        category: e.node.frontmatter?.category,
-        tags: e.node.frontmatter?.tags,
-        node: e.node,
-      }))
-  )
-
   const blogPosts = posts
     .filter((post) => post.slug?.includes(`/blog/`))
     .filter((post) => typeof post.title === `string`)
