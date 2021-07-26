@@ -10,7 +10,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: map.get(var.$z-index-weights, "lg");
 }
 
 .contentWrapper {

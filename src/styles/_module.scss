@@ -1,7 +1,18 @@
 @use "sass:color";
 @use 'variable' as var;
 
-.m-un-selectable {
+.m-context {
+  isolation: isolate;
+}
+
+@for $i from 1 through 3 {
+  .m-z#{$i} {
+    z-index: $i;
+    position: relative;
+  }
+}
+
+.m-un-selectable { 
   user-select: none;
 }
 

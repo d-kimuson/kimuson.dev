@@ -33,7 +33,6 @@
       left: 0;
       height: 100%;
       width: 0%;
-      z-index: map.get(var.$z-index-weights, "sm");
       background-color: var.$link-color;
       opacity: 0.2;
       transition: 0.2s;
@@ -42,10 +41,6 @@
       &::before {
         width: 100%;
       }
-    }
-
-    img {
-      z-index: map.get(var.$z-index-weights, "md");
     }
   }
   p {
