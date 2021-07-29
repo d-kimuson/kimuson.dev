@@ -81,14 +81,8 @@ export default {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
-                  url:
-                    siteTyped.siteMetadata?.siteUrl +
-                    "/blog" +
-                    edge.node.fields?.slug,
-                  guid:
-                    siteTyped.siteMetadata?.siteUrl +
-                    "/blog" +
-                    edge.node.fields?.slug,
+                  url: `${siteTyped.siteMetadata?.siteUrl}${edge.node.fields?.slug}`,
+                  guid: `${siteTyped.siteMetadata?.siteUrl}${edge.node.fields?.slug}`,
                   custom_elements: [], // html クエリが帰ってこないので臨時で Issue: https://github.com/gatsbyjs/gatsby/issues/29983
                   // custom_elements: [{ "content:encoded": edge.node.html }],
                 })
