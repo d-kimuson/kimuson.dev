@@ -27,7 +27,7 @@ export const toDetail = curry(
           ...post,
           body: mdx.body,
           headings: toHeadings(mdx.tableOfContents),
-          postUrl,
+          postUrl: postUrl ? encodeURI(postUrl) : undefined,
           ogtImageUrl: excludeNull(mdx.frontmatter?.thumbnail?.publicURL),
         }
       : undefined
