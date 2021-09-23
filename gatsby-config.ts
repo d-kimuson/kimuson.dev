@@ -146,13 +146,6 @@ export default {
     // typescript
     `gatsby-plugin-typescript`,
     {
-      resolve: `gatsby-plugin-graphql-codegen`,
-      options: {
-        codegen: process.env.IS_CODEGEN === `true`,
-        fileName: `types/graphql-types.d.ts`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-remove-console`,
       options: {
         exclude: [`error`, `warn`],
