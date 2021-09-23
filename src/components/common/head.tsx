@@ -47,13 +47,6 @@ const Component: React.VFC<HeadProps> = ({
   const siteDomain = siteUrl.split(`//`)[1].split(`/`)[0]
   const pageUrl = `https://${siteDomain}${toBlogPostLink(slug || ``)}`
 
-  console.log(pageTitle, pageDescription, pageUrl)
-  console.log(
-    `title: ${pageTitle}` +
-      `description: ${pageDescription}` +
-      `url: ${pageUrl}`
-  )
-
   let ogImages: OpenGraphImages[] | undefined
   if (typeof imageUrl === `string`) {
     ogImages = [

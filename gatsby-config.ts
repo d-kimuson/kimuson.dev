@@ -126,6 +126,12 @@ export default {
       },
     },
     {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: `ca-pub-4665963407721538`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: siteName,

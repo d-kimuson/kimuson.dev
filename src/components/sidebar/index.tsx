@@ -3,6 +3,7 @@ import type { Heading } from "~/service/entities/post"
 import { Bio } from "./bio"
 import { PopularCategories } from "./popular-categories"
 import { Toc } from "./toc"
+import { Adsense } from "./adsense"
 
 interface SidebarProps {
   bio?: boolean
@@ -24,6 +25,7 @@ const Component: React.VFC<SidebarProps> = ({
       <div className="l-sidebar-sticky-area">
         {typeof toc !== `undefined` ? <Toc headings={toc?.headings} /> : null}
         {commonSidebar ? <PopularCategories /> : null}
+        <Adsense />
       </div>
     </div>
   )
