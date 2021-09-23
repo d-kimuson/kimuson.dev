@@ -36,6 +36,7 @@ const Component: React.VFC<PreProps<ChildrenProps>> = (
 ) => {
   const props = preToCodeBlock<ChildrenProps>(preProps)
   if (props) {
+    // eslint-disable-next-line react/prop-types
     const { language, title } = separateTitle(props.language)
     const propsUpdated = {
       ...props,

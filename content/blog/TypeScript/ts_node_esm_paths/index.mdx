@@ -13,7 +13,7 @@ draft: false
 
 - TypeScript で書いてトランスパイルしたものを node に ESM で読ませたい
   - commonjs にすればって感じだけど、使いたいライブラリが dual package 対応してなかったり、top level await が使いたくて、とかで ESM で実行したいときもある
-- 1ファイル実行するのに全部トランスパイルするのはアレなので、ts-node や esbuild-register で実行したい
+- 1 ファイル実行するのに全部トランスパイルするのはアレなので、ts-node や esbuild-register で実行したい
   - ts-node: (experimental ではあるけど) ESM の実行はできる。ただ tsconfig-paths/register が使えない
   - esbuild-register: 未対応 ([set "type": "module" in `package.json` breaks the build · Issue #26 · egoist/esbuild-register](https://github.com/egoist/esbuild-register/issues/26))
 - という感じで少なくとも現時点で「paths のエイリアスを解決しながら TypeScript を ESM 向けにトランスパイルして実行する」手段がなさそうなので、実行できるようにする

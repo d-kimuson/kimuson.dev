@@ -22,10 +22,8 @@ const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
   const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 
   const feedPosts = toFeedPostList(
-    (
-      data.site?.siteMetadata?.posts || []
-    ).filter((maybePost): maybePost is SiteSiteMetadataPosts =>
-      Boolean(maybePost)
+    (data.site?.siteMetadata?.posts || []).filter(
+      (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)
     )
   )
 

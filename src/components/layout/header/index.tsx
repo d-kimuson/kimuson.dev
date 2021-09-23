@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react"
 import { StaticImage } from "gatsby-plugin-image"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import classnames from 'classnames'
+import classnames from "classnames"
 
 import * as styles from "./header.module.scss"
 import type { HeaderQuery } from "@graphql-types"
@@ -37,7 +37,7 @@ export const Component: React.VFC<HeaderProps> = ({
       {/* Basic */}
       <Link
         to="/"
-        className={classnames(styles.headerTitleArea, 'm-remove-a-decoration')}
+        className={classnames(styles.headerTitleArea, "m-remove-a-decoration")}
       >
         <h1 className={styles.headerTitle}>
           <StaticImage
@@ -70,7 +70,7 @@ export const Component: React.VFC<HeaderProps> = ({
         <Portal>
           <Navigation
             id="drawerMenu"
-            className={classnames(styles.drawerMenu, 'm-z2')}
+            className={classnames(styles.drawerMenu, "m-z2")}
             aria-hidden={!isOpenMenu}
           />
         </Portal>

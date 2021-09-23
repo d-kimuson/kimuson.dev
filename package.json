@@ -21,23 +21,20 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "typecheck": "tsc -p . --noEmit",
     "lint": "yarn typecheck && run-p lint:*",
-    "lint:eslint": "eslint src --ext .tsx,.ts,.jsx",
+    "lint:eslint": "eslint src --cache --ext .tsx,.ts,.jsx",
     "lint:prettier": "prettier './**/*.{tsx,ts,jsx,json,md,mdx}' --check",
-    "lint:stylelint": "stylelint 'src/**/*.{scss,.css}'",
+    "lint:stylelint": "stylelint --cache 'src/**/*.{scss,.css}'",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "prettier './**/*.{tsx,ts,jsx,json,md,mdx}' --write",
     "fix:stylelint": "yarn lint:stylelint --fix",
+    "lint-staged": "lint-staged --allow-empty",
     "now": "date +'%Y-%m-%dT%TZ'",
     "blog:new": "git rev-parse --show-toplevel && ./bin/create.sh article",
     "work:new": "git rev-parse --show-toplevel && ./bin/create.sh work",
     "deploy": "git rev-parse --show-toplevel && git add content && git commit -m '[article] post article' && git push origin master",
-    "test": "jest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn lint"
-    }
+    "test": "jest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "classnames": "^2.3.1",
@@ -106,8 +103,9 @@
     "gatsby-source-filesystem": "^3.14.0",
     "gatsby-transformer-sharp": "^3.14.0",
     "http-server": "^13.0.2",
-    "husky": "^4",
+    "husky": "^7.0.2",
     "jest": "^27.2.1",
+    "lint-staged": "^11.1.2",
     "loadable-components": "^2.2.3",
     "mdx-utils": "^0.2.0",
     "modern-css-reset": "^1.4.0",
@@ -126,7 +124,7 @@
     "sass": "^1.42.1",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-recommended": "^5.0.0",
     "stylelint-config-standard-scss": "^1.1.0",
     "stylelint-scss": "^3.21.0",
     "subscriptions-transport-ws": "^0.9.19",

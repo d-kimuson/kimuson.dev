@@ -23,5 +23,6 @@ module.exports = {
     "block-no-empty": [true, { severity: "warning" }],
     "no-duplicate-selectors": [true, { severity: "warning" }],
     "no-descending-specificity": null,
+    "no-invalid-position-at-import-rule": null,
   },
 }

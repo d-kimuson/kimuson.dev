@@ -19,10 +19,8 @@ interface IndexProps extends PageProps {
 
 const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
   const feedPosts = toFeedPostList(
-    (
-      data.site?.siteMetadata?.posts || []
-    ).filter((maybePost): maybePost is SiteSiteMetadataPosts =>
-      Boolean(maybePost)
+    (data.site?.siteMetadata?.posts || []).filter(
+      (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)
     )
   )
 

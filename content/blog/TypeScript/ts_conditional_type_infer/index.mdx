@@ -23,7 +23,7 @@ type Res2 = ExtractArrayT<number[]> // number
 
 Res1 では、T に `string[]` を渡しているので、string が型変数 I に渡り、string 型が帰ります
 
-これだけでもとても便利なんですが、T が複数の型をまとめた型(具体的には共用体型と交差型)の場合に、Iを取り出す時に面白い集約の仕方をして、普通では取れない型を取り出すことができます
+これだけでもとても便利なんですが、T が複数の型をまとめた型(具体的には共用体型と交差型)の場合に、I を取り出す時に面白い集約の仕方をして、普通では取れない型を取り出すことができます
 
 この辺りの挙動を調べたので紹介します
 
@@ -38,14 +38,14 @@ type Obj1 = { key1: string }
 type Obj2 = { key2: string }
 ```
 
-この2つの型をそれぞれ `Array<T>` 型にマップします
+この 2 つの型をそれぞれ `Array<T>` 型にマップします
 
 ```ts
 type Arr1 = Array<Obj1> // = Obj1[]
 type Arr2 = Array<Obj2>
 ```
 
-このとき、`Arr1 & Arr2` と `Arr1 | Arr2` を infer で1つの型に集約してやります
+このとき、`Arr1 & Arr2` と `Arr1 | Arr2` を infer で 1 つの型に集約してやります
 
 ```ts
 type ArrUnion = Arr1 | Arr2 extends Array<infer Obj> ? Obj : never // Obj1 | Obj2
@@ -62,12 +62,12 @@ ArrUnion は自然な挙動ですが、ArrIntersection の方は交差型では�
 
 | 型                | 共用体から集約 | 交差型から集約  |
 | ----------------- | -------------- | --------------- |
-| `T`                 | A \| B         | A & B (never)   |
-| `() => T`           | A \| B         | B               |
-| `(k: T) => void`    | A & B (never)  | B               |
+| `T`               | A \| B         | A & B (never)   |
+| `() => T`         | A \| B         | B               |
+| `(k: T) => void`  | A & B (never)  | B               |
 | `Array<T>`(`T[]`) | A \| B         | B               |
 | `[T]`             | A \| B         | B (unknown)     |
-| `{ key: T }`        | A \| B         | A & B (unknown) |
+| `{ key: T }`      | A \| B         | A & B (unknown) |
 
 じゃん
 
@@ -76,7 +76,7 @@ ArrUnion は自然な挙動ですが、ArrIntersection の方は交差型では�
 - `() => T`, `(k: T) => void`, `Array<T>` の交差型を集約すると B が取れる
 - `(k: T) => void` の共用体型を集約すると A & B が取れる
 
-の2種類は、普通では取れない型が拾えています
+の 2 種類は、普通では取れない型が拾えています
 
 ## 応用する
 
@@ -97,7 +97,7 @@ type DistributeArray<T> = T extends any ? T[] : never
 この DistributeArray 型に `string | number` 型を渡すと、直感的には `(string | number)[]` が受け取れる気がしますが、実際にはは `string[]` | `number[]` 型が帰ってきます
 
 ```ts
-type Res3 = DistributeArray<string | number>  // string[] | number[]
+type Res3 = DistributeArray<string | number> // string[] | number[]
 ```
 
 これが Distributive Conditonal Types です
@@ -120,9 +120,9 @@ type DistributeTuple<T> = T extends any ? [T] : never // [A] | [B]
 上の表で `((k: A) => void) & ((k: B) => void)` を集約すると A & B が受け取れることがわかっているので、交差型パターンも作れます
 
 ```ts
-type UnionToArgIntersection<U> = (U extends any
-  ? (k: (k: U) => void) => void
-  : never) extends (k: infer I) => void
+type UnionToArgIntersection<U> = (
+  U extends any ? (k: (k: U) => void) => void : never
+) extends (k: infer I) => void
   ? I
   : never // ((k: A) => void) & ((k: B) => void)
 ```
@@ -137,9 +137,9 @@ type UnionToArgIntersection<U> = (U extends any
 って感じです、同様に他の交差型からの集約パターンも作れます
 
 ```ts
-type UnionToArrayIntersection<U> = (U extends any
-  ? (k: U[]) => void
-  : never) extends (k: infer I) => void
+type UnionToArrayIntersection<U> = (
+  U extends any ? (k: U[]) => void : never
+) extends (k: infer I) => void
   ? I
   : never // A[] & B[]
 // めんどうなので他は割愛
@@ -161,7 +161,7 @@ type LastOfUnion<U> = (
 ) extends (infer I2)[]
   ? I2
   : never
-type Res4 = LastOfUnion<'hello' | 'world' | 'foo'>  // "foo"
+type Res4 = LastOfUnion<"hello" | "world" | "foo"> // "foo"
 ```
 
 1. `A | B`
@@ -186,9 +186,9 @@ type IsUnion<T> = IsNever<Exclude<T, LastOfUnion<T>>> extends true
 
 IsNever は本筋じゃないので割愛しますが、never 型がどうかを判定できる型です
 
-`Exclude<T, LastOfUnion<T>>` すると、Union型から末尾要素を1つ除外した型を返します
+`Exclude<T, LastOfUnion<T>>` すると、Union 型から末尾要素を 1 つ除外した型を返します
 
-Tがそもそも1要素しかもたないとき(`Exclude<string, string>` とか)は、never が帰ってくるので、never か判定してやればその型が Union 型かどうかわかります
+T がそもそも 1 要素しかもたないとき(`Exclude<string, string>` とか)は、never が帰ってくるので、never か判定してやればその型が Union 型かどうかわかります
 
 ## 最後に
 

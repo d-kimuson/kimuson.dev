@@ -18,7 +18,7 @@ React で全体レイアウトの重ね合わせを制御したいときは、Po
 
 サイト全体で z-index を使おうとすると、あとからもっと上にしたい要素が登場して無限にインフレしていくという問題に加えて
 
-[君は真に理解しているか？z-indexとスタッキングコンテキストの関係 - ICS MEDIA](https://ics.media/entry/200609/)
+[君は真に理解しているか？z-index とスタッキングコンテキストの関係 - ICS MEDIA](https://ics.media/entry/200609/)
 
 詳細は以上の記事に譲りますが、z-index はあくまでスタッキングコンテキスト下での優先順位なので、大きいほうが必ず上ということではないという問題もあります
 
@@ -83,11 +83,11 @@ IE に対応しなくて良いなら、意図が明確なのでこちらが良�
 
 ここで活躍するのが React Portal です
 
-## Portal で l-container 下にDOMを飛ばす
+## Portal で l-container 下に DOM を飛ばす
 
 [React Portal](https://ja.reactjs.org/docs/portals.html) は DOM のレンダリング先を特定の HTML 要素下に移動できる機能です
 
-つまり、なんらかのイベントでモーダルウィンドウが起動したとき、DOMの出現場所を以下のようにすることができます
+つまり、なんらかのイベントでモーダルウィンドウが起動したとき、DOM の出現場所を以下のようにすることができます
 
 ```html
 <div class="l-container">
@@ -121,7 +121,7 @@ export const Layout: React.VFC<LayoutProps> = ({ children }: LayoutProps) => {
 }
 ```
 
-portal からHTML要素を取得するため、`#layout-root` を降っておきます
+portal から HTML 要素を取得するため、`#layout-root` を降っておきます
 
 ### 汎用の Portal コンポーネントを作る
 
