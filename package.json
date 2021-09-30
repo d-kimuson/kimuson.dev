@@ -76,7 +76,7 @@
     "esbuild-jest": "^0.5.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react": "^7.26.1",
     "fibers": "^5.0.0",
     "gatsby": "^3.14.0",
     "gatsby-plugin-feed-mdx": "^1.1.0",
