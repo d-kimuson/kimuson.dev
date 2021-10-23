@@ -5,6 +5,8 @@ import { PopularCategories } from "./popular-categories"
 import { Toc } from "./toc"
 import { Adsense } from "./adsense"
 
+import * as styles from "./sidebar.module.scss"
+
 interface SidebarProps {
   bio?: boolean
   commonSidebar?: boolean
@@ -25,7 +27,9 @@ const Component: React.VFC<SidebarProps> = ({
       <div className="l-sidebar-sticky-area">
         {typeof toc !== `undefined` ? <Toc headings={toc?.headings} /> : null}
         {commonSidebar ? <PopularCategories /> : null}
-        <Adsense />
+        <div className={styles.adsenseWrapper}>
+          <Adsense />
+        </div>
       </div>
     </div>
   )

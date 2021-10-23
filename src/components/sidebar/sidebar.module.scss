@@ -1,5 +1,6 @@
 @use "sass:color";
-@use "../../global-styles/global/" as g;
+// @use "../../global-styles/global/" as g;
+@use "../../styles/variable" as g;
 
 // toc
 .toc-wrapper {
@@ -39,4 +40,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+// ads
+.adsense-wrapper {
+  width: 100%;
 }

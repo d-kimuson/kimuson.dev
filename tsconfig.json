@@ -25,7 +25,11 @@
     "strict": true,
     "resolveJsonModule": true
   },
-  "files": ["./@types/globals.d.ts", "./@types/vendor.d.ts"],
+  "files": [
+    "./@types/globals.d.ts",
+    "./@types/vendor.d.ts",
+    "./@types/lib.dom.d.ts"
+  ],
   "exclude": ["node_modules"],
   "include": [
     "./gatsby-node.ts",

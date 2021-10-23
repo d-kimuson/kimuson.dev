@@ -1,3 +1,4 @@
 gatsby-config.ts
 types/graphql-types.d.ts
+@types/**/*.ts
 *.js
