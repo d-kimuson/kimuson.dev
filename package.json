@@ -69,7 +69,7 @@
     "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "cssnano": "^5.0.10",
+    "cssnano": "^5.0.11",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "esbuild": "^0.13.13",
