@@ -49,7 +49,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@graphql-codegen/cli": "^2.4.0",
-    "@graphql-codegen/typescript": "^2.4.2",
+    "@graphql-codegen/typescript": "^2.4.4",
     "@graphql-codegen/typescript-operations": "^2.2.4",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
