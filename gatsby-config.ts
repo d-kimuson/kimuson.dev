@@ -119,12 +119,14 @@ export default {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING,
-      },
-    },
+    process.env.NODE_ENV === "production"
+      ? {
+          resolve: `gatsby-plugin-google-analytics`,
+          options: {
+            trackingId: process.env.GOOGLE_ANALYTICS_TRACKING,
+          },
+        }
+      : undefined,
     {
       resolve: `gatsby-plugin-google-adsense`,
       options: {
@@ -219,5 +221,5 @@ export default {
         production: true,
       },
     },
-  ],
+  ].filter((plugin) => plugin !== undefined),
 }
