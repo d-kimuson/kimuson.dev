@@ -35,7 +35,8 @@
     "work:new": "git rev-parse --show-toplevel && ./bin/create.sh work",
     "deploy": "git rev-parse --show-toplevel && git add content && git commit -m '[article] post article' && git push origin master",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "classnames": "^2.3.1",
@@ -111,6 +112,7 @@
     "mdx-utils": "^0.2.0",
     "modern-css-reset": "^1.4.0",
     "npm-run-all": "^4.1.5",
+    "patch-package": "^6.4.7",
     "postcss": "^8.4.6",
     "postcss-flexbugs-fixes": "^5.0.2",
     "prettier": "^2.5.1",
