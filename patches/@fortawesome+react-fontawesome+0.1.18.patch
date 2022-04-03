@@ -1,0 +1,21 @@
+diff --git a/node_modules/@fortawesome/react-fontawesome/index.d.ts b/node_modules/@fortawesome/react-fontawesome/index.d.ts
+index 11fd5cf..7e85e4a 100644
+--- a/node_modules/@fortawesome/react-fontawesome/index.d.ts
++++ b/node_modules/@fortawesome/react-fontawesome/index.d.ts
+@@ -9,6 +9,7 @@ import {
+   RotateProp,
+   FaSymbol
+ } from '@fortawesome/fontawesome-svg-core'
++import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+ 
+ export function FontAwesomeIcon(props: FontAwesomeIconProps): JSX.Element
+ 
+@@ -22,7 +23,7 @@ type BackwardCompatibleOmit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K
+ 
+ export interface FontAwesomeIconProps extends BackwardCompatibleOmit<SVGAttributes<SVGSVGElement>, 'children' | 'mask' | 'transform'> {
+   forwardedRef?: ((e: any) => void) | React.MutableRefObject<any> | null
+-  icon: IconProp
++  icon: IconProp | IconDefinition
+   mask?: IconProp
+   maskId?: string
+   className?: string
