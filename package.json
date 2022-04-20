@@ -107,7 +107,7 @@
     "http-server": "^13.0.2",
     "husky": "^7.0.4",
     "jest": "^27.4.7",
-    "lint-staged": "^11.2.6",
+    "lint-staged": "^12.4.0",
     "loadable-components": "^2.2.3",
     "mdx-utils": "^0.2.0",
     "modern-css-reset": "^1.4.0",
