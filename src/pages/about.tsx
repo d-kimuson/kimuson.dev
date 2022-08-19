@@ -1,15 +1,14 @@
-import React from "react"
-import { PageProps, graphql } from "gatsby"
-
+import { graphql } from "gatsby"
 import type { AboutPageQuery } from "@graphql-types"
-import { toDetailAboutPost } from "~/service/gateways/post"
+import type { PageProps } from "gatsby"
 import { Post } from "~/components/common/post"
 import { Layout } from "~/components/layout"
 import { Sidebar } from "~/components/sidebar"
+import { toDetailAboutPost } from "~/service/gateways/post"
 
-interface AboutPageProps extends PageProps {
+type AboutPageProps = {
   data: AboutPageQuery
-}
+} & PageProps
 
 const AboutPage: React.VFC<AboutPageProps> = ({ data }: AboutPageProps) => {
   const mdx = data.mdx
@@ -18,7 +17,6 @@ const AboutPage: React.VFC<AboutPageProps> = ({ data }: AboutPageProps) => {
   }
 
   const post = toDetailAboutPost(undefined, mdx)
-  console.log(mdx, post)
 
   return (
     <Layout>

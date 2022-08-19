@@ -1,12 +1,11 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
-
+import { graphql } from "gatsby"
 import type { CategoryPageQuery } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { Sidebar } from "~/components/sidebar"
-import { Layout } from "~/components/layout"
-import { Head } from "~/components/common/head"
 import { BlogPostList } from "~/components/common/blog-post-list"
+import { Head } from "~/components/common/head"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 import { toBlogPostList } from "~/service/gateways/post"
 import { toCategoryLink } from "~/service/presenters/links"
 
@@ -17,8 +16,8 @@ const BlogPostTemplate: React.VFC<CategoryPageProps> = ({
   pageContext,
 }: CategoryPageProps) => {
   const blogPosts = toBlogPostList(data.allMdx.edges as PostMdxEdge[])
-  const category = pageContext.category || `No Category`
-  const siteTitle = data.site?.siteMetadata?.title || ``
+  const category = pageContext.category ?? `No Category`
+  const siteTitle = data.site?.siteMetadata?.title ?? ``
 
   return (
     <>

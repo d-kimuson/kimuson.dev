@@ -1,14 +1,14 @@
-import React, { useState, useEffect, memo } from "react"
-import { pipe } from "ramda"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
-
-import { SearchBlogPost, searchByKeyword, filterByTags } from "./searchBlogPost"
-import { TagChecklist } from "~/components/common/tag-checklist"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { pipe } from "ramda"
+import React, { useState, useEffect, memo } from "react"
+import type { SearchBlogPost } from "./searchBlogPost"
 import { BlogPostList } from "~/components/common/blog-post-list"
+import { TagChecklist } from "~/components/common/tag-checklist"
 import * as styles from "./search.module.scss"
+import { searchByKeyword, filterByTags } from "./searchBlogPost"
 
-interface SearchProps {
+type SearchProps = {
   blogPosts: SearchBlogPost[]
   className?: string
 }

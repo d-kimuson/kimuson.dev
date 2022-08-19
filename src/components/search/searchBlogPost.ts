@@ -1,5 +1,4 @@
 import { curry } from "ramda"
-
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 
 export type SearchBlogPost = (BlogPost | FeedPost) & {

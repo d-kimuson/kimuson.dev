@@ -1,6 +1,5 @@
+import { MDXRenderer as MDXRendererBase } from "gatsby-plugin-mdx"
 import React, { memo } from "react"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import { GatsbyImage } from "gatsby-plugin-image"
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -11,16 +10,20 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share"
-
-import * as styles from "./post.module.scss"
-import type { Detail, Post as BasePost } from "~/service/entities/post"
-import type { Tag } from "~/service/entities/post"
-import { Head } from "~/components/common/head"
-import { TagList } from "~/components/common/tag-list"
+import type { MDXRendererProps } from "gatsby-plugin-mdx"
 import { Date } from "~/components/atoms/date"
+import { Head } from "~/components/common/head"
+import { Image } from "~/components/common/image"
+import { TagList } from "~/components/common/tag-list"
+import type { Tag } from "~/service/entities/post"
+import type { Detail, Post as BasePost } from "~/service/entities/post"
 import { comparePost } from "~/utils/compare/entities"
+import * as styles from "./post.module.scss"
 
-interface PostProps<T extends BasePost> {
+// FIXME: 非対応なのでやむなく
+const MDXRenderer = MDXRendererBase as unknown as React.FC<MDXRendererProps>
+
+type PostProps<T extends BasePost> = {
   post: Detail<T> & {
     tags?: Tag[]
   }
@@ -43,7 +46,7 @@ const Component: React.VFC<PostProps<BasePost>> = <T extends BasePost>({
         <main role="main" className={styles.post}>
           <article className={`m-card ${styles.main}`}>
             {typeof post.thumbnail !== `undefined` ? (
-              <GatsbyImage
+              <Image
                 image={post.thumbnail}
                 className={styles.thumbnail}
                 alt=""
@@ -58,7 +61,7 @@ const Component: React.VFC<PostProps<BasePost>> = <T extends BasePost>({
               </h1>
 
               <div className={styles.articleMetaContainer}>
-                {typeof post?.tags === `object` ? (
+                {typeof post.tags === `object` ? (
                   <div className={styles.tagArea}>
                     <TagList tags={post.tags} isLink={true} />
                   </div>

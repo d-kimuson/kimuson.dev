@@ -1,9 +1,8 @@
 import React, { useState, memo, useCallback } from "react"
-
-import * as styles from "./tag-checklist.module.scss"
 import { Tag } from "~/components/atoms/tag"
+import * as styles from "./tag-checklist.module.scss"
 
-interface TagButtonProps {
+type TagButtonProps = {
   tag: string
   parentSetChecked: (tag: string, isChecked: boolean) => void
 }
@@ -15,8 +14,7 @@ const TagButton: React.VFC<TagButtonProps> = ({
   const [checked, setChecked] = useState<boolean>(false)
 
   const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-      console.log(e)
+    (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
       setChecked(!checked)
       parentSetChecked(tag, !checked)
     },
@@ -32,7 +30,7 @@ const TagButton: React.VFC<TagButtonProps> = ({
 
 const TagButtonMemorized = memo(TagButton)
 
-interface TagChecklistProps {
+type TagChecklistProps = {
   tags: string[]
   onUpdate: (selectedTags: string[]) => void
 }

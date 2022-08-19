@@ -1,23 +1,20 @@
-import React, { memo } from "react"
 import { StaticImage } from "gatsby-plugin-image"
 
 type QiitaLogoProps = {
-  className?: string
+  className?: string | undefined
 }
 
-const Component: React.VFC<QiitaLogoProps> = ({
-  className,
-}: QiitaLogoProps) => {
+const QiitaLogo: React.FC<QiitaLogoProps> = ({ className }) => {
   return (
     <StaticImage
-      className={className}
       src="./qiita-logo.png"
       alt="Qiita"
-      layout="fixed"
       height={90}
       width={120}
+      layout="fixed"
+      imgClassName={className ?? ""}
     />
   )
 }
 
-export const QiitaLogo = memo(Component)
+export default QiitaLogo

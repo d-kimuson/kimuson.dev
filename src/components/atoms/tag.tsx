@@ -1,33 +1,24 @@
-import React, { memo } from "react"
-import { Link } from "gatsby"
-
+import { Link } from "~/components/common/link"
 import { toTagLink } from "~/service/presenters/links"
 
-interface TagInnerProps {
+type TagInnerProps = {
   tag: string
-  className?: string
+  className?: string | undefined
 }
 
-const TagInner: React.VFC<TagInnerProps> = ({
-  tag,
-  className,
-}: TagInnerProps) => (
+const TagInner: React.FC<TagInnerProps> = ({ tag, className }) => (
   <div className={`m-tag ${typeof className === `string` ? className : ``}`}>
     # {tag}
   </div>
 )
 
-interface TagProps {
+type TagProps = {
   tag: string
   className?: string
   isLink?: boolean
 }
 
-const Component: React.VFC<TagProps> = ({
-  tag,
-  className,
-  isLink = false,
-}: TagProps) => {
+export const Tag: React.FC<TagProps> = ({ tag, className, isLink = false }) => {
   return isLink ? (
     <Link to={toTagLink(tag)} className="m-remove-a-decoration m-tag-link">
       <TagInner tag={tag} className={className} />
@@ -36,5 +27,3 @@ const Component: React.VFC<TagProps> = ({
     <TagInner tag={tag} className={className} />
   )
 }
-
-export const Tag = memo(Component)

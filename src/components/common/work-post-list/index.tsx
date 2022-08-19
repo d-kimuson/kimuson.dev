@@ -1,13 +1,12 @@
 import React, { memo } from "react"
-import { Link } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
-
-import * as styles from "./work-post-list.module.scss"
-import type { WorkPost } from "~/service/entities/post"
 import { Date } from "~/components/atoms/date"
+import { Image } from "~/components/common/image"
+import { Link } from "~/components/common/link"
+import type { WorkPost } from "~/service/entities/post"
 import { comparePost } from "~/utils/compare/entities"
+import * as styles from "./work-post-list.module.scss"
 
-interface WorkPreviewProps {
+type WorkPreviewProps = {
   workPost: WorkPost
 }
 
@@ -19,9 +18,9 @@ const WorkPreview: React.VFC<WorkPreviewProps> = ({
   return (
     <Link to={workPost.slug} className={`m-remove-a-decoration`}>
       <div className={`m-card ${styles.workPreview}`}>
-        {typeof workPost?.thumbnail !== `undefined` ? (
-          <GatsbyImage
-            image={workPost?.thumbnail}
+        {typeof workPost.thumbnail !== `undefined` ? (
+          <Image
+            image={workPost.thumbnail}
             imgStyle={imgStyle}
             className={styles.image}
             alt=""
@@ -47,7 +46,7 @@ const WorkPreviewMemorized = memo(WorkPreview, (prev, next) =>
   comparePost(prev.workPost, next.workPost)
 )
 
-interface WorkListProps {
+type WorkListProps = {
   workPosts: WorkPost[]
 }
 

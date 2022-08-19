@@ -5,10 +5,11 @@ export const Adsense: React.VFC = () => {
     if (typeof window !== "undefined") {
       if (typeof window.adsbygoogle !== "undefined") {
         try {
-          window.adsbygoogle = window.adsbygoogle || []
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- 覚えてないけどわざわざ書いてるってことは必要なんやろ...
+          window.adsbygoogle = window.adsbygoogle ?? []
           window.adsbygoogle.push({})
-        } catch (error) {
-          console.warn("Fail to load google adsense")
+        } catch (_err) {
+          // skip
         }
       }
     }

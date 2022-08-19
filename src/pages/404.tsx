@@ -1,6 +1,5 @@
 import React from "react"
-import { PageProps } from "gatsby"
-
+import type { PageProps } from "gatsby"
 import { Head } from "~/components/common/head"
 import { Layout } from "~/components/layout"
 import { Sidebar } from "~/components/sidebar"

@@ -5,12 +5,12 @@ export type Tag = string
 export type Category = string
 export type Slug = string
 
-export interface CategorySummary {
+export type CategorySummary = {
   category: Category
   count: number
 }
 
-export interface Post {
+export type Post = {
   slug: Slug
   title: string
   description: string
@@ -19,28 +19,28 @@ export interface Post {
   draft: boolean
 }
 
-export interface BlogPost extends Post {
+export type BlogPost = {
   __typename: "BlogPost"
   category: Category
   tags: Tag[]
-}
+} & Post
 
-export interface WorkPost extends Post {
+export type WorkPost = {
   __typename: "WorkPost"
-}
+} & Post
 
-export interface AboutPost extends Post {
+export type AboutPost = {
   __typename: "AboutPost"
-}
+} & Post
 
 export type FeedSiteName = `Zenn` | `Qiita`
 
-export interface FeedPost extends Post {
+export type FeedPost = {
   __typename: "FeedPost"
   siteName: FeedSiteName
-}
+} & Post
 
-export interface Heading {
+export type Heading = {
   tag: `h2` | `h3`
   id: string
   title: string
@@ -49,6 +49,6 @@ export interface Heading {
 export type Detail<T> = T & {
   body: string
   headings: Heading[]
-  postUrl?: string
+  postUrl: string | undefined
   ogtImageUrl: string | undefined
 }

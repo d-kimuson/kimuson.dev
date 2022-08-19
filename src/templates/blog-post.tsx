@@ -1,32 +1,33 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import loadable from "loadable-components"
 import { pipe } from "ramda"
-
 import type { BlogPostBySlugQuery } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
-import { filterDraftPostList } from "~/service/presenters/post"
-import { toBlogPostLink } from "~/service/presenters/links"
+import type { BlogPostListRow as IBlogPostListRow } from "~/components/common/blog-post-list-row"
 import { Post } from "~/components/common/post"
 import { Layout } from "~/components/layout"
 import { Sidebar } from "~/components/sidebar"
+import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
+import { toBlogPostLink } from "~/service/presenters/links"
+import { filterDraftPostList } from "~/service/presenters/post"
 
+// FIXME: 一時的な対応なのでできればちゃんと直して
 const BlogPostListRow = loadable(async () => {
   const { BlogPostListRow } = await import(
     `../components/common/blog-post-list-row`
   )
   return BlogPostListRow
-})
+}) as unknown as typeof IBlogPostListRow
 
-interface BlogPostTemplateProps extends PageProps {
+type BlogPostTemplateProps = {
   data: BlogPostBySlugQuery
   pageContext: {
     previous: AroundNav | null
     next: AroundNav | null
   }
-}
+} & PageProps
 
 const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
   data,
@@ -36,8 +37,8 @@ const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
     throw Error
   }
 
-  const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
-  const postUrl = siteUrl + toBlogPostLink(mdx?.fields?.slug || ``)
+  const siteUrl = data.site?.siteMetadata?.siteUrl ?? `http://127.0.0.1`
+  const postUrl = siteUrl + toBlogPostLink(mdx.fields?.slug ?? ``)
 
   const post = toDetailBlogPost(postUrl, mdx as PostMdx)
 

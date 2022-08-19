@@ -1,12 +1,12 @@
-import React, { useState, memo } from "react"
-import { StaticImage } from "gatsby-plugin-image"
-import { Link, useStaticQuery, graphql } from "gatsby"
 import classnames from "classnames"
-
-import * as styles from "./header.module.scss"
+import { useStaticQuery, graphql } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
+import React, { useState } from "react"
 import type { HeaderQuery } from "@graphql-types"
-import { Navigation } from "./navigation"
+import { Link } from "~/components/common/link"
 import { Portal } from "~/components/common/portal"
+import * as styles from "./header.module.scss"
+import { Navigation } from "./navigation"
 
 const query = graphql`
   query Header {
@@ -18,13 +18,11 @@ const query = graphql`
   }
 `
 
-interface HeaderProps {
+type HeaderProps = {
   className?: string
 }
 
-export const Component: React.VFC<HeaderProps> = ({
-  className,
-}: HeaderProps) => {
+export const Header: React.VFC<HeaderProps> = ({ className }: HeaderProps) => {
   const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 
@@ -43,9 +41,9 @@ export const Component: React.VFC<HeaderProps> = ({
           <StaticImage
             src="./logo_transparent.png"
             layout="fixed"
-            height={60}
             alt={data.site?.siteMetadata?.title ?? ""}
-            backgroundColor={"transparent"}
+            height={60}
+            backgroundColor="transparent"
           />
         </h1>
       </Link>
@@ -78,5 +76,3 @@ export const Component: React.VFC<HeaderProps> = ({
     </header>
   )
 }
-
-export const Header = memo(Component)

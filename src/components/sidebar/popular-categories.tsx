@@ -1,11 +1,10 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useStaticQuery, graphql } from "gatsby"
+import React from "react"
 import type { PopularCategoriesQuery } from "@graphql-types"
-import { toCategorySummaryList } from "~/service/gateways/category"
 import { CategoryList } from "~/components/common/category-list"
+import { toCategorySummaryList } from "~/service/gateways/category"
 
 const query = graphql`
   query PopularCategories {

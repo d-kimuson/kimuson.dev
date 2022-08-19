@@ -1,5 +1,4 @@
 import { uniq } from "ramda"
-
 import type { MdxFrontmatter } from "@graphql-types"
 import type { Category, CategorySummary } from "~/service/entities/post"
 import { filterDraftPostList } from "~/service/presenters/post"
@@ -20,7 +19,7 @@ export const toCategorySummaryList = (
   const categories = filterDraftPostList(
     edges.map((edge) => ({
       name: edge.node?.frontmatter?.category,
-      draft: edge.node?.frontmatter?.draft || false,
+      draft: edge.node?.frontmatter?.draft ?? false,
     }))
   )
     .map((category) => category.name)

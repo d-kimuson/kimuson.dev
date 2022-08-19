@@ -1,12 +1,12 @@
-import { Heading } from "~/service/entities/post"
+import type { Heading } from "~/service/entities/post"
 
-interface TableOfContent {
+type TableOfContent = {
   url: string
   title: string
   items?: TableOfContent[]
 }
 
-export interface TableOfContents {
+export type TableOfContents = {
   items: TableOfContent[]
 }
 
@@ -18,7 +18,7 @@ export const toHeadings = (tableOfContents: TableOfContents): Heading[] => {
         id: t.url.replace(`#`, ``),
         title: t.title,
       })
-      ;(t.items || []).forEach((item: TableOfContent) => {
+      ;(t.items ?? []).forEach((item: TableOfContent) => {
         headings.push({
           tag: `h3`,
           id: item.url.replace(`#`, ``),

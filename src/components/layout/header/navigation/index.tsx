@@ -1,9 +1,7 @@
-import React, { memo } from "react"
-import { Link } from "gatsby"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faRss } from "@fortawesome/free-solid-svg-icons"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
-
+import { faRss } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Link } from "~/components/common/link"
 import * as styles from "./navigation.module.scss"
 
 const navRoutes = [
@@ -36,13 +34,15 @@ const navIcons = [
   },
 ]
 
-interface NavigationProps {
+type NavigationProps = {
   id?: string
-  className?: string
+  className?: string | undefined
   "aria-hidden"?: boolean
 }
 
-const Component: React.VFC<NavigationProps> = (props: NavigationProps) => {
+export const Navigation: React.FC<NavigationProps> = (
+  props: NavigationProps
+) => {
   const { className, id } = props
   return (
     <nav
@@ -76,5 +76,3 @@ const Component: React.VFC<NavigationProps> = (props: NavigationProps) => {
     </nav>
   )
 }
-
-export const Navigation = memo(Component)

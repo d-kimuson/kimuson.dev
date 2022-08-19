@@ -1,6 +1,6 @@
 import type { Dayjs } from "dayjs"
 
-interface Draftable {
+type Draftable = {
   draft?: boolean
 }
 

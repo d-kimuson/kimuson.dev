@@ -1,11 +1,9 @@
-import React from "react"
+import { faUser } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUser } from "@fortawesome/free-solid-svg-icons"
-
-import * as styles from "./bio.module.scss"
 import type { BioQuery } from "@graphql-types"
+import * as styles from "./bio.module.scss"
 
 const query = graphql`
   query Bio {
@@ -41,10 +39,10 @@ const Component: React.VFC = () => {
           />
         </div>
 
-        <h2 className={styles.name}>{author?.name || `No Name`}</h2>
+        <h2 className={styles.name}>{author?.name ?? `No Name`}</h2>
 
         <p className={styles.description}>
-          {author?.summary || `No Introduction`}
+          {author?.summary ?? `No Introduction`}
         </p>
       </div>
     </section>

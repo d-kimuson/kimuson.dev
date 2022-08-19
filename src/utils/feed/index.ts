@@ -1,5 +1,4 @@
 import fs from "fs"
-
 import type { FeedPost } from "./types"
 import { fetchAllPosts } from "./fetch"
 

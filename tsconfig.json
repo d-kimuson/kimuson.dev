@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node14/tsconfig.json",
+  "extends": "@tsconfig/node18-strictest",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -18,12 +18,14 @@
     "allowJs": true,
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    // ..
+    "noPropertyAccessFromIndexSignature": false
   },
   "files": [
     "./@types/globals.d.ts",

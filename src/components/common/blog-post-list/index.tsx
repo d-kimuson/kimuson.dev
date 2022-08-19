@@ -1,10 +1,9 @@
 import React, { memo } from "react"
-
-import * as styles from "./blog-post-list.module.scss"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
+import * as styles from "./blog-post-list.module.scss"
 import { BlogPostPreview } from "./preview"
 
-interface BlogPostListProps {
+type BlogPostListProps = {
   blogPosts: (BlogPost | FeedPost)[]
 }
 

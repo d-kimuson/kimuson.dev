@@ -1,19 +1,19 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
+import React from "react"
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
+import { Head } from "~/components/common/head"
+import { WorkPostList } from "~/components/common/work-post-list"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 import { toWorkPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { Head } from "~/components/common/head"
-import { Sidebar } from "~/components/sidebar"
-import { Layout } from "~/components/layout"
-import { WorkPostList } from "~/components/common/work-post-list"
 
-interface WorkPageProps extends PageProps {
+type WorkPageProps = {
   data: WorkPageQuery
-}
+} & PageProps
 
 const WorkPage: React.VFC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMdx.edges.filter(

@@ -1,27 +1,27 @@
-import React, { useState, useEffect, memo } from "react"
-import { Link } from "gatsby"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList } from "@fortawesome/free-solid-svg-icons"
-
-import * as styles from "./toc.module.scss"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React, { useState, useEffect, memo } from "react"
+import { Link } from "~/components/common/link"
 import type { Heading } from "~/service/entities/post"
+import * as styles from "./toc.module.scss"
 
 const infty = 100000
 const headerHeight = 60
 
-interface TocHeading extends Heading {
+type TocHeading = {
   active: boolean
   top: number
-  elm?: HTMLElement
-}
+  elm: HTMLElement | undefined
+} & Heading
 
 const toTocHeading = (heading: Heading): TocHeading => ({
   ...heading,
   top: infty,
   active: false,
+  elm: undefined,
 })
 
-interface TocProps {
+type TocProps = {
   headings: Heading[]
 }
 
@@ -37,21 +37,20 @@ const Component: React.VFC<TocProps> = ({ headings }: TocProps) => {
     heading: TocHeading
   ): { top: number } & TocHeading => ({
     ...heading,
-    top: heading.elm?.getBoundingClientRect().top || infty,
+    top: heading.elm?.getBoundingClientRect().top ?? infty,
   })
 
   // 処理化処理
   useEffect(() => {
+    const headings = tocHeadings.map((tocHeading) => {
+      const elm = document.getElementById(tocHeading.id)
+      return {
+        ...tocHeading,
+        elm: elm === null ? undefined : elm,
+      }
+    })
     // 対応するHTML要素をセット
-    setTocHeadings(
-      tocHeadings.map((tocHeading) => {
-        const elm = document.getElementById(tocHeading.id)
-        return {
-          ...tocHeading,
-          elm: elm === null ? undefined : elm,
-        }
-      })
-    )
+    setTocHeadings(headings)
 
     // スクロールイベントで座標を更新するリスナー
     document.addEventListener(`scroll`, () =>
@@ -69,7 +68,7 @@ const Component: React.VFC<TocProps> = ({ headings }: TocProps) => {
       .slice(-1)[0]
 
     const activeId =
-      typeof activeHeading === `undefined` ? headings[0].id : activeHeading.id
+      typeof activeHeading === `undefined` ? headings[0]?.id : activeHeading.id
 
     setTocHeadings(
       tocHeadings.map((tocHeading) => ({

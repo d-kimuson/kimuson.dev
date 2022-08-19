@@ -1,23 +1,19 @@
-import React, { useState, MouseEvent, memo } from "react"
-import type { Language } from "prism-react-renderer"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import dracula from "prism-react-renderer/themes/dracula"
-
-import * as styles from "./code.module.scss"
+import React, { useState } from "react"
+import type { Language } from "prism-react-renderer"
+import type { MouseEvent } from "react"
 import { replaceAll, copy } from "~/utils/index"
+import * as styles from "./code.module.scss"
 
-interface CodeProps {
+type CodeProps = {
   codeString: string
   language: Language
-  title?: string
+  title: string | undefined
   "react-live"?: boolean
 }
 
-const Component: React.VFC<CodeProps> = ({
-  codeString,
-  language,
-  title,
-}: CodeProps) => {
+export const Code: React.FC<CodeProps> = ({ codeString, language, title }) => {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopy = (event: MouseEvent): void => {
@@ -34,6 +30,7 @@ const Component: React.VFC<CodeProps> = ({
 
   return (
     <div>
+      {/* @ts-expect-error -- React18 未対応 */}
       <Highlight
         {...defaultProps}
         code={codeString}
@@ -69,5 +66,3 @@ const Component: React.VFC<CodeProps> = ({
     </div>
   )
 }
-
-export const Code = memo(Component)

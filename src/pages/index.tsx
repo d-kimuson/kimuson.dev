@@ -1,25 +1,25 @@
-import React from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
 import type { IndexQuery, SiteSiteMetadataPosts } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
+import { BlogPostList } from "~/components/common/blog-post-list"
+import { Head } from "~/components/common/head"
+import { Link } from "~/components/common/link"
+import { Layout } from "~/components/layout"
+import { Sidebar } from "~/components/sidebar"
 import type { BlogPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { Head } from "~/components/common/head"
-import { Sidebar } from "~/components/sidebar"
-import { Layout } from "~/components/layout"
-import { BlogPostList } from "~/components/common/blog-post-list"
 import * as styles from "./index.module.scss"
 
-interface IndexProps extends PageProps {
+type IndexProps = {
   data: IndexQuery
-}
+} & PageProps
 
 const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
   const feedPosts = toFeedPostList(
-    (data.site?.siteMetadata?.posts || []).filter(
+    (data.site?.siteMetadata?.posts ?? []).filter(
       (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)
     )
   )

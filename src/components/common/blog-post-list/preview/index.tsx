@@ -1,16 +1,15 @@
 import React, { memo } from "react"
-import { Link } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
-
-import * as styles from "./preview.module.scss"
-import type { BlogPost, FeedPost } from "~/service/entities/post"
-import { toBlogPostLink } from "~/service/presenters/links"
 import { Date } from "~/components/atoms/date"
 import { SiteLogo } from "~/components/atoms/site-logo"
+import { Image } from "~/components/common/image"
+import { Link } from "~/components/common/link"
 import { TagList } from "~/components/common/tag-list"
+import type { BlogPost, FeedPost } from "~/service/entities/post"
+import { toBlogPostLink } from "~/service/presenters/links"
 import { comparePost } from "~/utils/compare/entities"
+import * as styles from "./preview.module.scss"
 
-interface BlogPostPreviewProps {
+type BlogPostPreviewProps = {
   blogPost: BlogPost | FeedPost
 }
 
@@ -24,20 +23,12 @@ const Inner: React.VFC<BlogPostPreviewProps> = ({
       <div className={styles.imageWrapper}>
         {blogPost.__typename === `BlogPost` ? (
           typeof blogPost.thumbnail === `object` ? (
-            <GatsbyImage
-              image={blogPost.thumbnail}
-              className={styles.image}
-              alt=""
-            />
+            <Image image={blogPost.thumbnail} className={styles.image} alt="" />
           ) : (
             <div style={imgStyle}></div>
           )
         ) : (
-          <SiteLogo
-            siteName={blogPost.siteName}
-            className={styles.image}
-            imgStyle={imgStyle}
-          />
+          <SiteLogo siteName={blogPost.siteName} className={styles.image} />
         )}
       </div>
 

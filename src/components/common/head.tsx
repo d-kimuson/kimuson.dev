@@ -1,8 +1,7 @@
-import React, { memo } from "react"
-import { GatsbySeo, OpenGraphImages } from "gatsby-plugin-next-seo"
 import { useStaticQuery, graphql } from "gatsby"
-
+import { GatsbySeo } from "gatsby-plugin-next-seo"
 import type { HeadQuery } from "@graphql-types"
+import type { OpenGraphImages } from "gatsby-plugin-next-seo"
 import { toBlogPostLink } from "~/service/presenters/links"
 
 const query = graphql`
@@ -20,23 +19,23 @@ const query = graphql`
   }
 `
 
-interface HeadProps {
-  title?: string // TOPページのみ不要
-  description?: string // TOPページのみ不要
-  imageUrl?: string
-  slug?: string // TOPページのみ不要
+type HeadProps = {
+  title?: string | undefined // TOPページのみ不要
+  description?: string | undefined // TOPページのみ不要
+  imageUrl?: string | undefined
+  slug?: string | undefined // TOPページのみ不要
 }
 
-const Component: React.VFC<HeadProps> = ({
+export const Head: React.VFC<HeadProps> = ({
   title,
   description,
   imageUrl,
   slug,
-}: HeadProps) => {
+}) => {
   const { site } = useStaticQuery<HeadQuery>(query)
-  const siteTitle = site?.siteMetadata?.title || ``
-  const siteDescription = site?.siteMetadata?.description || ``
-  const siteUrl = site?.siteMetadata?.siteUrl || ``
+  const siteTitle = site?.siteMetadata?.title ?? ``
+  const siteDescription = site?.siteMetadata?.description ?? ``
+  const siteUrl = site?.siteMetadata?.siteUrl ?? ``
 
   const pageTitle =
     typeof title === `undefined` ? siteTitle : `${title} | ${siteTitle}`
@@ -44,8 +43,8 @@ const Component: React.VFC<HeadProps> = ({
   const pageDescription =
     typeof description === `undefined` ? siteDescription : description
 
-  const siteDomain = siteUrl.split(`//`)[1].split(`/`)[0]
-  const pageUrl = `https://${siteDomain}${toBlogPostLink(slug || ``)}`
+  const siteDomain = siteUrl.split(`//`)[1]?.split(`/`)[0]
+  const pageUrl = `https://${siteDomain}${toBlogPostLink(slug ?? ``)}`
 
   let ogImages: OpenGraphImages[] | undefined
   if (typeof imageUrl === `string`) {
@@ -67,11 +66,9 @@ const Component: React.VFC<HeadProps> = ({
         url: pageUrl,
         title: pageTitle,
         description: pageDescription,
-        images: ogImages,
+        images: ogImages ?? [],
         site_name: siteTitle,
       }}
     />
   )
 }
-
-export const Head = memo(Component)

@@ -22,21 +22,15 @@ export function excludeNull<T>(prop: T | null | undefined): T | undefined {
   return prop === null ? undefined : prop
 }
 
-export function excludeNullProps<T>(
-  target: T | null | undefined
+export function excludeNullProps<T extends Record<string, unknown>>(
+  target: T
 ): ExcludeNullProps<T | undefined> {
-  if (typeof target === `undefined`) {
-    return target
-  } else if (target === null) {
-    return undefined
-  }
-
-  const excluded = {}
-  Object.entries(target).forEach(([key, value]) => {
-    // @ts-ignore
-    excluded[key] = value !== null ? value : undefined
-  })
-
-  // @ts-ignore
-  return excluded
+  return Object.entries(target).reduce(
+    (s: Partial<ExcludeNullProps<T | undefined>>, [key, value]) => {
+      // @ts-expect-error -- 型解決ができてないだけ
+      s[key] = value
+      return s
+    },
+    {}
+  ) as ExcludeNullProps<T | undefined>
 }

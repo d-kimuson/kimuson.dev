@@ -1,11 +1,10 @@
 import React, { memo } from "react"
-import { Link } from "gatsby"
-
-import * as styles from "./category-list.module.scss"
+import { Link } from "~/components/common/link"
 import type { CategorySummary } from "~/service/entities/post"
 import { toCategoryLink } from "~/service/presenters/links"
+import * as styles from "./category-list.module.scss"
 
-interface CategoryListProps {
+type CategoryListProps = {
   categoryList: CategorySummary[]
 }
 

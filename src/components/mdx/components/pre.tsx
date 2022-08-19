@@ -1,16 +1,18 @@
+import { preToCodeBlock } from "mdx-utils"
 import React, { memo } from "react"
+import type { ChildrenPropsBase, PreProps } from "mdx-utils"
 import type { Language } from "prism-react-renderer"
-import { preToCodeBlock, ChildrenPropsBase, PreProps } from "mdx-utils"
-
 import { Code } from "./code"
 
 const separateTitle = (
   maybeLanguage: string
-): { language: Language; title?: string } => {
+): { language: Language; title: string | undefined } => {
   // `language:title` => language, title に分割する関数
   const [language, title = undefined] = maybeLanguage.split(`:`)
 
-  if (((_: string): _ is Language => typeof _ === `string`)(language)) {
+  if (
+    ((_: string | undefined): _ is Language => typeof _ === `string`)(language)
+  ) {
     return {
       language,
       title,
@@ -18,14 +20,16 @@ const separateTitle = (
   } else {
     return {
       language: `markup`,
-      title: title,
+      title,
     }
   }
 }
 
-const parseTitle = (title: string): string =>
+const parseTitle = (title: string): string => {
   // コードタイトルの title=タイトル 記法のサポート
-  title.includes(`=`) ? title.split(`=`)[1] : title
+  const maybeTitle = title.split(`=`)[0]
+  return maybeTitle ?? title
+}
 
 type ChildrenProps = ChildrenPropsBase & {
   className: string
@@ -35,11 +39,12 @@ const Component: React.VFC<PreProps<ChildrenProps>> = (
   preProps: PreProps<ChildrenProps>
 ) => {
   const props = preToCodeBlock<ChildrenProps>(preProps)
-  if (props) {
+  const typedProps = props as typeof props | undefined
+  if (typedProps) {
     // eslint-disable-next-line react/prop-types
-    const { language, title } = separateTitle(props.language)
+    const { language, title } = separateTitle(typedProps.language)
     const propsUpdated = {
-      ...props,
+      ...typedProps,
       language: language,
       title: title ? parseTitle(title) : title,
     }

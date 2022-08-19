@@ -1,9 +1,8 @@
 import React, { memo } from "react"
-
-import * as styles from "./tag-list.module.scss"
 import { Tag } from "~/components/atoms/tag"
+import * as styles from "./tag-list.module.scss"
 
-interface TagListProps {
+type TagListProps = {
   tags: string[]
   isLink?: boolean
 }

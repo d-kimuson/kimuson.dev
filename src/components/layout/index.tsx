@@ -1,9 +1,8 @@
-import React from "react"
 import classnames from "classnames"
-
-import * as styles from "./layout.module.scss"
-import { Header } from "./header"
+import React from "react"
 import { Footer } from "./footer"
+import { Header } from "./header"
+import * as styles from "./layout.module.scss"
 
 type LayoutProps = React.PropsWithChildren<Record<string, unknown>>
 

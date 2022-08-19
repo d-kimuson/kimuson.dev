@@ -1,22 +1,21 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
-
+import { graphql } from "gatsby"
 import type { WorkPostBySlugQuery } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { toDetailWorkPost } from "~/service/gateways/post"
-import { toWorkPostLink } from "~/service/presenters/links"
 import { Post } from "~/components/common/post"
 import { Layout } from "~/components/layout"
 import { Sidebar } from "~/components/sidebar"
+import { toDetailWorkPost } from "~/service/gateways/post"
+import { toWorkPostLink } from "~/service/presenters/links"
 
-interface WorkPostTemplateProps extends PageProps {
+type WorkPostTemplateProps = {
   data: WorkPostBySlugQuery
   pageContext: {
     previous: AroundNav | null
     next: AroundNav | null
   }
-}
+} & PageProps
 
 const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
   data,
@@ -26,8 +25,8 @@ const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
     throw Error
   }
 
-  const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
-  const postUrl = siteUrl + toWorkPostLink(mdx?.fields?.slug || ``)
+  const siteUrl = data.site?.siteMetadata?.siteUrl ?? `http://127.0.0.1`
+  const postUrl = siteUrl + toWorkPostLink(mdx.fields?.slug ?? ``)
 
   const post = toDetailWorkPost(postUrl, mdx as PostMdx)
 

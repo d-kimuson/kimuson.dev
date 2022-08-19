@@ -1,28 +1,27 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
 import type { BlogPageQuery, SiteSiteMetadataPosts } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
+import { Head } from "~/components/common/head"
+import { Layout } from "~/components/layout"
+import { Search } from "~/components/search"
+import { toSearchBlogPost } from "~/components/search/searchBlogPost"
+import { Sidebar } from "~/components/sidebar"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { toSearchBlogPost } from "~/components/search/searchBlogPost"
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
-import { Search } from "~/components/search"
 
-interface BlogProps extends PageProps {
+type BlogProps = {
   data: BlogPageQuery
-}
+} & PageProps
 
 const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
   const title = `ブログ`
   const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 
   const feedPosts = toFeedPostList(
-    (data.site?.siteMetadata?.posts || []).filter(
+    (data.site?.siteMetadata?.posts ?? []).filter(
       (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)
     )
   )

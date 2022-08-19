@@ -1,8 +1,7 @@
-import React, { memo } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
-
-import * as styles from "./footer.module.scss"
+import { useStaticQuery, graphql } from "gatsby"
 import type { FooterQuery } from "@graphql-types"
+import { Link } from "~/components/common/link"
+import * as styles from "./footer.module.scss"
 
 const query = graphql`
   query Footer {
@@ -14,11 +13,11 @@ const query = graphql`
   }
 `
 
-interface FooterProps {
+type FooterProps = {
   className?: string
 }
 
-const Component: React.VFC<FooterProps> = ({ className }: FooterProps) => {
+export const Footer: React.VFC<FooterProps> = ({ className }: FooterProps) => {
   const data = useStaticQuery<FooterQuery>(query)
   const siteTitle = data.site?.siteMetadata?.title
 
@@ -53,5 +52,3 @@ const Component: React.VFC<FooterProps> = ({ className }: FooterProps) => {
     </footer>
   )
 }
-
-export const Footer = memo(Component)
