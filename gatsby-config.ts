@@ -57,7 +57,7 @@ export default {
       },
     },
     {
-      resolve: `gatsby-plugin-feed-mdx`,
+      resolve: `gatsby-plugin-feed`,
       options: {
         query: `
           {
@@ -66,6 +66,7 @@ export default {
                 title
                 description
                 siteUrl
+                site_url: siteUrl
               }
             }
           }
@@ -77,16 +78,18 @@ export default {
               const allMdxTyped: { edges: MdxEdge[] } = allMdx
               const siteTyped: Site = site
 
-              return allMdxTyped.edges.map((edge) => {
+              const x = allMdxTyped.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
                   url: `${siteTyped.siteMetadata?.siteUrl}${edge.node.fields?.slug}`,
                   guid: `${siteTyped.siteMetadata?.siteUrl}${edge.node.fields?.slug}`,
-                  custom_elements: [], // html クエリが帰ってこないので臨時で Issue: https://github.com/gatsbyjs/gatsby/issues/29983
-                  // custom_elements: [{ "content:encoded": edge.node.html }],
+                  // custom_elements: [], // html クエリが帰ってこないので臨時で Issue: https://github.com/gatsbyjs/gatsby/issues/29983
+                  custom_elements: [{ "content:encoded": edge.node.html }],
                 })
               })
+
+              return x
             },
             query: `
               {
@@ -211,14 +214,6 @@ export default {
             policy: [{ userAgent: `*`, allow: `/` }],
           },
         },
-      },
-    },
-    {
-      resolve: "gatsby-plugin-webpack-bundle-analyzer",
-      options: {
-        analyzerPort: 3000,
-        disable: process.env.NODE_ENV !== `production`,
-        production: true,
       },
     },
   ].filter((plugin) => plugin !== undefined),
