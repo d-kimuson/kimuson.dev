@@ -24,6 +24,7 @@
     "lint:eslint": "eslint src --cache --ext .tsx,.ts,.jsx",
     "lint:prettier": "prettier './**/*.{tsx,ts,jsx,json,md,mdx}' --check",
     "lint:stylelint": "stylelint --cache 'src/**/*.{scss,.css}'",
+    "lint:cspell": "cspell lint './**/*.{ts,js,json,md,yml,yaml}' --gitignore --cache",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "prettier './**/*.{tsx,ts,jsx,json,md,mdx}' --write",
@@ -35,8 +36,13 @@
     "deploy": "git rev-parse --show-toplevel && git add content && git commit -m '[article] post article' && git push origin master",
     "test": "jest",
     "prepare": "husky install",
-    "postinstall": "patch-package",
+    "postinstall": "patch-package && yarn repair:sharp",
     "repair:sharp": "npm rebuild --verbose sharp"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "classnames": "^2.3.1",
@@ -72,6 +78,8 @@
     "animate.css": "^4.1.1",
     "autoprefixer": "^10.4.2",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "commitizen": "^4.2.5",
+    "cspell": "^6.7.0",
     "cssnano": "^5.0.16",
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
@@ -106,7 +114,7 @@
     "gatsby-source-filesystem": "^4.21.1",
     "gatsby-transformer-sharp": "^4.21.0",
     "http-server": "^13.0.2",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "jest": "^27.4.7",
     "lint-staged": "^11.2.6",
     "loadable-components": "^2.2.3",
