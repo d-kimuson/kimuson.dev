@@ -1,4 +1,5 @@
 import { GatsbyImage } from "gatsby-plugin-image"
+import React from "react"
 import type { GatsbyImageProps } from "gatsby-plugin-image"
 
 type ImageProps = Omit<GatsbyImageProps, "className"> & {

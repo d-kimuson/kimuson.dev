@@ -1,4 +1,5 @@
 import { graphql } from "gatsby"
+import React from "react"
 import type { AboutPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import { Post } from "~/components/common/post"
@@ -10,7 +11,7 @@ type AboutPageProps = {
   data: AboutPageQuery
 } & PageProps
 
-const AboutPage: React.VFC<AboutPageProps> = ({ data }: AboutPageProps) => {
+const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
   const mdx = data.mdx
   if (!mdx) {
     throw Error

@@ -35,7 +35,7 @@ type ChildrenProps = ChildrenPropsBase & {
   className: string
 }
 
-const Component: React.VFC<PreProps<ChildrenProps>> = (
+const Component: React.FC<PreProps<ChildrenProps>> = (
   preProps: PreProps<ChildrenProps>
 ) => {
   const props = preToCodeBlock<ChildrenProps>(preProps)

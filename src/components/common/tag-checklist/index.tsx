@@ -7,7 +7,7 @@ type TagButtonProps = {
   parentSetChecked: (tag: string, isChecked: boolean) => void
 }
 
-const TagButton: React.VFC<TagButtonProps> = ({
+const TagButton: React.FC<TagButtonProps> = ({
   tag,
   parentSetChecked,
 }: TagButtonProps) => {
@@ -35,7 +35,7 @@ type TagChecklistProps = {
   onUpdate: (selectedTags: string[]) => void
 }
 
-const Component: React.VFC<TagChecklistProps> = ({
+const Component: React.FC<TagChecklistProps> = ({
   tags,
   onUpdate,
 }: TagChecklistProps) => {

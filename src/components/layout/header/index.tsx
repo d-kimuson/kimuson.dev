@@ -22,7 +22,7 @@ type HeaderProps = {
   className?: string
 }
 
-export const Header: React.VFC<HeaderProps> = ({ className }: HeaderProps) => {
+export const Header: React.FC<HeaderProps> = ({ className }: HeaderProps) => {
   const data = useStaticQuery<HeaderQuery>(query)
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
 

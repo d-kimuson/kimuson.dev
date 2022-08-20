@@ -1,5 +1,6 @@
 import { useStaticQuery, graphql } from "gatsby"
 import { GatsbySeo } from "gatsby-plugin-next-seo"
+import React from "react"
 import type { HeadQuery } from "@graphql-types"
 import type { OpenGraphImages } from "gatsby-plugin-next-seo"
 import { toBlogPostLink } from "~/service/presenters/links"
@@ -26,7 +27,7 @@ type HeadProps = {
   slug?: string | undefined // TOPページのみ不要
 }
 
-export const Head: React.VFC<HeadProps> = ({
+export const Head: React.FC<HeadProps> = ({
   title,
   description,
   imageUrl,

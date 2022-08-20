@@ -9,7 +9,7 @@ type DateProps = {
   date: Dayjs
 }
 
-const Component: React.VFC<DateProps> = ({ date }: DateProps) => (
+const Component: React.FC<DateProps> = ({ date }: DateProps) => (
   <div className={styles.date}>
     <FontAwesomeIcon icon={faCalendar} />
     <time itemProp="datePublished" dateTime={formatDate(date, `YYYY-MM-DD`)}>

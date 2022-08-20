@@ -27,17 +27,6 @@ export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   })
 }
 
-export const onCreateBabelConfig: GatsbyNode["onCreateBabelConfig"] = ({
-  actions,
-}) => {
-  actions.setBabelPlugin({
-    name: "@babel/plugin-transform-react-jsx",
-    options: {
-      runtime: "automatic",
-    },
-  })
-}
-
 export const createPages: GatsbyNode["createPages"] = async ({
   graphql,
   actions,

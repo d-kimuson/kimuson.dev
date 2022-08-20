@@ -2,6 +2,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 import type { BioQuery } from "@graphql-types"
 import * as styles from "./bio.module.scss"
 
@@ -18,7 +19,7 @@ const query = graphql`
   }
 `
 
-const Component: React.VFC = () => {
+const Component: React.FC = () => {
   const data = useStaticQuery<BioQuery>(query)
   const author = data.site?.siteMetadata?.author
 

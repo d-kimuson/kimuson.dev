@@ -25,7 +25,8 @@
     "strict": true,
     "resolveJsonModule": true,
     // ..
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+    "importsNotUsedAsValues": "preserve"
   },
   "files": [
     "./@types/globals.d.ts",

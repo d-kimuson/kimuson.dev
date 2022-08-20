@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby"
+import React from "react"
 import type { FooterQuery } from "@graphql-types"
 import { Link } from "~/components/common/link"
 import * as styles from "./footer.module.scss"
@@ -17,7 +18,7 @@ type FooterProps = {
   className?: string
 }
 
-export const Footer: React.VFC<FooterProps> = ({ className }: FooterProps) => {
+export const Footer: React.FC<FooterProps> = ({ className }: FooterProps) => {
   const data = useStaticQuery<FooterQuery>(query)
   const siteTitle = data.site?.siteMetadata?.title
 

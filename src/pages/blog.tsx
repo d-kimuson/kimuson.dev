@@ -1,5 +1,6 @@
 import { graphql } from "gatsby"
 import { pipe } from "ramda"
+import React from "react"
 import type { BlogPageQuery, SiteSiteMetadataPosts } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
@@ -16,7 +17,7 @@ type BlogProps = {
   data: BlogPageQuery
 } & PageProps
 
-const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
+const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   const title = `ブログ`
   const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 

@@ -1,4 +1,5 @@
 import { graphql } from "gatsby"
+import React from "react"
 import type { WorkPostBySlugQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdx } from "types/external-graphql-types"
@@ -17,7 +18,7 @@ type WorkPostTemplateProps = {
   }
 } & PageProps
 
-const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
+const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   data,
 }: WorkPostTemplateProps) => {
   const mdx = data.mdx

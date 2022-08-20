@@ -7,7 +7,7 @@ type TagListProps = {
   isLink?: boolean
 }
 
-export const Component: React.VFC<TagListProps> = ({
+export const Component: React.FC<TagListProps> = ({
   tags,
   isLink = false,
 }: TagListProps) => {

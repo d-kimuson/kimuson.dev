@@ -8,7 +8,7 @@ type CategoryListProps = {
   categoryList: CategorySummary[]
 }
 
-const Component: React.VFC<CategoryListProps> = ({
+const Component: React.FC<CategoryListProps> = ({
   categoryList,
 }: CategoryListProps) => (
   <ul className={styles.categoryList}>

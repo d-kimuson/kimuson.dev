@@ -1,4 +1,5 @@
 import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
 type QiitaLogoProps = {
   className?: string | undefined

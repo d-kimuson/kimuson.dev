@@ -167,7 +167,8 @@
     "mdxs",
     "Potrace",
     "Turnpolicy",
-    "TURNPOLICY"
+    "TURNPOLICY",
+    "analyser"
   ],
   "ignorePaths": ["yarn.lock"]
 }

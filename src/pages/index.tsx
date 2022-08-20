@@ -1,5 +1,6 @@
 import { graphql } from "gatsby"
 import { pipe } from "ramda"
+import React from "react"
 import type { IndexQuery, SiteSiteMetadataPosts } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
@@ -17,7 +18,7 @@ type IndexProps = {
   data: IndexQuery
 } & PageProps
 
-const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
+const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const feedPosts = toFeedPostList(
     (data.site?.siteMetadata?.posts ?? []).filter(
       (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)

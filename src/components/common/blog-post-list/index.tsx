@@ -7,7 +7,7 @@ type BlogPostListProps = {
   blogPosts: (BlogPost | FeedPost)[]
 }
 
-const Component: React.VFC<BlogPostListProps> = ({
+const Component: React.FC<BlogPostListProps> = ({
   blogPosts,
 }: BlogPostListProps) => {
   return (

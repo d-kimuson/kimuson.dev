@@ -29,7 +29,7 @@ type PostProps<T extends BasePost> = {
   }
 }
 
-const Component: React.VFC<PostProps<BasePost>> = <T extends BasePost>({
+const Component: React.FC<PostProps<BasePost>> = <T extends BasePost>({
   post,
 }: PostProps<T>) => {
   const shareButtonSize = 35

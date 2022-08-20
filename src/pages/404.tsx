@@ -4,7 +4,7 @@ import { Head } from "~/components/common/head"
 import { Layout } from "~/components/layout"
 import { Sidebar } from "~/components/sidebar"
 
-const NotFoundPage: React.VFC<PageProps> = () => {
+const NotFoundPage: React.FC<PageProps> = () => {
   const title = `404: Not Found`
   const description = `ページが見つかりません。`
 

@@ -16,7 +16,7 @@ type BlogPostPreviewProps = {
 const imgWidth = 300
 const imgStyle = { height: `200px`, width: `${imgWidth}px` }
 
-const BlogPostPreview: React.VFC<BlogPostPreviewProps> = ({
+const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return (
@@ -60,7 +60,7 @@ type BlogPostListRowProps = {
   blogPosts: BlogPost[]
 }
 
-const Component: React.VFC<BlogPostListRowProps> = ({
+const Component: React.FC<BlogPostListRowProps> = ({
   blogPosts,
 }: BlogPostListRowProps) => {
   const [windowSize, setWindowSize] = useState<number>(-1)

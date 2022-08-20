@@ -15,7 +15,7 @@ type BlogPostPreviewProps = {
 
 const imgStyle = { height: 90, width: 120 }
 
-const Inner: React.VFC<BlogPostPreviewProps> = ({
+const Inner: React.FC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return (
@@ -54,7 +54,7 @@ const InnerMemorized = memo(Inner, (prev, next) => {
   return comparePost(prev.blogPost, next.blogPost)
 })
 
-export const Component: React.VFC<BlogPostPreviewProps> = ({
+export const Component: React.FC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return blogPost.__typename === `BlogPost` ? (

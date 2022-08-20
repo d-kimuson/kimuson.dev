@@ -5,7 +5,7 @@ import { Link } from "~/components/common/link"
 import type { Heading } from "~/service/entities/post"
 import * as styles from "./toc.module.scss"
 
-const infty = 100000
+const infinity = 100000
 const headerHeight = 60
 
 type TocHeading = {
@@ -16,7 +16,7 @@ type TocHeading = {
 
 const toTocHeading = (heading: Heading): TocHeading => ({
   ...heading,
-  top: infty,
+  top: infinity,
   active: false,
   elm: undefined,
 })
@@ -25,7 +25,7 @@ type TocProps = {
   headings: Heading[]
 }
 
-const Component: React.VFC<TocProps> = ({ headings }: TocProps) => {
+const Component: React.FC<TocProps> = ({ headings }: TocProps) => {
   const [tocHeadings, setTocHeadings] = useState<TocHeading[]>(
     headings.map(toTocHeading)
   )
@@ -37,7 +37,7 @@ const Component: React.VFC<TocProps> = ({ headings }: TocProps) => {
     heading: TocHeading
   ): { top: number } & TocHeading => ({
     ...heading,
-    top: heading.elm?.getBoundingClientRect().top ?? infty,
+    top: heading.elm?.getBoundingClientRect().top ?? infinity,
   })
 
   // 処理化処理

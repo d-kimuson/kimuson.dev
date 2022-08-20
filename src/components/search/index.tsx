@@ -13,7 +13,7 @@ type SearchProps = {
   className?: string
 }
 
-const Component: React.VFC<SearchProps> = ({
+const Component: React.FC<SearchProps> = ({
   blogPosts,
   className,
 }: SearchProps) => {

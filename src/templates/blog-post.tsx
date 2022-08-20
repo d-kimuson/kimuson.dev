@@ -1,6 +1,7 @@
 import { graphql } from "gatsby"
 import loadable from "loadable-components"
 import { pipe } from "ramda"
+import React from "react"
 import type { BlogPostBySlugQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
@@ -29,7 +30,7 @@ type BlogPostTemplateProps = {
   }
 } & PageProps
 
-const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
+const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   data,
 }: BlogPostTemplateProps) => {
   const mdx = data.mdx

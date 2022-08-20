@@ -12,7 +12,7 @@ type WorkPreviewProps = {
 
 const imgStyle = { height: `200px`, width: `300px` }
 
-const WorkPreview: React.VFC<WorkPreviewProps> = ({
+const WorkPreview: React.FC<WorkPreviewProps> = ({
   workPost,
 }: WorkPreviewProps) => {
   return (
@@ -50,7 +50,7 @@ type WorkListProps = {
   workPosts: WorkPost[]
 }
 
-const Component: React.VFC<WorkListProps> = ({ workPosts }: WorkListProps) => {
+const Component: React.FC<WorkListProps> = ({ workPosts }: WorkListProps) => {
   return (
     <section className="l-main-width">
       {workPosts.length > 0 ? (

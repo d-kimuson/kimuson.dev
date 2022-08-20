@@ -1,4 +1,5 @@
 import { graphql } from "gatsby"
+import React from "react"
 import type { CategoryPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
@@ -11,7 +12,7 @@ import { toCategoryLink } from "~/service/presenters/links"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
-const BlogPostTemplate: React.VFC<CategoryPageProps> = ({
+const BlogPostTemplate: React.FC<CategoryPageProps> = ({
   data,
   pageContext,
 }: CategoryPageProps) => {

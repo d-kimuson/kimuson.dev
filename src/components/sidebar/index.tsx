@@ -15,7 +15,7 @@ type SidebarProps = {
   ad?: boolean
 }
 
-const Component: React.VFC<SidebarProps> = ({
+export const Sidebar: React.FC<SidebarProps> = ({
   bio = false,
   commonSidebar = false,
   toc = undefined,
@@ -33,5 +33,3 @@ const Component: React.VFC<SidebarProps> = ({
     </div>
   )
 }
-
-export const Sidebar = Component

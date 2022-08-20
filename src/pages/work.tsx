@@ -15,7 +15,7 @@ type WorkPageProps = {
   data: WorkPageQuery
 } & PageProps
 
-const WorkPage: React.VFC<WorkPageProps> = ({ data }: WorkPageProps) => {
+const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )

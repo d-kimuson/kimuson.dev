@@ -1,4 +1,5 @@
 import { graphql } from "gatsby"
+import React from "react"
 import type { TagPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
@@ -11,7 +12,7 @@ import { toTagLink } from "~/service/presenters/links"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 
-const TagPageTemplate: React.VFC<TagPageProps> = ({
+const TagPageTemplate: React.FC<TagPageProps> = ({
   data,
   pageContext,
 }: TagPageProps) => {

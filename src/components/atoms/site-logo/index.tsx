@@ -1,3 +1,4 @@
+import React from "react"
 import QiitaLogo from "./qiita-logo"
 import ZennLogo from "./zenn-logo"
 
@@ -6,7 +7,7 @@ type SiteLogoProps = {
   className?: string | undefined
 }
 
-export const SiteLogo: React.VFC<SiteLogoProps> = ({ siteName, className }) => {
+export const SiteLogo: React.FC<SiteLogoProps> = ({ siteName, className }) => {
   switch (siteName) {
     case "Zenn":
       return <ZennLogo className={className} />

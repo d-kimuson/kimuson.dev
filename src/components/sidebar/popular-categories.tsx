@@ -21,7 +21,7 @@ const query = graphql`
   }
 `
 
-export const PopularCategories: React.VFC = () => {
+export const PopularCategories: React.FC = () => {
   const data = useStaticQuery<PopularCategoriesQuery>(query)
   const categories = toCategorySummaryList(data.allMdx.edges)
 

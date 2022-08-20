@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 
-export const Adsense: React.VFC = () => {
+export const Adsense: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (typeof window.adsbygoogle !== "undefined") {

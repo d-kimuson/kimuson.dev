@@ -6,7 +6,7 @@ import * as styles from "./layout.module.scss"
 
 type LayoutProps = React.PropsWithChildren<Record<string, unknown>>
 
-const Component: React.VFC<LayoutProps> = ({ children }: LayoutProps) => {
+export const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div
       id="layout-root"
@@ -21,5 +21,3 @@ const Component: React.VFC<LayoutProps> = ({ children }: LayoutProps) => {
     </div>
   )
 }
-
-export const Layout = React.memo(Component)
