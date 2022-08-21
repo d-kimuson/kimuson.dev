@@ -2,9 +2,9 @@ import { graphql } from "gatsby"
 import React from "react"
 import type { AboutPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
-import { Post } from "~/components/common/post"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { Post } from "~/features/blog/components/post"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
 import { toDetailAboutPost } from "~/service/gateways/post"
 
 type AboutPageProps = {
@@ -20,7 +20,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
   const post = toDetailAboutPost(undefined, mdx)
 
   return (
-    <Layout>
+    <CommonLayout>
       <div className="l-page-container">
         {typeof post !== `undefined` ? (
           <>
@@ -35,7 +35,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
           <div />
         )}
       </div>
-    </Layout>
+    </CommonLayout>
   )
 }
 

@@ -1,0 +1,47 @@
+@use "sass:color";
+@use "~/styles/_variable.scss" as g;
+
+// toc
+.toc-wrapper {
+  width: 100%;
+}
+
+.toc {
+  list-style: none;
+  font-size: 0.9rem;
+  color: g.$black-weak;
+  li {
+    margin: 5px 0;
+    a {
+      text-decoration: none;
+      color: inherit;
+      padding: 5px 10px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: color.scale(g.$black-weak, $lightness: 70%);
+        transition: 0.5s;
+      }
+    }
+  }
+  li[class="toc-h3"] {
+    margin-inline-start: 20px;
+    font-size: 0.8rem;
+  }
+}
+
+// bio
+.bio {
+  width: 100%;
+}
+
+.bio-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// ads
+.adsense-wrapper {
+  width: 100%;
+}

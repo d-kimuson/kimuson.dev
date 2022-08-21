@@ -3,10 +3,10 @@ import React from "react"
 import type { TagPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { BlogPostList } from "~/components/common/blog-post-list"
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { BlogPostList } from "~/features/blog/components/blog-post-list"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
+import { Head } from "~/features/seo/components/head"
 import { toBlogPostList } from "~/service/gateways/post"
 import { toTagLink } from "~/service/presenters/links"
 
@@ -28,7 +28,7 @@ const TagPageTemplate: React.FC<TagPageProps> = ({
         description={`${siteTitle}の${tag}タグページです。｢${tag}｣に関連する記事を探すことができます。`}
         slug={toTagLink(tag)}
       />
-      <Layout>
+      <CommonLayout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
             <main role="main">
@@ -41,7 +41,7 @@ const TagPageTemplate: React.FC<TagPageProps> = ({
 
           <Sidebar bio={true} commonSidebar={true} />
         </div>
-      </Layout>
+      </CommonLayout>
     </>
   )
 }

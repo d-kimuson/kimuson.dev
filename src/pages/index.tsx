@@ -4,11 +4,11 @@ import React from "react"
 import type { IndexQuery, SiteSiteMetadataPosts } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { BlogPostList } from "~/components/common/blog-post-list"
-import { Head } from "~/components/common/head"
-import { Link } from "~/components/common/link"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { BlogPostList } from "~/features/blog/components/blog-post-list"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
+import { Head } from "~/features/seo/components/head"
+import { Link } from "~/functional/mdx/link"
 import type { BlogPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
@@ -35,7 +35,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   return (
     <>
       <Head />
-      <Layout>
+      <CommonLayout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
             <main role="main">
@@ -51,7 +51,7 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
           </div>
           <Sidebar bio={true} commonSidebar={true} />
         </div>
-      </Layout>
+      </CommonLayout>
     </>
   )
 }

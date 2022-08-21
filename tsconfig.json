@@ -7,10 +7,10 @@
     "baseUrl": "./",
     "paths": {
       "~/*": ["src/*"],
+      "@mdx-components/*": ["src/mdx-components/*"],
+      "@static/*": ["static/*"],
       "types": ["types"],
-      "@graphql-types": ["types/graphql-types.d.ts"],
-      "@mdx": ["src/components/common/mdx.ts"],
-      "@static/*": ["static/*"]
+      "@graphql-types": ["types/graphql-types.d.ts"]
     },
     "esModuleInterop": true,
     "jsx": "preserve",

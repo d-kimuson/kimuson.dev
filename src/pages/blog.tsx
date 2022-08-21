@@ -4,11 +4,11 @@ import React from "react"
 import type { BlogPageQuery, SiteSiteMetadataPosts } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Search } from "~/components/search"
-import { toSearchBlogPost } from "~/components/search/searchBlogPost"
-import { Sidebar } from "~/components/sidebar"
+import { Search } from "~/features/blog-search/components/search"
+import { toSearchBlogPost } from "~/features/blog-search/components/search/searchBlogPost"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
+import { Head } from "~/features/seo/components/head"
 import type { BlogPost, FeedPost } from "~/service/entities/post"
 import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
@@ -38,7 +38,7 @@ const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   return (
     <>
       <Head title={title} description={description} />
-      <Layout>
+      <CommonLayout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
             <main role="main" style={{ width: `100%` }}>
@@ -49,7 +49,7 @@ const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
           </div>
           <Sidebar bio={true} commonSidebar={true} />
         </div>
-      </Layout>
+      </CommonLayout>
     </>
   )
 }

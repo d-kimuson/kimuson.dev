@@ -4,9 +4,9 @@ import type { WorkPostBySlugQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { Post } from "~/components/common/post"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { Post } from "~/features/blog/components/post"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
 import { toDetailWorkPost } from "~/service/gateways/post"
 import { toWorkPostLink } from "~/service/presenters/links"
 
@@ -32,7 +32,7 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   const post = toDetailWorkPost(postUrl, mdx as PostMdx)
 
   return (
-    <Layout>
+    <CommonLayout>
       <div className="l-page-container">
         {typeof post !== `undefined` ? (
           <>
@@ -47,7 +47,7 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
           <div />
         )}
       </div>
-    </Layout>
+    </CommonLayout>
   )
 }
 

@@ -1,8 +1,8 @@
 import React from "react"
 import type { PageProps } from "gatsby"
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
+import { Head } from "~/features/seo/components/head"
 
 const NotFoundPage: React.FC<PageProps> = () => {
   const title = `404: Not Found`
@@ -11,7 +11,7 @@ const NotFoundPage: React.FC<PageProps> = () => {
   return (
     <>
       <Head title={title} description={description} />
-      <Layout>
+      <CommonLayout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
             <main role="main">
@@ -23,7 +23,7 @@ const NotFoundPage: React.FC<PageProps> = () => {
           </div>
           <Sidebar bio commonSidebar />
         </div>
-      </Layout>
+      </CommonLayout>
     </>
   )
 }

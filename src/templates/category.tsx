@@ -3,10 +3,10 @@ import React from "react"
 import type { CategoryPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { BlogPostList } from "~/components/common/blog-post-list"
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { BlogPostList } from "~/features/blog/components/blog-post-list"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
+import { Head } from "~/features/seo/components/head"
 import { toBlogPostList } from "~/service/gateways/post"
 import { toCategoryLink } from "~/service/presenters/links"
 
@@ -27,7 +27,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
         description={`${siteTitle}の${category}カテゴリページです。${category}カテゴリの記事を探すことができます。`}
         slug={toCategoryLink(category)}
       />
-      <Layout>
+      <CommonLayout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
             <main role="main">
@@ -40,7 +40,7 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
           </div>
           <Sidebar bio={true} commonSidebar={true} />
         </div>
-      </Layout>
+      </CommonLayout>
     </>
   )
 }

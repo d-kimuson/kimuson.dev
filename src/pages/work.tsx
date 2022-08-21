@@ -4,10 +4,10 @@ import React from "react"
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { Head } from "~/components/common/head"
-import { WorkPostList } from "~/components/common/work-post-list"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
+import { Head } from "~/features/seo/components/head"
+import { WorkPostList } from "~/features/work/components/work-post-list"
 import { toWorkPostList } from "~/service/gateways/post"
 import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
 
@@ -28,7 +28,7 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
   return (
     <>
       <Head title={`Works`} description={`開発物を紹介します。`} />
-      <Layout>
+      <CommonLayout>
         <div className="l-page-container">
           <div className="l-main-wrapper">
             <main role="main">
@@ -41,7 +41,7 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
           </div>
           <Sidebar bio={true} commonSidebar={true} />
         </div>
-      </Layout>
+      </CommonLayout>
     </>
   )
 }

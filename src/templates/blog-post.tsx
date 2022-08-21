@@ -6,10 +6,10 @@ import type { BlogPostBySlugQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import type { BlogPostListRow as IBlogPostListRow } from "~/components/common/blog-post-list-row"
-import { Post } from "~/components/common/post"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import type { BlogPostListRow as IBlogPostListRow } from "~/features/blog/components/blog-post-list-row"
+import { Post } from "~/features/blog/components/post"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Sidebar } from "~/features/layout/components/sidebar"
 import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
 import { toBlogPostLink } from "~/service/presenters/links"
 import { filterDraftPostList } from "~/service/presenters/post"
@@ -17,7 +17,7 @@ import { filterDraftPostList } from "~/service/presenters/post"
 // FIXME: 一時的な対応なのでできればちゃんと直して
 const BlogPostListRow = loadable(async () => {
   const { BlogPostListRow } = await import(
-    `../components/common/blog-post-list-row`
+    `../features/blog/components/blog-post-list-row`
   )
   return BlogPostListRow
 }) as unknown as typeof IBlogPostListRow
@@ -49,7 +49,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   )(data.allMdx.edges.filter((e): e is PostMdxEdge => typeof e !== `undefined`))
 
   return (
-    <Layout>
+    <CommonLayout>
       <div className="l-page-container">
         {typeof post !== `undefined` ? (
           <>
@@ -69,7 +69,7 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
       {relatedArticle.length !== 0 ? (
         <BlogPostListRow blogPosts={relatedArticle} />
       ) : null}
-    </Layout>
+    </CommonLayout>
   )
 }
 
