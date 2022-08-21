@@ -9,7 +9,6 @@ import type {
   PluginOptions,
   PluginCallback,
 } from "gatsby"
-import { filterDraftPostList } from "~/features/blog/services/post"
 import {
   toBlogPostLink,
   toWorkPostLink,
@@ -33,8 +32,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(__dirname, `src/templates/blog-post.tsx`)
-  const workPost = path.resolve(__dirname, `src/templates/work-post.tsx`)
+  const blogPost = path.resolve(__dirname, "src/templates/blog-post.tsx")
+  const workPost = path.resolve(__dirname, "src/templates/work-post.tsx")
 
   const result = await graphql<AllMdxQuery>(`
     query AllMdx {
@@ -60,18 +59,17 @@ export const createPages: GatsbyNode["createPages"] = async ({
     throw result.errors
   }
 
-  const posts = filterDraftPostList(
-    (result.data?.allMdx.edges ?? [])
-      .filter((e): e is MdxEdge => typeof e !== `undefined`)
-      .map((e) => ({
-        title: e.node.frontmatter.title,
-        draft: Boolean(e.node.frontmatter.draft),
-        slug: e.node.fields?.slug,
-        category: e.node.frontmatter.category,
-        tags: e.node.frontmatter.tags,
-        node: e.node,
-      }))
-  )
+  const posts = (result.data?.allMdx.edges ?? [])
+    .filter((e): e is MdxEdge => typeof e !== `undefined`)
+    .map((e) => ({
+      title: e.node.frontmatter.title,
+      draft: Boolean(e.node.frontmatter.draft),
+      slug: e.node.fields?.slug,
+      category: e.node.frontmatter.category,
+      tags: e.node.frontmatter.tags,
+      node: e.node,
+    }))
+    .filter((post) => !post.draft || process.env.NODE_ENV === "development")
 
   const blogPosts = posts
     .filter((post) => post.slug?.includes(`/blog/`))

@@ -1,6 +1,6 @@
 import classNames from "classnames"
 import React from "react"
-import { useRecoilValue } from "recoil"
+import { useRecoilValueLoadable } from "recoil"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { PostDate } from "~/features/blog/components/post-date"
 import { TagList } from "~/features/blog/components/tag-list"
@@ -11,7 +11,6 @@ import { Link } from "~/functional/link"
 import { toBlogPostLink } from "~/service/links"
 import type { BlogPost } from "~/types/post"
 import * as styles from "./blog-post-list-row.module.scss"
-import "swiper/css"
 
 type BlogPostPreviewProps = {
   blogPost: BlogPost
@@ -69,25 +68,31 @@ type BlogPostListRowProps = {
 export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
   blogPosts,
 }) => {
-  const windowSize = useRecoilValue(windowSizeState)
+  const windowSize = useRecoilValueLoadable(windowSizeState)
+  // const windowSize2 = useRecoilValueLoadable(windowSizeState)
+  // windowSize2.state
 
   return (
     <section>
-      <h1 className={styles.blogPostListTitle}>合わせて読みたい</h1>
-      {blogPosts.length > 0 ? (
-        <Swiper
-          tag={"div"}
-          spaceBetween={imgMargin}
-          slidesPerView={windowSize / (imgWidth + imgMargin * 2)}
-        >
-          {blogPosts.map((blogPost) => (
-            <SwiperSlide tag={"div"} key={blogPost.slug}>
-              <BlogPostPreview blogPost={blogPost} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        <p>記事がありません。</p>
+      {windowSize.state === "loading" ? null : (
+        <React.Fragment>
+          <h1 className={styles.blogPostListTitle}>合わせて読みたい</h1>
+          {blogPosts.length > 0 ? (
+            <Swiper
+              tag={"div"}
+              spaceBetween={imgMargin}
+              slidesPerView={windowSize.getValue() / (imgWidth + imgMargin * 2)}
+            >
+              {blogPosts.map((blogPost) => (
+                <SwiperSlide tag={"div"} key={blogPost.slug}>
+                  <BlogPostPreview blogPost={blogPost} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <p>記事がありません。</p>
+          )}
+        </React.Fragment>
       )}
     </section>
   )

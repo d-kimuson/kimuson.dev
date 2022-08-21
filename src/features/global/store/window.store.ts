@@ -1,8 +1,15 @@
 import { atom } from "recoil"
-// import type { Loadable } from "~/utils/loadable"
-// import { loading } from "~/utils/loadable"
 
 export const windowSizeState = atom<number>({
   key: "windowSizeState",
-  default: window.innerWidth,
+  default: new Promise<number>((resolve) => {
+    try {
+      resolve(window.innerWidth)
+    } catch (err) {
+      if (!(err instanceof ReferenceError)) {
+        throw err
+      }
+    }
+  }),
+  // default: process.env.DEV_SSR ? window.innerWidth : -1,
 })

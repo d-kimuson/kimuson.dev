@@ -1,10 +1,13 @@
 import type { MdxEdge, Site } from "@graphql-types"
 import { readPosts } from "./src/utils/feed"
+import { config } from "dotenv"
 
-const siteName = `きむそん.dev`
-const siteDomain = `kimuson.dev`
+config({ path: "./.env" })
+
+const siteName = "きむそん.dev"
+const siteDomain = "kimuson.dev"
 const siteUrl = `https://${siteDomain}`
-const description = `技術ブログです。特にWebについて書いています.`
+const description = "技術ブログです。特にWebについて書いています."
 
 export default {
   siteMetadata: {

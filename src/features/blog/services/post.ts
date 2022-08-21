@@ -167,7 +167,7 @@ export const isDraft = (post: Draftable): boolean => !post.draft
 
 export const filterDraftPostList = <T extends Draftable>(posts: T[]): T[] =>
   posts.filter(
-    (post) => isDraft(post) || process.env.NODE_ENV === `development`
+    (post) => isDraft(post) || process.env.NODE_ENV === "development"
   )
 
 export const sortPostList = <T extends { date: Dayjs }>(posts: T[]): T[] =>
@@ -180,7 +180,7 @@ export const sortDraftPostList = <T extends Draftable>(posts: T[]): T[] =>
   posts.sort(postSortKey)
 
 export const processDraftPostList = <T extends Draftable>(posts: T[]): T[] => {
-  return process.env.NODE_ENV === `development`
+  return process.env.NODE_ENV === "development"
     ? sortDraftPostList(posts)
     : filterDraftPostList(posts)
 }

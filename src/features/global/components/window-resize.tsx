@@ -8,6 +8,7 @@ type WindowResizeProps = React.PropsWithChildren<Record<string, unknown>>
 export const WindowResize: React.FC<WindowResizeProps> = ({ children }) => {
   const setWindowSize = useSetRecoilState(windowSizeState)
   useEffect(() => {
+    setWindowSize(window.innerWidth)
     window.addEventListener("resize", () => {
       setWindowSize(window.innerWidth)
     })
