@@ -1,4 +1,4 @@
-import { wrapRootElement as wrap } from "~/functional/mdx"
+import { WrapRootElement } from "~/features/global/components/wrap-root-element"
 import "~/styles/index.scss"
 
-export const wrapRootElement = wrap
+export const wrapRootElement = WrapRootElement

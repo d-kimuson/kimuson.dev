@@ -1,8 +1,10 @@
 import classNames from "classnames"
-import React, { useState, useEffect } from "react"
+import React from "react"
+import { useRecoilValue } from "recoil"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { PostDate } from "~/features/blog/components/post-date"
 import { TagList } from "~/features/blog/components/tag-list"
+import { windowSizeState } from "~/features/global/store/window.store"
 import * as layoutStyles from "~/features/layout/components/layout.module.scss"
 import { Image } from "~/functional/image"
 import { Link } from "~/functional/link"
@@ -67,14 +69,7 @@ type BlogPostListRowProps = {
 export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
   blogPosts,
 }) => {
-  const [windowSize, setWindowSize] = useState<number>(-1)
-  useEffect(() => {
-    window.addEventListener(`resize`, () => {
-      setWindowSize(window.innerWidth)
-    })
-
-    setWindowSize(window.innerWidth)
-  })
+  const windowSize = useRecoilValue(windowSizeState)
 
   return (
     <section>
