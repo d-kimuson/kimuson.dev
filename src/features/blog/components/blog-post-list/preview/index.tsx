@@ -1,12 +1,13 @@
-import React, { memo } from "react"
+import classNames from "classnames"
+import React from "react"
 import { PostDate } from "~/features/blog/components/post-date"
 import { SiteLogo } from "~/features/blog/components/site-logo"
 import { TagList } from "~/features/blog/components/tag-list"
+import * as layoutStyles from "~/features/layout/components/layout.module.scss"
 import { Image } from "~/functional/image"
-import { Link } from "~/functional/mdx/link"
-import type { BlogPost, FeedPost } from "~/service/entities/post"
-import { toBlogPostLink } from "~/service/presenters/links"
-import { comparePost } from "~/utils/compare/entities"
+import { Link } from "~/functional/link"
+import { toBlogPostLink } from "~/service/links"
+import type { BlogPost, FeedPost } from "~/types/post"
 import * as styles from "./preview.module.scss"
 
 type BlogPostPreviewProps = {
@@ -50,28 +51,32 @@ const Inner: React.FC<BlogPostPreviewProps> = ({
   )
 }
 
-const InnerMemorized = memo(Inner, (prev, next) => {
-  return comparePost(prev.blogPost, next.blogPost)
-})
-
-export const Component: React.FC<BlogPostPreviewProps> = ({
+export const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   blogPost,
 }: BlogPostPreviewProps) => {
   return blogPost.__typename === `BlogPost` ? (
     <Link
       to={toBlogPostLink(blogPost.slug)}
-      className={`${styles.blogPost} m-card l-main-width m-remove-a-decoration`}
+      className={classNames(
+        styles.blogPost,
+        "m-card",
+        layoutStyles.mainWidth,
+        "m-remove-a-decoration"
+      )}
     >
-      <InnerMemorized blogPost={blogPost} />
+      <Inner blogPost={blogPost} />
     </Link>
   ) : (
     <a
       href={blogPost.slug}
-      className={`${styles.blogPost} m-card l-main-width m-remove-a-decoration`}
+      className={classNames(
+        styles.blogPost,
+        "m-card",
+        layoutStyles.mainWidth,
+        "m-remove-a-decoration"
+      )}
     >
-      <InnerMemorized blogPost={blogPost} />
+      <Inner blogPost={blogPost} />
     </a>
   )
 }
-
-export const BlogPostPreview = memo(Component)

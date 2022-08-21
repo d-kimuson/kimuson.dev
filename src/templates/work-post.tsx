@@ -4,19 +4,17 @@ import type { WorkPostBySlugQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { Post } from "~/features/blog/components/post"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
-import { toDetailWorkPost } from "~/service/gateways/post"
-import { toWorkPostLink } from "~/service/presenters/links"
+import { toDetailWorkPost } from "~/features/blog/services/post"
+import { WorkPostPageContent } from "~/page-contents/work-post"
+import { toWorkPostLink } from "~/service/links"
 
-type WorkPostTemplateProps = {
-  data: WorkPostBySlugQuery
-  pageContext: {
+type WorkPostTemplateProps = PageProps<
+  WorkPostBySlugQuery,
+  {
     previous: AroundNav | null
     next: AroundNav | null
   }
-} & PageProps
+>
 
 const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   data,
@@ -31,24 +29,11 @@ const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
 
   const post = toDetailWorkPost(postUrl, mdx as PostMdx)
 
-  return (
-    <CommonLayout>
-      <div className="l-page-container">
-        {typeof post !== `undefined` ? (
-          <>
-            <Post post={post} />
-            <Sidebar
-              bio={true}
-              toc={{ headings: post.headings }}
-              commonSidebar={true}
-            />
-          </>
-        ) : (
-          <div />
-        )}
-      </div>
-    </CommonLayout>
-  )
+  if (post === undefined) {
+    throw new Error()
+  }
+
+  return <WorkPostPageContent post={post} />
 }
 
 export default WorkPostTemplate

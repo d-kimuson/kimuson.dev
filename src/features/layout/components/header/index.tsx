@@ -4,7 +4,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import React, { useState } from "react"
 import type { HeaderQuery } from "@graphql-types"
 import { Portal } from "~/features/layout/components/portal"
-import { Link } from "~/functional/mdx/link"
+import { Link } from "~/functional/link"
 import * as styles from "./header.module.scss"
 import { Navigation } from "./navigation"
 

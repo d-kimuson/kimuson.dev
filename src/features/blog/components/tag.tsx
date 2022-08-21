@@ -1,6 +1,6 @@
 import React from "react"
-import { Link } from "~/functional/mdx/link"
-import { toTagLink } from "~/service/presenters/links"
+import { Link } from "~/functional/link"
+import { toTagLink } from "~/service/links"
 
 type TagInnerProps = {
   tag: string

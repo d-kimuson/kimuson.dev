@@ -1,19 +1,22 @@
-import React, { useState, useEffect, memo } from "react"
+import classNames from "classnames"
+import React, { useState, useEffect } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { PostDate } from "~/features/blog/components/post-date"
 import { TagList } from "~/features/blog/components/tag-list"
+import * as layoutStyles from "~/features/layout/components/layout.module.scss"
 import { Image } from "~/functional/image"
-import { Link } from "~/functional/mdx/link"
-import type { BlogPost } from "~/service/entities/post"
-import { toBlogPostLink } from "~/service/presenters/links"
-import { comparePost } from "~/utils/compare/entities"
+import { Link } from "~/functional/link"
+import { toBlogPostLink } from "~/service/links"
+import type { BlogPost } from "~/types/post"
 import * as styles from "./blog-post-list-row.module.scss"
+import "swiper/css"
 
 type BlogPostPreviewProps = {
   blogPost: BlogPost
 }
 
 const imgWidth = 300
+const imgMargin = 10
 const imgStyle = { height: `200px`, width: `${imgWidth}px` }
 
 const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
@@ -22,7 +25,12 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   return (
     <Link
       to={toBlogPostLink(blogPost.slug)}
-      className={`m-card l-main-width m-remove-a-decoration ${styles.blogPostLink}`}
+      className={classNames(
+        "m-card",
+        layoutStyles.mainWidth,
+        "m-remove-a-decoration",
+        styles.blogPostLink
+      )}
     >
       <div className={styles.imageWrapper}>
         {typeof blogPost.thumbnail === `object` ? (
@@ -52,17 +60,13 @@ const BlogPostPreview: React.FC<BlogPostPreviewProps> = ({
   )
 }
 
-const BlogPostPreviewMemorized = memo(BlogPostPreview, (prev, next) =>
-  comparePost(prev.blogPost, next.blogPost)
-)
-
 type BlogPostListRowProps = {
   blogPosts: BlogPost[]
 }
 
-const Component: React.FC<BlogPostListRowProps> = ({
+export const BlogPostListRow: React.FC<BlogPostListRowProps> = ({
   blogPosts,
-}: BlogPostListRowProps) => {
+}) => {
   const [windowSize, setWindowSize] = useState<number>(-1)
   useEffect(() => {
     window.addEventListener(`resize`, () => {
@@ -77,13 +81,13 @@ const Component: React.FC<BlogPostListRowProps> = ({
       <h1 className={styles.blogPostListTitle}>合わせて読みたい</h1>
       {blogPosts.length > 0 ? (
         <Swiper
-          tag={`div`}
-          spaceBetween={imgWidth * 0.9}
-          slidesPerView={Math.floor(windowSize / imgWidth) + 1}
+          tag={"div"}
+          spaceBetween={imgMargin}
+          slidesPerView={windowSize / (imgWidth + imgMargin * 2)}
         >
           {blogPosts.map((blogPost) => (
-            <SwiperSlide tag={`div`} key={blogPost.slug}>
-              <BlogPostPreviewMemorized blogPost={blogPost} />
+            <SwiperSlide tag={"div"} key={blogPost.slug}>
+              <BlogPostPreview blogPost={blogPost} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -93,5 +97,3 @@ const Component: React.FC<BlogPostListRowProps> = ({
     </section>
   )
 }
-
-export const BlogPostListRow = memo(Component)

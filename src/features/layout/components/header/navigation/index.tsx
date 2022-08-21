@@ -2,7 +2,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { faRss } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React from "react"
-import { Link } from "~/functional/mdx/link"
+import { Link } from "~/functional/link"
 import * as styles from "./navigation.module.scss"
 
 const navRoutes = [

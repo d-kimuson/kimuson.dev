@@ -1,8 +1,8 @@
 import { faList } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import React, { useState, useEffect, memo } from "react"
-import { Link } from "~/functional/mdx/link"
-import type { Heading } from "~/service/entities/post"
+import { Link } from "~/functional/link"
+import type { Heading } from "~/types/post"
 import * as styles from "./toc.module.scss"
 
 const infinity = 100000

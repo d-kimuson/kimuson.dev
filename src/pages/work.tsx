@@ -4,18 +4,17 @@ import React from "react"
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
+import { toWorkPostList } from "~/features/blog/services/post"
+import {
+  filterDraftPostList,
+  sortPostList,
+} from "~/features/blog/services/post"
 import { Head } from "~/features/seo/components/head"
-import { WorkPostList } from "~/features/work/components/work-post-list"
-import { toWorkPostList } from "~/service/gateways/post"
-import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
+import { WorkPageContent } from "~/page-contents/work"
 
-type WorkPageProps = {
-  data: WorkPageQuery
-} & PageProps
+type WorkPageProps = PageProps<WorkPageQuery>
 
-const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
+const WorkPage: React.FC<WorkPageProps> = ({ data }) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
@@ -26,23 +25,10 @@ const WorkPage: React.FC<WorkPageProps> = ({ data }: WorkPageProps) => {
   )(edges as PostMdxEdge[])
 
   return (
-    <>
+    <React.Fragment>
       <Head title={`Works`} description={`開発物を紹介します。`} />
-      <CommonLayout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">Works</h1>
-
-                <WorkPostList workPosts={workPosts} />
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </CommonLayout>
-    </>
+      <WorkPageContent workPosts={workPosts} />
+    </React.Fragment>
   )
 }
 

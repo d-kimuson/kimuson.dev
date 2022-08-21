@@ -1,7 +1,7 @@
 import React, { memo } from "react"
-import { Link } from "~/functional/mdx/link"
-import type { CategorySummary } from "~/service/entities/post"
-import { toCategoryLink } from "~/service/presenters/links"
+import { Link } from "~/functional/link"
+import { toCategoryLink } from "~/service/links"
+import type { CategorySummary } from "~/types/post"
 import * as styles from "./category-list.module.scss"
 
 type CategoryListProps = {

@@ -1,10 +1,12 @@
 import { faFolder } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import classNames from "classnames"
 import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
 import type { PopularCategoriesQuery } from "@graphql-types"
 import { CategoryList } from "~/features/blog/components/category-list"
-import { toCategorySummaryList } from "~/service/gateways/category"
+import { toCategorySummaryList } from "~/features/blog/services/category"
+import * as styles from "../layout.module.scss"
 
 const query = graphql`
   query PopularCategories {
@@ -27,7 +29,7 @@ export const PopularCategories: React.FC = () => {
 
   return (
     <>
-      <section className={`m-card l-sidebar-width`}>
+      <section className={classNames("m-card", styles.sidebarWidth)}>
         <h1 className="m-card__title">
           <FontAwesomeIcon icon={faFolder} />
           CATEGORIES

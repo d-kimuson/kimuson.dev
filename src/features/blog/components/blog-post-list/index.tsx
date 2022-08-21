@@ -1,5 +1,5 @@
-import React, { memo } from "react"
-import type { BlogPost, FeedPost } from "~/service/entities/post"
+import React from "react"
+import type { BlogPost, FeedPost } from "~/types/post"
 import * as styles from "./blog-post-list.module.scss"
 import { BlogPostPreview } from "./preview"
 
@@ -7,7 +7,7 @@ type BlogPostListProps = {
   blogPosts: (BlogPost | FeedPost)[]
 }
 
-const Component: React.FC<BlogPostListProps> = ({
+export const BlogPostList: React.FC<BlogPostListProps> = ({
   blogPosts,
 }: BlogPostListProps) => {
   return (
@@ -29,5 +29,3 @@ const Component: React.FC<BlogPostListProps> = ({
     </section>
   )
 }
-
-export const BlogPostList = memo(Component)

@@ -2,41 +2,23 @@ import { graphql } from "gatsby"
 import React from "react"
 import type { AboutPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
-import { Post } from "~/features/blog/components/post"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
-import { toDetailAboutPost } from "~/service/gateways/post"
+import { toDetailAboutPost } from "~/features/blog/services/post"
+import { AboutPageContent } from "~/page-contents/about"
 
-type AboutPageProps = {
-  data: AboutPageQuery
-} & PageProps
+type AboutPageProps = PageProps<AboutPageQuery>
 
-const AboutPage: React.FC<AboutPageProps> = ({ data }: AboutPageProps) => {
+const AboutPage: React.FC<AboutPageProps> = ({ data }) => {
   const mdx = data.mdx
   if (!mdx) {
     throw Error
   }
 
   const post = toDetailAboutPost(undefined, mdx)
+  if (post === undefined) {
+    throw Error
+  }
 
-  return (
-    <CommonLayout>
-      <div className="l-page-container">
-        {typeof post !== `undefined` ? (
-          <>
-            <Post post={post} />
-            <Sidebar
-              bio={true}
-              commonSidebar={true}
-              toc={{ headings: post.headings }}
-            />
-          </>
-        ) : (
-          <div />
-        )}
-      </div>
-    </CommonLayout>
-  )
+  return <AboutPageContent post={post} />
 }
 
 export default AboutPage

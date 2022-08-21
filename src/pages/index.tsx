@@ -4,15 +4,14 @@ import React from "react"
 import type { IndexQuery, SiteSiteMetadataPosts } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { BlogPostList } from "~/features/blog/components/blog-post-list"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
+import { toBlogPostList, toFeedPostList } from "~/features/blog/services/post"
+import {
+  filterDraftPostList,
+  sortPostList,
+} from "~/features/blog/services/post"
 import { Head } from "~/features/seo/components/head"
-import { Link } from "~/functional/mdx/link"
-import type { BlogPost } from "~/service/entities/post"
-import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
-import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import * as styles from "./index.module.scss"
+import { IndexPageContent } from "~/page-contents/index"
+import type { BlogPost } from "~/types/post"
 
 type IndexProps = {
   data: IndexQuery
@@ -33,26 +32,10 @@ const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   )(data.allMdx.edges as PostMdxEdge[]).slice(0, 5)
 
   return (
-    <>
+    <React.Fragment>
       <Head />
-      <CommonLayout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">最近の投稿</h1>
-
-                <BlogPostList blogPosts={blogPosts} />
-                <div className={styles.blogLinkWrapper}>
-                  <Link to="/blog/">もっと記事を見る</Link>
-                </div>
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </CommonLayout>
-    </>
+      <IndexPageContent blogPosts={blogPosts} />
+    </React.Fragment>
   )
 }
 

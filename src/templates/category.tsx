@@ -3,12 +3,10 @@ import React from "react"
 import type { CategoryPageQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { BlogPostList } from "~/features/blog/components/blog-post-list"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
+import { toBlogPostList } from "~/features/blog/services/post"
 import { Head } from "~/features/seo/components/head"
-import { toBlogPostList } from "~/service/gateways/post"
-import { toCategoryLink } from "~/service/presenters/links"
+import { CategoryPageContent } from "~/page-contents/category"
+import { toCategoryLink } from "~/service/links"
 
 type CategoryPageProps = PageProps<CategoryPageQuery, { category?: string }>
 
@@ -17,31 +15,18 @@ const BlogPostTemplate: React.FC<CategoryPageProps> = ({
   pageContext,
 }: CategoryPageProps) => {
   const blogPosts = toBlogPostList(data.allMdx.edges as PostMdxEdge[])
-  const category = pageContext.category ?? `No Category`
-  const siteTitle = data.site?.siteMetadata?.title ?? ``
+  const category = pageContext.category ?? "No Category"
+  const siteTitle = data.site?.siteMetadata?.title ?? ""
 
   return (
-    <>
+    <React.Fragment>
       <Head
         title={`${category}カテゴリ`}
         description={`${siteTitle}の${category}カテゴリページです。${category}カテゴリの記事を探すことができます。`}
         slug={toCategoryLink(category)}
       />
-      <CommonLayout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">カテゴリ: {category}</h1>
-
-                <BlogPostList blogPosts={blogPosts} />
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </CommonLayout>
-    </>
+      <CategoryPageContent category={category} blogPosts={blogPosts} />
+    </React.Fragment>
   )
 }
 

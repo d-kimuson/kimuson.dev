@@ -1,5 +1,5 @@
 import type { ImageSharpFixed, ImageSharpFluid } from "@graphql-types"
-import type { ExcludeNullProps } from "types/utils"
+import type { ExcludeNullProps } from "~/types/utils"
 
 export type RawFixedImage = Pick<
   ImageSharpFixed,

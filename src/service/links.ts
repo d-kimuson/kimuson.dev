@@ -1,4 +1,4 @@
-import type { Slug, Category, Tag } from "~/service/entities/post"
+import type { Slug, Category, Tag } from "~/types/post"
 
 export const toBlogPostLink = (articleSlug: Slug): string =>
   `${articleSlug}`.toLowerCase()

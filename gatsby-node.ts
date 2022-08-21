@@ -9,13 +9,13 @@ import type {
   PluginOptions,
   PluginCallback,
 } from "gatsby"
+import { filterDraftPostList } from "~/features/blog/services/post"
 import {
   toBlogPostLink,
   toWorkPostLink,
   toCategoryLink,
   toTagLink,
-} from "./src/service/presenters/links"
-import { filterDraftPostList } from "./src/service/presenters/post"
+} from "./src/service/links"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,

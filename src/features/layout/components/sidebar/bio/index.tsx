@@ -32,7 +32,7 @@ const Component: React.FC = () => {
       <div className="m-card__content">
         <div className={styles.bioImageWrapper}>
           <StaticImage
-            src="./icon.png"
+            src="https://avatars.githubusercontent.com/u/37296661"
             layout="fixed"
             height={200}
             width={200}
@@ -40,10 +40,10 @@ const Component: React.FC = () => {
           />
         </div>
 
-        <h2 className={styles.name}>{author?.name ?? `No Name`}</h2>
+        <h2 className={styles.name}>{author?.name ?? "No Name"}</h2>
 
         <p className={styles.description}>
-          {author?.summary ?? `No Introduction`}
+          {author?.summary ?? "No Introduction"}
         </p>
       </div>
     </section>

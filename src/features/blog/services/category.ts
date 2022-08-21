@@ -1,7 +1,7 @@
 import { uniq } from "ramda"
 import type { MdxFrontmatter } from "@graphql-types"
-import type { Category, CategorySummary } from "~/service/entities/post"
-import { filterDraftPostList } from "~/service/presenters/post"
+import { filterDraftPostList } from "~/features/blog/services/post"
+import type { Category, CategorySummary } from "~/types/post"
 
 const countCategories = (categories: Category[]): CategorySummary[] =>
   uniq(categories).map((category) => ({

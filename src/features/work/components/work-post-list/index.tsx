@@ -1,8 +1,9 @@
 import React, { memo } from "react"
 import { PostDate } from "~/features/blog/components/post-date"
+import * as layoutStyles from "~/features/layout/components/layout.module.scss"
 import { Image } from "~/functional/image"
-import { Link } from "~/functional/mdx/link"
-import type { WorkPost } from "~/service/entities/post"
+import { Link } from "~/functional/link"
+import type { WorkPost } from "~/types/post"
 import { comparePost } from "~/utils/compare/entities"
 import * as styles from "./work-post-list.module.scss"
 
@@ -50,9 +51,11 @@ type WorkListProps = {
   workPosts: WorkPost[]
 }
 
-const Component: React.FC<WorkListProps> = ({ workPosts }: WorkListProps) => {
+export const WorkPostList: React.FC<WorkListProps> = ({
+  workPosts,
+}: WorkListProps) => {
   return (
-    <section className="l-main-width">
+    <section className={layoutStyles.mainWidth}>
       {workPosts.length > 0 ? (
         <ul className={styles.workList}>
           {workPosts.map((workPost) => (
@@ -70,5 +73,3 @@ const Component: React.FC<WorkListProps> = ({ workPosts }: WorkListProps) => {
     </section>
   )
 }
-
-export const WorkPostList = memo(Component)

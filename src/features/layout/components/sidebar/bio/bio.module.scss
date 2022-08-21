@@ -4,13 +4,13 @@
   width: 100%;
 }
 
-.bio-image-wrapper {
+.bioImageWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 
   div {
-    border: solid 2px var.$theme-color;
+    border: solid 1px var.$theme-reverse-color;
     border-radius: 50%;
     overflow: hidden;
   }

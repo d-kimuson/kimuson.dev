@@ -1,5 +1,5 @@
 import { curry } from "ramda"
-import type { ExcludeNullProps } from "types/utils"
+import type { ExcludeNullProps } from "~/types/utils"
 
 export const replaceAll = curry(
   (baseString: string, beforeString: string, afterString: string): string =>

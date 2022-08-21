@@ -4,18 +4,17 @@ import React from "react"
 import type { BlogPageQuery, SiteSiteMetadataPosts } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { Search } from "~/features/blog-search/components/search"
 import { toSearchBlogPost } from "~/features/blog-search/components/search/searchBlogPost"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
+import { toBlogPostList, toFeedPostList } from "~/features/blog/services/post"
+import {
+  filterDraftPostList,
+  sortPostList,
+} from "~/features/blog/services/post"
 import { Head } from "~/features/seo/components/head"
-import type { BlogPost, FeedPost } from "~/service/entities/post"
-import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
-import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
+import { BlogPageContent } from "~/page-contents/blog"
+import type { BlogPost, FeedPost } from "~/types/post"
 
-type BlogProps = {
-  data: BlogPageQuery
-} & PageProps
+type BlogProps = PageProps<BlogPageQuery>
 
 const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   const title = `ブログ`
@@ -38,18 +37,7 @@ const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   return (
     <>
       <Head title={title} description={description} />
-      <CommonLayout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main" style={{ width: `100%` }}>
-              <section style={{ width: `100%` }}>
-                <Search blogPosts={searchBlogPosts} />
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </CommonLayout>
+      <BlogPageContent searchBlogPosts={searchBlogPosts} />
     </>
   )
 }

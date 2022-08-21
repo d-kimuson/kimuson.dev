@@ -52,3 +52,9 @@ export type Detail<T> = T & {
   postUrl: string | undefined
   ogtImageUrl: string | undefined
 }
+
+export type PostTableOfContent = {
+  url: string
+  title: string
+  items?: PostTableOfContent[]
+}

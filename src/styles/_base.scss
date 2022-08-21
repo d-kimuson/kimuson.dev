@@ -2,7 +2,7 @@
 @use "variable" as var;
 @import "~modern-css-reset";
 @import "~animate.css";
-@import "swiper/swiper.scss";
+// @import "swiper/css";
 
 // OSにプログラミングフォントがインストール済みなら読み込む
 @each $font in var.$code-fonts {

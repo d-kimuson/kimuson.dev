@@ -1,6 +1,7 @@
 import dayjs from "dayjs"
 import { curry } from "ramda"
 import type { SiteSiteMetadataPosts } from "@graphql-types"
+import type { Dayjs } from "dayjs"
 import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type {
   Detail,
@@ -10,8 +11,8 @@ import type {
   AboutPost,
   FeedPost,
   FeedSiteName,
-} from "~/service/entities/post"
-import { toHeadings } from "~/service/gateways/heading"
+} from "~/types/post"
+import type { Heading, PostTableOfContent } from "~/types/post"
 import { excludeNull } from "~/utils"
 
 export const toDetail = curry(
@@ -26,7 +27,7 @@ export const toDetail = curry(
       ? {
           ...post,
           body: mdx.body,
-          headings: toHeadings(mdx.tableOfContents),
+          headings: toHeadings(mdx.tableOfContents.items),
           postUrl: postUrl ? encodeURI(postUrl) : undefined,
           ogtImageUrl: excludeNull(mdx.frontmatter.thumbnail?.publicURL),
         }
@@ -132,4 +133,54 @@ export const toFeedPostList = (posts: SiteSiteMetadataPosts[]): FeedPost[] => {
       (maybeFeedPost): maybeFeedPost is FeedPost =>
         typeof maybeFeedPost !== `undefined`
     )
+}
+
+export const toHeadings = (
+  tableOfContents: PostTableOfContent[]
+): Heading[] => {
+  return tableOfContents.reduce(
+    (headings: Heading[], t: PostTableOfContent) => {
+      headings.push({
+        tag: `h2`,
+        id: t.url.replace(`#`, ``),
+        title: t.title,
+      })
+      ;(t.items ?? []).forEach((item: PostTableOfContent) => {
+        headings.push({
+          tag: `h3`,
+          id: item.url.replace(`#`, ``),
+          title: item.title,
+        })
+      })
+
+      return headings
+    },
+    []
+  )
+}
+
+type Draftable = {
+  draft?: boolean
+}
+
+export const isDraft = (post: Draftable): boolean => !post.draft
+
+export const filterDraftPostList = <T extends Draftable>(posts: T[]): T[] =>
+  posts.filter(
+    (post) => isDraft(post) || process.env.NODE_ENV === `development`
+  )
+
+export const sortPostList = <T extends { date: Dayjs }>(posts: T[]): T[] =>
+  posts.sort((a: T, b: T) => (a.date.isBefore(b.date) ? 1 : -1))
+
+export const postSortKey = (a: Draftable, b: Draftable): number =>
+  a.draft && !b.draft ? 1 : !a.draft && b.draft ? -1 : 0
+
+export const sortDraftPostList = <T extends Draftable>(posts: T[]): T[] =>
+  posts.sort(postSortKey)
+
+export const processDraftPostList = <T extends Draftable>(posts: T[]): T[] => {
+  return process.env.NODE_ENV === `development`
+    ? sortDraftPostList(posts)
+    : filterDraftPostList(posts)
 }

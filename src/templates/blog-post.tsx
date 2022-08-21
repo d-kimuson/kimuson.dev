@@ -1,34 +1,22 @@
 import { graphql } from "gatsby"
-import loadable from "loadable-components"
 import { pipe } from "ramda"
 import React from "react"
 import type { BlogPostBySlugQuery } from "@graphql-types"
 import type { PageProps } from "gatsby"
 import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import type { BlogPostListRow as IBlogPostListRow } from "~/features/blog/components/blog-post-list-row"
-import { Post } from "~/features/blog/components/post"
-import { CommonLayout } from "~/features/layout/components/common-layout"
-import { Sidebar } from "~/features/layout/components/sidebar"
-import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
-import { toBlogPostLink } from "~/service/presenters/links"
-import { filterDraftPostList } from "~/service/presenters/post"
+import { toDetailBlogPost, toBlogPostList } from "~/features/blog/services/post"
+import { filterDraftPostList } from "~/features/blog/services/post"
+import { BlogPostPageContent } from "~/page-contents/blog-post"
+import { toBlogPostLink } from "~/service/links"
 
-// FIXME: 一時的な対応なのでできればちゃんと直して
-const BlogPostListRow = loadable(async () => {
-  const { BlogPostListRow } = await import(
-    `../features/blog/components/blog-post-list-row`
-  )
-  return BlogPostListRow
-}) as unknown as typeof IBlogPostListRow
-
-type BlogPostTemplateProps = {
-  data: BlogPostBySlugQuery
-  pageContext: {
+type BlogPostTemplateProps = PageProps<
+  BlogPostBySlugQuery,
+  {
     previous: AroundNav | null
     next: AroundNav | null
   }
-} & PageProps
+>
 
 const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   data,
@@ -43,34 +31,16 @@ const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
 
   const post = toDetailBlogPost(postUrl, mdx as PostMdx)
 
-  const relatedArticle = pipe(
+  const relatedArticles = pipe(
     toBlogPostList,
     filterDraftPostList
   )(data.allMdx.edges.filter((e): e is PostMdxEdge => typeof e !== `undefined`))
 
-  return (
-    <CommonLayout>
-      <div className="l-page-container">
-        {typeof post !== `undefined` ? (
-          <>
-            <Post post={post} />
+  if (post === undefined) {
+    throw new Error()
+  }
 
-            <Sidebar
-              bio={true}
-              toc={{ headings: post.headings }}
-              commonSidebar={true}
-            />
-          </>
-        ) : (
-          <div />
-        )}
-      </div>
-
-      {relatedArticle.length !== 0 ? (
-        <BlogPostListRow blogPosts={relatedArticle} />
-      ) : null}
-    </CommonLayout>
-  )
+  return <BlogPostPageContent post={post} relatedArticles={relatedArticles} />
 }
 
 export default BlogPostTemplate

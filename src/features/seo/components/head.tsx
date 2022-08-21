@@ -3,7 +3,7 @@ import { GatsbySeo } from "gatsby-plugin-next-seo"
 import React from "react"
 import type { HeadQuery } from "@graphql-types"
 import type { OpenGraphImages } from "gatsby-plugin-next-seo"
-import { toBlogPostLink } from "~/service/presenters/links"
+import { toBlogPostLink } from "~/service/links"
 
 const query = graphql`
   query Head {
