@@ -1,34 +1,24 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
-import loadable from "loadable-components"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
+import React from "react"
 import type { BlogPostBySlugQuery } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge, PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { toDetailBlogPost, toBlogPostList } from "~/service/gateways/post"
-import { filterDraftPostList } from "~/service/presenters/post"
-import { toBlogPostLink } from "~/service/presenters/links"
-import { Post } from "~/components/common/post"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { toDetailBlogPost, toBlogPostList } from "~/features/blog/services/post"
+import { filterDraftPostList } from "~/features/blog/services/post"
+import { BlogPostPageContent } from "~/page-contents/blog-post"
+import { toBlogPostLink } from "~/service/links"
 
-const BlogPostListRow = loadable(async () => {
-  const { BlogPostListRow } = await import(
-    `../components/common/blog-post-list-row`
-  )
-  return BlogPostListRow
-})
-
-interface BlogPostTemplateProps extends PageProps {
-  data: BlogPostBySlugQuery
-  pageContext: {
+type BlogPostTemplateProps = PageProps<
+  BlogPostBySlugQuery,
+  {
     previous: AroundNav | null
     next: AroundNav | null
   }
-}
+>
 
-const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
+const BlogPostTemplate: React.FC<BlogPostTemplateProps> = ({
   data,
 }: BlogPostTemplateProps) => {
   const mdx = data.mdx
@@ -36,39 +26,21 @@ const BlogPostTemplate: React.VFC<BlogPostTemplateProps> = ({
     throw Error
   }
 
-  const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
-  const postUrl = siteUrl + toBlogPostLink(mdx?.fields?.slug || ``)
+  const siteUrl = data.site?.siteMetadata?.siteUrl ?? `http://127.0.0.1`
+  const postUrl = siteUrl + toBlogPostLink(mdx.fields?.slug ?? ``)
 
   const post = toDetailBlogPost(postUrl, mdx as PostMdx)
 
-  const relatedArticle = pipe(
+  const relatedArticles = pipe(
     toBlogPostList,
     filterDraftPostList
   )(data.allMdx.edges.filter((e): e is PostMdxEdge => typeof e !== `undefined`))
 
-  return (
-    <Layout>
-      <div className="l-page-container">
-        {typeof post !== `undefined` ? (
-          <>
-            <Post post={post} />
+  if (post === undefined) {
+    throw new Error()
+  }
 
-            <Sidebar
-              bio={true}
-              toc={{ headings: post.headings }}
-              commonSidebar={true}
-            />
-          </>
-        ) : (
-          <div />
-        )}
-      </div>
-
-      {relatedArticle.length !== 0 ? (
-        <BlogPostListRow blogPosts={relatedArticle} />
-      ) : null}
-    </Layout>
-  )
+  return <BlogPostPageContent post={post} relatedArticles={relatedArticles} />
 }
 
 export default BlogPostTemplate

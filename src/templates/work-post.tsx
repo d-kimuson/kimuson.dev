@@ -1,24 +1,22 @@
+import { graphql } from "gatsby"
 import React from "react"
-import { graphql, PageProps } from "gatsby"
-
 import type { WorkPostBySlugQuery } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdx } from "types/external-graphql-types"
 import type { AroundNav } from "types/external-graphql-types"
-import { toDetailWorkPost } from "~/service/gateways/post"
-import { toWorkPostLink } from "~/service/presenters/links"
-import { Post } from "~/components/common/post"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+import { toDetailWorkPost } from "~/features/blog/services/post"
+import { WorkPostPageContent } from "~/page-contents/work-post"
+import { toWorkPostLink } from "~/service/links"
 
-interface WorkPostTemplateProps extends PageProps {
-  data: WorkPostBySlugQuery
-  pageContext: {
+type WorkPostTemplateProps = PageProps<
+  WorkPostBySlugQuery,
+  {
     previous: AroundNav | null
     next: AroundNav | null
   }
-}
+>
 
-const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
+const WorkPostTemplate: React.FC<WorkPostTemplateProps> = ({
   data,
 }: WorkPostTemplateProps) => {
   const mdx = data.mdx
@@ -26,29 +24,16 @@ const WorkPostTemplate: React.VFC<WorkPostTemplateProps> = ({
     throw Error
   }
 
-  const siteUrl = data.site?.siteMetadata?.siteUrl || `http://127.0.0.1`
-  const postUrl = siteUrl + toWorkPostLink(mdx?.fields?.slug || ``)
+  const siteUrl = data.site?.siteMetadata?.siteUrl ?? `http://127.0.0.1`
+  const postUrl = siteUrl + toWorkPostLink(mdx.fields?.slug ?? ``)
 
   const post = toDetailWorkPost(postUrl, mdx as PostMdx)
 
-  return (
-    <Layout>
-      <div className="l-page-container">
-        {typeof post !== `undefined` ? (
-          <>
-            <Post post={post} />
-            <Sidebar
-              bio={true}
-              toc={{ headings: post.headings }}
-              commonSidebar={true}
-            />
-          </>
-        ) : (
-          <div />
-        )}
-      </div>
-    </Layout>
-  )
+  if (post === undefined) {
+    throw new Error()
+  }
+
+  return <WorkPostPageContent post={post} />
 }
 
 export default WorkPostTemplate

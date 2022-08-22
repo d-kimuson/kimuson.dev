@@ -1,48 +1,33 @@
+import { graphql } from "gatsby"
 import React from "react"
-import { graphql, PageProps } from "gatsby"
-
 import type { TagPageQuery } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { toBlogPostList } from "~/service/gateways/post"
-import { toTagLink } from "~/service/presenters/links"
-import { Sidebar } from "~/components/sidebar"
-import { Layout } from "~/components/layout"
-import { Head } from "~/components/common/head"
-import { BlogPostList } from "~/components/common/blog-post-list"
+import { toBlogPostList } from "~/features/blog/services/post"
+import { Head } from "~/features/seo/components/head"
+import { TagPageContent } from "~/page-contents/tag"
+import { toTagLink } from "~/service/links"
 
 type TagPageProps = PageProps<TagPageQuery, { tag?: string }>
 
-const TagPageTemplate: React.VFC<TagPageProps> = ({
+const TagPageTemplate: React.FC<TagPageProps> = ({
   data,
   pageContext,
 }: TagPageProps) => {
   const blogPosts = toBlogPostList(data.allMdx.edges as PostMdxEdge[])
-  const tag = pageContext.tag || `No Tag`
+  const tag = pageContext.tag ?? `No Tag`
 
-  const siteTitle = data.site?.siteMetadata?.title || ``
+  const siteTitle = data.site?.siteMetadata?.title ?? ``
 
   return (
-    <>
+    <React.Fragment>
       <Head
         title={`${tag}タグ`}
         description={`${siteTitle}の${tag}タグページです。｢${tag}｣に関連する記事を探すことができます。`}
         slug={toTagLink(tag)}
       />
-      <Layout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">タグ: {tag}</h1>
-                <BlogPostList blogPosts={blogPosts} />
-              </section>
-            </main>
-          </div>
-
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </Layout>
-    </>
+      <TagPageContent tag={tag} blogPosts={blogPosts} />
+    </React.Fragment>
   )
 }
 

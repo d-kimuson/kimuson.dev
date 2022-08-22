@@ -1,21 +1,20 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
+import React from "react"
 import type { WorkPageQuery, MdxEdge } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import { toWorkPostList } from "~/service/gateways/post"
-import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { Head } from "~/components/common/head"
-import { Sidebar } from "~/components/sidebar"
-import { Layout } from "~/components/layout"
-import { WorkPostList } from "~/components/common/work-post-list"
+import { toWorkPostList } from "~/features/blog/services/post"
+import {
+  filterDraftPostList,
+  sortPostList,
+} from "~/features/blog/services/post"
+import { Head } from "~/features/seo/components/head"
+import { WorkPageContent } from "~/page-contents/work"
 
-interface WorkPageProps extends PageProps {
-  data: WorkPageQuery
-}
+type WorkPageProps = PageProps<WorkPageQuery>
 
-const WorkPage: React.VFC<WorkPageProps> = ({ data }: WorkPageProps) => {
+const WorkPage: React.FC<WorkPageProps> = ({ data }) => {
   const edges = data.allMdx.edges.filter(
     (e): e is MdxEdge => typeof e !== `undefined`
   )
@@ -26,23 +25,10 @@ const WorkPage: React.VFC<WorkPageProps> = ({ data }: WorkPageProps) => {
   )(edges as PostMdxEdge[])
 
   return (
-    <>
+    <React.Fragment>
       <Head title={`Works`} description={`開発物を紹介します。`} />
-      <Layout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">Works</h1>
-
-                <WorkPostList workPosts={workPosts} />
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </Layout>
-    </>
+      <WorkPageContent workPosts={workPosts} />
+    </React.Fragment>
   )
 }
 

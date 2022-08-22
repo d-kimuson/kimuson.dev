@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node14/tsconfig.json",
+  "extends": "@tsconfig/node18-strictest",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -7,10 +7,10 @@
     "baseUrl": "./",
     "paths": {
       "~/*": ["src/*"],
+      "@mdx-components/*": ["src/mdx-components/*"],
+      "@static/*": ["static/*"],
       "types": ["types"],
-      "@graphql-types": ["types/graphql-types.d.ts"],
-      "@mdx": ["src/components/common/mdx.ts"],
-      "@static/*": ["static/*"]
+      "@graphql-types": ["types/graphql-types.d.ts"]
     },
     "esModuleInterop": true,
     "jsx": "preserve",
@@ -18,12 +18,15 @@
     "allowJs": true,
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    // ..
+    "noPropertyAccessFromIndexSignature": false,
+    "importsNotUsedAsValues": "preserve"
   },
   "files": [
     "./@types/globals.d.ts",
@@ -35,6 +38,7 @@
     "./gatsby-node.ts",
     "./gatsby-config.ts",
     "./gatsby-browser.ts",
+    "./gatsby-ssr.ts",
     "./src/**/*",
     "./bin/**/*",
     "./gatsby/**/*"

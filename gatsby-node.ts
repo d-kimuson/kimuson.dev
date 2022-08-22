@@ -1,4 +1,7 @@
 import path from "path"
+import { createFilePath } from "gatsby-source-filesystem"
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"
+import type { AllMdxQuery, MdxEdge } from "@graphql-types"
 import type {
   CreateWebpackConfigArgs,
   GatsbyNode,
@@ -6,17 +9,12 @@ import type {
   PluginOptions,
   PluginCallback,
 } from "gatsby"
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin"
-import { createFilePath } from "gatsby-source-filesystem"
-
-import { filterDraftPostList } from "~/service/presenters/post"
 import {
   toBlogPostLink,
   toWorkPostLink,
   toCategoryLink,
   toTagLink,
-} from "~/service/presenters/links"
-import { AllMdxQuery, MdxEdge } from "@graphql-types"
+} from "./src/service/links"
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
@@ -34,8 +32,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(__dirname, `src/templates/blog-post.tsx`)
-  const workPost = path.resolve(__dirname, `src/templates/work-post.tsx`)
+  const blogPost = path.resolve(__dirname, "src/templates/blog-post.tsx")
+  const workPost = path.resolve(__dirname, "src/templates/work-post.tsx")
 
   const result = await graphql<AllMdxQuery>(`
     query AllMdx {
@@ -61,18 +59,17 @@ export const createPages: GatsbyNode["createPages"] = async ({
     throw result.errors
   }
 
-  const posts = filterDraftPostList(
-    (result?.data?.allMdx.edges || [])
-      .filter((e): e is MdxEdge => typeof e !== `undefined`)
-      .map((e) => ({
-        title: e.node.frontmatter?.title,
-        draft: Boolean(e.node.frontmatter?.draft),
-        slug: e.node.fields?.slug,
-        category: e.node.frontmatter?.category,
-        tags: e.node.frontmatter?.tags,
-        node: e.node,
-      }))
-  )
+  const posts = (result.data?.allMdx.edges ?? [])
+    .filter((e): e is MdxEdge => typeof e !== `undefined`)
+    .map((e) => ({
+      title: e.node.frontmatter.title,
+      draft: Boolean(e.node.frontmatter.draft),
+      slug: e.node.fields?.slug,
+      category: e.node.frontmatter.category,
+      tags: e.node.frontmatter.tags,
+      node: e.node,
+    }))
+    .filter((post) => !post.draft || process.env.NODE_ENV === "development")
 
   const blogPosts = posts
     .filter((post) => post.slug?.includes(`/blog/`))
@@ -112,8 +109,8 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
 
     const previous =
-      index === workPosts.length - 1 ? null : workPosts[index + 1].node
-    const next = index === 0 ? null : workPosts[index - 1].node
+      index === workPosts.length - 1 ? null : workPosts[index + 1]?.node
+    const next = index === 0 ? null : workPosts[index - 1]?.node
 
     createPage({
       path: toWorkPostLink(slug),
@@ -127,7 +124,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   })
 
   // カテゴリページ
-  const categories = blogPosts.map((post) => post.node.frontmatter?.category)
+  const categories = blogPosts.map((post) => post.node.frontmatter.category)
 
   Array.from(new Set(categories)).forEach((category) => {
     if (!category) {
@@ -144,7 +141,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   })
 
   // タグページ
-  const tags = blogPosts.flatMap((post) => post.node.frontmatter?.tags)
+  const tags = blogPosts.flatMap((post) => post.node.frontmatter.tags)
 
   Array.from(new Set(tags)).forEach((tag) => {
     if (!tag) {
@@ -178,7 +175,7 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = ({
   }
 }
 
-interface CreateSchemaCustomization {
+type CreateSchemaCustomization = {
   // GatsbyNode["createSchemaCustomization"] だと引数の型が割当されない
   // 各オーバーライド実装の戻り値型が異なるから割当が出来てない(?)
   // とりあえず自前の実装に合うように定義する
@@ -198,9 +195,9 @@ export const createSchemaCustomization: CreateSchemaCustomization = ({
     name: `fileByDataPath`,
     extend: () => ({
       resolve: function (
-        src: { thumbnail?: string }, // @ts-ignore
-        args, // @ts-ignore
-        context, // @ts-ignore
+        src: { thumbnail?: string }, // @ts-expect-error -- a
+        args, // @ts-expect-error -- a
+        context, // @ts-expect-error -- a
         info // eslint-disable-line @typescript-eslint/no-unused-vars
       ): void {
         const partialPath = src.thumbnail

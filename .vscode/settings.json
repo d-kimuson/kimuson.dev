@@ -9,7 +9,7 @@
   // ESLint
   "eslint.workingDirectories": ["./"],
   "eslint.options": {
-    "configFile": ".eslintrc.js",
+    "overrideConfigFile": ".eslintrc.cjs",
     "extensions": ["ts", "tsx", "jsx"]
   },
   "eslint.validate": ["javascriptreact", "typescript", "typescriptreact"],
