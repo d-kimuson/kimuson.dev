@@ -115,7 +115,7 @@
     "gatsby-remark-smartypants": "^4.11.0",
     "gatsby-source-filesystem": "^4.21.1",
     "gatsby-transformer-sharp": "^4.21.0",
-    "http-server": "^13.0.2",
+    "http-server": "^14.1.1",
     "husky": "^8.0.1",
     "jest": "^27.4.7",
     "lint-staged": "^11.2.6",
