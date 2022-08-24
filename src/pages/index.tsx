@@ -1,25 +1,25 @@
-import React from "react"
-import { Link, graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
+import React from "react"
 import type { IndexQuery, SiteSiteMetadataPosts } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import type { BlogPost } from "~/service/entities/post"
-import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
-import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { Head } from "~/components/common/head"
-import { Sidebar } from "~/components/sidebar"
-import { Layout } from "~/components/layout"
-import { BlogPostList } from "~/components/common/blog-post-list"
-import * as styles from "./index.module.scss"
+import { toBlogPostList, toFeedPostList } from "~/features/blog/services/post"
+import {
+  filterDraftPostList,
+  sortPostList,
+} from "~/features/blog/services/post"
+import { Head } from "~/features/seo/components/head"
+import { IndexPageContent } from "~/page-contents/index"
+import type { BlogPost } from "~/types/post"
 
-interface IndexProps extends PageProps {
+type IndexProps = {
   data: IndexQuery
-}
+} & PageProps
 
-const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
+const Index: React.FC<IndexProps> = ({ data }: IndexProps) => {
   const feedPosts = toFeedPostList(
-    (data.site?.siteMetadata?.posts || []).filter(
+    (data.site?.siteMetadata?.posts ?? []).filter(
       (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)
     )
   )
@@ -32,26 +32,10 @@ const Index: React.VFC<IndexProps> = ({ data }: IndexProps) => {
   )(data.allMdx.edges as PostMdxEdge[]).slice(0, 5)
 
   return (
-    <>
+    <React.Fragment>
       <Head />
-      <Layout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">最近の投稿</h1>
-
-                <BlogPostList blogPosts={blogPosts} />
-                <div className={styles.blogLinkWrapper}>
-                  <Link to="/blog/">もっと記事を見る</Link>
-                </div>
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </Layout>
-    </>
+      <IndexPageContent blogPosts={blogPosts} />
+    </React.Fragment>
   )
 }
 

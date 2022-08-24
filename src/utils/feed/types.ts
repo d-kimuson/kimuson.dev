@@ -1,17 +1,17 @@
-import type { FeedSiteName } from "~/service/entities/post"
+import type { FeedSiteName } from "~/types/post"
 
-export interface FeedItem {
+export type FeedItem = {
   title: string
   link: string
   isoDate: string
 }
 
-export interface FeedSite {
+export type FeedSite = {
   name: FeedSiteName
   feedUrl: string
 }
 
-export interface FeedPost {
+export type FeedPost = {
   title: string
   link: string
   isoDate: string

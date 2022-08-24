@@ -1,30 +1,19 @@
 import React from "react"
-import { PageProps } from "gatsby"
+import type { PageProps } from "gatsby"
+import { CommonLayout } from "~/features/layout/components/common-layout"
+import { Head } from "~/features/seo/components/head"
+import { NotFoundPageContent } from "~/page-contents/404"
 
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
+const title = `404: Not Found`
+const description = `ページが見つかりません。`
 
-const NotFoundPage: React.VFC<PageProps> = () => {
-  const title = `404: Not Found`
-  const description = `ページが見つかりません。`
-
+const NotFoundPage: React.FC<PageProps<never>> = () => {
   return (
     <>
       <Head title={title} description={description} />
-      <Layout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main">
-              <section>
-                <h1 className="m-page-title">404 Not Found</h1>
-                <p>ページが見つかりません。</p>
-              </section>
-            </main>
-          </div>
-          <Sidebar bio commonSidebar />
-        </div>
-      </Layout>
+      <CommonLayout>
+        <NotFoundPageContent />
+      </CommonLayout>
     </>
   )
 }

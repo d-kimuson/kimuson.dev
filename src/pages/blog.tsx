@@ -1,28 +1,27 @@
-import React from "react"
-import { graphql, PageProps } from "gatsby"
+import { graphql } from "gatsby"
 import { pipe } from "ramda"
-
+import React from "react"
 import type { BlogPageQuery, SiteSiteMetadataPosts } from "@graphql-types"
+import type { PageProps } from "gatsby"
 import type { PostMdxEdge } from "types/external-graphql-types"
-import type { BlogPost, FeedPost } from "~/service/entities/post"
-import { toBlogPostList, toFeedPostList } from "~/service/gateways/post"
-import { filterDraftPostList, sortPostList } from "~/service/presenters/post"
-import { toSearchBlogPost } from "~/components/search/searchBlogPost"
-import { Head } from "~/components/common/head"
-import { Layout } from "~/components/layout"
-import { Sidebar } from "~/components/sidebar"
-import { Search } from "~/components/search"
+import { toSearchBlogPost } from "~/features/blog-search/components/search/searchBlogPost"
+import { toBlogPostList, toFeedPostList } from "~/features/blog/services/post"
+import {
+  filterDraftPostList,
+  sortPostList,
+} from "~/features/blog/services/post"
+import { Head } from "~/features/seo/components/head"
+import { BlogPageContent } from "~/page-contents/blog"
+import type { BlogPost, FeedPost } from "~/types/post"
 
-interface BlogProps extends PageProps {
-  data: BlogPageQuery
-}
+type BlogProps = PageProps<BlogPageQuery>
 
-const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
+const BlogPage: React.FC<BlogProps> = ({ data }: BlogProps) => {
   const title = `ブログ`
   const description = `記事の一覧を確認できます。タグやタイトルから記事を検索することができます。`
 
   const feedPosts = toFeedPostList(
-    (data.site?.siteMetadata?.posts || []).filter(
+    (data.site?.siteMetadata?.posts ?? []).filter(
       (maybePost): maybePost is SiteSiteMetadataPosts => Boolean(maybePost)
     )
   )
@@ -38,18 +37,7 @@ const BlogPage: React.VFC<BlogProps> = ({ data }: BlogProps) => {
   return (
     <>
       <Head title={title} description={description} />
-      <Layout>
-        <div className="l-page-container">
-          <div className="l-main-wrapper">
-            <main role="main" style={{ width: `100%` }}>
-              <section style={{ width: `100%` }}>
-                <Search blogPosts={searchBlogPosts} />
-              </section>
-            </main>
-          </div>
-          <Sidebar bio={true} commonSidebar={true} />
-        </div>
-      </Layout>
+      <BlogPageContent searchBlogPosts={searchBlogPosts} />
     </>
   )
 }

@@ -74,5 +74,6 @@ yarn-error.log
 
 .eslintcache
 .stylelintcache
+.cspellcache
 
 .history

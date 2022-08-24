@@ -1,10 +1,13 @@
 import type { MdxEdge, Site } from "@graphql-types"
-import { readPosts } from "~/utils/feed"
+import { readPosts } from "./src/utils/feed"
+import { config } from "dotenv"
 
-const siteName = `きむそん.dev`
-const siteDomain = `kimuson.dev`
+config({ path: "./.env" })
+
+const siteName = "きむそん.dev"
+const siteDomain = "kimuson.dev"
 const siteUrl = `https://${siteDomain}`
-const description = `技術ブログです。特にWebについて書いています.`
+const description = "技術ブログです。特にWebについて書いています."
 
 export default {
   siteMetadata: {
@@ -57,7 +60,7 @@ export default {
       },
     },
     {
-      resolve: `gatsby-plugin-feed-mdx`,
+      resolve: `gatsby-plugin-feed`,
       options: {
         query: `
           {
@@ -66,6 +69,7 @@ export default {
                 title
                 description
                 siteUrl
+                site_url: siteUrl
               }
             }
           }
@@ -77,16 +81,18 @@ export default {
               const allMdxTyped: { edges: MdxEdge[] } = allMdx
               const siteTyped: Site = site
 
-              return allMdxTyped.edges.map((edge) => {
+              const x = allMdxTyped.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
                   url: `${siteTyped.siteMetadata?.siteUrl}${edge.node.fields?.slug}`,
                   guid: `${siteTyped.siteMetadata?.siteUrl}${edge.node.fields?.slug}`,
-                  custom_elements: [], // html クエリが帰ってこないので臨時で Issue: https://github.com/gatsbyjs/gatsby/issues/29983
-                  // custom_elements: [{ "content:encoded": edge.node.html }],
+                  // custom_elements: [], // html クエリが帰ってこないので臨時で Issue: https://github.com/gatsbyjs/gatsby/issues/29983
+                  custom_elements: [{ "content:encoded": edge.node.html }],
                 })
               })
+
+              return x
             },
             query: `
               {
@@ -214,11 +220,13 @@ export default {
       },
     },
     {
-      resolve: "gatsby-plugin-webpack-bundle-analyzer",
+      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
       options: {
-        analyzerPort: 3000,
-        disable: process.env.NODE_ENV !== `production`,
-        production: true,
+        analyzerMode: "server",
+        analyzerPort: "8888",
+        analyzerHost: "0.0.0.0",
+        defaultSizes: "gzip",
+        devMode: true,
       },
     },
   ].filter((plugin) => plugin !== undefined),

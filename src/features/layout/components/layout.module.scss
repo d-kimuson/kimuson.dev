@@ -1,0 +1,111 @@
+@use "sass:map";
+@use "~/styles/_variable.scss" as var;
+
+.layoutContainer {
+  padding-top: var.$header-height;
+}
+
+.headerWrapper {
+  height: var.$header-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.contentWrapper {
+  min-height: calc(100vh - (#{var.$header-height} + #{var.$footer-height}));
+  * {
+    // ページ内リンクジャンプで固定ヘッダに隠れないようにする
+    scroll-margin-top: var.$header-height;
+  }
+}
+
+.footerWrapper {
+  height: var.$footer-height;
+}
+
+.headerWrapper,
+.contentContainer,
+.footerWrapper {
+  width: 100%;
+}
+
+// l-*
+.pageContainer {
+  // outer layout
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  // inner layout
+  padding: 70px var.$page-x-padding;
+}
+
+.mainWrapper,
+.sidebarContainer {
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.mainWrapper {
+  margin: 0 var.$space-between-main-side 0 0;
+}
+
+.mainWidth,
+.mainWrapper {
+  width: var.$main-width;
+}
+
+.sidebarWidth,
+.sidebarContainer {
+  width: var.$sidebar-width;
+}
+
+.mainStickyArea,
+.sidebarStickyArea {
+  position: sticky;
+  top: var.$header-height + 20px;
+  width: 100%;
+}
+
+// breakpoints & media queries
+$-required-2-column-width: var.$sidebar-width + var.$page-x-padding * 2 +
+  var.$space-between-main-side;
+$-required-1-column-width: var.$page-x-padding * 2 +
+  var.$space-between-main-side;
+
+@media screen and (min-width: var.$main-min-width + $-required-2-column-width) and (max-width: var.$main-width + $-required-2-column-width) {
+  // main area の縮小 (2カラムは維持)
+  .mainWidth,
+  .mainWrapper {
+    width: calc(100vw - #{$-required-2-column-width});
+  }
+}
+
+@media screen and (max-width: (var.$main-min-width + $-required-2-column-width)) {
+  // 1カラムレイアウトへ
+  .mainWidth,
+  .mainWrapper {
+    margin: 0;
+    width: var.$main-width;
+  }
+  .sidebarContainer {
+    display: none;
+  }
+}
+
+@media screen and (max-width: var.$main-width + 2 * var.$page-x-padding) {
+  // 1カラムレイアウト & main area の縮小
+  .pageContainer {
+    padding: 0;
+  }
+  .mainWrapper {
+    padding: 25px 0;
+  }
+  .mainWidth,
+  .mainWrapper {
+    width: 100vw;
+  }
+}
