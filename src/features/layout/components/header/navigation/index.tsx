@@ -12,12 +12,13 @@ const navRoutes = [
   },
   {
     to: `/blog/`,
-    text: `Blog / Search`,
+    text: `Search`,
   },
-  {
-    to: `/work/`,
-    text: `Work`,
-  },
+  // 一旦見せなくする
+  // {
+  //   to: `/work/`,
+  //   text: `Work`,
+  // },
   {
     to: `/about/`,
     text: `About`,
