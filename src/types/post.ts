@@ -33,7 +33,7 @@ export type AboutPost = {
   __typename: "AboutPost"
 } & Post
 
-export type FeedSiteName = `Zenn` | `Qiita`
+export type FeedSiteName = `Zenn` | `Qiita` | "other"
 
 export type FeedPost = {
   __typename: "FeedPost"
