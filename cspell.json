@@ -173,5 +173,5 @@
     "zipfiles",
     "zoneinfo"
   ],
-  "ignorePaths": ["yarn.lock"]
+  "ignorePaths": ["pnpm-lock.yaml"]
 }
