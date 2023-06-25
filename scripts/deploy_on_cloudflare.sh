@@ -2,12 +2,6 @@
 
 set -eux
 
-echo "[DEBUG] start setup"
-
-./scripts/setup.sh
-
-echo "[DEBUG] complete setup"
-
+corepack prepare pnpm@8.6.3 --activate
+pnpm i --frozen-lockfile
 pnpm build
-
-echo "[DEBUG] complete build"
