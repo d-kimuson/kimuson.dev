@@ -18,7 +18,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "setup:husky": "husky install",
-    "pnpm:devPreinstall": "pnpm setup:husky",
+    "postinstall": "pnpm setup:husky",
     "preinstall": "npx only-allow pnpm"
   },
   "config": {
