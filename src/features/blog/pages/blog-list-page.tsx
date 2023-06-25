@@ -43,16 +43,19 @@ export const BlogListPage: FunctionalComponent<BlogListPageProps> = ({
   });
 
   return (
-    <main className="text-theme-reversed">
-      <form onSubmit={onSubmit}>
+    <main className="text-theme-reversed px-5">
+      <form
+        onSubmit={onSubmit}
+        className="border-b-2 border-theme-reversed w-full px-8"
+      >
         <input
           {...register("keyword")}
-          className="text-theme"
+          className="text-theme-reversed bg-theme-weak py-5 w-full"
           placeholder="検索する"
         />
       </form>
 
-      <div>
+      <div className="mt-4">
         <BlogList
           articles={filteredArticles
             .slice()

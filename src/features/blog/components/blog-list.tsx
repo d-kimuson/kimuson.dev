@@ -11,7 +11,7 @@ export const BlogListItem: FunctionalComponent<{
 }> = ({ article }) => (
   <a
     href={article.url}
-    className="flex flex-row border-2 border-solid border-white p-7 text-sky-blue"
+    className="flex flex-row border-2 border-solid border-white p-7 hover:text-sky-blue"
   >
     <div>
       <p>{article.title}</p>
@@ -23,7 +23,7 @@ export const BlogListItem: FunctionalComponent<{
 export const BlogList: FunctionalComponent<BlogListProps> = ({ articles }) => (
   <ul>
     {articles.map((article) => (
-      <li key={article.url} className="mt-10 first:mt-0">
+      <li key={article.url} className="mt-5 first:mt-0">
         <BlogListItem article={article} />
       </li>
     ))}
