@@ -13,8 +13,6 @@ export const buildInternalArticleDetail = (
 ): InternalArticleDetail => {
   const internalArticle = buildInternalArticle(frontmatter, url)
 
-  console.log("debug2")
-
   return {
     ...internalArticle,
     headings,
