@@ -30,7 +30,7 @@ draft: false
 
 コンテナ内だから, わざわざ仮想化する必要もないかなって感じで最初は
 
-```Dockerfile
+```dockerfile
 FROM python:3.7.6-stretch
 WORKDIR /django_app
 COPY ./Pipfile /django_app/Pipfile
@@ -84,7 +84,7 @@ services:
       ...
 ```
 
-```Dockerfile:title=django_app/Dockerfile
+```dockerfile:django_app/Dockerfile
 FROM python:3.7.6-stretch
 WORKDIR /django_app
 COPY ./Pipfile /django_app/Pipfile
@@ -113,7 +113,7 @@ CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 参考: [[docker] CMD と ENTRYPOINT の違いを試してみた](https://qiita.com/hihihiroro/items/d7ceaadc9340a4dbeb8f#%E4%BD%B5%E7%94%A8)
 
-```Dockerfile:title=Dockerfile
+```dockerfile:Dockerfile
 ...
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD ["/django_app/.venv/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
@@ -176,7 +176,7 @@ if [ "`which python`" != "/django_app/.venv/bin/python" ]; then
 fi
 ```
 
-```Dockerfile:title="/django_app/Dockerfile"
+```dockerfile:/django_app/Dockerfile
 RUN echo "source /django_app/.bashrc" >> /root/.bashrc
 ```
 

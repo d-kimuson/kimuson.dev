@@ -266,7 +266,7 @@ if __name__ == "__main__":
 
 ### test.spec
 
-```spec
+```text
 # -*- mode: python -*-
 
 block_cipher = None

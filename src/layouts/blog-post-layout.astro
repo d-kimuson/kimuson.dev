@@ -4,7 +4,7 @@ import { fullUrl } from "../domain-object/article/internal-article"
 import { validateBlogProps } from "../features/blog/service/validate-props"
 import { Header } from "../features/layout/header"
 import { Footer } from "../features/layout/footer"
-import { BlogPreview } from "../features/blog/components/blog-preview"
+import { BlogPreviewPage } from "../features/blog/pages/blog-preview-page"
 import { headerHeight, contentMinHeightStyle, px } from '../features/layout/config'
 import { siteConfig } from "~/config/site"
 
@@ -57,9 +57,9 @@ console.log("frontmatter", articleDetail)
     <div style={{ paddingBlockStart: px(headerHeight), isolation: 'isolate' }}>
       <Header />
       <div class="content" style={{ minHeight: contentMinHeightStyle, isolation: 'isolate' }}>
-        <BlogPreview client:load articleDetail={articleDetail}>
+        <BlogPreviewPage client:load articleDetail={articleDetail}>
           <slot />
-        </BlogPreview>
+        </BlogPreviewPage>
       </div>
       <Footer />
     </div>

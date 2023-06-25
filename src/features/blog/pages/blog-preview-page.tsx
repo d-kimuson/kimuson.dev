@@ -5,12 +5,12 @@ import { SideBar } from "~/features/blog/components/side-bar";
 
 import "preact/debug";
 
-type BlogPreviewProps = {
+type BlogPreviewPageProps = {
   articleDetail: InternalArticleDetail;
   children: JSX.Element;
 };
 
-export const BlogPreview: FunctionalComponent<BlogPreviewProps> = ({
+export const BlogPreviewPage: FunctionalComponent<BlogPreviewPageProps> = ({
   articleDetail,
   children,
 }) => {

@@ -16,7 +16,7 @@ draft: false
 
 まず、Mdx を使うことで記事ファイル中に React のコンポーネントを埋め込めます
 
-```mdx
+```md
 import { TagList } from "@components/molecules/tag-list.tsx";
 
 <TagList tags={[`Gatsby`, `ブログ`]} isLink />

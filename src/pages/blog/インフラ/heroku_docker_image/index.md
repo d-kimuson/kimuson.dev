@@ -69,7 +69,7 @@ Docker のビルドならこの辺の縛りがないのでとても良きです
 
 みたいなディレクトリ構成ということにします
 
-```Dockerfile
+```dockerfile
 # Build Frontend Staticfiles
 FROM node:14.15.1-stretch as front-build
 
@@ -105,7 +105,7 @@ CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT  # $PORTは実行時�
 
 Docker-Compose のくせで、
 
-```Dockerfile
+```dockerfile
 # ...
 ENTRYPOINT [ "./entrypoint.sh" ]
 CMD [ "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:$PORT" ]
@@ -115,7 +115,7 @@ CMD [ "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:$PORT" ]
 
 なので、`ENTRYPOINT` は指定せずに
 
-```Dockerfile
+```dockerfile
 # ...
 CMD [ "./entrypoint.sh" ]
 ```
@@ -124,7 +124,7 @@ CMD [ "./entrypoint.sh" ]
 
 起動前に走らせたいものがないなら、直接サーバーを起動しても良いですけど、配列型で指定すると変数が展開されないので注意が必要です
 
-```Dockerfile
+```dockerfile
 CMD [ "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:$PORT" ]  # NG
 CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT                 # OK
 ```

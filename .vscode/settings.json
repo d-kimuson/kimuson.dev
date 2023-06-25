@@ -19,7 +19,7 @@
   "stylelint.configBasedir": ".",
   "stylelint.validate": ["css", "scss"],
   // prettier
-  "prettier.configPath": "./.prettierrc.js",
+  "prettier.configPath": "./.prettierrc.cjs",
   // Lint On Save
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {

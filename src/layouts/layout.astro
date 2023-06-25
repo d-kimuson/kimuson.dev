@@ -33,7 +33,7 @@ const { title, description, url } = Astro.props;
   <body>
     <div style={{ paddingBlockStart: px(headerHeight) }}>
       <Header />
-      <div class="content" style={{ minHeight: contentMinHeightStyle }}>
+      <div class="content bg-theme-weak h-full" style={{ minHeight: contentMinHeightStyle }}>
         <slot />
       </div>
       <Footer />

@@ -20,7 +20,7 @@ draft: false
 
 Vue2 の単一ファイルコンポーネントで、`v-show` (`display: none`) で隠していた要素が表示されるタイミングでフォーカスを当てようと思って以下のようなコードを書きました
 
-```vue
+```markup
 <template>
   <div v-show="isActive" @click="onClick">
     <input type="text" ref="input" />
