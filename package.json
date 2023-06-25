@@ -12,11 +12,12 @@
     "lint:prettier": "prettier '**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --check",
     "lint:cspell": "cspell lint './**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --gitignore --cache",
     "lint": "pnpm /^lint:.*/",
-    "fix:eslint": "yarn lint:eslint --fix",
+    "fix:eslint": "pnpm lint:eslint --fix",
     "fix:prettier": "prettier '**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --write",
     "fix": "pnpm /^fix:.*/",
     "preview": "astro preview",
     "astro": "astro",
+    "run:lint-staged": "lint-staged --allow-empty -r",
     "setup:husky": "husky install",
     "postinstall": "pnpm setup:husky",
     "preinstall": "npx only-allow pnpm"

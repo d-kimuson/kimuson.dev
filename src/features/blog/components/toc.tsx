@@ -1,15 +1,15 @@
-import classNames from "classnames"
-import type { FunctionComponent } from "preact"
-import { Card } from "~/features/base/card"
-import { useCurrentToc } from "~/features/blog/hooks/use-current-toc"
-import type { BlogPropsSchema } from "~/features/blog/schemas/blog-props.schema"
+import classNames from "classnames";
+import type { FunctionComponent } from "preact";
+import { Card } from "~/features/base/card";
+import { useCurrentToc } from "~/features/blog/hooks/use-current-toc";
+import type { BlogPropsSchema } from "~/features/blog/schemas/blog-props.schema";
 
 type TocProps = {
-  headings: BlogPropsSchema["headings"]
-}
+  headings: BlogPropsSchema["headings"];
+};
 
 export const Toc: FunctionComponent<TocProps> = ({ headings }) => {
-  const currentHeadingSlug = useCurrentToc(headings)
+  const currentHeadingSlug = useCurrentToc(headings);
 
   return (
     <Card title="目次">
@@ -33,5 +33,5 @@ export const Toc: FunctionComponent<TocProps> = ({ headings }) => {
         ))}
       </ul>
     </Card>
-  )
-}
+  );
+};

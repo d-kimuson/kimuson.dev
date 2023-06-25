@@ -300,8 +300,8 @@ GAS 依存の実装(`UrlFetchApp.fetch()`, `SpreadsheetApp.openById()`, えと�
 API のキーとか、ソースコードに書くべきでない値は、`ファイル > プロジェクトのプロパティ > スクリプトのプロパティ` にキーとバリューのセットで置いておいて、以下の形で取得できます
 
 ```typescript
-const props = PropertiesService.getScriptProperties().getProperties()
-props.API_KEY // でアクセスできる
+const props = PropertiesService.getScriptProperties().getProperties();
+props.API_KEY; // でアクセスできる
 ```
 
 ※ 最近 GAS のエディタが新しくなりまして、新エディタだとこれがないっぽいです。一時的に旧エディタに戻せば使えます

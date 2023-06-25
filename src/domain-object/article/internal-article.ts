@@ -1,14 +1,14 @@
-import { z } from "zod"
-import type { ArticleCommon } from "~/domain-object/article/article-common"
-import { tagSchema } from "~/domain-object/tag"
-import type { Tag } from "~/domain-object/tag"
-import { isoString } from "~/lib/zod/custom-schema.schema"
+import { z } from "zod";
+import type { ArticleCommon } from "~/domain-object/article/article-common";
+import { tagSchema } from "~/domain-object/tag";
+import type { Tag } from "~/domain-object/tag";
+import { isoString } from "~/lib/zod/custom-schema.schema";
 
 export type InternalArticle = ArticleCommon & {
-  kind: "internal"
-  tags: Tag[]
-  draft: boolean
-}
+  kind: "internal";
+  tags: Tag[];
+  draft: boolean;
+};
 
 export const blogFrontmatterSchema = z
   .object({
@@ -28,31 +28,31 @@ export const blogFrontmatterSchema = z
       date: new Date(date),
       tags: tags ?? [],
     })
-  )
+  );
 
 export const buildInternalArticle = (
   frontmatter: Record<string, unknown>,
   url: string
 ): InternalArticle => {
-  const parsed = blogFrontmatterSchema.safeParse(frontmatter)
+  const parsed = blogFrontmatterSchema.safeParse(frontmatter);
   if (!parsed.success) {
     console.error(
       url,
       "の記事ファイルの frontmatter がスキーマを満たしていません"
-    )
-    console.error("issues", parsed.error.issues)
+    );
+    console.error("issues", parsed.error.issues);
     const unionErrors = parsed.error.issues.flatMap((issue) =>
       "unionError" in issue ? [issue["unionError"]] : []
-    )
+    );
     if (unionErrors.length > 0) {
-      console.error("unionErrors", unionErrors)
+      console.error("unionErrors", unionErrors);
     }
 
-    throw new Error("ZodValidation Error")
+    throw new Error("ZodValidation Error");
   }
 
   return {
     ...parsed.data,
     url,
-  }
-}
+  };
+};

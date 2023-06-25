@@ -1,14 +1,14 @@
-import { format } from "date-fns"
-import type { FunctionalComponent, JSX } from "preact"
-import type { InternalArticleDetail } from "~/domain-object/article/internal-article-detail"
-import { SideBar } from "~/features/blog/components/side-bar"
+import { format } from "date-fns";
+import type { FunctionalComponent, JSX } from "preact";
+import type { InternalArticleDetail } from "~/domain-object/article/internal-article-detail";
+import { SideBar } from "~/features/blog/components/side-bar";
 
-import "preact/debug"
+import "preact/debug";
 
 type BlogPreviewProps = {
-  articleDetail: InternalArticleDetail
-  children: JSX.Element
-}
+  articleDetail: InternalArticleDetail;
+  children: JSX.Element;
+};
 
 export const BlogPreview: FunctionalComponent<BlogPreviewProps> = ({
   articleDetail,
@@ -26,11 +26,10 @@ export const BlogPreview: FunctionalComponent<BlogPreviewProps> = ({
         <div className="flex justify-end">
           {format(articleDetail.date, "yyyy年MM月dd日")}
         </div>
-        {/* eslint-disable-next-line tailwindcss/no-custom-classname -- MD のスタイルは tailwind じゃかけないので CSS で. */}
         <div className="m-md-style">{children}</div>
       </article>
       {/* TODO: SideBar は astro から呼ぶべき(hydration 最適化のため) */}
       <SideBar headings={articleDetail.headings} />
     </main>
-  )
-}
+  );
+};

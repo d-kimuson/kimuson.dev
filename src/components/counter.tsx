@@ -1,12 +1,12 @@
-import { useState } from "preact/hooks"
-import type { FunctionComponent } from "preact"
+import { useState } from "preact/hooks";
+import type { FunctionComponent } from "preact";
 
 type CounterProps = {
-  initialCount: number
-}
+  initialCount: number;
+};
 
 export const Counter: FunctionComponent<CounterProps> = ({ initialCount }) => {
-  const [count] = useState(initialCount)
+  const [count] = useState(initialCount);
 
-  return <div className="bg-red-400 text-white">count: {count}</div>
-}
+  return <div className="bg-red-400 text-white">count: {count}</div>;
+};

@@ -1,9 +1,9 @@
-import z from "zod"
-import type { ArticleCommon } from "~/domain-object/article/article-common"
+import z from "zod";
+import type { ArticleCommon } from "~/domain-object/article/article-common";
 
 export type ExternalArticle = ArticleCommon & {
-  kind: "external"
-}
+  kind: "external";
+};
 
 export const externalArticleSchema = z
   .object({
@@ -21,4 +21,4 @@ export const externalArticleSchema = z
       thumbnail: image,
       date: new Date(Number.parseInt(date) * 1000),
     })
-  )
+  );

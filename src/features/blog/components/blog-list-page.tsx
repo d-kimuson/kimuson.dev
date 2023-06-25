@@ -1,46 +1,46 @@
-import { useCallback, useState } from "preact/hooks"
-import type { FunctionalComponent } from "preact"
-import { isContainKeyword, type Article } from "~/domain-object/article"
-import { BlogList } from "~/features/blog/components/blog-list"
-import { useForm } from "~/lib/form/use-form"
+import { useCallback, useState } from "preact/hooks";
+import type { FunctionalComponent } from "preact";
+import { isContainKeyword, type Article } from "~/domain-object/article";
+import { BlogList } from "~/features/blog/components/blog-list";
+import { useForm } from "~/lib/form/use-form";
 
 type BlogListPageProps = {
-  articles: Article[]
-}
+  articles: Article[];
+};
 
 export const BlogListPage: FunctionalComponent<BlogListPageProps> = ({
   articles,
 }) => {
-  const [filteredArticles, setFilteredArticles] = useState(articles)
+  const [filteredArticles, setFilteredArticles] = useState(articles);
 
   const handleChange = useCallback(
     (keyword: string) => {
-      console.log("keyword", keyword)
+      console.log("keyword", keyword);
       if (keyword === "") {
-        setFilteredArticles(articles)
-        return
+        setFilteredArticles(articles);
+        return;
       }
 
       setFilteredArticles(
         articles.filter((article) => isContainKeyword(article, keyword))
-      )
+      );
     },
     [articles]
-  )
+  );
 
   const { register, handleSubmit } = useForm({
     keyword: {
       type: "string",
       default: "",
       onInput: (value) => {
-        handleChange(value)
+        handleChange(value);
       },
     },
-  })
+  });
 
   const onSubmit = handleSubmit((data) => {
-    handleChange(data.keyword)
-  })
+    handleChange(data.keyword);
+  });
 
   return (
     <main className="text-theme-reversed">
@@ -60,5 +60,5 @@ export const BlogListPage: FunctionalComponent<BlogListPageProps> = ({
         />
       </div>
     </main>
-  )
-}
+  );
+};

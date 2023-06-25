@@ -1,7 +1,7 @@
-import type { FunctionalComponent } from "preact"
-import { headerHeight, px } from "~/features/layout/config"
+import type { FunctionalComponent } from "preact";
+import { headerHeight, px } from "~/features/layout/config";
 
-type HeaderProps = Record<string, never>
+type HeaderProps = Record<string, never>;
 
 export const Header: FunctionalComponent<HeaderProps> = () => {
   return (
@@ -21,5 +21,5 @@ export const Header: FunctionalComponent<HeaderProps> = () => {
         </ul>
       </nav>
     </header>
-  )
-}
+  );
+};

@@ -82,10 +82,10 @@ class UserModel<Data extends User> implements User {
 JS のオブジェクトはメソッドはやせるから
 
 ```js
-const user = {}
+const user = {};
 user.method = () => {
-  console.log("Hi")
-}
+  console.log("Hi");
+};
 ```
 
 型解決できるならこれでも良いはず
@@ -138,7 +138,7 @@ export class UserService {
 ```ts
 const userWithFriend = withUserMethods(userWithFriendData, {
   friend: withUserMethod,
-})
+});
 ```
 
 ので、クラスベースじゃないから Prisma が解決してくれる柔軟な型定義とデータ構造を生かしやすいのはこっちかなという気がする

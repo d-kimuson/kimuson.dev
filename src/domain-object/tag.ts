@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const tagSchema = z.union([
   z.literal("Python"),
@@ -30,6 +30,6 @@ export const tagSchema = z.union([
   z.literal("PyQt"),
   z.literal("mypy"),
   z.literal("GAS"),
-])
+]);
 
-export type Tag = z.infer<typeof tagSchema>
+export type Tag = z.infer<typeof tagSchema>;

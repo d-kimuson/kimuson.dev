@@ -1,7 +1,7 @@
-import type { FunctionalComponent } from "preact"
-import { footerHeight, px } from "~/features/layout/config"
+import type { FunctionalComponent } from "preact";
+import { footerHeight, px } from "~/features/layout/config";
 
-type FooterProps = Record<string, never>
+type FooterProps = Record<string, never>;
 
 export const Footer: FunctionalComponent<FooterProps> = () => {
   return (
@@ -13,5 +13,5 @@ export const Footer: FunctionalComponent<FooterProps> = () => {
     >
       <h2>{`© 2020-${new Date().getFullYear()} kimuson.dev All Right Reserved.`}</h2>
     </footer>
-  )
-}
+  );
+};

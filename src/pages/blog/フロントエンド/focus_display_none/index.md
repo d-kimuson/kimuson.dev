@@ -32,15 +32,15 @@ export default {
   data() {
     return {
       isActive: false,
-    }
+    };
   },
   methods: {
     onClick() {
-      this.isActive = true
-      this.$refs.input.focus() // Does not work
+      this.isActive = true;
+      this.$refs.input.focus(); // Does not work
     },
   },
-}
+};
 </script>
 ```
 

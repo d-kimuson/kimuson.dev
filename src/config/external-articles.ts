@@ -1,6 +1,6 @@
-import { JSDOM } from "jsdom"
-import type { ExternalArticle } from "~/domain-object/article/external-article"
-import { externalArticleSchema } from "~/domain-object/article/external-article"
+import { JSDOM } from "jsdom";
+import type { ExternalArticle } from "~/domain-object/article/external-article";
+import { externalArticleSchema } from "~/domain-object/article/external-article";
 
 export const externalArticles: string[] = [
   "https://tech.mobilefactory.jp/entry/2023/05/15/163000",
@@ -9,22 +9,22 @@ export const externalArticles: string[] = [
   "https://tech.mobilefactory.jp/entry/2021/12/10/000000",
   "https://tech.mobilefactory.jp/entry/2021/12/02/000000",
   "https://tech.mobilefactory.jp/entry/2021/10/14/100000",
-]
+];
 
 const domToArticle = (dom: JSDOM): ExternalArticle => {
   const metaMapEntries = Array.from(
     dom.window.document.querySelectorAll("meta")
   ).flatMap((elm) => {
-    if (!elm.hasAttribute("property")) return []
-    const prop = elm.getAttribute("property")?.trim()
-    const content = elm.getAttribute("content")
+    if (!elm.hasAttribute("property")) return [];
+    const prop = elm.getAttribute("property")?.trim();
+    const content = elm.getAttribute("content");
 
-    if (prop === undefined || content === null) return []
+    if (prop === undefined || content === null) return [];
 
-    return [[prop, content] as const]
-  })
+    return [[prop, content] as const];
+  });
 
-  const metaMap: ReadonlyMap<string, string> = new Map(metaMapEntries)
+  const metaMap: ReadonlyMap<string, string> = new Map(metaMapEntries);
 
   return externalArticleSchema.parse({
     title: metaMap.get("og:title"),
@@ -33,16 +33,16 @@ const domToArticle = (dom: JSDOM): ExternalArticle => {
     image: metaMap.get("og:image"),
     description: metaMap.get("og:description"),
     date: metaMap.get("article:published_time"),
-  })
-}
+  });
+};
 
 export const fetchExternalArticles = ((): (() => Promise<
   ExternalArticle[]
 >) => {
-  let articles: ExternalArticle[] | undefined = undefined
+  let articles: ExternalArticle[] | undefined = undefined;
 
   return async () => {
-    if (articles !== undefined) return articles
+    if (articles !== undefined) return articles;
 
     const domList = await Promise.all(
       externalArticles.map(async (url) => {
@@ -50,13 +50,13 @@ export const fetchExternalArticles = ((): (() => Promise<
           headers: {
             "User-Agent": "Bot",
           },
-        })
-        return new JSDOM(`${await res.text()}`)
+        });
+        return new JSDOM(`${await res.text()}`);
       })
-    )
+    );
 
-    articles = domList.map(domToArticle)
+    articles = domList.map(domToArticle);
 
-    return articles
-  }
-})()
+    return articles;
+  };
+})();

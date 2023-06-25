@@ -44,7 +44,7 @@ CSRF は、ブラウザが自動でクッキーを送る挙動を利用して、
 XmlHttpRequest("https://target.com/api/hoge", {
   method: "POST",
   credentials: "include",
-})
+});
 ```
 
 で投げることもできる

@@ -1,20 +1,20 @@
-import { useEffect, useState } from "preact/hooks"
+import { useEffect, useState } from "preact/hooks";
 
 export const useWindowWidth = (): number | undefined => {
-  const [width, setWidth] = useState<number | undefined>(undefined)
+  const [width, setWidth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const onResize = () => {
-      setWidth(window.innerWidth)
-    }
+      setWidth(window.innerWidth);
+    };
 
-    onResize()
-    window.addEventListener("resize", onResize)
+    onResize();
+    window.addEventListener("resize", onResize);
 
     return () => {
-      window.removeEventListener("resize", onResize)
-    }
-  }, [width])
+      window.removeEventListener("resize", onResize);
+    };
+  }, [width]);
 
-  return width
-}
+  return width;
+};

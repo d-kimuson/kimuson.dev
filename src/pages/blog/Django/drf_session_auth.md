@@ -55,8 +55,8 @@ REST API + SPA な Web アプリを作っていて, 認証をどうしようか�
 ```javascript
 // nuxt用
 $axios.onRequest((config) => {
-  config.withCredentials = true
-})
+  config.withCredentials = true;
+});
 ```
 
 ```javascript
@@ -68,7 +68,7 @@ axios
   })
   .catch((error) => {
     // hoge
-  })
+  });
 ```
 
 これで OK.
@@ -277,7 +277,7 @@ CSRF 保護のために, Django のセッション認証では `POST`, `PUT`, `D
 ただクッキーにはファーストパーティクッキーとサードパーティクッキーがあって, 別ドメインのサーバーから `Set-Cookie` したクッキーはサードパーティクッキーとして管理されるので
 
 ```javascript
-document.cookie
+document.cookie;
 ```
 
 ではアクセスできないとのこと.

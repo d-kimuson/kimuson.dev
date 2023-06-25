@@ -1,44 +1,44 @@
-import { useEffect, useMemo, useRef } from "preact/hooks"
-import type { Ref } from "preact"
-import type { JSXInternal } from "preact/src/jsx"
+import { useEffect, useMemo, useRef } from "preact/hooks";
+import type { Ref } from "preact";
+import type { JSXInternal } from "preact/src/jsx";
 
 type TypeToDefault<T extends FormConfig["type"]> = T extends "string"
   ? string
   : T extends "number"
   ? number | null
-  : never
+  : never;
 
 type FormConfig =
   | {
-      type: "string"
-      default: string
-      onInput?: (value: string) => void
+      type: "string";
+      default: string;
+      onInput?: (value: string) => void;
     }
   | {
-      type: "number"
-      default: number | null
-      onInput?: (value: number | null) => void
-    }
+      type: "number";
+      default: number | null;
+      onInput?: (value: number | null) => void;
+    };
 
-type FormConfigs = Record<string, FormConfig>
+type FormConfigs = Record<string, FormConfig>;
 
 type InputProps = Pick<
   JSXInternal.HTMLAttributes<HTMLInputElement>,
   "defaultValue" | "type" | "ref" | "onInput"
->
+>;
 
 const dataTypeToInputType = (formType: FormConfig["type"]) => {
   switch (formType) {
     case "string":
-      return "text"
+      return "text";
     case "number":
-      return "number"
+      return "number";
     default: {
-      formType satisfies never
-      throw new Error("UnExpected.")
+      formType satisfies never;
+      throw new Error("UnExpected.");
     }
   }
-}
+};
 
 const configToDefaultValue = ({
   type: formType,
@@ -46,15 +46,15 @@ const configToDefaultValue = ({
 }: FormConfig) => {
   switch (formType) {
     case "string":
-      return defaultValue
+      return defaultValue;
     case "number":
-      return defaultValue === null ? "" : String(defaultValue)
+      return defaultValue === null ? "" : String(defaultValue);
     default: {
-      formType satisfies never
-      throw new Error("UnExpected.")
+      formType satisfies never;
+      throw new Error("UnExpected.");
     }
   }
-}
+};
 
 const transformValue = <Type extends FormConfig["type"]>(
   formType: Type,
@@ -62,15 +62,15 @@ const transformValue = <Type extends FormConfig["type"]>(
 ) => {
   switch (formType) {
     case "string":
-      return value
+      return value;
     case "number":
-      return value === "" ? null : Number(value)
+      return value === "" ? null : Number(value);
     default: {
-      formType satisfies never
-      throw new Error("UnExpected.")
+      formType satisfies never;
+      throw new Error("UnExpected.");
     }
   }
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useForm = <
@@ -80,28 +80,29 @@ export const useForm = <
 >(
   config: T
 ) => {
-  const keywords = useMemo(() => Object.keys(config) as Keywords[], [config])
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- TODO: あとでちゃんと対応
+  const keywords = useMemo(() => Object.keys(config) as Keywords[], [config]);
   const refMap = useRef<Record<Keywords, Ref<HTMLInputElement>>>(
     // @ts-expect-error -- ..
     keywords.reduce((s, key) => {
       return {
         ...s,
         [key]: useRef<HTMLInputElement>(null),
-      }
+      };
     }, {})
-  )
+  );
 
   useEffect(() => {
     for (const key of keywords) {
       // @ts-expect-error -- ..
-      refMap.current[key].current.value = config[key].default
+      refMap.current[key].current.value = config[key].default;
     }
-  }, [])
+  }, []);
 
   const register = (keyword: Keywords): InputProps => {
-    const ref = refMap.current[keyword]
-    const targetConfig = config[keyword]
-    if (targetConfig === undefined) throw new Error("UnExpected.")
+    const ref = refMap.current[keyword];
+    const targetConfig = config[keyword];
+    if (targetConfig === undefined) throw new Error("UnExpected.");
 
     return {
       ref: ref,
@@ -112,11 +113,11 @@ export const useForm = <
           targetConfig.onInput(
             // @ts-expect-error ..
             transformValue(targetConfig.type, ref.current.value)
-          )
+          );
         }
       },
-    }
-  }
+    };
+  };
 
   const handleSubmit = (
     onSubmit: (
@@ -124,7 +125,7 @@ export const useForm = <
     ) => void
   ) => {
     return (event: JSXInternal.TargetedEvent<HTMLFormElement, Event>) => {
-      event.preventDefault()
+      event.preventDefault();
 
       onSubmit(
         // @ts-expect-error -- ..
@@ -140,12 +141,12 @@ export const useForm = <
           }),
           {}
         )
-      )
-    }
-  }
+      );
+    };
+  };
 
   return {
     register,
     handleSubmit,
-  }
-}
+  };
+};

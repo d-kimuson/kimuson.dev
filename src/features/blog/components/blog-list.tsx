@@ -1,13 +1,13 @@
-import { format } from "date-fns"
-import type { FunctionalComponent } from "preact"
-import type { Article } from "~/domain-object/article"
+import { format } from "date-fns";
+import type { FunctionalComponent } from "preact";
+import type { Article } from "~/domain-object/article";
 
 type BlogListProps = {
-  articles: Article[]
-}
+  articles: Article[];
+};
 
 export const BlogListItem: FunctionalComponent<{
-  article: Article
+  article: Article;
 }> = ({ article }) => (
   <a
     href={article.url}
@@ -18,7 +18,7 @@ export const BlogListItem: FunctionalComponent<{
       <p>{format(article.date, "yyyy年MM月dd日")}</p>
     </div>
   </a>
-)
+);
 
 export const BlogList: FunctionalComponent<BlogListProps> = ({ articles }) => (
   <ul>
@@ -28,4 +28,4 @@ export const BlogList: FunctionalComponent<BlogListProps> = ({ articles }) => (
       </li>
     ))}
   </ul>
-)
+);
