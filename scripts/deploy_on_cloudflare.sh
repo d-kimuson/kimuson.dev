@@ -2,6 +2,6 @@
 
 set -eux
 
-corepack prepare pnpm@8.6.3 --activate
+npm i -g pnpm@8.6.3
 pnpm i --frozen-lockfile
 pnpm build
