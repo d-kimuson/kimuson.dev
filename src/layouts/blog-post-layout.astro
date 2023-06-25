@@ -1,10 +1,12 @@
 ---
 import { buildInternalArticleDetail } from "../domain-object/article/internal-article-detail"
+import { fullUrl } from "../domain-object/article/internal-article"
 import { validateBlogProps } from "../features/blog/service/validate-props"
 import { Header } from "../features/layout/header"
 import { Footer } from "../features/layout/footer"
 import { BlogPreview } from "../features/blog/components/blog-preview"
 import { headerHeight, contentMinHeightStyle, px } from '../features/layout/config'
+import { siteConfig } from "~/config/site"
 
 const { url, headings } = validateBlogProps(Astro.props)
 const articleDetail = buildInternalArticleDetail(
@@ -12,6 +14,21 @@ const articleDetail = buildInternalArticleDetail(
   url,
   headings
 )
+const articleFullUrl = fullUrl(articleDetail)
+
+const summaryContent = (): string | undefined => {
+  const rawContent: string = Astro.props.rawContent()
+  
+  const firstSentence = rawContent.split('\n')
+    .filter((content: string) => content !== '')
+    .at(0)
+
+  return firstSentence === undefined ? undefined : firstSentence + '...'
+}
+
+const maybeDescription = articleDetail.description === undefined || articleDetail.description === "まだ書かれていません"
+  ? summaryContent()
+  : articleDetail.description
 
 console.log(`Page: ${articleDetail.title} (${url})`)
 console.log("frontmatter", articleDetail)
@@ -26,6 +43,16 @@ console.log("frontmatter", articleDetail)
     <meta name="generator" content={Astro.generator} />
     <title>{articleDetail.title}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- OGP -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:title" content={articleDetail.title} />
+    <meta property="og:url" content={articleFullUrl} />
+    <!-- そのうち対応したい -->
+    <!-- <meta property="og:image" content="" /> -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content={siteConfig.siteName} />
+    {maybeDescription !== undefined ? <meta property="og:description" content={maybeDescription} /> : null}
   <body>
     <div style={{ paddingBlockStart: px(headerHeight), isolation: 'isolate' }}>
       <Header />

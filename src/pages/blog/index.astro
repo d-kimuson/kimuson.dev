@@ -5,6 +5,7 @@ import { buildInternalArticle } from '~/domain-object/article/internal-article'
 import { fetchExternalArticles } from '~/config/external-articles'
 import { fetchAllRssPosts } from '~/repositories/external-articles/fetch-rss-items'
 import type { Article } from '~/domain-object/article';
+import { siteConfig } from '~/config/site';
 
 const internalArticles: Article[] = await Astro.glob('./**/*.md')
   .then((rawArticles) =>
@@ -21,7 +22,7 @@ const articles = internalArticles.concat(externalArticles).concat(rssArticles)
 
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title={siteConfig.siteName}>
   <BlogListPage client:load articles={articles} />
 </Layout>
 

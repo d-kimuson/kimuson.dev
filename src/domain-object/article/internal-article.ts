@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { siteConfig } from "~/config/site";
 import type { ArticleCommon } from "~/domain-object/article/article-common";
 import { tagSchema } from "~/domain-object/tag";
 import type { Tag } from "~/domain-object/tag";
@@ -56,3 +57,6 @@ export const buildInternalArticle = (
     url,
   };
 };
+
+export const fullUrl = ({ url }: Pick<InternalArticle, "kind" | "url">) =>
+  new URL(url, siteConfig.baseUrl).href;
