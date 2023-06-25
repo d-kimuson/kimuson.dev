@@ -26,10 +26,12 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "packageManager": "pnpm@8.6.3",
   "engines": {
+    "node": ">=18",
     "npm": "forbidden, use pnpm",
     "yarn": "forbidden, use pnpm",
-    "pnpm": ">=7.27"
+    "pnpm": ">=8.6.3"
   },
   "overrides": {
     "react": "npm:@preact/compat@latest",
