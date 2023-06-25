@@ -1,46 +1,18 @@
 {
-  "extends": "@tsconfig/node18-strictest",
+  "extends": "astro/tsconfigs/strictest",
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "lib": ["ES2022"],
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["src/*"],
-      "@mdx-components/*": ["src/mdx-components/*"],
-      "@static/*": ["static/*"],
-      "types": ["types"],
-      "@graphql-types": ["types/graphql-types.d.ts"]
+      "~/*": ["src/*"]
     },
-    "esModuleInterop": true,
-    "jsx": "preserve",
-    "moduleResolution": "node",
-    "allowJs": true,
-    "noEmit": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": false,
-    "noImplicitReturns": true,
-    "noUnusedParameters": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "resolveJsonModule": true,
-    // ..
-    "noPropertyAccessFromIndexSignature": false,
-    "importsNotUsedAsValues": "preserve"
+    "exactOptionalPropertyTypes": false
   },
-  "files": [
-    "./@types/globals.d.ts",
-    "./@types/vendor.d.ts",
-    "./@types/lib.dom.d.ts"
-  ],
-  "exclude": ["node_modules"],
-  "include": [
-    "./gatsby-node.ts",
-    "./gatsby-config.ts",
-    "./gatsby-browser.ts",
-    "./gatsby-ssr.ts",
-    "./src/**/*",
-    "./bin/**/*",
-    "./gatsby/**/*"
-  ]
+  "include": ["src"],
+  "exclude": ["test/**", "**/*.test.ts"]
 }

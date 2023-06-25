@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const posts = await Astro.glob('./**/*.md');
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    {posts.map(({ frontmatter, url }) => (<li>
+      <a href={url}>{frontmatter.title}</a>
+      </li>))}
+  </main>
+</Layout>
+
+<style>
+</style>
