@@ -39,10 +39,6 @@
     "react-dom": "npm:@preact/compat@latest"
   },
   "dependencies": {
-    "@astrojs/preact": "^2.0.3",
-    "@astrojs/rss": "^2.4.3",
-    "@astrojs/tailwind": "^3.0.1",
-    "astro": "^2.6.3",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
     "jsdom": "^22.1.0",
@@ -56,10 +52,14 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@astrojs/preact": "^3.0.0",
+    "@astrojs/rss": "^3.0.0",
+    "@astrojs/tailwind": "^5.0.0",
     "@types/jsdom": "^21.1.1",
     "@types/validator": "^13.7.12",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
+    "astro": "^3.1.2",
     "commitizen": "^4.3.0",
     "cspell": "^6.26.3",
     "cz-conventional-changelog": "^3.3.0",

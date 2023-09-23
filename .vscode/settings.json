@@ -3,8 +3,8 @@
   "files.associations": {
     "*.tsx": "typescriptreact",
     "*.jsx": "javascriptreact",
-    "*.md": "markdown, mdx",
-    "*.mdx": "markdown, mdx"
+    "*.md": "markdown",
+    "*.mdx": "markdown"
   },
   // ESLint
   "eslint.workingDirectories": ["./"],
