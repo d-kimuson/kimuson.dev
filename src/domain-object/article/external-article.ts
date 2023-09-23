@@ -15,10 +15,11 @@ export const externalArticleSchema = z
     date: z.string(),
   })
   .transform(
-    ({ date, image, ...others }): ExternalArticle => ({
+    ({ date, image, url, ...others }): ExternalArticle => ({
       ...others,
       kind: "external",
       thumbnail: image,
+      fullUrl: url,
       date: new Date(Number.parseInt(date) * 1000),
     })
   );

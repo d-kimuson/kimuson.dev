@@ -2,14 +2,20 @@ import { JSDOM } from "jsdom";
 import type { ExternalArticle } from "~/domain-object/article/external-article";
 import { externalArticleSchema } from "~/domain-object/article/external-article";
 
-export const externalArticles: string[] = [
-  "https://tech.mobilefactory.jp/entry/2023/05/15/163000",
+export const externalArticles = [
   "https://tech.mobilefactory.jp/entry/2022/12/01/000000",
   "https://tech.mobilefactory.jp/entry/2022/01/17/103000",
   "https://tech.mobilefactory.jp/entry/2021/12/10/000000",
   "https://tech.mobilefactory.jp/entry/2021/12/02/000000",
   "https://tech.mobilefactory.jp/entry/2021/10/14/100000",
-];
+  "https://tech.mobilefactory.jp/entry/2023/05/15/163000",
+  "https://tech.mobilefactory.jp/entry/2023/07/21/163000",
+  "https://tech.mobilefactory.jp/entry/2023/09/06/160000",
+] as const;
+
+if (externalArticles.length !== Array.from(new Set(externalArticles)).length) {
+  throw new Error("重複している externalArticles が存在します。");
+}
 
 const domToArticle = (dom: JSDOM): ExternalArticle => {
   const metaMapEntries = Array.from(

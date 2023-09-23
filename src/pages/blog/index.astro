@@ -1,28 +1,29 @@
 ---
 import Layout from '../../layouts/layout.astro';
 import { BlogListPage } from '~/features/blog/pages/blog-list-page'
-import { buildInternalArticle } from '~/domain-object/article/internal-article'
 import { fetchExternalArticles } from '~/config/external-articles'
 import { fetchAllRssPosts } from '~/repositories/external-articles/fetch-rss-items'
-import type { Article } from '~/domain-object/article';
-import { siteConfig } from '~/config/site';
 
-const internalArticles: Article[] = await Astro.glob('./**/*.md')
-  .then((rawArticles) =>
-    rawArticles.map((article) => {
-      const url = article.url
-      if (url === undefined) throw new Error('UnExpected.')
+import { getCollection } from 'astro:content'
+import { buildInternalArticle } from '~/domain-object/article/internal-article';
 
-      return buildInternalArticle(article.frontmatter, url)
-    })
+const [externalArticles, rssArticles, internalArticles] = await Promise.all([
+  fetchExternalArticles(),
+  fetchAllRssPosts(),
+  getCollection('internal-article').then(async (entries) => 
+    await Promise.all(entries.map((entry) => buildInternalArticle(entry)))
   )
-const externalArticles = await fetchExternalArticles()
-const rssArticles = await fetchAllRssPosts()
-const articles = internalArticles.concat(externalArticles).concat(rssArticles)
+])
+
+const articles = [
+  ...internalArticles,
+  ...externalArticles,
+  ...rssArticles
+]
 
 ---
 
-<Layout title={siteConfig.siteName}>
+<Layout title="Blogs - KIMUSON.DEV">
   <BlogListPage client:load articles={articles} />
 </Layout>
 

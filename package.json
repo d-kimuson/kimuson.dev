@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "typecheck": "tsc -p ./tsconfig.src.json --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint:eslint": "eslint src --cache --ext .ts,.tsx",
     "lint:prettier": "prettier '**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --check",
     "lint:cspell": "cspell lint './**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --gitignore --cache",
@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@astrojs/preact": "^2.0.3",
+    "@astrojs/rss": "^2.4.3",
     "@astrojs/tailwind": "^3.0.1",
     "astro": "^2.6.3",
     "classnames": "^2.3.2",

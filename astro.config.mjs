@@ -1,10 +1,11 @@
 import { defineConfig } from "astro/config";
 import preact from "@astrojs/preact";
 import tailwind from "@astrojs/tailwind";
-import { defaultLayoutPlugin } from "./default-layout-plugin.mjs";
+// import { defaultLayoutPlugin } from "./default-layout-plugin.mjs";
 import remarkCodeTitles from "remark-code-titles";
 
 export default defineConfig({
+  site: "https://kimuson.dev",
   integrations: [
     preact({
       compat: true,
@@ -13,7 +14,7 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [
-      defaultLayoutPlugin,
+      // defaultLayoutPlugin,
       remarkCodeTitles,
       "remark-gfm",
       "remark-smartypants",

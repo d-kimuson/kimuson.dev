@@ -1,6 +1,6 @@
 import { defineConfig } from "~/lib/define-config";
 
-const SITE_NAME = "kimuson.dev";
+const SITE_NAME = "KIMUSON.DEV";
 
 export const siteConfig = defineConfig<{
   baseUrl: string;

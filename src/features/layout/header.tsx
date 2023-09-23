@@ -3,6 +3,17 @@ import { headerHeight, px } from "~/features/layout/config";
 
 type HeaderProps = Record<string, never>;
 
+const menus = [
+  {
+    href: "/blog",
+    content: "BLOG",
+  },
+  {
+    href: "/rss.yml",
+    content: "FEED",
+  },
+] as const;
+
 export const Header: FunctionalComponent<HeaderProps> = () => {
   return (
     <header
@@ -14,10 +25,14 @@ export const Header: FunctionalComponent<HeaderProps> = () => {
       </h1>
 
       <nav className="flex w-full items-center justify-end pr-3">
-        <ul>
-          <a href="/blog" className="hover:font-bold">
-            BLOG
-          </a>
+        <ul className="flex">
+          {menus.map((menu) => (
+            <li className="[&:not(:first-child)]:pl-2" key={menu.href}>
+              <a href={menu.href} className="hover:font-bold">
+                {menu.content}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

@@ -13,7 +13,7 @@ const { title, description, url } = Astro.props;
 
 ---
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class:list={["bg-theme", "text-theme-reversed"]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -31,9 +31,9 @@ const { title, description, url } = Astro.props;
     {description !== undefined ? <meta property="og:description" content={description} /> : null}
   </head>
   <body>
-    <div style={{ paddingBlockStart: px(headerHeight) }}>
+    <div style={{ paddingBlockStart: px(headerHeight) }} class:list={["bg-theme"]}>
       <Header />
-      <div class="content bg-theme-weak h-full" style={{ minHeight: contentMinHeightStyle }}>
+      <div class="content h-full" style={{ minHeight: contentMinHeightStyle }}>
         <slot />
       </div>
       <Footer />

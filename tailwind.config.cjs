@@ -11,6 +11,7 @@ module.exports = {
       "theme-strong": "#171920",
       "theme-weak": "#333846",
       "sky-blue": "#00b0ff",
+      gray: "#707070",
     },
   },
   plugins: [],
