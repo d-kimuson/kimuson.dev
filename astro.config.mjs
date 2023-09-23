@@ -12,12 +12,7 @@ export default defineConfig({
     tailwind(),
   ],
   markdown: {
-    remarkPlugins: [
-      // defaultLayoutPlugin,
-      remarkCodeTitles,
-      "remark-gfm",
-      "remark-smartypants",
-    ],
+    remarkPlugins: [remarkCodeTitles, "remark-gfm", "remark-smartypants"],
     extendDefaultPlugins: true,
     syntaxHighlight: "prism",
   },
