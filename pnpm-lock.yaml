@@ -33,8 +33,8 @@ dependencies:
     specifier: ^0.1.2
     version: 0.1.2
   ts-pattern:
-    specifier: ^4.3.0
-    version: 4.3.0
+    specifier: ^5.0.0
+    version: 5.0.5
   valibot:
     specifier: ^0.17.0
     version: 0.17.0
@@ -7035,8 +7035,8 @@ packages:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  /ts-pattern@4.3.0:
-    resolution: {integrity: sha512-pefrkcd4lmIVR0LA49Imjf9DYLK8vtWhqBPA3Ya1ir8xCW0O2yjL9dsCVvI7pCodLC5q7smNpEtDR2yVulQxOg==}
+  /ts-pattern@5.0.5:
+    resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
     dev: false
 
   /tsconfig-paths@3.14.2:
