@@ -30,6 +30,7 @@ export const tagSchema = z.union([
   z.literal("PyQt"),
   z.literal("mypy"),
   z.literal("GAS"),
+  z.literal("Astro"),
 ]);
 
 export type Tag = z.infer<typeof tagSchema>;

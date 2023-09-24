@@ -12,7 +12,9 @@ export const BlogListItem: FunctionalComponent<{
 }> = ({ article }) => {
   const labels =
     article.kind === "internal"
-      ? article.frontmatter.tags.map((tag) => `# ${tag}`)
+      ? [article.frontmatter.draft ? "下書き" : undefined].concat(
+          article.frontmatter.tags.map((tag) => `# ${tag}`)
+        )
       : [article.siteName];
 
   return (
@@ -41,11 +43,16 @@ export const BlogListItem: FunctionalComponent<{
         <p className="pb-2 text-xl group-hover:font-bold">{article.title}</p>
         <p className="pb-2">{format(article.date, "yyyy年MM月dd日")}</p>
         <ul className="flex flex-row">
-          {labels.map((label) => (
-            <li key={label} className="[&:not(:first-child)]:px-1">
-              <Label>{label}</Label>
-            </li>
-          ))}
+          {labels
+            .filter(
+              (label): label is Exclude<typeof label, undefined> =>
+                label !== undefined
+            )
+            .map((label) => (
+              <li key={label} className="[&:not(:first-child)]:px-1">
+                <Label>{label}</Label>
+              </li>
+            ))}
         </ul>
       </div>
     </a>
