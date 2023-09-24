@@ -2,6 +2,5 @@
 
 set -eux
 
-pnpm i
-pnpm typecheck:astro
-pnpm build
+pnpm i --frozen-lockfile
+ENV=production pnpm build
