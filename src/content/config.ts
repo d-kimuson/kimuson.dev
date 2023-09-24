@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import { internalArticleFrontmatterSchema } from "~/domain-object/article/internal-article";
+import { internalArticleFrontmatterSchema } from "../domain-object/article/internal-article";
 
 const internalArticleCollection = defineCollection({
   type: "content",
