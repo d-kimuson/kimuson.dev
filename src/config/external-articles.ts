@@ -1,4 +1,5 @@
 import { JSDOM } from "jsdom";
+import { parse } from "valibot";
 import type { ExternalArticle } from "~/domain-object/article/external-article";
 import { externalArticleSchema } from "~/domain-object/article/external-article";
 
@@ -32,7 +33,7 @@ const domToArticle = (dom: JSDOM): ExternalArticle => {
 
   const metaMap: ReadonlyMap<string, string> = new Map(metaMapEntries);
 
-  return externalArticleSchema.parse({
+  return parse(externalArticleSchema, {
     title: metaMap.get("og:title"),
     siteName: metaMap.get("og:site_name"),
     url: metaMap.get("og:url"),

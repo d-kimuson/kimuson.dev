@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { object, array, string, type Output } from "valibot";
 import { headingSchema } from "~/domain-object/heading";
 
-export const blogPropsSchema = z.object({
-  url: z.string(),
-  headings: z.array(headingSchema),
+export const blogPropsSchema = object({
+  url: string(),
+  headings: array(headingSchema),
 });
 
-export type BlogPropsSchema = z.infer<typeof blogPropsSchema>;
+export type BlogPropsSchema = Output<typeof blogPropsSchema>;

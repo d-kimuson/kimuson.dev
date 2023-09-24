@@ -1,3 +1,4 @@
+import { safeParse } from "valibot";
 import type { BlogPropsSchema } from "../schemas/blog-props.schema";
 import { blogPropsSchema } from "../schemas/blog-props.schema";
 
@@ -5,7 +6,7 @@ export const validateBlogProps = (
   props: unknown,
   url?: string
 ): BlogPropsSchema => {
-  const parsed = blogPropsSchema.safeParse(props);
+  const parsed = safeParse(blogPropsSchema, props);
 
   if (!parsed.success) {
     console.error(

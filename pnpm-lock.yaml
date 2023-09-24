@@ -35,6 +35,9 @@ dependencies:
   ts-pattern:
     specifier: ^4.3.0
     version: 4.3.0
+  valibot:
+    specifier: ^0.17.0
+    version: 0.17.0
   zod:
     specifier: ^3.22.2
     version: 3.22.2
@@ -7469,6 +7472,10 @@ packages:
 
   /v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
+
+  /valibot@0.17.0:
+    resolution: {integrity: sha512-ykoYfBc4HOH+osdWaFBmeL7yX35bFfKg1WdwHYZhNVuvGIRH5f2gtYT6cnU85XOsOE7R8la5RnVY6yAScWU9qg==}
+    dev: false
 
   /validator@13.11.0:
     resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}

@@ -1,13 +1,20 @@
-import { defineConfig } from "~/lib/define-config";
+import { object, string, url } from "valibot";
+import { defineConfigWithSchema } from "~/lib/define-config";
 
 const SITE_NAME = "KIMUSON.DEV";
 
-export const siteConfig = defineConfig<{
-  baseUrl: string;
-  siteName: string;
-}>({
+const siteConfigSchema = object({
+  baseUrl: string([url()]),
+  siteName: string(),
+});
+
+export const siteConfig = defineConfigWithSchema(siteConfigSchema, {
   local: {
     baseUrl: "http://localhost:4321",
+    siteName: SITE_NAME,
+  },
+  preview: {
+    baseUrl: process.env["CF_PAGES_URL"],
     siteName: SITE_NAME,
   },
   production: {

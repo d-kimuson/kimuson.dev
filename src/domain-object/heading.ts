@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { object, number, integer, string, type Output } from "valibot";
 
-export const headingSchema = z.object({
-  depth: z.number().int(),
-  slug: z.string(),
-  text: z.string(),
+export const headingSchema = object({
+  depth: number([integer()]),
+  slug: string(),
+  text: string(),
 });
 
-export type Heading = z.infer<typeof headingSchema>;
+export type Heading = Output<typeof headingSchema>;
