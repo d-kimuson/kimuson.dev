@@ -25,6 +25,7 @@
     "codegen",
     "collectstatic",
     "colordiff",
+    "commitizen",
     "compat",
     "Conditonal",
     "contentful",
@@ -220,7 +221,8 @@
     "zenn",
     "Zenn",
     "zipfiles",
-    "zoneinfo"
+    "zoneinfo",
+    "lefthook"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
