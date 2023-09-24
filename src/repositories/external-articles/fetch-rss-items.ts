@@ -33,6 +33,7 @@ const feedItemToExternalArticle = (
   kind: "external",
   title: item.title,
   siteName,
+  linkUrl: item.link,
   fullUrl: item.link,
   description: item.contentSnippet,
   date: new Date(item.isoDate),

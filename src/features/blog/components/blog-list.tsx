@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import type { Article } from "~/domain-object/article";
 import type { FunctionalComponent } from "preact";
+import type { Article } from "~/domain-object/article";
 import { Label } from "./label";
 
 type BlogListProps = {
@@ -17,7 +17,7 @@ export const BlogListItem: FunctionalComponent<{
 
   return (
     <a
-      href={article.fullUrl}
+      href={article.linkUrl}
       className="flex flex-row rounded-md bg-theme-weak p-4 text-sky-blue group"
       target={article.kind === "internal" ? undefined : "_blank"}
       rel={article.kind === "internal" ? undefined : "noopener noreferrer"}

@@ -1,5 +1,5 @@
-import type { BlogPropsSchema } from "~/schemas/blog-props.schema";
-import { blogPropsSchema } from "~/schemas/blog-props.schema";
+import type { BlogPropsSchema } from "../schemas/blog-props.schema";
+import { blogPropsSchema } from "../schemas/blog-props.schema";
 
 export const validateBlogProps = (
   props: unknown,

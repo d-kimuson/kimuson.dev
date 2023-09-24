@@ -10,10 +10,6 @@ export const siteConfig = defineConfig<{
     baseUrl: "http://localhost:4321",
     siteName: SITE_NAME,
   },
-  staging: {
-    baseUrl: "FIXME",
-    siteName: SITE_NAME,
-  },
   production: {
     baseUrl: "https://kimuson.dev",
     siteName: SITE_NAME,

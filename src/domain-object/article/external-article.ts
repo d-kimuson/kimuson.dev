@@ -1,5 +1,5 @@
 import z from "zod";
-import type { ArticleCommon } from "~/article/article-common";
+import type { ArticleCommon } from "~/domain-object/article/article-common";
 
 export type ExternalArticle = ArticleCommon & {
   kind: "external";
@@ -19,6 +19,7 @@ export const externalArticleSchema = z
       ...others,
       kind: "external",
       thumbnail: image,
+      linkUrl: url,
       fullUrl: url,
       date: new Date(Number.parseInt(date) * 1000),
     })

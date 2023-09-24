@@ -63,6 +63,7 @@ export const buildInternalArticle = async (
     // common
     title: entry.data.title,
     description: entry.data.description,
+    linkUrl: slug,
     fullUrl: new URL(slug, siteConfig.baseUrl).href,
     date: entry.data.date,
     thumbnail: entry.data.thumbnail,
