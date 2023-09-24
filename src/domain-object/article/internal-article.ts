@@ -1,8 +1,7 @@
-import { z } from "zod";
+import { z, type CollectionEntry } from "astro:content";
 import type { ArticleCommon } from "./article-common";
 import type { MarkdownHeading } from "astro";
 import type { AstroComponentFactory } from "astro/dist/runtime/server";
-import type { CollectionEntry } from "astro:content";
 import { siteConfig } from "../../config/site";
 import { isoString } from "../../lib/zod/custom-schema.schema";
 import { tagSchema } from "../tag";
