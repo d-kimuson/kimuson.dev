@@ -125,7 +125,7 @@ index.html と、view を書きます
 
 ```html
 <!-- slack_app/templates/slack/index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />

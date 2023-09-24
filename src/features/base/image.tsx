@@ -28,7 +28,7 @@ export const Image: FunctionComponent<ImageProps> = ({
       className={classNames(className)}
       style={{
         height: "auto",
-        width: width !== undefined ? width : "auto",
+        width: width ?? "auto",
       }}
     />
   );

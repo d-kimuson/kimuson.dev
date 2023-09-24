@@ -7,7 +7,7 @@ export const defineConfig = <T extends Record<string, unknown>>(
 
 export const defineConfigWithSchema = <
   S extends BaseSchema<any, any>,
-  C = Output<S>
+  C = Output<S>,
 >(
   schema: S,
   input: Record<Env, unknown>

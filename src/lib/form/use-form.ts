@@ -75,7 +75,7 @@ const transformValue = <Type extends FormConfig["type"]>(
 export const useForm = <
   const T extends FormConfigs,
   // @ts-expect-error -- keyof T(Record<string, unknown>) は string を満たす
-  const Keywords extends string = keyof T
+  const Keywords extends string = keyof T,
 >(
   config: T
 ) => {

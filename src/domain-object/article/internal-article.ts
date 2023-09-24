@@ -77,14 +77,13 @@ export const buildInternalArticle = async (
     frontmatter: entry.data,
     slug: slug,
     summaryContent:
-      entry.data.description === undefined
-        ? (() => {
-            const firstSentence = entry.body
-              .split("\n")
-              .find((content) => content !== "");
-            return firstSentence === undefined ? "" : firstSentence + "...";
-          })()
-        : entry.data.description,
+      entry.data.description ??
+      (() => {
+        const firstSentence = entry.body
+          .split("\n")
+          .find((content) => content !== "");
+        return firstSentence === undefined ? "" : firstSentence + "...";
+      })(),
     headings,
     Content,
   } as const;

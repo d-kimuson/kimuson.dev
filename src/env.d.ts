@@ -1,4 +1,5 @@
-/// <reference path="../.astro/types.d.ts" />
+// / <reference path="../.astro/types.d.ts" />
+// / <reference path="../.astro/types.d.ts" />
 // eslint-disable-next-line
 /// <reference path="~/.astro/types.d.ts" />
 // eslint-disable-next-line
