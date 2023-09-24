@@ -49,7 +49,7 @@ export type InternalArticle = ArticleCommon &
     // changed
     markdownContent: string;
     frontmatter: InternalArticleFrontmatter;
-    slug: `blog/${InternalArticleEntry["slug"]}`;
+    slug: `/blog/${InternalArticleEntry["slug"]}`;
     fullUrl: string;
     summaryContent: string;
     headings: MarkdownHeading[];
@@ -61,7 +61,7 @@ export const buildInternalArticle = async (
 ): Promise<InternalArticle> => {
   const { Content, headings } = await entry.render();
 
-  const slug = `blog/${entry.slug}` as const;
+  const slug = `/blog/${entry.slug}` as const;
 
   return {
     // common
