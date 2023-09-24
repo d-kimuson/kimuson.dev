@@ -1,7 +1,7 @@
+import type { BlogPropsSchema } from "../schemas/blog-props.schema";
 import type { FunctionalComponent } from "preact";
-import { Toc } from "~/features/blog/components/toc";
-import type { BlogPropsSchema } from "~/features/blog/schemas/blog-props.schema";
-import { headerHeight, px } from "~/features/layout/config";
+import { headerHeight, px } from "../../layout/config";
+import { Toc } from "../components/toc";
 
 type SideBarProps = {
   headings: BlogPropsSchema["headings"];

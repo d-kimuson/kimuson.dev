@@ -4,8 +4,8 @@ import type { MarkdownHeading } from "astro";
 import type { AstroComponentFactory } from "astro/dist/runtime/server";
 import type { CollectionEntry } from "astro:content";
 import { siteConfig } from "~/config/site";
-import { tagSchema } from "~/domain-object/tag";
 import { isoString } from "~/lib/zod/custom-schema.schema";
+import { tagSchema } from "../tag";
 
 export const internalArticleFrontmatterSchema = z
   .object({

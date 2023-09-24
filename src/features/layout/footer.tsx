@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from "preact";
-import { footerHeight, px } from "~/features/layout/config";
+import { footerHeight, px } from "./config";
 
 type FooterProps = Record<string, never>;
 

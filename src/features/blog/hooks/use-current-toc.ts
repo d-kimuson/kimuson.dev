@@ -1,6 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
-import type { BlogPropsSchema } from "~/features/blog/schemas/blog-props.schema";
-import { headerHeight } from "~/features/layout/config";
+import type { BlogPropsSchema } from "../schemas/blog-props.schema";
+import { headerHeight } from "../../layout/config";
 
 export const useCurrentToc = (
   headings: BlogPropsSchema["headings"]
@@ -29,7 +29,7 @@ export const useCurrentToc = (
 
     const onScroll = () => {
       const previousTocIndex = headingTopStore.findIndex(
-        ({ top }) => top > window.pageYOffset + headerHeight + 1
+        ({ top }) => top > window.scrollY + headerHeight + 1
       );
       const updatedToc = headingTopStore.at(
         previousTocIndex === 0 ? 0 : previousTocIndex - 1

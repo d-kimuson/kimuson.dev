@@ -1,5 +1,5 @@
-import type { ExternalArticle } from "~/domain-object/article/external-article";
-import type { InternalArticle } from "~/domain-object/article/internal-article";
+import type { ExternalArticle } from "~/article/external-article";
+import type { InternalArticle } from "~/article/internal-article";
 
 export type Article = InternalArticle | ExternalArticle;
 

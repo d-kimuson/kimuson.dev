@@ -1,8 +1,8 @@
 import { useCallback, useState } from "preact/hooks";
 import type { FunctionalComponent } from "preact";
 import { isContainKeyword, type Article } from "~/domain-object/article";
-import { BlogList } from "~/features/blog/components/blog-list";
 import { useForm } from "~/lib/form/use-form";
+import { BlogList } from "~/blog/components/blog-list";
 
 type BlogListPageProps = {
   articles: Article[];

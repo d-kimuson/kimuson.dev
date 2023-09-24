@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from "preact";
-import { headerHeight, px } from "~/features/layout/config";
+import { headerHeight, px } from "./config";
 
 type HeaderProps = Record<string, never>;
 

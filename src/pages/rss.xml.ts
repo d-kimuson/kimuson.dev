@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { siteConfig } from "~/config/site";
+import { siteConfig } from "~/config/site.mjs";
 import { buildInternalArticle } from "~/domain-object/article/internal-article";
 
 const entries = await getCollection("internal-article");

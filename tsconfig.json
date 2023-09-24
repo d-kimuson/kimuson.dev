@@ -11,7 +11,13 @@
     "paths": {
       "~/*": ["src/*"]
     },
-    "exactOptionalPropertyTypes": false
+    "exactOptionalPropertyTypes": false,
+    "verbatimModuleSyntax": true,
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ]
   },
   "include": ["src"],
   "exclude": ["test/**", "**/*.test.ts"]

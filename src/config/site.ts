@@ -7,7 +7,7 @@ export const siteConfig = defineConfig<{
   siteName: string;
 }>({
   local: {
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:4321",
     siteName: SITE_NAME,
   },
   staging: {

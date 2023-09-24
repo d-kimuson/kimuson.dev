@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef } from "preact/hooks";
-import type { Ref } from "preact";
-import type { JSXInternal } from "preact/src/jsx";
+import type { Ref, JSX } from "preact";
 
 type TypeToDefault<T extends FormConfig["type"]> = T extends "string"
   ? string
@@ -23,7 +22,7 @@ type FormConfig =
 type FormConfigs = Record<string, FormConfig>;
 
 type InputProps = Pick<
-  JSXInternal.HTMLAttributes<HTMLInputElement>,
+  JSX.HTMLAttributes<HTMLInputElement>,
   "defaultValue" | "type" | "ref" | "onInput"
 >;
 
@@ -124,7 +123,7 @@ export const useForm = <
       updated: Record<Keywords, TypeToDefault<T[Keywords]["type"]>>
     ) => void
   ) => {
-    return (event: JSXInternal.TargetedEvent<HTMLFormElement, Event>) => {
+    return (event: JSX.TargetedEvent<HTMLFormElement, Event>) => {
       event.preventDefault();
 
       onSubmit(

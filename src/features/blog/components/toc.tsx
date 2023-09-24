@@ -1,8 +1,8 @@
 import classNames from "classnames";
+import type { BlogPropsSchema } from "../schemas/blog-props.schema";
 import type { FunctionComponent } from "preact";
-import { Card } from "~/features/base/card";
-import { useCurrentToc } from "~/features/blog/hooks/use-current-toc";
-import type { BlogPropsSchema } from "~/features/blog/schemas/blog-props.schema";
+import { Card } from "../../base/card";
+import { useCurrentToc } from "../hooks/use-current-toc";
 
 type TocProps = {
   headings: BlogPropsSchema["headings"];

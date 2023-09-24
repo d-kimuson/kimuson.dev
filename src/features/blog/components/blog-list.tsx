@@ -1,7 +1,7 @@
 import { format } from "date-fns";
-import type { FunctionalComponent } from "preact";
 import type { Article } from "~/domain-object/article";
-import { Label } from "~/features/blog/components/label";
+import type { FunctionalComponent } from "preact";
+import { Label } from "./label";
 
 type BlogListProps = {
   articles: Article[];

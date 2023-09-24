@@ -1,5 +1,5 @@
 ---
-import { getCollection, CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { buildInternalArticle } from "~/domain-object/article/internal-article"
 import { Header } from "~/features/layout/header"
 import { Footer } from "~/features/layout/footer"
@@ -236,3 +236,4 @@ const internalArticle = await buildInternalArticle(entry)
     }
   }
 </style>
+~/config/site.mjs

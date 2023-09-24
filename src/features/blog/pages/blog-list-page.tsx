@@ -1,6 +1,6 @@
 import type { FunctionalComponent } from "preact";
 import type { Article } from "~/domain-object/article";
-import { BlogList } from "~/features/blog/components/blog-list";
+import { BlogList } from "../components/blog-list";
 import { useSearch } from "../hooks/use-search";
 
 type BlogListPageProps = {

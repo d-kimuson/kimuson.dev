@@ -3,14 +3,14 @@ import Layout from '../layouts/layout.astro';
 import { SiteTitle } from '../features/navigation/components/site-title'
 import { SnsLinks } from '../features/navigation/components/sns-links'
 import { Contents } from '../features/navigation/components/contents'
-import { siteConfig } from "~/config/site"
+import { siteConfig } from '../config/site'
 ---
 
 <Layout title={siteConfig.siteName}>
   <div class:list={["flex", "h-full", "mx-32", "my-12", "sm:flex-row", "flex-col", "items-center"]}>
     <div class:list={["w-[50%]", "flex", "flex-col", "h-full", "items-center"]}>
-        <SiteTitle />
-        <img src="/assets/profile.jpg" class:list={["rounded-full", "h-auto", "w-32"]} />
+      <SiteTitle />
+      <img src="/assets/profile.jpg" class:list={["rounded-full", "h-auto", "w-32"]} />
     </div>
 
     <div class:list={["w-[50%]", "flex", "flex-col"]}>
@@ -19,3 +19,4 @@ import { siteConfig } from "~/config/site"
     </div>
   </div>
 </Layout>
+../config/site.mjs

@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import type { FunctionalComponent, JSX } from "preact";
 import type { InternalArticle } from "~/domain-object/article/internal-article";
-import { Label } from "~/features/blog/components/label";
-import { SideBar } from "~/features/blog/components/side-bar";
+import { Label } from "../components/label";
+import { SideBar } from "../components/side-bar";
 
 import "preact/debug";
 

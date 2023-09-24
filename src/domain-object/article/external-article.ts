@@ -1,5 +1,5 @@
 import z from "zod";
-import type { ArticleCommon } from "~/domain-object/article/article-common";
+import type { ArticleCommon } from "~/article/article-common";
 
 export type ExternalArticle = ArticleCommon & {
   kind: "external";
