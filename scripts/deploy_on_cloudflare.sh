@@ -2,5 +2,15 @@
 
 set -eux
 
+printenv
+
 pnpm i --frozen-lockfile
-ENV=production pnpm build
+
+BUILD_ENV="production"
+if [[ "$CF_PAGES_BRANCH" != "master" ]]; then
+  BUILD_ENV="preview"
+fi
+
+echo "Start build for $BUILD_ENV"
+
+ENV=$BUILD_ENV pnpm build
