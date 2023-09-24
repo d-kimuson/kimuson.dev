@@ -11,6 +11,7 @@
     "astro",
     "astrojs",
     "authtoken",
+    "autofix",
     "autologin",
     "autopep",
     "autoplace",
@@ -91,6 +92,7 @@
     "Kivy",
     "Kumasan",
     "kwargs",
+    "lefthook",
     "lintstaged",
     "lintstagedrc",
     "Lucamug",
@@ -221,8 +223,7 @@
     "zenn",
     "Zenn",
     "zipfiles",
-    "zoneinfo",
-    "lefthook"
+    "zoneinfo"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
