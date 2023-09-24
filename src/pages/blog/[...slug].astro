@@ -160,12 +160,12 @@ const internalArticle = await buildInternalArticle(entry)
     ol,
     table,
     blockquote {
-      margin: 25px 5px;
+      margin: 15px 5px;
     }
     ul {
       list-style: inside;
       & > li {
-        margin: 5px 25px;
+        margin: 5px 20px;
       }
     }
     ol {
@@ -186,6 +186,9 @@ const internalArticle = await buildInternalArticle(entry)
       }
     }
     table {
+      display: block;
+      overflow-x: scroll;
+
       border-collapse: collapse;
       box-shadow: 0 0 8px 1px #333846;
       th,
@@ -236,4 +239,3 @@ const internalArticle = await buildInternalArticle(entry)
     }
   }
 </style>
-~/config/site.mjs

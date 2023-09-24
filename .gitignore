@@ -131,3 +131,6 @@ dist
 
 # linter cache
 .cspellcache
+
+# astro
+.astro
