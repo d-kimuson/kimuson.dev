@@ -1,7 +1,6 @@
-gatsby-config.ts
-types/graphql-types.d.ts
-@types/**/*.ts
-
-*.js
-*.cjs
 *.mjs
+*.cjs
+*.js
+
+**/dist
+**/generated
