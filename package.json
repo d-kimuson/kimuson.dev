@@ -22,9 +22,6 @@
     "fix": "pnpm /^fix:.*/",
     "preview": "astro preview",
     "astro": "astro",
-    "run:lint-staged": "lint-staged --allow-empty -r",
-    "setup:husky": "husky install",
-    "postinstall": "pnpm setup:husky",
     "preinstall": "npx only-allow pnpm"
   },
   "config": {
@@ -32,12 +29,12 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "packageManager": "pnpm@8.6.3",
+  "packageManager": "pnpm@8.7.6",
   "engines": {
     "node": ">=18",
     "npm": "forbidden, use pnpm",
     "yarn": "forbidden, use pnpm",
-    "pnpm": ">=8.6.3"
+    "pnpm": ">=8.7.6"
   },
   "overrides": {
     "react": "npm:@preact/compat@latest",
@@ -78,7 +75,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "lefthook": "^1.5.0",
-    "parser@latest": "link:typescript-eslint/parser@latest",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
     "sass": "^1.68.0",

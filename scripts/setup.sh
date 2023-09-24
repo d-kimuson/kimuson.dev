@@ -7,7 +7,7 @@ packages=""
 
 nodenv install -s
 corepack enable
-corepack prepare pnpm@8.6.3 --activate
+corepack prepare pnpm@8.7.6 --activate
 
 pnpm i
 
