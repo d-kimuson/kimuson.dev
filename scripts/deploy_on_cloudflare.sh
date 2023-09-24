@@ -4,8 +4,6 @@ set -eux
 
 printenv
 
-pnpm i --frozen-lockfile
-
 BUILD_ENV="production"
 if [[ "$CF_PAGES_BRANCH" != "master" ]]; then
   BUILD_ENV="preview"
