@@ -4,7 +4,8 @@
     "*.tsx": "typescriptreact",
     "*.jsx": "javascriptreact",
     "*.md": "markdown",
-    "*.mdx": "markdown"
+    "*.mdx": "markdown",
+    "*.astro": "astro"
   },
   // ESLint
   "eslint.workingDirectories": ["./"],
@@ -13,7 +14,6 @@
     "extensions": ["ts", "tsx", "jsx"]
   },
   "eslint.validate": ["javascriptreact", "typescript", "typescriptreact"],
-  "eslint.alwaysShowStatus": true,
   // Stylelint
   "stylelint.enable": true,
   "stylelint.configBasedir": ".",
@@ -26,43 +26,7 @@
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true
   },
-  "[json]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[mdx]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
+  "[typescript][javascript][typescriptreact][javascriptreact][css][scss][jsonc][json][markdown][mdx][yaml][astro]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
