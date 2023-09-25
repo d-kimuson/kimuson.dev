@@ -30,6 +30,8 @@
     "commitizen",
     "compat",
     "Conditonal",
+    "configsettingspy",
+    "configurlspy",
     "contentful",
     "Contentful",
     "contenttypes",
