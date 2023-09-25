@@ -14,7 +14,7 @@ export default defineConfig({
     mdx(),
   ],
   server: {
-    port: 4321,
+    port: 2828,
   },
   markdown: {
     remarkPlugins: [remarkCodeTitles, "remark-gfm", "remark-smartypants"],
