@@ -10,7 +10,7 @@ const siteConfigSchema = object({
 
 export const siteConfig = defineConfigWithSchema(siteConfigSchema, {
   local: {
-    baseUrl: "http://localhost:4321",
+    baseUrl: "http://localhost:2828",
     siteName: SITE_NAME,
   },
   preview: {

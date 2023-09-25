@@ -1,34 +1,40 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
-import { buildInternalArticle } from "~/domain-object/article/internal-article"
-import { Header } from "~/features/layout/header"
-import { Footer } from "~/features/layout/footer"
-import { BlogPreviewPage } from "~/features/blog/pages/blog-preview-page"
-import { headerHeight, contentMinHeightStyle, px } from '~/features/layout/config'
-import { siteConfig } from "~/config/site"
+import { buildInternalArticle, localOrNonDraftOnly } from "~/domain-object/article/internal-article";
+import { Header } from "~/features/layout/header";
+import { Footer } from "~/features/layout/footer";
+import { BlogPreviewPage } from "~/features/blog/pages/blog-preview-page";
+import {
+  headerHeight,
+  contentMinHeightStyle,
+  px,
+} from "~/features/layout/config";
+import { siteConfig } from "~/config/site";
 
 export const getStaticPaths = async () => {
-  const entries = await getCollection('internal-article')
+  const entries = await getCollection("internal-article");
 
-  return entries.map((entry) => ({
-    params: {
-      slug: entry.slug
-    } as const,
-    props: {
-      entry
-    }
-  }))
-}
+  return entries
+    .filter(localOrNonDraftOnly)
+    .map((entry) => ({
+      params: {
+        slug: entry.slug,
+      } as const,
+      props: {
+        entry,
+      },
+    }));
+};
 
 type Props = {
-  entry: CollectionEntry<'internal-article'>
-}
-const { entry } = Astro.props
+  entry: CollectionEntry<"internal-article">;
+};
+const { entry } = Astro.props;
 
-const internalArticle = await buildInternalArticle(entry)
-
+const internalArticle = await buildInternalArticle(entry);
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -36,7 +42,13 @@ const internalArticle = await buildInternalArticle(entry)
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{internalArticle.frontmatter.title}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      integrity="sha512-mIs9kKbaw6JZFfSuo+MovjU+Ntggfoj8RwAmJbVXQ5mkAX5LlgETQEweFPI18humSPHymTb5iikEOKWF7I8ncQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <!-- OGP -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -47,10 +59,13 @@ const internalArticle = await buildInternalArticle(entry)
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content={siteConfig.siteName} />
     <meta property="og:description" content={internalArticle.summaryContent} />
-  <body>
-    <div style={{ paddingBlockStart: px(headerHeight), isolation: 'isolate' }}>
+  </head><body>
+    <div style={{ paddingBlockStart: px(headerHeight), isolation: "isolate" }}>
       <Header />
-      <div class="content" style={{ minHeight: contentMinHeightStyle, isolation: 'isolate' }}>
+      <div
+        class="content"
+        style={{ minHeight: contentMinHeightStyle, isolation: "isolate" }}
+      >
         <BlogPreviewPage client:load internalArticle={internalArticle}>
           <internalArticle.Content />
         </BlogPreviewPage>
@@ -76,12 +91,19 @@ const internalArticle = await buildInternalArticle(entry)
     background-color: #f6f6f6;
   }
   code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
   }
 
   body {
-    background: #333846
+    background: #333846;
   }
 
   .content {

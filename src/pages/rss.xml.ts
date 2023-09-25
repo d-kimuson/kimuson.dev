@@ -2,11 +2,14 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import { siteConfig } from "~/config/site";
 import { buildInternalArticle } from "~/domain-object/article/internal-article";
+import { localOrNonDraftOnly } from "~/domain-object/article/internal-article";
 
 const entries = await getCollection("internal-article");
 
 const internalArticles = await Promise.all(
-  entries.map((entry) => buildInternalArticle(entry))
+  entries
+    .filter(localOrNonDraftOnly)
+    .map((entry) => buildInternalArticle(entry))
 ).then((entries) =>
   entries.slice().sort((a, b) => (a.date.getTime() > b.date.getTime() ? -1 : 1))
 );

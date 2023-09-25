@@ -1,6 +1,7 @@
 import { z, type CollectionEntry } from "astro:content";
 import type { ArticleCommon } from "./article-common";
 import type { MarkdownHeading } from "astro";
+import { env } from "~/config/env";
 import { siteConfig } from "../../config/site";
 import { isoString } from "../../lib/zod/custom-schema.schema";
 import { tagSchema } from "../tag";
@@ -55,6 +56,9 @@ export type InternalArticle = ArticleCommon &
     headings: MarkdownHeading[];
     Content: AstroComponentFactory;
   };
+
+export const localOrNonDraftOnly = ({ data }: InternalArticleEntry) =>
+  env === "local" || !data.draft;
 
 export const buildInternalArticle = async (
   entry: InternalArticleEntry
