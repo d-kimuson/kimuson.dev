@@ -54,7 +54,7 @@
     "valibot": "^0.17.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.2.0",
+    "@astrojs/check": "^0.3.0",
     "@astrojs/mdx": "^1.1.0",
     "@astrojs/preact": "^3.0.0",
     "@astrojs/rss": "^3.0.0",
