@@ -66,7 +66,7 @@
     "@typescript-eslint/parser": "^6.7.2",
     "astro": "^3.1.2",
     "commitizen": "^4.3.0",
-    "cspell": "^7.3.6",
+    "cspell": "^8.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
