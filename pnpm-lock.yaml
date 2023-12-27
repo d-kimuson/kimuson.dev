@@ -36,8 +36,8 @@ dependencies:
     specifier: ^5.0.0
     version: 5.0.5
   valibot:
-    specifier: ^0.17.0
-    version: 0.17.0
+    specifier: ^0.25.0
+    version: 0.25.0
 
 devDependencies:
   '@astrojs/check':
@@ -7356,8 +7356,8 @@ packages:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
     requiresBuild: true
 
-  /valibot@0.17.0:
-    resolution: {integrity: sha512-ykoYfBc4HOH+osdWaFBmeL7yX35bFfKg1WdwHYZhNVuvGIRH5f2gtYT6cnU85XOsOE7R8la5RnVY6yAScWU9qg==}
+  /valibot@0.25.0:
+    resolution: {integrity: sha512-cmD0ca15oyAbT75iYLNW6uU6doAeIwYfOshpXka/E1Bx4frzbkrgb7gvkI7K0YK/DVOksei4FfxWfRoBP3NFTg==}
     dev: false
 
   /validator@13.11.0:
