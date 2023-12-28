@@ -6,8 +6,8 @@ export type IsUndefined<T> = T[] extends undefined[]
   ? IsAny<T> extends true
     ? false
     : IsNever<T> extends true
-    ? false
-    : true
+      ? false
+      : true
   : false;
 
 export type TypeEq<A, B> = (<T>() => T extends A ? 1 : 2) extends <
@@ -78,8 +78,8 @@ export type Simplify<T> = T extends object
   ? T extends Function
     ? T
     : T extends infer O
-    ? { [K in keyof O]: Simplify<O[K]> }
-    : never
+      ? { [K in keyof O]: Simplify<O[K]> }
+      : never
   : T;
 
 export type GetReadonlyKeys<T> = {

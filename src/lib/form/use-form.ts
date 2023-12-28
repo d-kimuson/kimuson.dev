@@ -4,8 +4,8 @@ import type { Ref, JSX } from "preact";
 type TypeToDefault<T extends FormConfig["type"]> = T extends "string"
   ? string
   : T extends "number"
-  ? number | null
-  : never;
+    ? number | null
+    : never;
 
 type FormConfig =
   | {
