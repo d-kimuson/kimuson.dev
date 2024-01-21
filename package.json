@@ -43,7 +43,7 @@
   "dependencies": {
     "classnames": "^2.5.0",
     "date-fns": "^3.0.6",
-    "jsdom": "^23.0.1",
+    "jsdom": "^24.0.0",
     "preact": "^10.19.3",
     "remark-code-titles": "^0.1.2",
     "remeda": "^1.33.0",
