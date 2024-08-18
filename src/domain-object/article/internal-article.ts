@@ -6,11 +6,12 @@ import { siteConfig } from "../../config/site";
 import { isoString } from "../../lib/zod/custom-schema.schema";
 import { tagSchema } from "../tag";
 
-type AstroComponentFactory = ReturnType<
-  CollectionEntry<"internal-article">["render"]
-> extends Promise<{ Content: infer I }>
-  ? I
-  : never;
+type AstroComponentFactory =
+  ReturnType<CollectionEntry<"internal-article">["render"]> extends Promise<{
+    Content: infer I;
+  }>
+    ? I
+    : never;
 
 export const internalArticleFrontmatterSchema = z
   .object({

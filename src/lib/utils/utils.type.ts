@@ -10,11 +10,10 @@ export type IsUndefined<T> = T[] extends undefined[]
       : true
   : false;
 
-export type TypeEq<A, B> = (<T>() => T extends A ? 1 : 2) extends <
-  T,
->() => T extends B ? 1 : 2
-  ? true
-  : false;
+export type TypeEq<A, B> =
+  (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2
+    ? true
+    : false;
 
 /**
  * @desc Type testing with a set of TypeEq.
@@ -40,16 +39,12 @@ export type UnionToIntersection<U> = (
   : never;
 
 export type PushToTuple<Tuple extends any[], Val> = [...Tuple, Val];
-export type LastOfUnion<T> = UnionToIntersection<
-  T extends any ? () => T : never
-> extends () => infer R
-  ? R
-  : never;
-export type UnionToTuple<
-  T,
-  LastU = LastOfUnion<T>,
-  NextT = Exclude<T, LastU>,
-> = true extends IsNever<T> ? [] : PushToTuple<UnionToTuple<NextT>, LastU>;
+export type LastOfUnion<T> =
+  UnionToIntersection<T extends any ? () => T : never> extends () => infer R
+    ? R
+    : never;
+export type UnionToTuple<T, LastU = LastOfUnion<T>, NextT = Exclude<T, LastU>> =
+  true extends IsNever<T> ? [] : PushToTuple<UnionToTuple<NextT>, LastU>;
 
 export type ArrayToUnion<T extends Array<any>> = T[number];
 

@@ -179,9 +179,8 @@ type Res4 = LastOfUnion<"hello" | "world" | "foo">; // "foo"
 
 ```ts
 type IsNever<T> = T[] extends never[] ? true : false;
-type IsUnion<T> = IsNever<Exclude<T, LastOfUnion<T>>> extends true
-  ? false
-  : true;
+type IsUnion<T> =
+  IsNever<Exclude<T, LastOfUnion<T>>> extends true ? false : true;
 ```
 
 IsNever は本筋じゃないので割愛しますが、never 型がどうかを判定できる型です
