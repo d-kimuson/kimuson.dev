@@ -229,7 +229,13 @@
     "zenn",
     "Zenn",
     "zipfiles",
-    "zoneinfo"
+    "zoneinfo",
+    "axnsan",
+    "tfranzel",
+    "Serialzer",
+    "desu",
+    "Oups",
+    "occured"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }

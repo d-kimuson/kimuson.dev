@@ -16,7 +16,7 @@ pre-commit:
         - merge
         - rebase
       run: |
-        pnpm prettier --write --ignore-unknown {staged_files}
+        pnpm run:prettier {staged_files}
 
     cspell:
       glob: "*.{tsx,ts,mts,mcs,mjs,cjs,js,json,md,yml,yaml}"

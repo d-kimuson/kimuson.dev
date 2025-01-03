@@ -1,0 +1,149 @@
+---
+title: "TypeScriptで再代入を誘発しがちなswitch文やtry-catch文との向き合い方"
+description: 再代入を誘発しがちなswitch等の文で再代入を避けたりする方法を説明するよ
+category: "TypeScript"
+tags:
+  - TypeScript
+date: "2023-10-13T08:39:15Z"
+thumbnail: "thumbnails/TypeScript.png"
+draft: false
+---
+
+TS の if、switch とか try-catch 等は「文」なので再代入が必要で使いづらい
+
+```ts
+let result
+try {
+  result = something()
+} catch (err) {
+  result = err
+}
+```
+
+let はコードスメルになるので極力使いたくないし、この辺の使いづらさとの向き合い方について
+
+## 無名関数でラップして式にする
+
+即時関数でこれら(try-catch, if, switch 等)をラップしてあげると式っぽく扱うことができて、再代入をしなくてすむ
+
+```ts
+declare const value: "apple" | "grape" | "orange"
+
+// switch
+const immutableValue = (() => {
+  switch (value) {
+    case "apple":
+      return "apple desu"
+    case "grape":
+      return "grape desu"
+    case "orange":
+      return "orange desu"
+    default: {
+      value satisfies never
+      throw new Error("Unexpected.")
+    }
+  }
+})()
+
+// try-catch
+const result = (() => {
+  try {
+    return something()
+  } catch (err) {
+    return err
+  }
+})()
+```
+
+こんな感じ
+
+try-catch 等に限らず let を使わざるをえないときに再代入可能な範囲を狭めるのにも有効
+
+```ts
+const immutableValue = (() => {
+  let mutableValue = "hello"
+
+  mutableValue = mutableValue + ""
+  mutableValue = mutableValue + "world"
+  return mutableValue
+})()
+```
+
+## サードパーティの手段を使う
+
+式じゃないのでつらいのは try-catch、switch が多くそれぞれサードパーティの代替手段を使うこともできる
+
+### switch 式
+
+パターンマッチをできるライブラリとして [ts-pattern](https://github.com/gvergnaud/ts-pattern) がある
+
+リポジトリに乗ってるサンプルコードをそのまま載せると
+
+```ts
+import { match, P } from 'ts-pattern';
+
+type Data =
+  | { type: 'text'; content: string }
+  | { type: 'img'; src: string };
+
+type Result =
+  | { type: 'ok'; data: Data }
+  | { type: 'error'; error: Error };
+
+const result: Result = ...;
+
+const html = match(result)
+  .with({ type: 'error' }, () => <p>Oups! An error occured</p>)
+  .with({ type: 'ok', data: { type: 'text' } }, (res) => <p>{res.data.content}</p>)
+  .with({ type: 'ok', data: { type: 'img', src: P.select() } }, (src) => <img src={src} />)
+  .exhaustive();
+```
+
+こんな感じで式でパターンマッチを利用できる
+
+### Result or Return Error
+
+try-catch をそのまま式にするわけではないが、try-catch 以外の例外の仕組みを使うことができる
+
+1つはResult型を使う手段で、[neverthrow](https://github.com/supermacro/neverthrow) 等がよく使われる
+
+あるいはライブラリを使わずに Error を return しちゃうのも選択肢になる
+
+```ts:例外を返す側
+const errorSymbol = Symbol()
+
+export class SomeError extends Error {
+  private readonly [errorSymbol]: undefined // Error をそのまま使うと型の抜け道ができてしまうので
+}
+
+const fn = (): string | SomeError => {
+  if (/* 正常系 */) {
+    return 'value'
+  } else {
+    return new SomeError('Error')
+  }
+}
+```
+
+```ts:例外を拾う側
+const result = fn();
+if (result instanceof SomeError) {
+  // catch でやりたい処理
+} else {
+  // try-catch 後にやりたい処理
+  result; // :string
+}
+```
+
+いずれも throw するのではなく戻り値で異常系を表現するので try-catch 文が登場せず、再代入なしで扱うことができる
+
+再代入を避けられる以外に「例外を拾う側」にハンドリングを強要させられるメリットもある(ResultでもReturn Errorでもtry-catchと違って値を使うには異常系のときの処理を書かないといけない)
+
+注意点として Result や return Error は throw に比べて不要な場所でも例外のハンドリングが強要され、複雑になるという欠点がある（逆にハンドリングがシンプルになるのが throw の利点とも言える）
+
+ので、ビジネスロジック上の異常系（純正常系）くらいまでは型安全な Result や return Error を使い、全体の共通基盤で拾うような異常系はthrowしちゃうくらいの温度感が個人的にはオススメ
+
+## まとめ
+
+- TS では文が多く文では再代入を誘発するけど無名関数でラップすることで回避できるよ
+- ts-pattern や Result 型等の代替手段もあるよ
