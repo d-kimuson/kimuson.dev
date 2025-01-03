@@ -1,37 +1,37 @@
 {
   "editor.tabSize": 2,
-  "files.associations": {
-    "*.tsx": "typescriptreact",
-    "*.jsx": "javascriptreact",
-    "*.md": "markdown",
-    "*.mdx": "markdown",
-    "*.astro": "astro"
+  "files.watcherExclude": {
+    // default
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.hg/store/**": true
+    // customized
   },
-  // ESLint
-  "eslint.workingDirectories": ["./"],
+  // typescript
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  // eslint
+  "eslint.workingDirectories": [
+    { "pattern": "./packages/*/" },
+    {
+      "pattern": "./apps/*/"
+    }
+  ],
   "eslint.options": {
-    "overrideConfigFile": ".eslintrc.cjs",
-    "extensions": ["ts", "tsx", "jsx"]
+    "flags": ["unstable_ts_config"]
   },
-  "eslint.validate": ["javascriptreact", "typescript", "typescriptreact"],
-  // Stylelint
-  "stylelint.enable": true,
-  "stylelint.configBasedir": ".",
-  "stylelint.validate": ["css", "scss"],
   // prettier
-  "prettier.configPath": "./.prettierrc.cjs",
-  // Lint On Save
+  "prettier.configPath": ".prettierrc.mjs",
+  // autofix
   "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit"
-  },
-  "[typescript][javascript][typescriptreact][javascriptreact][css][scss][jsonc][json][markdown][mdx][yaml][astro]": {
+  "[typescript][javascript][typescriptreact][javascriptreact][jsonc][json][markdown][mdx][yaml]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  // Invalidate other formatters
-  "css.validate": false,
-  "scss.validate": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  // cspell
+  "cSpell.ignoreRegExpList": ["[０-９Ａ-Ｚａ-ｚぁ-んァ-ヶ亜-熙纊-黑]+"]
 }
