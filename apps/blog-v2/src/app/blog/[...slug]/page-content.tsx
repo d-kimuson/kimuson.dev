@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo, FC } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -10,67 +9,25 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FaTwitter, FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { ArticleDetail } from "articles";
 
-// 仮のデータ
-const articles = [
-  {
-    id: 1,
-    title: "Introduction to Next.js",
-    date: "2023-07-01",
-    tags: ["Next.js", "React", "JavaScript"],
-    content: `
-# Introduction to Next.js
+export const generateStaticParams = async () => {};
 
-Next.js is a powerful React framework that makes it easy to build server-side rendered and statically generated web applications.
+export const ArticlePageContent: FC<{
+  article: ArticleDetail;
+}> = ({ article }) => {
+  const tableOfContents = useMemo((): Array<{
+    level: number;
+    text: string;
+  }> => {
+    const headings = article?.content.match(/^##? .+$/gm) || [];
+    return headings.map((heading) => ({
+      level: heading.startsWith("##") ? 2 : 1,
+      text: heading.replace(/^##? /, ""),
+    }));
+  }, [article]);
 
-## Key Features
-
-1. **Server-Side Rendering (SSR)**: Next.js allows you to render React components on the server, which can improve performance and SEO.
-
-2. **Static Site Generation (SSG)**: You can generate static HTML files at build time, which can be served directly from a CDN for blazing-fast performance.
-
-3. **API Routes**: Next.js allows you to create API endpoints as part of your application, making it easy to build full-stack applications.
-
-## Getting Started
-
-To start a new Next.js project, you can use the following command:
-
-\`\`\`bash
-npx create-next-app@latest my-next-app
-\`\`\`
-
-This will set up a new Next.js project with all the necessary configurations.
-
-## Conclusion
-
-Next.js provides a great developer experience and powerful features out of the box. It's definitely worth considering for your next React project!
-    `,
-  },
-];
-
-export default function ArticlePage() {
-  const { id } = useParams();
-  const [article, setArticle] = useState<any>(null);
-  const [tableOfContents, setTableOfContents] = useState<
-    Array<{ level: number; text: string }>
-  >([]);
   const [isTocOpen, setIsTocOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchedArticle = articles.find(
-      (a) => a.id === parseInt(id as string)
-    );
-    setArticle(fetchedArticle);
-
-    // Generate table of contents
-    const headings = fetchedArticle?.content.match(/^##? .+$/gm) || [];
-    setTableOfContents(
-      headings.map((heading) => ({
-        level: heading.startsWith("##") ? 2 : 1,
-        text: heading.replace(/^##? /, ""),
-      }))
-    );
-  }, [id]);
 
   if (!article) return <div>Loading...</div>;
 
@@ -78,7 +35,7 @@ export default function ArticlePage() {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
       <div className="md:col-span-3">
         <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
-        <p className="text-gray-400 mb-6">{article.date}</p>
+        <p className="text-gray-400 mb-6">{article.date.toString()}</p>
         <div className="mb-4">
           {article.tags.map((tag: string) => (
             <Badge key={tag} variant="secondary" className="mr-2">
@@ -129,7 +86,7 @@ export default function ArticlePage() {
                     className={`${heading.level === 2 ? "ml-4" : ""}`}
                   >
                     <Link
-                      href={`#${heading.text.toLowerCase().replace(/ /g, "-")}`}
+                      href={`#${heading.text}`}
                       className="text-blue-400 hover:underline"
                     >
                       {heading.text}
@@ -143,6 +100,20 @@ export default function ArticlePage() {
         <div className="prose prose-invert max-w-none">
           <ReactMarkdown
             components={{
+              h2({ children, ...props }) {
+                return (
+                  <h2 id={children} {...props} className="text-2xl font-bold">
+                    {children}
+                  </h2>
+                );
+              },
+              h3({ children, ...props }) {
+                return (
+                  <h3 id={children} {...props} className="text-xl font-bold">
+                    {children}
+                  </h3>
+                );
+              },
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
                 return !inline && match ? (
@@ -190,4 +161,4 @@ export default function ArticlePage() {
       </div>
     </div>
   );
-}
+};

@@ -1,59 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-// 仮のデータ
-const articles = [
-  {
-    id: 1,
-    title: "Introduction to Next.js",
-    date: "2023-07-01",
-    tags: ["Next.js", "React"],
-  },
-  {
-    id: 2,
-    title: "Advanced TypeScript Techniques",
-    date: "2023-06-15",
-    tags: ["TypeScript"],
-  },
-  {
-    id: 3,
-    title: "Building Scalable APIs with Node.js",
-    date: "2023-05-30",
-    tags: ["Node.js", "API"],
-  },
-];
-
-const rssArticles = [
-  {
-    id: 1,
-    title: "The Future of Web Development",
-    source: "Medium",
-    date: "2023-07-05",
-  },
-  {
-    id: 2,
-    title: "10 Must-Know JavaScript Tricks",
-    source: "Dev.to",
-    date: "2023-06-20",
-  },
-];
+import { searchArticles, getAllTags } from "articles";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTag, setSelectedTag] = useState("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const filteredArticles = articles.filter(
-    (article) =>
-      article.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedTag === "" || article.tags.includes(selectedTag))
-  );
+  const filteredArticles = useMemo(() => {
+    return searchArticles({
+      text: searchTerm === "" ? undefined : searchTerm,
+      tags: selectedTags,
+    });
+  }, [searchTerm, selectedTags]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -67,15 +32,21 @@ export default function Home() {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="flex-grow"
           />
-          <Button onClick={() => setSelectedTag("")}>Clear Filter</Button>
+          <Button onClick={() => setSelectedTags([])}>Clear Filter</Button>
         </div>
         <div className="mb-6 flex flex-wrap gap-2">
-          {Array.from(new Set(articles.flatMap((a) => a.tags))).map((tag) => (
+          {getAllTags().map((tag) => (
             <Badge
               key={tag}
-              variant={selectedTag === tag ? "default" : "secondary"}
+              variant={selectedTags.includes(tag) ? "default" : "secondary"}
               className="cursor-pointer"
-              onClick={() => setSelectedTag(tag)}
+              onClick={() => {
+                if (selectedTags.includes(tag)) {
+                  setSelectedTags(selectedTags.filter((t) => t !== tag));
+                } else {
+                  setSelectedTags([...selectedTags, tag]);
+                }
+              }}
             >
               {tag}
             </Badge>
@@ -83,11 +54,13 @@ export default function Home() {
         </div>
         <div className="space-y-6">
           {filteredArticles.map((article) => (
-            <Card key={article.id}>
+            <Card key={"slug" in article ? article.slug : article.url}>
               <CardHeader>
                 <CardTitle>
                   <Link
-                    href={`/articles/${article.id}`}
+                    href={
+                      "slug" in article ? `/blog/${article.slug}` : article.url
+                    }
                     className="text-blue-400 hover:underline"
                   >
                     {article.title}
@@ -95,7 +68,9 @@ export default function Home() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-400">{article.date}</p>
+                <p className="text-sm text-gray-400">
+                  {article.date.toString()}
+                </p>
                 <div className="mt-2">
                   {article.tags.map((tag) => (
                     <Badge key={tag} variant="outline" className="mr-2">
@@ -108,24 +83,6 @@ export default function Home() {
           ))}
         </div>
         <h2 className="text-2xl font-bold mt-12 mb-6">From Other Sources</h2>
-        <div className="space-y-4">
-          {rssArticles.map((article) => (
-            <Card key={article.id}>
-              <CardHeader>
-                <CardTitle className="text-lg">
-                  <a href="#" className="text-blue-400 hover:underline">
-                    {article.title}
-                  </a>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-400">
-                  {article.date} - {article.source}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
       </div>
       <div>
         <Card>
