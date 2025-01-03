@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 
 export function convertImagePath(imagePath: string, filePath: string): string {
   if (imagePath.startsWith('http')) return imagePath

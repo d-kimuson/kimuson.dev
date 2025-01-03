@@ -3,17 +3,30 @@
   "version": "1.0.0",
   "description": "記事管理のパッケージ",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js",
+      "kimuson-dev/src": "./src/index.ts"
+    }
+  },
   "scripts": {
-    "build": "rimraf dist && tsx scripts/build/index.ts"
+    "build": "pnpm generate && tsup --clean",
+    "typecheck": "tsc -p . --noEmit",
+    "generate": "rimraf summary && tsx src/scripts/generate-summary/index.ts"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
+    "@types/node": "^22.10.5",
     "fs-extra": "^11.2.0",
     "glob": "^11.0.0",
     "gray-matter": "^4.0.3",
     "rimraf": "^6.0.1",
     "rss-parser": "^3.13.0",
+    "tsconfig": "workspace:*",
+    "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "valibot": "1.0.0-beta.9"
   }

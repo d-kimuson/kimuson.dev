@@ -4,7 +4,6 @@
   "display": "Default",
   "compilerOptions": {
     "composite": false,
-    "incremental": true,
     "resolveJsonModule": true,
 
     // linter 責務のルールを無効化
@@ -19,6 +18,6 @@
     // module 解決オプション
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "customConditions": ["kimuson.dev/src"]
+    "customConditions": ["kimuson-dev/src"]
   }
 }
