@@ -10,11 +10,17 @@
     }
   },
   "scripts": {
+    "dev": "turbo run dev",
     "lint": "pnpm /^lint:.*/",
     "lint:prettier": "prettier '**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --check",
     "lint:cspell": "cspell lint './**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --gitignore --cache",
+    "lint:turbo": "turbo run lint",
     "fix": "pnpm /^fix:.*/",
     "fix:prettier": "prettier '**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --write",
+    "fix:turbo": "turbo run fix",
+    "typecheck": "turbo run typecheck",
+    "build": "turbo run build",
+    "test": "turbo run test",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "lefthook install"
   },
@@ -31,7 +37,8 @@
     "cz-conventional-changelog": "^3.3.0",
     "lefthook": "^1.7.14",
     "prettier": "^3.3.3",
-    "prettier-plugin-astro": "^0.12.3"
+    "prettier-plugin-astro": "^0.12.3",
+    "turbo": "^2.3.3"
   },
   "license": "UNLICENSED"
 }

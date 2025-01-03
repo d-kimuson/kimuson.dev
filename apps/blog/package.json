@@ -13,7 +13,7 @@
     "typecheck:tsc": "tsc --noEmit",
     "typecheck:astro": "astro check",
     "lint": "eslint src --cache --ext .ts,.tsx",
-    "fix": "pnpm lint:eslint --fix",
+    "fix": "pnpm lint --fix",
     "preview": "astro preview",
     "astro": "astro"
   },
