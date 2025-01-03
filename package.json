@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.0.0",
     "preact": "^10.23.2",
     "remark-code-titles": "^0.1.2",
     "rss-parser": "^3.13.0",
