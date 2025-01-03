@@ -235,7 +235,8 @@
     "Serialzer",
     "desu",
     "Oups",
-    "occured"
+    "occured",
+    "turbopack"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
