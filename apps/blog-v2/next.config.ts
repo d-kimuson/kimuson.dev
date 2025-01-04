@@ -15,6 +15,7 @@ class NextEntryPlugin {
 
 const nextConfig: NextConfig = {
   output: "export",
+  trailingSlash: true,
   experimental: {
     typedRoutes: true,
   },

@@ -132,6 +132,8 @@ export const {
   searchArticles,
   getArticle,
   getAllTags,
+  getAllProjects,
+  getAllSpeeches,
 } = moduleClosure();
 
-export type { Article, ArticleDetail, ExternalArticle };
+export type { Article, ArticleDetail, ExternalArticle, Oss, Speech };
