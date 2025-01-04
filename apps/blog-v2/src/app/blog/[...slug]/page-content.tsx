@@ -18,7 +18,7 @@ export const ArticlePageContent: FC<{
   article: ArticleDetail;
 }> = ({ article }) => {
   const articleUrl = useMemo(
-    () => new URL("/blog" + article.slug, siteConfig.baseUrl).href,
+    () => new URL("/blog" + article.slug, siteConfig.baseUrl).href + "/",
     [article]
   );
 
@@ -49,7 +49,7 @@ export const ArticlePageContent: FC<{
             </Badge>
           ))}
         </div>
-        <div className="mb-6 flex space-x-4 justify-end">
+        <div className="mb-6 space-x-4 flex items-center justify-end">
           <Button variant="outline" size="icon" asChild>
             <a
               href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(`${article.title} | kimuson.dev`)}`}

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { searchArticles, getAllTags } from "articles";
-import { AboutMeCard } from "@/components/AboutMeCard";
+import { ExternalLinkIcon } from "lucide-react";
 
 const useSearchArticles = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -73,8 +73,9 @@ export const HomePageContent: FC<{}> = () => {
                     href={article.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="flex items-center gap-1"
                   >
-                    {article.title}
+                    {article.title} <ExternalLinkIcon />
                   </a>
                 )}
               </CardTitle>
