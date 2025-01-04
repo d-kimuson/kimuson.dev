@@ -1,9 +1,13 @@
 import { relative, resolve, dirname } from "node:path";
+import { configs } from "../../core/configs";
 
 export function convertImagePath(imagePath: string, filePath: string): string {
   if (imagePath.startsWith("http")) return imagePath;
   const absoluteImgPath = resolve(dirname(filePath), imagePath);
-  const relativePath = relative(process.cwd(), absoluteImgPath);
+  const relativePath = relative(
+    resolve(configs.projectDir, "content"),
+    absoluteImgPath
+  );
   return `/assets/${relativePath}`;
 }
 

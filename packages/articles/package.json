@@ -11,12 +11,20 @@
       "default": "./dist/index.js"
     }
   },
+  "bin": {
+    "copy-article-assets": "./dist/copy-article-assets.js"
+  },
+  "files": [
+    "dist",
+    "summary"
+  ],
   "scripts": {
     "build": "pnpm generate && tsup --clean",
     "typecheck": "tsc -p . --noEmit",
     "generate": "rimraf summary && GITHUB_TOKEN=$(gh auth token) tsx src/scripts/generate-summary/index.ts"
   },
   "devDependencies": {
+    "@types/find-package-json": "^1.2.6",
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
     "@types/jsdom": "^21.1.7",
@@ -34,6 +42,7 @@
   },
   "dependencies": {
     "es-toolkit": "^1.31.0",
+    "find-package-json": "^1.2.0",
     "jsdom": "^24.1.1"
   }
 }

@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts"],
+  entry: ["src/index.ts", "src/copy-article-assets.ts"],
   dts: true,
   sourcemap: true,
   target: "esnext",

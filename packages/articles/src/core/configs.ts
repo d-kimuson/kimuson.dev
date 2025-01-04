@@ -1,7 +1,10 @@
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
+import findPackageJson from "find-package-json";
 
-const __dirname = resolve(import.meta.dirname);
-const projectDir = resolve(__dirname, "..", "..");
+const found = findPackageJson(resolve(import.meta.dirname)).next();
+if (found === undefined || found.filename === undefined)
+  throw new Error("package.json not found");
+const projectDir = dirname(found.filename);
 
 export const configs = {
   projectDir,
