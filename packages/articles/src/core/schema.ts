@@ -39,6 +39,10 @@ export const ossSchema = v.object({
   stars: v.number(),
 });
 
+export const speechSchema = v.object({
+  url: v.pipe(v.string(), v.url()),
+});
+
 export const contentsSchema = v.object({
   internalArticles: v.array(articleDetailSchema),
   externalArticles: v.array(
@@ -48,4 +52,5 @@ export const contentsSchema = v.object({
     })
   ),
   projects: v.array(ossSchema),
+  speeches: v.array(speechSchema),
 });

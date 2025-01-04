@@ -1,7 +1,13 @@
 import * as v from "valibot";
 import { contentsSchema } from "./core/schema";
 import contentsJson from "../summary/contents.json";
-import { Article, ArticleDetail, ExternalArticle } from "./core/types";
+import {
+  Article,
+  ArticleDetail,
+  ExternalArticle,
+  Oss,
+  Speech,
+} from "./core/types";
 import { uniq } from "es-toolkit";
 
 type SearchOptions = {
@@ -17,6 +23,8 @@ type Module = {
   ) => ReadonlyArray<Article | ExternalArticle>;
   getArticle: (slug: string) => ArticleDetail | undefined;
   getAllTags: () => ReadonlyArray<string>;
+  getAllProjects: () => ReadonlyArray<Oss>;
+  getAllSpeeches: () => ReadonlyArray<Speech>;
 };
 
 const moduleClosure = (): Module => {
@@ -31,7 +39,7 @@ const moduleClosure = (): Module => {
     ),
     ...contents.externalArticles.flatMap(({ articles }) => articles),
   ].sort((a, b) => b.date.getTime() - a.date.getTime());
-  const allTags = uniq(merged.flatMap((article) => article.tags));
+  const allTags = uniq(merged.flatMap((article) => article.tags)).sort();
 
   return {
     getAllArticles: () => {
@@ -113,6 +121,8 @@ const moduleClosure = (): Module => {
     getArticle: (slug) => {
       return articleMap.get(slug);
     },
+    getAllProjects: () => contents.projects,
+    getAllSpeeches: () => contents.speeches,
   };
 };
 

@@ -54,6 +54,7 @@ const main = async (): Promise<void> => {
     internalArticles,
     externalArticles,
     projects,
+    speeches: [...configs.speakersDecks],
   };
 
   // JSONファイルの出力
