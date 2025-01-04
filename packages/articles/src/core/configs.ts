@@ -14,28 +14,33 @@ export const configs = {
   ],
   articles: [
     {
-      url: "https://tech.mobilefactory.jp/entry/2023/09/06/160000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2023/07/21/163000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2023/05/15/163000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2022/12/01/000000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2022/01/17/103000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2021/12/10/000000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2021/12/02/000000",
-    },
-    {
-      url: "https://tech.mobilefactory.jp/entry/2021/10/14/100000",
+      group: "Mobile Factory Tech Blog",
+      articles: [
+        {
+          url: "https://tech.mobilefactory.jp/entry/2023/09/06/160000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2023/07/21/163000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2023/05/15/163000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2022/12/01/000000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2022/01/17/103000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2021/12/10/000000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2021/12/02/000000",
+        },
+        {
+          url: "https://tech.mobilefactory.jp/entry/2021/10/14/100000",
+        },
+      ],
     },
   ],
   projects: [

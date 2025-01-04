@@ -32,7 +32,6 @@ export async function processMarkdownFile(
   };
 
   console.log(`Processing ${filePath}:`);
-  console.log("Article data:", JSON.stringify(articleData, null, 2));
 
   const result = v.safeParse(articleDetailSchema, articleData);
 
