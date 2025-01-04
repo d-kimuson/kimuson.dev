@@ -8,7 +8,7 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FaTwitter, FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, CopyIcon } from "lucide-react";
 import { ArticleDetail } from "articles";
 import { siteConfig } from "@/config/site";
 
@@ -121,14 +121,24 @@ export const ArticlePageContent: FC<{
               code({ node, inline, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || "");
                 return !inline && match ? (
-                  <SyntaxHighlighter
-                    style={vscDarkPlus}
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                  >
-                    {String(children).replace(/\n$/, "")}
-                  </SyntaxHighlighter>
+                  <div className="relative">
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(String(children));
+                      }}
+                      className="absolute right-2 top-2 p-2 rounded bg-gray-700 hover:bg-gray-600 text-white"
+                    >
+                      <CopyIcon className="w-4 h-4" />
+                    </button>
+                    <SyntaxHighlighter
+                      style={vscDarkPlus}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
+                  </div>
                 ) : (
                   <code className={className} {...props}>
                     {children}

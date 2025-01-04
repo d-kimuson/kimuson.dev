@@ -78,10 +78,10 @@ RouteConfig は `routes` 変数から拾った存在するパス情報を型と�
 RouteConfig を使ってプロジェクト用のヘルパー関数を作ります
 
 ```ts
-import { generateUtils } from "react-router-typing"
-import type { RouteConfig } from "./path/to/your-router-config"
+import { generateUtils } from "react-router-typing";
+import type { RouteConfig } from "./path/to/your-router-config";
 
-export const { pagePath, pageMatch } = generateUtils<RouteConfig>()
+export const { pagePath, pageMatch } = generateUtils<RouteConfig>();
 ```
 
 これで型安全なナビゲーションを実現する pagePath, pageMatch ヘルパが追加されました
