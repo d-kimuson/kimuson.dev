@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "My Tech Blog",
+  title: "kimuson.dev",
   description: "Personal tech blog showcasing articles, projects, and more",
 };
 
@@ -17,11 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="ja" className="dark">
       <body className={`${inter.className} bg-gray-900 text-gray-100`}>
         <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow container mx-auto px-4 py-8">
+          <div className="fixed top-0 left-0 right-0 z-50">
+            <Header />
+          </div>
+          <main className="flex-grow container mx-auto px-4 py-8 mt-header min-h-content">
             {children}
           </main>
           <Footer />

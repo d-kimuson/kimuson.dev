@@ -15,6 +15,9 @@ class NextEntryPlugin {
 
 const nextConfig: NextConfig = {
   output: "export",
+  experimental: {
+    typedRoutes: true,
+  },
   webpack: (config) => ({
     ...config,
     plugins: [...config.plugins, new NextEntryPlugin("kimuson-dev/src")],

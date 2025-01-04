@@ -10,12 +10,18 @@ import { Badge } from "@/components/ui/badge";
 import { FaTwitter, FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { ArticleDetail } from "articles";
+import { siteConfig } from "@/config/site";
 
 export const generateStaticParams = async () => {};
 
 export const ArticlePageContent: FC<{
   article: ArticleDetail;
 }> = ({ article }) => {
+  const articleUrl = useMemo(
+    () => new URL("/blog" + article.slug, siteConfig.baseUrl).href,
+    [article]
+  );
+
   const tableOfContents = useMemo((): Array<{
     level: number;
     text: string;
@@ -43,25 +49,23 @@ export const ArticlePageContent: FC<{
             </Badge>
           ))}
         </div>
-        <div className="mb-6 flex space-x-4">
-          <Button variant="outline" size="sm">
-            <FaGithub className="mr-2" />
-            Propose Changes
+        <div className="mb-6 flex space-x-4 justify-end">
+          <Button variant="outline" size="icon" asChild>
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(`${article.title} | kimuson.dev`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTwitter />
+            </a>
           </Button>
           <Button variant="outline" size="sm">
             <FaGithub className="mr-2" />
-            View History
+            変更を提案
           </Button>
-        </div>
-        <div className="hidden md:block fixed left-4 top-1/2 transform -translate-y-1/2 space-y-4">
-          <Button variant="outline" size="icon">
-            <FaTwitter />
-          </Button>
-          <Button variant="outline" size="icon">
-            <FaFacebook />
-          </Button>
-          <Button variant="outline" size="icon">
-            <FaLinkedin />
+          <Button variant="outline" size="sm">
+            <FaGithub className="mr-2" />
+            変更履歴を確認
           </Button>
         </div>
         <div className="md:hidden mb-6">
@@ -70,7 +74,7 @@ export const ArticlePageContent: FC<{
             onClick={() => setIsTocOpen(!isTocOpen)}
             className="w-full flex justify-between items-center"
           >
-            Table of Contents
+            見出し
             {isTocOpen ? (
               <ChevronUp className="ml-2" />
             ) : (
@@ -139,7 +143,7 @@ export const ArticlePageContent: FC<{
       </div>
       <div className="hidden md:block">
         <div className="sticky top-24">
-          <h2 className="text-xl font-semibold mb-4">Table of Contents</h2>
+          <h2 className="text-xl font-semibold mb-4">見出し</h2>
           <nav>
             <ul className="space-y-2">
               {tableOfContents.map((heading, index) => (
