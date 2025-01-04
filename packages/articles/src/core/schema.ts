@@ -31,6 +31,14 @@ export const externalArticleSchema = v.object({
   tags: v.array(v.string()),
 });
 
+export const ossSchema = v.object({
+  owner: v.string(),
+  name: v.string(),
+  repoUrl: v.pipe(v.string(), v.url()),
+  description: v.optional(v.string()),
+  stars: v.number(),
+});
+
 export const contentsSchema = v.object({
   internalArticles: v.array(articleDetailSchema),
   externalArticles: v.array(
@@ -39,4 +47,5 @@ export const contentsSchema = v.object({
       articles: v.array(externalArticleSchema),
     })
   ),
+  projects: v.array(ossSchema),
 });

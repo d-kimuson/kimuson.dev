@@ -14,7 +14,7 @@
   "scripts": {
     "build": "pnpm generate && tsup --clean",
     "typecheck": "tsc -p . --noEmit",
-    "generate": "rimraf summary && tsx src/scripts/generate-summary/index.ts"
+    "generate": "rimraf summary && GITHUB_TOKEN=$(gh auth token) tsx src/scripts/generate-summary/index.ts"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
@@ -23,6 +23,7 @@
     "fs-extra": "^11.2.0",
     "glob": "^11.0.0",
     "gray-matter": "^4.0.3",
+    "octokit": "^4.0.3",
     "rimraf": "^6.0.1",
     "rss-parser": "^3.13.0",
     "tsconfig": "workspace:*",

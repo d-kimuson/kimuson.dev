@@ -3,6 +3,7 @@ import { glob } from "glob";
 import { processMarkdownFile } from "./processors/markdown";
 import { copyAssets } from "./processors/assets";
 import { fetchExternalArticles } from "./processors/feed";
+import { fetchGitHubProjects } from "./processors/github";
 import type { Contents } from "../../core/types";
 import { configs } from "../../core/configs";
 import { resolve } from "node:path";
@@ -33,10 +34,14 @@ const main = async (): Promise<void> => {
     })
   );
 
+  // GitHubプロジェクト情報の取得
+  const projects = await fetchGitHubProjects();
+
   // 最終的なコンテンツの生成
   const contents: Contents = {
     internalArticles,
     externalArticles,
+    projects,
   };
 
   // JSONファイルの出力
