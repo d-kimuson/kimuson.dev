@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { snsUrls } from "@/config/sns";
-import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (

@@ -7,17 +7,12 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FaTwitter, FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaTwitter, FaGithub } from "react-icons/fa";
 import { ChevronDown, ChevronUp, CopyIcon } from "lucide-react";
 import { ArticleDetail } from "articles";
 import { siteConfig } from "@/config/site";
 import { OGPData } from "@/app/blog/[...slug]/opg-image";
-import * as v from "valibot";
 import Head from "next/head";
-
-const Paragraph: FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <p className="">{children}</p>;
-};
 
 const OGPCard: FC<{ ogp: OGPData }> = ({ ogp }) => {
   return (
@@ -149,7 +144,7 @@ export const ArticlePageContent: FC<{
           <ReactMarkdown
             className={"prose prose-invert max-w-none"}
             components={{
-              p({ children, node }) {
+              p({ children }) {
                 if (
                   typeof children === "string" &&
                   children.startsWith("https://")
@@ -170,6 +165,7 @@ export const ArticlePageContent: FC<{
                     ) {
                       return (
                         <a
+                          key={child}
                           href={child}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -179,7 +175,7 @@ export const ArticlePageContent: FC<{
                         </a>
                       );
                     }
-                    return <span>{child}</span>;
+                    return <span key={child}>{child}</span>;
                   });
                 }
                 return <p>{children}</p>;
@@ -198,7 +194,7 @@ export const ArticlePageContent: FC<{
                   </h3>
                 );
               },
-              code({ node, inline, className, children, ...props }) {
+              code({ inline, className, children, ...props }) {
                 const match = /language-(\w+):?(\S*)?/.exec(className || "");
                 if (!inline && match) {
                   const [_, language, title] = match as unknown as [

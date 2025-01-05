@@ -33,7 +33,7 @@ const getImageMeta = async (url: string): Promise<OgpImage | undefined> => {
       height: dimensions.height,
       aspectRatio: dimensions.width / dimensions.height,
     };
-  } catch (error) {
+  } catch {
     return undefined;
   }
 };
@@ -58,7 +58,7 @@ async function fetchOGP(url: string): Promise<OGPData | null> {
       image: imageUrl ? await getImageMeta(imageUrl) : undefined,
       url,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

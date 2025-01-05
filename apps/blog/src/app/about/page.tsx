@@ -13,8 +13,8 @@ export default function AboutPage() {
         <CardContent>
           <p className="mb-4">
             This blog serves as a central hub for{" "}
-            <a href={snsUrls.twitter}>@_kimuson</a>'s technical writing and
-            personal thoughts. Here, you'll find links to my articles from
+            <a href={snsUrls.twitter}>@_kimuson</a>&apos;s technical writing and
+            personal thoughts. Here, you&apos;ll find links to my articles from
             various platforms, including:
           </p>
           <ul className="list-disc list-inside mb-4">
@@ -28,7 +28,7 @@ export default function AboutPage() {
           <p className="mb-4">
             While the primary focus is on technical content, particularly web
             development and software engineering, I also share my thoughts on
-            various topics that interest me. You'll find articles about:
+            various topics that interest me. You&apos;ll find articles about:
           </p>
           <ul className="list-disc list-inside mb-4">
             <li>Web development techniques and best practices</li>
@@ -51,9 +51,9 @@ export default function AboutPage() {
             </li>
           </ul>
           <p>
-            I'm a firm believer in open knowledge sharing and community-driven
-            learning. Your feedback, suggestions, and contributions are always
-            welcome and appreciated!
+            I&apos;m a firm believer in open knowledge sharing and
+            community-driven learning. Your feedback, suggestions, and
+            contributions are always welcome and appreciated!
           </p>
         </CardContent>
       </Card>

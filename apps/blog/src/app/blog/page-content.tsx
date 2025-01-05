@@ -50,7 +50,7 @@ const useSearchArticles = () => {
   };
 };
 
-export const HomePageContent: FC<{}> = () => {
+export const HomePageContent: FC = () => {
   const { filteredArticles, searchInput, tagFilter } = useSearchArticles();
 
   return (

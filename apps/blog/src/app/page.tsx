@@ -15,8 +15,8 @@ export default function Home() {
           <CardContent>
             <div className="text-gray-600 dark:text-gray-400">
               <p className="mb-2">
-                Welcome to <a href={snsUrls.twitter}>@_kimuson</a>'s personal
-                blog site.
+                Welcome to <a href={snsUrls.twitter}>@_kimuson</a>&apos;s
+                personal blog site.
               </p>
               <p className="mb-2">
                 Here, I share technical articles and daily learnings focused on
@@ -25,8 +25,8 @@ export default function Home() {
               </p>
               <p>
                 This site serves as a hub that not only features my original
-                posts but also links to articles I've written for company tech
-                blogs (current and previous employers) and other platforms.
+                posts but also links to articles I&apos;ve written for company
+                tech blogs (current and previous employers) and other platforms.
               </p>
             </div>
             <div className="flex gap-4 mt-4">
