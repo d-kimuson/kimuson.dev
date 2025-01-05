@@ -74,7 +74,9 @@ $ tree .
 
 ## Slack App の作成と初期設定
 
-https://api.slack.com/apps にアクセスして、Create New App から App を作成します
+https://api.slack.com/apps
+
+にアクセスして、Create New App から App を作成します
 
 Client ID, Client Secret, `Verification Token` をコピって `config/settings.py` に記述しておきます
 

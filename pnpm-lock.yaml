@@ -141,6 +141,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.1
         version: 1.1.1(@types/react@19.0.2)(react@19.0.0)
+      '@types/jsdom':
+        specifier: ^21.1.7
+        version: 21.1.7
       articles:
         specifier: workspace:*
         version: link:../../packages/articles
@@ -150,6 +153,12 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      image-size:
+        specifier: ^1.2.0
+        version: 1.2.0
+      jsdom:
+        specifier: ^24.1.1
+        version: 24.1.3
       lucide-react:
         specifier: ^0.469.0
         version: 0.469.0(react@19.0.0)
@@ -177,6 +186,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
+      valibot:
+        specifier: 1.0.0-beta.10
+        version: 1.0.0-beta.10(typescript@5.7.2)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -215,6 +227,9 @@ importers:
         specifier: ^1.31.0
         version: 1.31.0
       find-package-json:
+        specifier: ^1.2.0
+        version: 1.2.0
+      image-size:
         specifier: ^1.2.0
         version: 1.2.0
       jsdom:
@@ -3383,6 +3398,11 @@ packages:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
 
+  image-size@1.2.0:
+    resolution: {integrity: sha512-4S8fwbO6w3GeCVN6OPtA9I5IGKkcDMPcKndtUlpJuCwu7JLjtj7JZpwqLuyY2nrmQT3AWsCJLSKPsc2mPBSl3w==}
+    engines: {node: '>=16.x'}
+    hasBin: true
+
   immutable@5.0.3:
     resolution: {integrity: sha512-P8IdPQHq3lA1xVeBRi5VPqUm5HDgKnx0Ru51wZz5mjxHr5n3RWhjIpOFU7ybkUxfB+5IToy+OLaHYDBIWsv+uw==}
 
@@ -4499,6 +4519,9 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
+  queue@6.0.2:
+    resolution: {integrity: sha512-iHZWu+q3IdFZFX36ro/lKBkSvfkztY5Y7HMiPlOUjhupPcG2JMfst2KKEpu5XndviX/3UhFbRngUPNKtgvtZiA==}
+
   react-dom@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
@@ -5257,6 +5280,14 @@ packages:
 
   valibot@0.25.0:
     resolution: {integrity: sha512-cmD0ca15oyAbT75iYLNW6uU6doAeIwYfOshpXka/E1Bx4frzbkrgb7gvkI7K0YK/DVOksei4FfxWfRoBP3NFTg==}
+
+  valibot@1.0.0-beta.10:
+    resolution: {integrity: sha512-nmo3nxvXRrxwDYZznK3aTgYv7ZA/SUZJ/s+pLY4Tqsex/fgwZ9XrrQ14jjozjUaeduQ9PhXHE2Xx1uMb0HePYw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   valibot@1.0.0-beta.9:
     resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
@@ -9316,6 +9347,10 @@ snapshots:
 
   ignore@5.3.2: {}
 
+  image-size@1.2.0:
+    dependencies:
+      queue: 6.0.2
+
   immutable@5.0.3: {}
 
   import-fresh@3.3.0:
@@ -10691,6 +10726,10 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
+  queue@6.0.2:
+    dependencies:
+      inherits: 2.0.4
+
   react-dom@19.0.0(react@19.0.0):
     dependencies:
       react: 19.0.0
@@ -11662,6 +11701,10 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   valibot@0.25.0: {}
+
+  valibot@1.0.0-beta.10(typescript@5.7.2):
+    optionalDependencies:
+      typescript: 5.7.2
 
   valibot@1.0.0-beta.9(typescript@5.7.2):
     optionalDependencies:

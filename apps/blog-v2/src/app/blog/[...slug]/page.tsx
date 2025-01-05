@@ -1,6 +1,7 @@
-import { getAllInternalArticles, getArticle, searchArticles } from "articles";
+import { getAllInternalArticles, getArticle } from "articles";
 import { ArticlePageContent } from "@/app/blog/[...slug]/page-content";
 import { FC } from "react";
+import { getOgpMap } from "@/app/blog/[...slug]/opg-image";
 
 type Params = {
   slug: string[];
@@ -16,7 +17,9 @@ const ArticlePage: FC<{ params: Promise<Params> }> = async ({ params }) => {
   const slug = "/" + (await params).slug.join("/");
   const article = getArticle(slug);
   if (article === undefined) throw new Error("404");
-  return <ArticlePageContent article={article} />;
+  const ogpMap = await getOgpMap(article);
+
+  return <ArticlePageContent article={article} ogpMap={ogpMap} />;
 };
 
 export default ArticlePage;

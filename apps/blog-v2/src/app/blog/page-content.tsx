@@ -25,7 +25,7 @@ const useSearchArticles = () => {
     searchInput: (
       <Input
         type="text"
-        placeholder="記事を検索"
+        placeholder="Search articles"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="flex-grow"
@@ -58,7 +58,7 @@ export const HomePageContent: FC<{}> = () => {
       <div className="mb-4 flex space-x-4">{searchInput}</div>
 
       <details className="mb-6">
-        <summary>タグで絞り込む</summary>
+        <summary>Filter by tags</summary>
         <div className="mb-6 flex flex-wrap gap-2">{tagFilter}</div>
       </details>
       <div className="space-y-6">
@@ -81,7 +81,10 @@ export const HomePageContent: FC<{}> = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-gray-400">{article.date.toString()}</p>
+              <p className="text-sm text-gray-400">
+                published: {article.date.toLocaleDateString()}{" "}
+                {article.date.toLocaleTimeString()}
+              </p>
               <div className="mt-2">
                 {article.tags.map((tag) => (
                   <Badge key={tag} variant="outline" className="mr-2">

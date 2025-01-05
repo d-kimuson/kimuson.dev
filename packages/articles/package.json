@@ -43,6 +43,7 @@
   "dependencies": {
     "es-toolkit": "^1.31.0",
     "find-package-json": "^1.2.0",
+    "image-size": "^1.2.0",
     "jsdom": "^24.1.1"
   }
 }
