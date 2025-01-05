@@ -12,7 +12,11 @@
     },
     "lint": {},
     "fix": {},
-    "typecheck": {},
-    "test": {}
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    }
   }
 }
