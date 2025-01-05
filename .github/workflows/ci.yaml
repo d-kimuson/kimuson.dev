@@ -54,6 +54,9 @@ jobs:
       - name: lint
         run: pnpm lint
 
+      - name: generate codes
+        run: pnpm --filter=articles generate
+
       - name: typecheck
         run: pnpm typecheck
 
