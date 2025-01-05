@@ -26,7 +26,7 @@ pre-commit:
       <<: *base-eslint-settings
       root: "apps/blog/"
       run: |
-        pnpm --filter blog eslint --fix {staged_files}
+        pnpm --filter @kimuson.dev/blog eslint --fix {staged_files}
 
 prepare-commit-msg:
   parallel: true

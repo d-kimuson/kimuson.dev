@@ -51,11 +51,11 @@ jobs:
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
 
-      - name: Create astro content files
-        run: pnpm --filter blog astro sync
-
       - name: lint
         run: pnpm lint
 
       - name: typecheck
         run: pnpm typecheck
+
+      - name: build check
+        run: pnpm build
