@@ -201,10 +201,10 @@ Next.js でおなじみのファイルベースルーティングがサポート
 コンテンツコレクションで getEntry したものを render すると headings がデフォルトで入ってきてくれます。
 
 ```ts
-const entries = await getCollection("blog")
-const entry = entries.at(0)
+const entries = await getCollection("blog");
+const entry = entries.at(0);
 
-const { headings } = await entry.render()
+const { headings } = await entry.render();
 ```
 
 実際のデータはこんな感じ。
@@ -239,15 +239,15 @@ rss も公式のサポートがあります。
 `rss.xml.ts` を用意して、一覧のページと同様にコンテンツコレクションのAPIでオブジェクトを組むだけなのでとても簡単です。
 
 ```ts
-import rss from "@astrojs/rss"
-import { getCollection } from "astro:content"
-import { siteConfig } from "~/config/site"
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
+import { siteConfig } from "~/config/site";
 import {
   buildInternalArticle,
   localOrNonDraftOnly,
-} from "~/domain-object/article/internal-article"
+} from "~/domain-object/article/internal-article";
 
-const entries = await getCollection("internal-article")
+const entries = await getCollection("internal-article");
 
 const internalArticles = await Promise.all(
   entries
@@ -255,7 +255,7 @@ const internalArticles = await Promise.all(
     .map((entry) => buildInternalArticle(entry))
 ).then((entries) =>
   entries.slice().sort((a, b) => (a.date.getTime() > b.date.getTime() ? -1 : 1))
-)
+);
 
 export const get = async () =>
   rss({
@@ -269,7 +269,7 @@ export const get = async () =>
       customData: undefined,
       link: article.fullUrl,
     })),
-  })
+  });
 ```
 
 僕の場合はこんな感じです。

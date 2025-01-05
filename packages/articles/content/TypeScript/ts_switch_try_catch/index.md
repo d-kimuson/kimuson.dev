@@ -12,11 +12,11 @@ draft: false
 TS の if、switch とか try-catch 等は「文」なので再代入が必要で使いづらい
 
 ```ts
-let result
+let result;
 try {
-  result = something()
+  result = something();
 } catch (err) {
-  result = err
+  result = err;
 }
 ```
 
@@ -27,32 +27,32 @@ let はコードスメルになるので極力使いたくないし、この辺�
 即時関数でこれら(try-catch, if, switch 等)をラップしてあげると式っぽく扱うことができて、再代入をしなくてすむ
 
 ```ts
-declare const value: "apple" | "grape" | "orange"
+declare const value: "apple" | "grape" | "orange";
 
 // switch
 const immutableValue = (() => {
   switch (value) {
     case "apple":
-      return "apple desu"
+      return "apple desu";
     case "grape":
-      return "grape desu"
+      return "grape desu";
     case "orange":
-      return "orange desu"
+      return "orange desu";
     default: {
-      value satisfies never
-      throw new Error("Unexpected.")
+      value satisfies never;
+      throw new Error("Unexpected.");
     }
   }
-})()
+})();
 
 // try-catch
 const result = (() => {
   try {
-    return something()
+    return something();
   } catch (err) {
-    return err
+    return err;
   }
-})()
+})();
 ```
 
 こんな感じ
@@ -61,12 +61,12 @@ try-catch 等に限らず let を使わざるをえないときに再代入可�
 
 ```ts
 const immutableValue = (() => {
-  let mutableValue = "hello"
+  let mutableValue = "hello";
 
-  mutableValue = mutableValue + ""
-  mutableValue = mutableValue + "world"
-  return mutableValue
-})()
+  mutableValue = mutableValue + "";
+  mutableValue = mutableValue + "world";
+  return mutableValue;
+})();
 ```
 
 ## サードパーティの手段を使う

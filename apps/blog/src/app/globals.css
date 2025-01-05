@@ -98,7 +98,8 @@ body {
   line-height: 1.8;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   margin-left: 1.5rem;
   margin-bottom: 1.25rem;
 }

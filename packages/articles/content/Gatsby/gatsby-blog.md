@@ -196,7 +196,7 @@ PostCSS に関しては, `postCssPlugins` にプラグインをさせば良い�
 
 ```typescript
 // @ts-ignore
-import styles from "./layout.module.scss"
+import styles from "./layout.module.scss";
 ```
 
 eslint で extend している構成によっては `ts-ignore` が怒られてしまうので, ルールセットを上書きしてあげる必要があります.

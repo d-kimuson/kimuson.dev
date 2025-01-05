@@ -67,12 +67,12 @@ module.exports = withPlugins([
 `react-optimized-image` コンポーネントで画像を埋め込みます
 
 ```tsx
-import Img from "react-optimized-image"
-import logo from "@images/logo.jpg"
+import Img from "react-optimized-image";
+import logo from "@images/logo.jpg";
 
 export const LogoImage: React.FC = () => (
   <Img src={logo} sizes={[500, 2000]} alt="alt text" height={60} width={100} />
-)
+);
 ```
 
 sizes は想定してるデバイスサイズで、

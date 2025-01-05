@@ -16,9 +16,9 @@ TypeScript には、型レベルで条件分岐ができる [Conditional Types](
 説明するより実際に型を見たほうが早いと思うので、例を出します
 
 ```ts
-type ExtractArrayT<T> = T extends (infer I)[] ? I : never
-type Res1 = ExtractArrayT<string[]> // string
-type Res2 = ExtractArrayT<number[]> // number
+type ExtractArrayT<T> = T extends (infer I)[] ? I : never;
+type Res1 = ExtractArrayT<string[]>; // string
+type Res2 = ExtractArrayT<number[]>; // number
 ```
 
 Res1 では、T に `string[]` を渡しているので、string が型変数 I に渡り、string 型が帰ります
@@ -34,22 +34,22 @@ Res1 では、T に `string[]` を渡しているので、string が型変数 I 
 合成するためのもとになる型を準備します
 
 ```ts
-type Obj1 = { key1: string }
-type Obj2 = { key2: string }
+type Obj1 = { key1: string };
+type Obj2 = { key2: string };
 ```
 
 この 2 つの型をそれぞれ `Array<T>` 型にマップします
 
 ```ts
-type Arr1 = Array<Obj1> // = Obj1[]
-type Arr2 = Array<Obj2>
+type Arr1 = Array<Obj1>; // = Obj1[]
+type Arr2 = Array<Obj2>;
 ```
 
 このとき、`Arr1 & Arr2` と `Arr1 | Arr2` を infer で 1 つの型に集約してやります
 
 ```ts
-type ArrUnion = Arr1 | Arr2 extends Array<infer Obj> ? Obj : never // Obj1 | Obj2
-type ArrIntersection = Arr1 & Arr2 extends Array<infer Obj> ? Obj : never // { key2: string }
+type ArrUnion = Arr1 | Arr2 extends Array<infer Obj> ? Obj : never; // Obj1 | Obj2
+type ArrIntersection = Arr1 & Arr2 extends Array<infer Obj> ? Obj : never; // { key2: string }
 ```
 
 ArrUnion は自然な挙動ですが、ArrIntersection の方は交差型ではなく最後の型が拾えています。
@@ -91,13 +91,13 @@ ArrUnion は自然な挙動ですが、ArrIntersection の方は交差型では�
 Conditional Types では、評価される型が型変数で、かつ共用体型のとき、型が分配される [Distributive Conditonal Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types) という性質があります
 
 ```ts
-type DistributeArray<T> = T extends any ? T[] : never
+type DistributeArray<T> = T extends any ? T[] : never;
 ```
 
 この DistributeArray 型に `string | number` 型を渡すと、直感的には `(string | number)[]` が受け取れる気がしますが、実際にはは `string[]` | `number[]` 型が帰ってきます
 
 ```ts
-type Res3 = DistributeArray<string | number> // string[] | number[]
+type Res3 = DistributeArray<string | number>; // string[] | number[]
 ```
 
 これが Distributive Conditonal Types です
@@ -107,10 +107,10 @@ type Res3 = DistributeArray<string | number> // string[] | number[]
 同様にこの動きを利用すれば、上の表の共用体から集約するパターンは全て作れることがわかります
 
 ```ts
-type DistributeArg<T> = T extends any ? (k: T) => void : never // ((k: A) => void) | ((k: B) => void)
-type DistributeRet<T> = T extends any ? () => T : never // (() => A) | (() => B)
-type DistributeArray<T> = T extends any ? T[] : never // A[] | B[]
-type DistributeTuple<T> = T extends any ? [T] : never // [A] | [B]
+type DistributeArg<T> = T extends any ? (k: T) => void : never; // ((k: A) => void) | ((k: B) => void)
+type DistributeRet<T> = T extends any ? () => T : never; // (() => A) | (() => B)
+type DistributeArray<T> = T extends any ? T[] : never; // A[] | B[]
+type DistributeTuple<T> = T extends any ? [T] : never; // [A] | [B]
 ```
 
 ### Union から 交差型ベースの集約パターンを作る
@@ -124,7 +124,7 @@ type UnionToArgIntersection<U> = (
   U extends any ? (k: (k: U) => void) => void : never
 ) extends (k: infer I) => void
   ? I
-  : never // ((k: A) => void) & ((k: B) => void)
+  : never; // ((k: A) => void) & ((k: B) => void)
 ```
 
 やや複雑になってきましたが、やってることは
@@ -141,7 +141,7 @@ type UnionToArrayIntersection<U> = (
   U extends any ? (k: U[]) => void : never
 ) extends (k: infer I) => void
   ? I
-  : never // A[] & B[]
+  : never; // A[] & B[]
 // めんどうなので他は割愛
 ```
 
@@ -160,8 +160,8 @@ type LastOfUnion<U> = (
     : never
 ) extends (infer I2)[]
   ? I2
-  : never
-type Res4 = LastOfUnion<"hello" | "world" | "foo"> // "foo"
+  : never;
+type Res4 = LastOfUnion<"hello" | "world" | "foo">; // "foo"
 ```
 
 1. `A | B`
@@ -178,9 +178,9 @@ type Res4 = LastOfUnion<"hello" | "world" | "foo"> // "foo"
 名前の通り、Union 型かどうかを判定する型です
 
 ```ts
-type IsNever<T> = T[] extends never[] ? true : false
+type IsNever<T> = T[] extends never[] ? true : false;
 type IsUnion<T> =
-  IsNever<Exclude<T, LastOfUnion<T>>> extends true ? false : true
+  IsNever<Exclude<T, LastOfUnion<T>>> extends true ? false : true;
 ```
 
 IsNever は本筋じゃないので割愛しますが、never 型がどうかを判定できる型です

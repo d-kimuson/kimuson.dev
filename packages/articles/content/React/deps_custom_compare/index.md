@@ -59,10 +59,10 @@ const MyComponent: FC = () => {
 
 ```ts
 function usePreviousValue<T>(value: T): T | undefined {
-  const ref = useRef<T | undefined>(undefined)
-  const prevValue = ref.current
-  ref.current = value
-  return prevValue
+  const ref = useRef<T | undefined>(undefined);
+  const prevValue = ref.current;
+  ref.current = value;
+  return prevValue;
 }
 ```
 
@@ -71,15 +71,15 @@ export function useDeps<Deps extends any[]>(
   deps: Deps,
   compare: (prev: Deps, current: Deps) => boolean
 ): number {
-  const counter = useRef(0)
-  const prevDeps = usePreviousValue(deps)
+  const counter = useRef(0);
+  const prevDeps = usePreviousValue(deps);
   if (prevDeps === undefined) {
-    return counter.current
+    return counter.current;
   }
   if (!compare(prevDeps, deps)) {
-    counter.current++
+    counter.current++;
   }
-  return counter.current
+  return counter.current;
 }
 ```
 
@@ -96,20 +96,20 @@ const useComparableMemo = <Value extends unknown>(
   value: Value,
   compare: (prev: Value, current: Value) => boolean
 ): Value => {
-  const counter = useRef(0)
-  const prevDep = usePreviousValue(value)
+  const counter = useRef(0);
+  const prevDep = usePreviousValue(value);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memorizedDep = useMemo(() => value, [counter.current])
+  const memorizedDep = useMemo(() => value, [counter.current]);
 
-  if (prevDep === undefined) return memorizedDep
+  if (prevDep === undefined) return memorizedDep;
 
   if (!compare(prevDep, value)) {
-    counter.current++
+    counter.current++;
   }
 
-  return memorizedDep
-}
+  return memorizedDep;
+};
 ```
 
 比較のロジック等は useDeps と一緒で、count ではなく count を依存配列にとった useMemo した値を返すようにした。
