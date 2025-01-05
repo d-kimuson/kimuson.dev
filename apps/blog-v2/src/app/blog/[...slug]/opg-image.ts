@@ -1,6 +1,6 @@
-import { JSDOM } from "jsdom";
 import sizeOf from "image-size";
-import { ArticleDetail } from "../../../../../../packages/articles/src/core/types";
+import ogs from "open-graph-scraper";
+import { ArticleDetail } from "articles";
 
 export type OgpImage = {
   url: string;
@@ -17,7 +17,7 @@ export type OGPData = {
   url: string;
 };
 
-const getImageMeta = async (url: string): Promise<OgpImage> => {
+const getImageMeta = async (url: string): Promise<OgpImage | undefined> => {
   try {
     const imageResponse = await fetch(url);
     const buffer = Buffer.from(await imageResponse.arrayBuffer());
@@ -34,39 +34,31 @@ const getImageMeta = async (url: string): Promise<OgpImage> => {
       aspectRatio: dimensions.width / dimensions.height,
     };
   } catch (error) {
-    console.error(`Failed to fetch image dimensions for ${url}:`, error);
-    throw error;
+    return undefined;
   }
 };
 
 async function fetchOGP(url: string): Promise<OGPData | null> {
   try {
-    const response = await fetch(url);
-    const html = await response.text();
-    const dom = new JSDOM(html);
-    const document = dom.window.document;
+    const ogp = await ogs({ url });
+    if (ogp.error) {
+      console.warn(ogp.error);
+      return null;
+    }
 
-    const getMetaContent = (property: string): string | undefined => {
-      const element = document.querySelector(
-        `meta[property="${property}"], meta[name="${property}"]`
-      );
-      return element?.getAttribute("content") || undefined;
-    };
-
-    const title = getMetaContent("og:title") || document.title;
+    const title = ogp.result.ogTitle;
     if (!title) return null;
 
-    const imageUrl = getMetaContent("og:image");
+    const imageUrl = (ogp.result.ogImage ?? []).at(0)?.url;
 
     return {
       title,
-      description: getMetaContent("og:description"),
-      siteName: getMetaContent("og:site_name"),
+      description: ogp.result.ogDescription,
+      siteName: ogp.result.ogSiteName,
       image: imageUrl ? await getImageMeta(imageUrl) : undefined,
       url,
     };
   } catch (error) {
-    console.error(`Failed to fetch OGP for ${url}:`, error);
     return null;
   }
 }

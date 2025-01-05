@@ -14,9 +14,9 @@ export function generateStaticParams(): Params[] {
 }
 
 const ArticlePage: FC<{ params: Promise<Params> }> = async ({ params }) => {
-  const slug = "/" + (await params).slug.join("/");
+  const slug = "/" + (await params).slug.map(decodeURIComponent).join("/");
   const article = getArticle(slug);
-  if (article === undefined) throw new Error("404");
+  if (article === undefined) throw new Error("404 on " + slug);
   const ogpMap = await getOgpMap(article);
 
   return <ArticlePageContent article={article} ogpMap={ogpMap} />;

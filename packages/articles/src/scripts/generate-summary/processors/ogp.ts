@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { JSDOM } from "jsdom";
+import ogs from "open-graph-scraper";
 import { ExternalArticle } from "../../../core/types";
 import { externalArticleSchema } from "../../../core/schema";
 
@@ -7,33 +7,34 @@ export async function fetchArticleFromOGP(
   group: string,
   url: string
 ): Promise<ExternalArticle> {
-  const response = await fetch(url);
-  const html = await response.text();
-  const dom = new JSDOM(html);
-  const document = dom.window.document;
+  const { result } = await ogs({
+    url,
+    customMetaTags: [
+      {
+        multiple: false,
+        property: "article:published_time",
+        fieldName: "publishedTime",
+      },
+      {
+        multiple: true,
+        property: "article:tag",
+        fieldName: "tags",
+      },
+    ],
+  });
 
-  const getMetaContents = (property: string) => {
-    return Array.from(
-      document.querySelectorAll(
-        `meta[property="${property}"], meta[name="${property}"]`
-      )
-    ).map((meta) => meta.getAttribute("content") ?? undefined);
-  };
-
-  const title = getMetaContents("og:title").at(0);
-  const description = getMetaContents("og:description").at(0);
-  const metaPublishedTime = getMetaContents("article:published_time").at(0);
-  if (metaPublishedTime === undefined) throw new Error("Un expected format");
-  const date = new Date(
-    Number.parseInt(metaPublishedTime) * 1000
-  ).toISOString();
-  const tags = getMetaContents("article:tag") ?? [];
+  if (result.error) throw new Error(result.error);
+  const publishedTime = result.customMetaTags?.["publishedTime"];
+  if (Array.isArray(publishedTime)) throw new Error("Un expected format");
+  const date = publishedTime
+    ? new Date(Number.parseInt(publishedTime) * 1000)
+    : undefined;
 
   return v.parse(externalArticleSchema, {
-    title,
-    description,
+    title: result.ogTitle,
+    description: result.ogDescription,
     url,
-    date,
-    tags: [group, ...tags],
+    date: date?.toISOString(),
+    tags: [group].concat(result.customMetaTags?.["tags"] ?? []),
   });
 }

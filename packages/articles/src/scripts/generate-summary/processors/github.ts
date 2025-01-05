@@ -7,12 +7,10 @@ export async function fetchGitHubProjects(): Promise<Oss[]> {
   const projects = await Promise.all(
     configs.projects.map(async ({ url }) => {
       const [owner, name] = url.replace("https://github.com/", "").split("/");
-      const token = v.parse(v.string(), process.env["GITHUB_TOKEN"]);
       const response = await fetch(
         `https://api.github.com/repos/${owner}/${name}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             Accept: "application/vnd.github.v3+json",
           },
         }
