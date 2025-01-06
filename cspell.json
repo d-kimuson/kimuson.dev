@@ -239,8 +239,5 @@
     "zipfiles",
     "zoneinfo"
   ],
-  "ignorePaths": [
-    "pnpm-lock.yaml",
-    ".astro/types.d.ts"
-  ]
+  "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
