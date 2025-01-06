@@ -58,11 +58,7 @@ jobs:
         run: pnpm --filter=@kimuson.dev/articles generate
 
       - name: typecheck
-        run: |
-          echo "debug: generated"
-          ls ./packages/articles
-          ls ./packages/articles/summary
-          pnpm typecheck
+        run: pnpm typecheck
 
       - name: build check
         run: pnpm build

@@ -21,7 +21,7 @@
   "scripts": {
     "build": "pnpm generate && tsup --clean",
     "typecheck": "tsc -p . --noEmit",
-    "generate": "rimraf summary && tsx src/scripts/generate-summary/index.ts"
+    "generate": "rimraf summary/assets && tsx src/scripts/generate-summary/index.ts"
   },
   "devDependencies": {
     "@types/find-package-json": "^1.2.6",
