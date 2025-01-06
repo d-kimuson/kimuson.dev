@@ -67,7 +67,15 @@ export const HomePageContent: FC = () => {
             <CardHeader>
               <CardTitle>
                 {"slug" in article ? (
-                  <Link href={`/blog/${article.slug}/`}>{article.title}</Link>
+                  <Link
+                    href={
+                      article.slug.startsWith("/")
+                        ? `/blog${article.slug as `/${string}`}/`
+                        : `/blog/${article.slug}/`
+                    }
+                  >
+                    {article.title}
+                  </Link>
                 ) : (
                   <a
                     href={article.url}
