@@ -11,9 +11,9 @@ export type OgpImage = {
 
 export type OGPData = {
   title: string;
-  description?: string;
-  siteName?: string;
-  image?: OgpImage;
+  description?: string | undefined;
+  siteName?: string | undefined;
+  image?: OgpImage | undefined;
   url: string;
 };
 
