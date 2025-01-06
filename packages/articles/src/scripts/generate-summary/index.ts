@@ -8,6 +8,7 @@ import { fetchArticleFromOGP } from "./processors/ogp";
 import type { Contents, ExternalArticle } from "../../core/types";
 import { configs } from "../../core/configs";
 import { resolve } from "node:path";
+import { logValiError } from "../../core/utils/valibot";
 
 const main = async (): Promise<void> => {
   // 出力ディレクトリの準備
@@ -68,6 +69,8 @@ main()
     console.log("Build succeeded!");
   })
   .catch((error) => {
-    console.error("Build failed:", error);
+    if (!logValiError(error)) {
+      console.error(error);
+    }
     process.exit(1);
   });
