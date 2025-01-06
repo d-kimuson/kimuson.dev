@@ -9,12 +9,18 @@ type Params = {
 
 export function generateStaticParams(): Params[] {
   return getAllInternalArticles().map(({ slug }) => ({
-    slug: slug.split("/").filter((item) => item !== ""),
+    slug: slug
+      .split("/")
+      .filter((item) => item !== "")
+      // slug はすでに encodeURIComponent されているが
+      // Next.js は暗黙的に encodeURIComponent をしてくれるが、encodeURIComponent は冪等ではないので齟齬が出る
+      // なので generateStaticParams には decode してエンコード前の文字列で渡す
+      .map(decodeURIComponent),
   }));
 }
 
 const ArticlePage: FC<{ params: Promise<Params> }> = async ({ params }) => {
-  const slug = "/" + (await params).slug.map(decodeURIComponent).join("/");
+  const slug = "/" + (await params).slug.join("/");
   const article = getArticle(slug);
   if (article === undefined) throw new Error("404 on " + slug);
   const ogpMap = await getOgpMap(article);
