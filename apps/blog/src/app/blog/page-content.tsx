@@ -67,7 +67,7 @@ export const HomePageContent: FC = () => {
             <CardHeader>
               <CardTitle>
                 {"slug" in article ? (
-                  <Link href={`/blog/${article.slug}`}>{article.title}</Link>
+                  <Link href={`/blog/${article.slug}/`}>{article.title}</Link>
                 ) : (
                   <a
                     href={article.url}

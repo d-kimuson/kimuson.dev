@@ -158,7 +158,7 @@ export const ArticlePageContent: FC<{
                 }
 
                 if (Array.isArray(children)) {
-                  return children.map((child) => {
+                  return children.map((child, index) => {
                     if (
                       typeof child === "string" &&
                       child.startsWith("https://")
@@ -175,7 +175,7 @@ export const ArticlePageContent: FC<{
                         </a>
                       );
                     }
-                    return <span key={child}>{child}</span>;
+                    return <span key={index}>{child}</span>;
                   });
                 }
                 return <p>{children}</p>;
@@ -194,7 +194,7 @@ export const ArticlePageContent: FC<{
                   </h3>
                 );
               },
-              code({ inline, className, children, ...props }) {
+              code({ inline, className, children }) {
                 const match = /language-(\w+):?(\S*)?/.exec(className || "");
                 if (!inline && match) {
                   const [_, language, title] = match as unknown as [
@@ -225,7 +225,6 @@ export const ArticlePageContent: FC<{
                           customStyle={{
                             paddingTop: "40px",
                           }}
-                          {...props}
                         >
                           {String(children).replace(/\n$/, "")}
                         </SyntaxHighlighter>
@@ -234,11 +233,7 @@ export const ArticlePageContent: FC<{
                   );
                 }
 
-                return (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
+                return <code className={className}>{children}</code>;
               },
               a({ href, children }) {
                 return (
