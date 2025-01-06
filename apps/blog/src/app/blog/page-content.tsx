@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { searchArticles, getAllTags } from "articles";
+import { searchArticles, getAllTags } from "@kimuson.dev/articles";
 import { ExternalLinkIcon } from "lucide-react";
 
 const useSearchArticles = () => {

@@ -1,4 +1,4 @@
-import { getAllInternalArticles, getArticle } from "articles";
+import { getAllInternalArticles, getArticle } from "@kimuson.dev/articles";
 import { ArticlePageContent } from "@/app/blog/[...slug]/page-content";
 import { FC } from "react";
 import { getOgpMap } from "@/app/blog/[...slug]/opg-image";

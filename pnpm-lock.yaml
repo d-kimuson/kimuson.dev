@@ -25,22 +25,22 @@ importers:
         version: 3.4.2
       prettier-plugin-astro:
         specifier: ^0.12.3
-        version: 0.14.1
+        version: 0.12.3
       turbo:
         specifier: ^2.3.3
         version: 2.3.3
 
   apps/blog:
     dependencies:
+      '@kimuson.dev/articles':
+        specifier: workspace:*
+        version: link:../../packages/articles
       '@radix-ui/react-avatar':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.0.2(@types/react@19.0.2))(@types/react@19.0.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-slot':
         specifier: ^1.1.1
         version: 1.1.1(@types/react@19.0.2)(react@19.0.0)
-      articles:
-        specifier: workspace:*
-        version: link:../../packages/articles
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -130,6 +130,9 @@ importers:
         specifier: ^6.8.3
         version: 6.8.3
     devDependencies:
+      '@kimuson.dev/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/find-package-json':
         specifier: ^1.2.6
         version: 1.2.6
@@ -160,9 +163,6 @@ importers:
       rss-parser:
         specifier: ^3.13.0
         version: 3.13.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.7.0)
@@ -171,7 +171,7 @@ importers:
         version: 4.19.2
       valibot:
         specifier: 1.0.0-beta.9
-        version: 1.0.0-beta.10(typescript@5.7.2)
+        version: 1.0.0-beta.9(typescript@5.7.2)
 
   packages/tsconfig:
     devDependencies:
@@ -180,7 +180,7 @@ importers:
         version: 22.0.0
       '@tsconfig/strictest':
         specifier: 2.0.2
-        version: 2.0.5
+        version: 2.0.2
 
 packages:
 
@@ -188,8 +188,8 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@astrojs/compiler@2.10.3':
-    resolution: {integrity: sha512-bL/O7YBxsFt55YHU021oL+xz+B/9HvGNId3F9xURN16aeqDK9juHGktdkCSXz+U4nqFACq6ZFvWomOzhV+zfPw==}
+  '@astrojs/compiler@1.8.2':
+    resolution: {integrity: sha512-o/ObKgtMzl8SlpIdzaxFnt7SATKPxu4oIP/1NL+HDJRzxfJcAkOTAb/ZKMRyULbz4q+1t2/DAebs2Z1QairkZw==}
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -1358,8 +1358,8 @@ packages:
   '@tsconfig/node22@22.0.0':
     resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
 
-  '@tsconfig/strictest@2.0.5':
-    resolution: {integrity: sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg==}
+  '@tsconfig/strictest@2.0.2':
+    resolution: {integrity: sha512-jt4jIsWKvUvuY6adJnQJlb/UR7DdjC8CjHI/OaSQruj2yX9/K6+KOvDt/vD6udqos/FUk5Op66CvYT7TBLYO5Q==}
 
   '@types/aws-lambda@8.10.147':
     resolution: {integrity: sha512-nD0Z9fNIZcxYX5Mai2CTmFD7wX7UldCkW2ezCF8D1T5hdiLsnTWDGRpfRYntU6VjTdLQjOvyszru7I1c1oCQew==}
@@ -3313,8 +3313,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-astro@0.14.1:
-    resolution: {integrity: sha512-RiBETaaP9veVstE4vUwSIcdATj6dKmXljouXc/DDNwBSPTp8FRkLGDSGFClKsAFeeg+13SB0Z1JZvbD76bigJw==}
+  prettier-plugin-astro@0.12.3:
+    resolution: {integrity: sha512-GthUSu3zCvmtVyqlArosez0xE08vSJ0R1sWurxIWpABaCkNGYFANoUdFkqmIo54EV2uPLGcVJzOucWvCjPBWvg==}
     engines: {node: ^14.15.0 || >=16.0.0}
 
   prettier@3.4.2:
@@ -3908,6 +3908,14 @@ packages:
       typescript:
         optional: true
 
+  valibot@1.0.0-beta.9:
+    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   vfile-message@4.0.2:
     resolution: {integrity: sha512-jRDZ1IMLttGj41KcZvlrYAaI3CfqpLpfpf+Mfig13viT6NKvRzWZ+lXz0Y5D60w6uJIBAOGq9mSHf0gktF0duw==}
 
@@ -4009,7 +4017,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@astrojs/compiler@2.10.3': {}
+  '@astrojs/compiler@1.8.2': {}
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -4952,7 +4960,7 @@ snapshots:
 
   '@tsconfig/node22@22.0.0': {}
 
-  '@tsconfig/strictest@2.0.5': {}
+  '@tsconfig/strictest@2.0.2': {}
 
   '@types/aws-lambda@8.10.147': {}
 
@@ -7394,9 +7402,9 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-astro@0.14.1:
+  prettier-plugin-astro@0.12.3:
     dependencies:
-      '@astrojs/compiler': 2.10.3
+      '@astrojs/compiler': 1.8.2
       prettier: 3.4.2
       sass-formatter: 0.7.9
 
@@ -8132,6 +8140,10 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   valibot@1.0.0-beta.10(typescript@5.7.2):
+    optionalDependencies:
+      typescript: 5.7.2
+
+  valibot@1.0.0-beta.9(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
 

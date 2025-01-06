@@ -18,6 +18,6 @@
     // module 解決オプション
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "customConditions": ["kimuson-dev/src"]
+    "customConditions": ["@kimuson-dev/src"]
   }
 }

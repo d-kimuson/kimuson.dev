@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FaTwitter, FaGithub } from "react-icons/fa";
 import { ChevronDown, ChevronUp, CopyIcon } from "lucide-react";
-import { ArticleDetail } from "articles";
+import { ArticleDetail } from "@kimuson.dev/articles";
 import { siteConfig } from "@/config/site";
 import { OGPData } from "@/app/blog/[...slug]/opg-image";
 import Head from "next/head";

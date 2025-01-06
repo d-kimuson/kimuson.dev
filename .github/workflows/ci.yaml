@@ -55,7 +55,7 @@ jobs:
         run: pnpm lint
 
       - name: generate codes
-        run: pnpm --filter=articles generate
+        run: pnpm --filter=@kimuson.dev/articles generate
 
       - name: typecheck
         run: pnpm typecheck

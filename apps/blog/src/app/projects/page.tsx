@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FaGithub, FaStar } from "react-icons/fa";
-import { getAllProjects } from "articles";
+import { getAllProjects } from "@kimuson.dev/articles";
 
 const projects = getAllProjects();
 

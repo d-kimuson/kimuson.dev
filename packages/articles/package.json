@@ -1,11 +1,11 @@
 {
-  "name": "articles",
+  "name": "@kimuson.dev/articles",
   "version": "1.0.0",
   "description": "記事管理のパッケージ",
   "type": "module",
   "exports": {
     ".": {
-      "kimuson-dev/src": "./src/index.ts",
+      "@kimuson-dev/src": "./src/index.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
@@ -34,7 +34,7 @@
     "octokit": "^4.0.3",
     "rimraf": "^6.0.1",
     "rss-parser": "^3.13.0",
-    "tsconfig": "workspace:*",
+    "@kimuson.dev/tsconfig": "workspace:*",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "valibot": "1.0.0-beta.9"

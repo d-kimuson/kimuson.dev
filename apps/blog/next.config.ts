@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config) => ({
     ...config,
-    plugins: [...config.plugins, new NextEntryPlugin("kimuson-dev/src")],
+    plugins: [...config.plugins, new NextEntryPlugin("@kimuson-dev/src")],
   }),
 };
 

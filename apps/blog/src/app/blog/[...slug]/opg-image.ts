@@ -1,6 +1,6 @@
 import sizeOf from "image-size";
 import ogs from "open-graph-scraper";
-import { ArticleDetail } from "articles";
+import { ArticleDetail } from "@kimuson.dev/articles";
 
 export type OgpImage = {
   url: string;
