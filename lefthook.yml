@@ -1,19 +1,32 @@
+_anchors:
+  base-eslint-settings: &base-eslint-settings
+    glob: "*.{ts,tsx,mts,mcs,js,jsx,mjs,cjs}"
+    stage_fixed: true
+    skip:
+      - merge
+      - rebase
+
 pre-commit:
   parallel: true
   commands:
     prettier:
       glob: "*.{tsx,ts,mts,mcs,mjs,cjs,js,json,md,yml,yaml}"
+      stage_fixed: true
+      skip:
+        - merge
+        - rebase
       run: |
-        pnpm prettier --write --ignore-unknown {staged_files}
-        git add {staged_files}
+        pnpm run:prettier {staged_files} --write
+
     cspell:
       glob: "*.{tsx,ts,mts,mcs,mjs,cjs,js,json,md,yml,yaml}"
       run: pnpm cspell lint --gitignore --cache {staged_files}
-    eslint:
-      glob: "*.{tsx,ts,mts,mcs}"
+
+    blog-eslint:
+      <<: *base-eslint-settings
+      root: "apps/blog/"
       run: |
-        pnpm eslint --fix {staged_files}
-        git add {staged_files}
+        pnpm --filter @kimuson.dev/blog eslint --fix {staged_files}
 
 prepare-commit-msg:
   parallel: true

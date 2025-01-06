@@ -134,3 +134,6 @@ dist
 
 # astro
 .astro
+
+# turbo
+.turbo
