@@ -25,7 +25,7 @@
     "preinstall": "npx only-allow pnpm",
     "postinstall": "lefthook install"
   },
-  "packageManager": "pnpm@9.7.1",
+  "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=18",
     "npm": "forbidden, use pnpm",
