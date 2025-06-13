@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "turbo run dev",
-    "lint": "pnpm /^lint:.*/",
+    "lint": "run-s lint:*",
     "lint:prettier": "pnpm run:prettier . --check",
     "lint:cspell": "cspell lint './**/*.{tsx,ts,mjs,cjs,js,json,css,scss,yml,yaml,md}' --gitignore --cache",
     "lint:turbo": "turbo run lint",
-    "fix": "pnpm /^fix:.*/",
+    "fix": "run-s fix:*",
     "fix:prettier": "pnpm run:prettier . --write",
     "fix:turbo": "turbo run fix",
     "run:prettier": "prettier --ignore-unknown --no-error-on-unmatched-pattern --cache",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "cspell": "^8.14.1",
     "lefthook": "^1.7.14",
+    "npm-run-all2": "^8.0.4",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.12.3",
     "turbo": "^2.3.3"
