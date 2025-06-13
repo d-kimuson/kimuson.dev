@@ -1,11 +1,3 @@
-_anchors:
-  base-eslint-settings: &base-eslint-settings
-    glob: "*.{ts,tsx,mts,mcs,js,jsx,mjs,cjs}"
-    stage_fixed: true
-    skip:
-      - merge
-      - rebase
-
 pre-commit:
   parallel: true
   commands:
@@ -23,7 +15,21 @@ pre-commit:
       run: pnpm cspell lint --gitignore --cache {staged_files}
 
     blog-eslint:
-      <<: *base-eslint-settings
+      glob: "*.{ts,tsx,mts,mcs,js,jsx,mjs,cjs}"
+      stage_fixed: true
+      skip:
+        - merge
+        - rebase
       root: "apps/blog/"
       run: |
         pnpm --filter @kimuson.dev/blog eslint --fix {staged_files}
+
+    articles-eslint:
+      glob: "*.{ts,tsx,mts,mcs,js,jsx,mjs,cjs}"
+      stage_fixed: true
+      skip:
+        - merge
+        - rebase
+      root: "packages/articles/"
+      run: |
+        pnpm --filter @kimuson.dev/articles eslint --fix {staged_files}
