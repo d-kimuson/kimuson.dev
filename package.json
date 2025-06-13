@@ -4,11 +4,6 @@
   "description": "",
   "private": true,
   "type": "module",
-  "config": {
-    "commitizen": {
-      "path": "./custom-cz-rule.cjs"
-    }
-  },
   "scripts": {
     "dev": "turbo run dev",
     "lint": "pnpm /^lint:.*/",
@@ -33,9 +28,7 @@
     "pnpm": ">=9.7.1"
   },
   "devDependencies": {
-    "commitizen": "^4.3.0",
     "cspell": "^8.14.1",
-    "cz-conventional-changelog": "^3.3.0",
     "lefthook": "^1.7.14",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.12.3",
