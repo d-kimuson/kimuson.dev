@@ -1,23 +1,49 @@
-# kimuson.dev (Astro)
+# kimuson.dev
 
-## Todo
+Personal blog site built with Next.js and TypeScript.
 
-### MUST (とりあえずリリースできる)
+## Tech Stack
 
-- [x] トップページを良い感じにする(今はデフォルトページ)
-- [x] 一覧ページに最低限 CSS あてる
-- [x] OGP を返す
-- [x] シンタクスハイライトないよって怒られてるので治す
-- [x] RSS
-- [x] 画像ファイルの修正
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Package Manager**: pnpm
+- **Monorepo**: Turbo
 
-### WANT (リリース後で良いからちゃんとしたい)
+## Project Structure
 
-- [ ] 外部サイトの記事はちゃんと分かるようにする
-- [ ] タグ・カテゴリを表示する
-- [ ] タグフィルター
-- [ ] サイトフィルター
-- [ ] 記事ページから他記事への導線
-- [ ] OGP 自動生成
-- [ ] resume
-- [ ] 勢いで作ってファイルぐちゃぐちゃなのでディレクトリ構造良い感じにしときたい
+```
+.
+├── apps/
+│   └── blog/          # Next.js blog application
+├── packages/
+│   ├── articles/      # Article management package
+│   └── tsconfig/      # Shared TypeScript configuration
+└── CLAUDE.md          # Development guide (Japanese)
+```
+
+## Getting Started
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Build all packages
+pnpm build
+
+# Run type checking
+pnpm typecheck
+
+# Run linting
+pnpm lint
+
+# Fix linting issues
+pnpm fix
+```
+
+## Development
+
+See [CLAUDE.md](./CLAUDE.md) for detailed development guidelines and commands (in Japanese).
