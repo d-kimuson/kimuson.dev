@@ -236,7 +236,8 @@
     "zenn",
     "Zenn",
     "zipfiles",
-    "zoneinfo"
+    "zoneinfo",
+    "anthropics"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
