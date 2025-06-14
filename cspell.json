@@ -240,7 +240,10 @@
     "anthropics",
     "budoux",
     "bizin",
-    "budou"
+    "budou",
+    "ximgdiff",
+    "regconfig",
+    "networkidle"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
