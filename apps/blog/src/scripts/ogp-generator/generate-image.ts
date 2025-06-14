@@ -63,17 +63,17 @@ export const generateImage = async (
 
   // テキスト描画
   ctx.fillStyle = "#fafafa"; // 白文字
-  ctx.textAlign = "center";
+  ctx.textAlign = "left";
   ctx.textBaseline = "middle";
 
   const lineSpacing = fontSize * 0.2; // 行間をフォントサイズの20%とする
   const totalTextHeight =
     lines.length * fontSize + (lines.length - 1) * lineSpacing;
   let currentY = (height - totalTextHeight) / 2 + fontSize / 2; // 最初の行のY座標 (垂直中央)
-  const w = width / 2; // 水平中央
+  const x = width * 0.15; // 左寄せ (画面の15%の位置から開始)
 
   for (const line of lines) {
-    ctx.fillText(line, w, currentY, maxWidth);
+    ctx.fillText(line, x, currentY, maxWidth);
     currentY += fontSize + lineSpacing;
   }
 
