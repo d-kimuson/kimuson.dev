@@ -23,9 +23,6 @@ fi
 cwd=$(pwd)
 cd $(git rev-parse --show-toplevel) # リポジトリトップ
 
-pnpm --filter @kimuson.dev/articles generate:summary
-pnpm --filter @kimuson.dev/blog generate:ogp
-
 # 環境に応じたデプロイ実行
 case "$ENVIRONMENT" in
   "production")
