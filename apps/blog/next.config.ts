@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
     ...config,
     plugins: [...config.plugins, new NextEntryPlugin("@kimuson-dev/src")],
   }),
+  staticPageGenerationTimeout: 180,
 };
 
 export default nextConfig;
