@@ -3,12 +3,41 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { siteConfig } from "@/config/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "kimuson.dev",
+  metadataBase: new URL(siteConfig.baseUrl),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.title}`,
+  },
   description: "Personal tech blog showcasing articles, projects, and more",
+  openGraph: {
+    title: siteConfig.title,
+    description: "Personal tech blog showcasing articles, projects, and more",
+    url: siteConfig.baseUrl,
+    siteName: siteConfig.title,
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: "Personal tech blog showcasing articles, projects, and more",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

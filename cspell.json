@@ -237,7 +237,10 @@
     "Zenn",
     "zipfiles",
     "zoneinfo",
-    "anthropics"
+    "anthropics",
+    "budoux",
+    "bizin",
+    "budou"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
