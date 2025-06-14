@@ -243,7 +243,8 @@
     "budou",
     "ximgdiff",
     "regconfig",
-    "networkidle"
+    "networkidle",
+    "shadcn"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
