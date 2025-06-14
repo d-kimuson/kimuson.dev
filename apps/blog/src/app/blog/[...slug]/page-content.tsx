@@ -3,6 +3,7 @@
 import { useState, useMemo, FC } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Button } from "@/components/ui/button";
@@ -142,9 +143,15 @@ export const ArticlePageContent: FC<{
             )}
           </div>
           <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
             className={"prose prose-invert max-w-none"}
             components={{
               p({ children }) {
+                // テーブル内容が含まれている場合はデフォルトの処理に委ねる
+                if (typeof children === "string" && children.includes("|")) {
+                  return <p>{children}</p>;
+                }
+
                 if (
                   typeof children === "string" &&
                   children.startsWith("https://")
@@ -179,6 +186,36 @@ export const ArticlePageContent: FC<{
                   });
                 }
                 return <p>{children}</p>;
+              },
+              table({ children }) {
+                return (
+                  <table className="min-w-full border-collapse border border-gray-600 my-4">
+                    {children}
+                  </table>
+                );
+              },
+              thead({ children }) {
+                return <thead className="bg-gray-800">{children}</thead>;
+              },
+              tbody({ children }) {
+                return <tbody>{children}</tbody>;
+              },
+              tr({ children }) {
+                return <tr className="border-b border-gray-600">{children}</tr>;
+              },
+              th({ children }) {
+                return (
+                  <th className="border border-gray-600 px-4 py-2 text-left font-semibold">
+                    {children}
+                  </th>
+                );
+              },
+              td({ children }) {
+                return (
+                  <td className="border border-gray-600 px-4 py-2">
+                    {children}
+                  </td>
+                );
               },
               h2({ children }) {
                 return (

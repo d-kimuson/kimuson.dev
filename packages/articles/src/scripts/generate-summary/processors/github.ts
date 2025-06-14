@@ -15,11 +15,25 @@ export async function fetchGitHubProjects(): Promise<Oss[]> {
           },
         }
       );
+
+      if (!response.ok) {
+        console.warn(
+          `Failed to fetch GitHub repo ${owner}/${name}: ${response.status}`
+        );
+        return v.parse(ossSchema, {
+          owner,
+          name,
+          repoUrl: url,
+          description: "",
+          stars: 0,
+        });
+      }
+
       const repo: {
         name: string;
         full_name: string;
         description?: string | undefined;
-        stargazers_count: number;
+        stargazers_count?: number;
       } = await response.json();
 
       return v.parse(ossSchema, {
@@ -27,7 +41,7 @@ export async function fetchGitHubProjects(): Promise<Oss[]> {
         name,
         repoUrl: url,
         description: repo.description ?? "",
-        stars: repo.stargazers_count,
+        stars: repo.stargazers_count ?? 0,
       });
     })
   );
