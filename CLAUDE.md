@@ -8,7 +8,6 @@
 
 ## ビルド・テストコマンド
 
-- `pnpm dev` - 開発環境の起動
 - `pnpm build` - すべてのパッケージをビルド
 - `pnpm typecheck` - TypeScript型チェックの実行
 - `pnpm lint` - すべてのリンターを実行（prettier, cspell, turbo lint）
@@ -17,40 +16,35 @@
 - `pnpm ogp --batch` - 全記事のOGP画像生成（ルートから実行）
 - `cd apps/blog && pnpm ogp --batch` - 全記事のOGP画像生成（apps/blogから実行）
 
-## コードスタイルガイドライン
+## 動作確認
 
-### TypeScript
+### 静的チェック
 
-- 型インポートを使用、型アサーションと明示的な`any`を避ける
-- 未使用変数はアンダースコアプレフィックス（例: `_unused`）
-- `interface`より`type`を優先、メソッド署名よりプロパティ署名を優先
-- Promise拒否を処理、浮遊Promiseは禁止
-- Nullish合体演算子（`??`）を論理OR演算子（`||`）より優先
+1. `pnpm typecheck` - TypeScript型チェック
+2. `pnpm fix` - 自動修正可能なLint問題を修正 (pnpm lint は基本使用しない)
+3. 手動でLintエラーがあれば対応
 
-### フォーマット（Prettier）
+### アプリケーションの動作確認
 
-- インデント: 2スペース（タブなし）
-- クォート: ダブルクォート
-- セミコロン: 使用
-- 末尾カンマ: ES5準拠
+**重要**: Claude Code では `pnpm dev` は使用不可。代わりに以下の手順で動作確認を行う：
 
-### インポート順序
+```bash
+# ビルドとVRTスクリーンショット生成を実行
+pnpm build && pnpm --filter=@kimuson.dev/blog vrt:capture
+```
 
-1. ビルトインモジュール
-2. サードパーティ
-3. 型インポート
-4. 内部モジュール
-5. 親ディレクトリ
-6. インデックス
-7. 同階層
+- **スクリーンショット出力先**: `apps/blog/vrt/screenshots/`
+- **確認対象**: 生成されたスクリーンショットで各ページが正常に表示されているかを確認可能
 
-### その他
+## 開発ガイドライン
 
-- コメント: スペース付き（`// このように`）
-- パッケージマネージャ: pnpm v9.7.1以上を使用
-- package.json の直接編集は禁止。必ず pnpm add と pnpm add -D を使って追加してください。
+### プロジェクト固有ルール
 
-このプロジェクトはTurboとpnpmワークスペースを使用したモノレポです。リポジトリルートからコマンドを実行してください。
+- package.json の直接編集は禁止。必ず `pnpm add` と `pnpm add -D` を使用
+- 記事のfrontmatterから `title` プロパティを取得（`Title` ではない）
+- TypeScriptでfrontmatterアクセス時は `frontmatter["title"]` 形式を使用
+
+**注意**: このプロジェクトはTurboとpnpmワークスペースを使用したモノレポです。リポジトリルートからコマンドを実行してください。
 
 ## OGP画像生成システム
 
