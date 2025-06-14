@@ -23,10 +23,15 @@ export const generateOgpForArticle = async (
   force = false
 ): Promise<void> => {
   // ディレクトリ構造を維持した出力パスを生成
-  const relativePath = articleFilePath
+  let relativePath = articleFilePath
     .replace(/\\/g, "/")
     .replace(/\.md$/, "")
     .replace(/^.*\/content\//, "");
+
+  // index.md の場合は /index を削除して親ディレクトリ名を使用
+  if (articleFilePath.endsWith("/index.md")) {
+    relativePath = relativePath.replace(/\/index$/, "");
+  }
 
   const outputFilePath = join(outputDir, `${relativePath}.png`);
   const outputFileDir = dirname(outputFilePath);
@@ -96,10 +101,15 @@ export const generateOgpBatch = async (
   for (const articleFile of articleFiles) {
     try {
       // ディレクトリ構造を維持した出力パスを生成
-      const relativePath = articleFile
+      let relativePath = articleFile
         .replace(/\\/g, "/")
         .replace(/\.md$/, "")
         .replace(/^.*\/content\//, "");
+
+      // index.md の場合は /index を削除して親ディレクトリ名を使用
+      if (articleFile.endsWith("/index.md")) {
+        relativePath = relativePath.replace(/\/index$/, "");
+      }
 
       const outputFilePath = join(outputDir, `${relativePath}.png`);
 
@@ -115,7 +125,32 @@ export const generateOgpBatch = async (
         }
       }
 
-      await generateOgpForArticle(articleFile, outputDir, force);
+      // 記事ファイルを読み込み
+      const fileContent = await readFile(articleFile, "utf-8");
+      const { data: frontmatter } = matter(fileContent);
+
+      // タイトルを取得
+      const title = frontmatter["Title"] ?? frontmatter["title"];
+      if (!title || typeof title !== "string") {
+        throw new Error(
+          `タイトルがフロントマターに見つかりません: ${articleFile}`
+        );
+      }
+
+      // タイトルを適切に分割
+      const lines = separateTitle(title);
+
+      // OGP画像を生成
+      const image = await generateImage(lines);
+
+      // 出力ディレクトリを作成
+      const outputFileDir = dirname(outputFilePath);
+      await mkdir(outputFileDir, { recursive: true });
+
+      // 画像を保存
+      await writeFile(outputFilePath, image);
+
+      console.log(`${relativePath}.png を生成しました。`);
       generated++;
     } catch (error) {
       console.error(`${articleFile} の処理中にエラーが発生しました:`, error);
