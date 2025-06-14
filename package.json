@@ -15,7 +15,7 @@
     "fix:turbo": "turbo run fix",
     "run:prettier": "prettier --ignore-unknown --no-error-on-unmatched-pattern --cache",
     "typecheck": "turbo run typecheck",
-    "build": "turbo run build",
+    "build": "./scripts/build.sh",
     "test": "turbo run test",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "lefthook install"
