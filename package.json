@@ -17,6 +17,8 @@
     "typecheck": "turbo run typecheck",
     "build": "./scripts/build.sh",
     "test": "turbo run test",
+    "claude": "claude --mcp-config .claude/mcp.json",
+    "claude:allow-all": "pnpm claude --dangerously-skip-permissions",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "lefthook install"
   },
@@ -28,6 +30,7 @@
     "pnpm": ">=9.7.1"
   },
   "devDependencies": {
+    "@anthropic-ai/claude-code": "^1.0.24",
     "@playwright/test": "^1.53.0",
     "cspell": "^8.14.1",
     "http-server": "^14.1.1",
