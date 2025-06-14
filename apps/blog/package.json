@@ -57,7 +57,7 @@
     "reg-notify-github-plugin": "^0.14.4",
     "reg-publish-s3-plugin": "^0.14.4",
     "reg-suit": "^0.14.4",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
     "ulid": "^3.0.1",
     "wrangler": "^4.20.0"
