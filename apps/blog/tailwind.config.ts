@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const headerHeight = 60;
-const footerHeight = 122;
+const footerHeight = 250;
 
 export default {
   darkMode: ["class"],
