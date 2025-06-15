@@ -171,6 +171,9 @@ importers:
       reg-publish-s3-plugin:
         specifier: ^0.14.4
         version: 0.14.4
+      reg-simple-keygen-plugin:
+        specifier: ^0.14.2
+        version: 0.14.2
       reg-suit:
         specifier: ^0.14.4
         version: 0.14.4
@@ -4748,6 +4751,9 @@ packages:
 
   reg-publish-s3-plugin@0.14.4:
     resolution: {integrity: sha512-2M//em2oVQ2LkawFfKTWCnowyk+5cMY3X/go1Dk5ZEZQjOyt1E1KOxFaITOyOVLCFwF7YfmYHlp/wWeZbfPh/w==}
+
+  reg-simple-keygen-plugin@0.14.2:
+    resolution: {integrity: sha512-49vn+OFw1Bw5GY0tBuOSG5TL9hSSIf4DT69ILaMETA6HxEYrIQ2bcQ5dQ9NFrEzZTBNDrFLXig+LWM/pwOYcrg==}
 
   reg-suit-core@0.14.4:
     resolution: {integrity: sha512-1QTqsMfFbWrlM4N7aRM+GTc5ilbPCh4ffDUpJzDKGcovpapiVUOzpUAsmT1Q34TrFHcWtx+ZEFKWMHgtomSW0Q==}
@@ -10762,6 +10768,8 @@ snapshots:
       uuid: 9.0.1
     transitivePeerDependencies:
       - aws-crt
+
+  reg-simple-keygen-plugin@0.14.2: {}
 
   reg-suit-core@0.14.4:
     dependencies:
