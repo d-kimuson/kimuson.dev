@@ -260,8 +260,8 @@ importers:
         specifier: ^22.0.0
         version: 22.0.0
       '@tsconfig/strictest':
-        specifier: 2.0.2
-        version: 2.0.2
+        specifier: 2.0.5
+        version: 2.0.5
 
 packages:
 
@@ -2183,8 +2183,8 @@ packages:
   '@tsconfig/node22@22.0.0':
     resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
 
-  '@tsconfig/strictest@2.0.2':
-    resolution: {integrity: sha512-jt4jIsWKvUvuY6adJnQJlb/UR7DdjC8CjHI/OaSQruj2yX9/K6+KOvDt/vD6udqos/FUk5Op66CvYT7TBLYO5Q==}
+  '@tsconfig/strictest@2.0.5':
+    resolution: {integrity: sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg==}
 
   '@types/aws-lambda@8.10.147':
     resolution: {integrity: sha512-nD0Z9fNIZcxYX5Mai2CTmFD7wX7UldCkW2ezCF8D1T5hdiLsnTWDGRpfRYntU6VjTdLQjOvyszru7I1c1oCQew==}
@@ -7584,7 +7584,7 @@ snapshots:
 
   '@tsconfig/node22@22.0.0': {}
 
-  '@tsconfig/strictest@2.0.2': {}
+  '@tsconfig/strictest@2.0.5': {}
 
   '@types/aws-lambda@8.10.147': {}
 
