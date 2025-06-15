@@ -87,7 +87,7 @@ export const SearchModal: FC<SearchModalProps> = ({ open, onOpenChange }) => {
           />
           <CommandList className="flex-1 min-h-0">
             <CommandEmpty>記事が見つかりませんでした。</CommandEmpty>
-            <CommandGroup heading="記事">
+            <CommandGroup>
               {searchResults.map((article) => {
                 const categoryEmoji = getCategoryEmoji(
                   article.tags,
