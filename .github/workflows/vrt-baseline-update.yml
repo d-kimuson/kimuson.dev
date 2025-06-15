@@ -39,8 +39,8 @@ jobs:
 
       - name: run reg-suit
         env:
-          EXPECTED_KEY: baseline
-          ACTUAL_KEY: baseline
+          EXPECTED_KEY: main
+          ACTUAL_KEY: main
           AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
         run: |
