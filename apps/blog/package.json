@@ -14,7 +14,7 @@
     "deploy:preview": "wrangler versions upload",
     "vrt:capture": "tsx ./vrt/main.ts",
     "vrt:reg-suit": "reg-suit run",
-    "vrt:update-baseline": "reg-suit publish -n"
+    "vrt:update-baseline": "reg-suit sync-expected && reg-suit compare && reg-suit publish"
   },
   "dependencies": {
     "@kimuson.dev/articles": "workspace:*",

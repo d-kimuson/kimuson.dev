@@ -62,32 +62,17 @@ export async function fetchArticleFromOGP(
   const publishedTime = result.customMetaTags?.["publishedTime"];
   if (Array.isArray(publishedTime)) throw new Error("Un expected format");
 
-  let date: Date | undefined;
-
-  // 手動設定された日付を最優先で使用
-  if (manualDate) {
-    date = new Date(manualDate);
-  } else if (publishedTime) {
-    // 次にOGPから日付を取得を試みる
-    date = new Date(publishedTime);
-  } else {
-    // OGPから取得できない場合、URLから日付を抽出を試みる
-    date = extractDateFromUrl(url);
-  }
-
-  // どちらからも取得できない場合は現在日時を使用
-  if (!date) {
-    console.warn(
-      `Could not extract date from URL or OGP for: ${url}. Using current date.`
-    );
-    date = new Date();
-  }
+  const date: Date | undefined = manualDate
+    ? new Date(manualDate)
+    : publishedTime
+      ? new Date(publishedTime)
+      : undefined;
 
   return v.parse(externalArticleSchema, {
     title: result.ogTitle,
     description: result.ogDescription,
     url,
-    date: date.toISOString(),
+    date: date?.toISOString(),
     tags: [group].concat(result.customMetaTags?.["tags"] ?? []),
   });
 }
