@@ -37,8 +37,8 @@ jobs:
 
       - name: run reg-suit
         env:
-          EXPECTED_KEY: ${{ github.base_ref }}
-          ACTUAL_KEY: ${{ github.head_ref }}
+          EXPECTED_KEY: ${{ github.base_ref == 'main' && 'baseline' || join('branches/', github.base_ref) }}
+          ACTUAL_KEY: ${{ join('branches/', github.head_ref) }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
         run: |
