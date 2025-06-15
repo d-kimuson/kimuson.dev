@@ -12,7 +12,10 @@ const OUTPUT_DIR = join(__dirname, "../out");
 const captureScreenShot = (page: Page) => async (target: { href: string }) => {
   await page.goto(new URL(target.href, SERVER_BASE_URL).href);
   await page.waitForLoadState("networkidle");
-  await page.waitForTimeout(2000);
+  
+  // フォント読み込み完了を待つ
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(3000); // フォント読み込み用に少し長めに待機
 
   const outputPath = join(
     process.cwd(),
@@ -34,6 +37,18 @@ const main = async () => {
   console.log("[VRT] Chromiumブラウザを起動します...");
   const browser = await chromium.launch({
     headless: (process.env["VRT_HEADLESS"] ?? "true") === "true",
+    args: [
+      // フォント関連の設定を追加
+      '--font-render-hinting=none',
+      '--disable-font-subpixel-positioning', 
+      '--disable-gpu-sandbox',
+      '--force-color-profile=srgb',
+      '--disable-features=TranslateUI',
+      '--disable-ipc-flooding-protection',
+      // 日本語文字化け対策
+      '--lang=ja-JP',
+      '--accept-lang=ja-JP',
+    ],
   });
   console.log("[VRT] ブラウザ起動完了");
   console.log(`[VRT] サーバを起動します (ポート: ${SERVER_PORT}) ...`);
@@ -45,7 +60,12 @@ const main = async () => {
   ]);
 
   try {
-    const context = await browser.newContext();
+    const context = await browser.newContext({
+      locale: 'ja-JP',
+      timezoneId: 'Asia/Tokyo',
+      // フォント読み込み完了を待つ
+      waitUntil: 'networkidle',
+    });
     const controller = browserController(context);
 
     // server 起動を待つ
