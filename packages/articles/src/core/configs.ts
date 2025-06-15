@@ -45,6 +45,17 @@ export const configs = {
         },
       ],
     },
+    {
+      group: "エス・エム・エス テックブログ",
+      articles: [
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2025/04/15/110000",
+        },
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2025/02/04/110000",
+        },
+      ],
+    },
   ],
   projects: [
     {
