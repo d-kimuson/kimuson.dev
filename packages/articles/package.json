@@ -37,7 +37,7 @@
     "rss-parser": "^3.13.0",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
-    "valibot": "1.0.0-beta.9"
+    "valibot": "1.1.0"
   },
   "dependencies": {
     "budoux": "^0.7.0",
