@@ -41,16 +41,14 @@ export function HeroBanner() {
           {/* Subtitle */}
           <div className="text-xl md:text-2xl lg:text-3xl font-medium text-muted-foreground mb-4">
             <span className="inline-block animate-typewriter">
-              Web Technologies & TypeScript Enthusiast
+              Web技術 & TypeScript Enthusiast
             </span>
           </div>
 
           {/* Description */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-            Welcome to my personal blog where I share technical insights, daily
-            learnings, and deep dives into modern web development. Exploring the
-            Node.js ecosystem with a focus on TypeScript and innovative
-            solutions.
+            技術的な洞察、日々の学び、モダンWeb開発の深い探究を共有する個人ブログへようこそ。
+            TypeScriptと革新的なソリューションに焦点を当てた、Node.jsエコシステムの世界を探索します。
           </p>
 
           {/* CTA Buttons */}
@@ -75,7 +73,7 @@ export function HeroBanner() {
             >
               <Link href="/about" className="flex items-center gap-2">
                 <User className="w-5 h-5" />
-                About Me
+                About
               </Link>
             </Button>
 
@@ -87,7 +85,7 @@ export function HeroBanner() {
             >
               <Link href="/projects" className="flex items-center gap-2">
                 <Code2 className="w-5 h-5" />
-                My Projects
+                Projects
               </Link>
             </Button>
           </div>

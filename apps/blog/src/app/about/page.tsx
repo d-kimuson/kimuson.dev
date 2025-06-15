@@ -43,19 +43,16 @@ export default function AboutPage() {
             <div className="flex-grow">
               <h2 className="text-2xl font-semibold mb-2">kimuson</h2>
               <p className="text-muted-foreground mb-4">
-                Software Engineer passionate about web technologies
+                Web技術を愛するソフトウェアエンジニア
               </p>
               <p className="mb-4 leading-relaxed">
-                I&apos;m a software engineer with expertise in TypeScript and
-                the Node.js ecosystem. I enjoy building modern web applications
-                and sharing knowledge about web development techniques, best
-                practices, and emerging technologies.
+                TypeScriptとNode.jsエコシステムを専門とするソフトウェアエンジニアです。
+                モダンなWebアプリケーションの構築を楽しんでおり、
+                Web開発技術、ベストプラクティス、新しい技術について知識を共有することを大切にしています。
               </p>
 
               <div className="mb-4">
-                <h3 className="font-semibold mb-2">
-                  Technologies I work with:
-                </h3>
+                <h3 className="font-semibold mb-2">扱っている技術：</h3>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="secondary">TypeScript</Badge>
                   <Badge variant="secondary">React</Badge>
@@ -98,7 +95,7 @@ export default function AboutPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <HiPresentationChartLine className="text-xl" />
-            Speaking & Presentations
+            Speaking
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -118,7 +115,7 @@ export default function AboutPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-primary hover:text-primary/80 transition-colors flex-shrink-0"
                   >
-                    <span className="text-sm">View Slides</span>
+                    <span className="text-sm">スライドを見る</span>
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 </div>
@@ -143,62 +140,56 @@ export default function AboutPage() {
         </CardHeader>
         <CardContent>
           <p className="mb-4">
-            This blog serves as a central hub for my technical writing and
-            personal thoughts. Here, you&apos;ll find links to my articles from
-            various platforms, including:
+            私の技術記事や考えをまとめたブログです。
+            様々なプラットフォームで公開した記事もここから確認できます：
           </p>
           <ul className="list-disc list-inside mb-4 space-y-1">
-            <li>Technical posts from companies I work(ed) for</li>
+            <li>現在・過去の勤務先企業の技術記事</li>
             <li>
-              Articles published on platforms like{" "}
               <a
                 href="https://zenn.dev/"
                 className="text-primary hover:underline"
               >
                 Zenn
               </a>
+              などのプラットフォームで公開した記事
             </li>
-            <li>Original content exclusive to this blog</li>
+            <li>このブログ限定のオリジナルコンテンツ</li>
           </ul>
           <p className="mb-4">
-            While the primary focus is on technical content, particularly web
-            development and software engineering, I also share my thoughts on
-            various topics that interest me. You&apos;ll find articles about:
+            Web開発やソフトウェアエンジニアリングを中心とした技術記事が主ですが、
+            興味のあるトピックについても書いています：
           </p>
           <ul className="list-disc list-inside mb-6 space-y-1">
-            <li>Web development techniques and best practices</li>
-            <li>Software engineering insights</li>
-            <li>Personal reflections and learning experiences</li>
-            <li>Technology trends and observations</li>
+            <li>Web開発技術とベストプラクティス</li>
+            <li>ソフトウェアエンジニアリングの洞察</li>
+            <li>個人的な振り返りと学習経験</li>
+            <li>技術トレンドと所感</li>
           </ul>
 
           <h3 className="text-xl font-semibold mb-3">Site Features</h3>
           <ul className="list-disc list-inside mb-4 space-y-1">
-            <li>Built with Next.js and TypeScript for optimal performance</li>
-            <li>
-              All articles are version-controlled on GitHub - feel free to check
-              the history or suggest improvements
-            </li>
-            <li>Responsive design optimized for all devices</li>
-            <li>Search and filter functionality to find relevant content</li>
+            <li>Next.jsとTypeScriptで高速なサイトを実現</li>
+            <li>記事はGitHubで管理しており、履歴や改善提案が可能</li>
+            <li>スマホ、タブレット、PCに対応したレスポンシブデザイン</li>
+            <li>記事を簡単に探せる検索・フィルター機能</li>
           </ul>
 
           <div className="bg-muted/50 p-4 rounded-lg">
             <p className="text-sm">
-              <strong>Have questions or feedback?</strong> Feel free to reach
-              out via{" "}
+              <strong>何かご質問やフィードバックはありますか？</strong>{" "}
               <a
                 href={snsUrls.twitter}
                 className="text-primary hover:underline"
               >
                 Twitter DM
-              </a>{" "}
-              or check out my projects on{" "}
+              </a>
+              でお気軽にお声がけいただくか、
               <a href={snsUrls.github} className="text-primary hover:underline">
                 GitHub
               </a>
-              . I&apos;m always happy to discuss technology, share knowledge,
-              and connect with fellow developers!
+              で作品をご覧ください。
+              技術について語り合い、知識を共有できれば嬉しいです！
             </p>
           </div>
         </CardContent>

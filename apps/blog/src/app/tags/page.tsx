@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "タグ一覧",
+  title: "Tags",
   description: "ブログ記事のタグ一覧ページです。",
 };
 
@@ -33,7 +33,7 @@ export default async function TagsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 text-center">
         <h1 className="mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-4xl font-bold text-transparent">
-          タグ一覧
+          Tags
         </h1>
         <p className="text-muted-foreground">
           {tagsWithCount.length} 個のタグで{" "}

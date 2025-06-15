@@ -13,10 +13,12 @@ export const metadata: Metadata = {
     default: siteConfig.title,
     template: `%s | ${siteConfig.title}`,
   },
-  description: "Personal tech blog showcasing articles, projects, and more",
+  description:
+    "Web技術やTypeScriptに焦点を当てた技術記事、日々の学び、プロジェクトを紹介する個人ブログ",
   openGraph: {
     title: siteConfig.title,
-    description: "Personal tech blog showcasing articles, projects, and more",
+    description:
+      "Web技術やTypeScriptに焦点を当てた技術記事、日々の学び、プロジェクトを紹介する個人ブログ",
     url: siteConfig.baseUrl,
     siteName: siteConfig.title,
     locale: "ja_JP",
@@ -25,7 +27,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
-    description: "Personal tech blog showcasing articles, projects, and more",
+    description:
+      "Web技術やTypeScriptに焦点を当てた技術記事、日々の学び、プロジェクトを紹介する個人ブログ",
   },
   robots: {
     index: true,

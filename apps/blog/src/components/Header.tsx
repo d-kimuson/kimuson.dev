@@ -90,16 +90,16 @@ const Header = () => {
                 検索
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
-                <Link href="/blog">Blog</Link>
+                <Link href="/blog">ブログ</Link>
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
-                <Link href="/tags">Tags</Link>
+                <Link href="/tags">タグ</Link>
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
-                <Link href="/projects">Projects</Link>
+                <Link href="/projects">プロジェクト</Link>
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
-                <Link href="/about">About</Link>
+                <Link href="/about">プロフィール</Link>
               </Button>
             </div>
           </div>

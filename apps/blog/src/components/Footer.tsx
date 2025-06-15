@@ -14,9 +14,7 @@ const Footer = () => {
               About kimuson
             </h3>
             <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Software engineer passionate about web technologies, specializing
-              in TypeScript and Node.js ecosystem. Sharing technical insights
-              and learning experiences.
+              Web技術を愛するソフトウェアエンジニア。TypeScriptとNode.jsエコシステムを専門とし、技術的な洞察と学習経験を共有しています。
             </p>
             <div className="flex space-x-4">
               <a
@@ -46,19 +44,19 @@ const Footer = () => {
                 href="/blog"
                 className="block text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                Blog Articles
+                ブログ記事
               </Link>
               <Link
                 href="/projects"
                 className="block text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                Projects
+                プロジェクト
               </Link>
               <Link
                 href="/about"
                 className="block text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                About This Site
+                サイトについて
               </Link>
             </div>
           </div>
@@ -67,8 +65,7 @@ const Footer = () => {
           <div className="md:col-span-1">
             <h3 className="text-lg font-semibold mb-3">Contact</h3>
             <p className="text-sm text-muted-foreground mb-2">
-              Feel free to reach out on social media or check out my work on
-              GitHub.
+              SNSでお気軽にお声がけいただくか、GitHubで作品をご覧ください。
             </p>
           </div>
         </div>
