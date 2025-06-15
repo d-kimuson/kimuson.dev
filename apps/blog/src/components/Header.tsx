@@ -67,6 +67,9 @@ const Header = () => {
             <Link href="/blog">Blog</Link>
           </Button>
           <Button variant="ghost" asChild>
+            <Link href="/tags">Tags</Link>
+          </Button>
+          <Button variant="ghost" asChild>
             <Link href="/projects">Projects</Link>
           </Button>
           <Button variant="ghost" asChild>
@@ -94,6 +97,9 @@ const Header = () => {
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
                 <Link href="/blog">Blog</Link>
+              </Button>
+              <Button variant="ghost" asChild onClick={toggleMenu}>
+                <Link href="/tags">Tags</Link>
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
                 <Link href="/projects">Projects</Link>
