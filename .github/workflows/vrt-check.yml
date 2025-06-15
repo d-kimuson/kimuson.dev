@@ -1,10 +1,17 @@
-name: Visual Regression Testing
+name: PR Visual Regression Testing
 
 on:
-  push:
+  pull_request:
+    paths:
+      - "**/src/**"
+      - "**/public/**"
+      - "**/package.json"
+      - "**/pnpm-lock.yaml"
+      - "**/regconfig.json"
+      - ".github/workflows/vrt-check.yml"
 
 jobs:
-  vrt:
+  pr-vrt:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -15,10 +22,6 @@ jobs:
 
       - name: Setup Node
         uses: ./.github/actions/setup_node
-
-      - name: workaround for detached HEAD
-        run: |
-          git checkout ${GITHUB_REF#refs/heads/} || git checkout -b ${GITHUB_REF#refs/heads/} && git pull
 
       - name: build application
         run: |
@@ -34,6 +37,8 @@ jobs:
 
       - name: run reg-suit
         env:
+          EXPECTED_KEY: baseline
+          ACTUAL_KEY: ${{ github.event.pull_request.head.sha }}
           AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
         run: |
