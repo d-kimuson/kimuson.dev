@@ -1,13 +1,12 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { searchArticles, getAllTags } from "@kimuson.dev/articles";
+import { searchArticles } from "@kimuson.dev/articles";
 import { ExternalLinkIcon } from "lucide-react";
 
 const getCategoryEmoji = (tags: string[], category?: string) => {
@@ -59,61 +58,21 @@ const getExternalSiteIcon = (article: { tags: string[] }) => {
   );
 };
 
-const useSearchArticles = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+const useArticles = () => {
+  const articles = useMemo(() => {
+    return searchArticles({});
+  }, []);
 
-  const filteredArticles = useMemo(() => {
-    return searchArticles({
-      text: searchTerm === "" ? undefined : searchTerm,
-      tags: selectedTags,
-    });
-  }, [searchTerm, selectedTags]);
-
-  return {
-    filteredArticles,
-    selectedTags,
-    searchInput: (
-      <Input
-        type="text"
-        placeholder="Search articles"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="flex-grow"
-      />
-    ),
-    tagFilter: getAllTags().map((tag) => (
-      <Badge
-        key={tag}
-        variant={selectedTags.includes(tag) ? "default" : "secondary"}
-        className="cursor-pointer"
-        onClick={() => {
-          if (selectedTags.includes(tag)) {
-            setSelectedTags(selectedTags.filter((t) => t !== tag));
-          } else {
-            setSelectedTags([...selectedTags, tag]);
-          }
-        }}
-      >
-        {tag}
-      </Badge>
-    )),
-  };
+  return { articles };
 };
 
 export const HomePageContent: FC = () => {
-  const { filteredArticles, searchInput, tagFilter } = useSearchArticles();
+  const { articles } = useArticles();
 
   return (
     <div>
-      <div className="mb-4 flex space-x-4">{searchInput}</div>
-
-      <details className="mb-6">
-        <summary>Filter by tags</summary>
-        <div className="mb-6 flex flex-wrap gap-2">{tagFilter}</div>
-      </details>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredArticles.map((article) => {
+        {articles.map((article) => {
           const categoryEmoji = getCategoryEmoji(
             article.tags,
             "slug" in article ? article.slug?.split("/")[1] : undefined

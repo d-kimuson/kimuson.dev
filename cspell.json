@@ -244,7 +244,8 @@
     "ximgdiff",
     "regconfig",
     "networkidle",
-    "shadcn"
+    "shadcn",
+    "cmdk"
   ],
   "ignorePaths": ["pnpm-lock.yaml", ".astro/types.d.ts"]
 }
