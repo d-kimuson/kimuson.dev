@@ -13,7 +13,8 @@
     "deploy:production": "wrangler deploy",
     "deploy:preview": "wrangler versions upload",
     "vrt:capture": "tsx ./vrt/main.ts",
-    "vrt:reg-suit": "reg-suit run"
+    "vrt:reg-suit": "reg-suit run",
+    "vrt:update-baseline": "reg-suit publish -n"
   },
   "dependencies": {
     "@kimuson.dev/articles": "workspace:*",
@@ -53,7 +54,6 @@
     "http-server": "^14.1.1",
     "playwright": "^1.53.0",
     "postcss": "^8.4.49",
-    "reg-keygen-git-hash-plugin": "^0.14.3",
     "reg-notify-github-plugin": "^0.14.4",
     "reg-publish-s3-plugin": "^0.14.4",
     "reg-suit": "^0.14.4",

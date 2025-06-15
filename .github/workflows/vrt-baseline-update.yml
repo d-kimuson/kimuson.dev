@@ -1,0 +1,46 @@
+name: Baseline Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/src/**"
+      - "**/public/**"
+      - "**/package.json"
+      - "**/pnpm-lock.yaml"
+      - "**/regconfig.json"
+      - ".github/workflows/baseline-update.yml"
+
+jobs:
+  baseline-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: ./.github/actions/setup_node
+
+      - name: build application
+        run: |
+          pnpm build
+
+      - name: capture snapshot
+        env:
+          VRT_HEADLESS: true
+          VRT_MAX_CONCURRENT_REQUESTS: 20
+        run: |
+          pnpm --filter=@kimuson.dev/blog exec playwright install
+          pnpm --filter=@kimuson.dev/blog vrt:capture
+
+      - name: run reg-suit
+        env:
+          ACTUAL_KEY: baseline
+          AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDFLARE_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDFLARE_SECRET_ACCESS_KEY }}
+        run: |
+          pnpm --filter=@kimuson.dev/blog vrt:update-baseline
