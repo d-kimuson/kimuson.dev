@@ -61,9 +61,6 @@ const Header = () => {
             </kbd>
           </Button>
           <Button variant="ghost" asChild>
-            <Link href="/">Home</Link>
-          </Button>
-          <Button variant="ghost" asChild>
             <Link href="/blog">Blog</Link>
           </Button>
           <Button variant="ghost" asChild>
@@ -91,9 +88,6 @@ const Header = () => {
               >
                 <Search className="h-4 w-4 mr-2" />
                 検索
-              </Button>
-              <Button variant="ghost" asChild onClick={toggleMenu}>
-                <Link href="/">Home</Link>
               </Button>
               <Button variant="ghost" asChild onClick={toggleMenu}>
                 <Link href="/blog">Blog</Link>

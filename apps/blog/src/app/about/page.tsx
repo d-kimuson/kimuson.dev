@@ -3,6 +3,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { snsUrls } from "@/config/sns";
 import { FaGithub, FaTwitter } from "react-icons/fa";
+import { HiPresentationChartLine } from "react-icons/hi2";
+import { CalendarDays, ExternalLink } from "lucide-react";
+
+const speakingHistory = [
+  {
+    title:
+      "MCP で繋ぐ Figma とデザインシステム〜LLM を使った UI 実装のリアル〜",
+    event: "レバテックLAB開発チームイベント",
+    date: "2025年5月28日",
+    url: "https://speakerdeck.com/kimuson/mcp-dexi-gu-figma-todezainsisutemu-llm-woshi-tuta-ui-shi-zhuang-noriaru",
+  },
+  {
+    title: "TypeScript へ型安全性を高めながらリプレースする",
+    event: "Yet Another Perl Conference 2022",
+    date: "2022年3月4日",
+    url: "https://speakerdeck.com/kimuson/typescript-hexing-an-quan-xing-wogao-menagararipuresusuru",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -71,6 +89,49 @@ export default function AboutPage() {
                 </a>
               </div>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Speaking History */}
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <HiPresentationChartLine className="text-xl" />
+            Speaking & Presentations
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {speakingHistory.map((talk, index) => (
+              <div
+                key={index}
+                className="border border-border/20 rounded-lg p-4 hover:border-border/40 transition-colors"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+                  <h3 className="font-semibold text-lg leading-tight">
+                    {talk.title}
+                  </h3>
+                  <a
+                    href={talk.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-primary hover:text-primary/80 transition-colors flex-shrink-0"
+                  >
+                    <span className="text-sm">View Slides</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2 text-muted-foreground text-sm">
+                  <div className="flex items-center gap-1">
+                    <CalendarDays className="h-4 w-4" />
+                    <span>{talk.date}</span>
+                  </div>
+                  <div className="hidden sm:block">•</div>
+                  <div>{talk.event}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
