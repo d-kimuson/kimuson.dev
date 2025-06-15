@@ -54,6 +54,12 @@ export const configs = {
       url: "https://github.com/d-kimuson/type-predicates-generator",
     },
     {
+      url: "https://github.com/d-kimuson/claude-crew",
+    },
+    {
+      url: "https://github.com/d-kimuson/esa-mcp-server",
+    },
+    {
       url: "https://github.com/d-kimuson/react-router-typing",
     },
     {
