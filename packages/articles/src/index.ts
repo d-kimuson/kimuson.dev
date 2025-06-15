@@ -38,7 +38,7 @@ const moduleClosure = (): Module => {
       ({ content, ...others }): Article => others
     ),
     ...contents.externalArticles.flatMap(({ articles }) => articles),
-  ].sort((a, b) => b.date.getTime() - a.date.getTime());
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const allTags = uniq(merged.flatMap((article) => article.tags)).sort();
 
   return {

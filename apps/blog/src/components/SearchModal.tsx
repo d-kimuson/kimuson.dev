@@ -111,7 +111,7 @@ export const SearchModal: FC<SearchModalProps> = ({ open, onOpenChange }) => {
                         )}
                       </div>
                       <p className="text-xs text-muted-foreground mt-1">
-                        {article.date.toLocaleDateString()}
+                        {new Date(article.date).toLocaleDateString()}
                       </p>
                       <div className="flex flex-wrap gap-1 mt-2">
                         {article.tags.slice(0, 3).map((tag) => (

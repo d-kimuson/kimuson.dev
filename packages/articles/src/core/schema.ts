@@ -24,10 +24,7 @@ export const externalArticleSchema = v.object({
   title: v.string(),
   description: v.optional(v.string()),
   url: v.string(),
-  date: v.pipe(
-    v.string(),
-    v.transform((date) => new Date(date))
-  ),
+  date: v.string(),
   tags: v.array(v.string()),
 });
 

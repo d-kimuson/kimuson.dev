@@ -95,7 +95,7 @@ export const ArticleCard: FC<ArticleCardProps> = ({ article }) => {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground font-medium mb-3">
-              {article.date.toLocaleDateString()}
+              {new Date(article.date).toLocaleDateString()}
             </p>
             <div className="flex flex-wrap gap-1">
               {article.tags.slice(0, 3).map((tagName) => (
@@ -142,7 +142,7 @@ export const ArticleCard: FC<ArticleCardProps> = ({ article }) => {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground font-medium mb-3">
-              {article.date.toLocaleDateString()}
+              {new Date(article.date).toLocaleDateString()}
             </p>
             <div className="flex flex-wrap gap-1">
               {article.tags.slice(0, 3).map((tagName) => (

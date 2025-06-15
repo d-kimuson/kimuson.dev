@@ -40,7 +40,9 @@ const main = async (): Promise<void> => {
     configs.articles.map(async ({ group, articles }) => ({
       group,
       articles: await Promise.all(
-        articles.map(async ({ url }) => await fetchArticleFromOGP(group, url))
+        articles.map(
+          async ({ url, date }) => await fetchArticleFromOGP(group, url, date)
+        )
       ),
     }))
   );
