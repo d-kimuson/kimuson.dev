@@ -77,6 +77,9 @@ body {
     min-height: 100vh;
     background-attachment: fixed;
   }
+  html {
+    scroll-padding-top: 80px;
+  }
 }
 
 .prose h1 {
@@ -91,7 +94,8 @@ body {
   margin-top: 2rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgb(75 85 99);
+  border-bottom: none;
+  color: hsl(var(--primary));
 }
 
 .prose h3 {
@@ -99,6 +103,7 @@ body {
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
+  color: hsl(var(--primary));
 }
 
 .prose p {
