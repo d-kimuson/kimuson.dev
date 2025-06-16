@@ -22,6 +22,12 @@ import { TagList } from "@components/molecules/tag-list.tsx";
 <TagList tags={[`Gatsby`, `ブログ`]} isLink />
 ```
 
+import { TagList } from "@mdx-components/tag-list"
+
+<TagList tags={[`Gatsby`, `ブログ`]} isLink />
+
+こんな感じです
+
 あとは、マークダウン関連のカスタマイズをプラグインから剥がしたかったのが大きいです
 
 例えば、
