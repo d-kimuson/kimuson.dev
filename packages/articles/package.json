@@ -27,7 +27,7 @@
     "@kimuson.dev/tsconfig": "workspace:*",
     "@types/find-package-json": "^1.2.6",
     "@types/fs-extra": "^11.0.4",
-    "@types/glob": "^8.1.0",
+    "@types/glob": "^9.0.0",
     "@types/node": "^22.10.5",
     "fs-extra": "^11.2.0",
     "glob": "^11.0.0",
