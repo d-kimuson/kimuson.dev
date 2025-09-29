@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@anthropic-ai/claude-code':
-        specifier: ^1.0.24
-        version: 1.0.24
+        specifier: ^2.0.0
+        version: 2.0.0
       '@playwright/test':
         specifier: ^1.53.0
         version: 1.53.0
@@ -269,8 +269,8 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@anthropic-ai/claude-code@1.0.24':
-    resolution: {integrity: sha512-4S6ly2297ngNlto7IFZeEicS9u0yRDhocOzndWFovGBb+iUoEPKdZa/rhVk/tcyCADL6S+mMkiGQOlqFDrN3JQ==}
+  '@anthropic-ai/claude-code@2.0.0':
+    resolution: {integrity: sha512-qUaM1d2NeOshOZfHyh54gaFRwTE4+peNhHARYxUz3QPG5vbm2jp70tFING79laoCEK/LEOxeE5zwJpxVep856w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -4991,6 +4991,7 @@ packages:
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
+    deprecated: The work that was done in this beta branch won't be included in future versions
 
   space-separated-tokens@1.1.5:
     resolution: {integrity: sha512-q/JSVd1Lptzhf5bkYm4ob4iWPjx0KiRe3sRFBNrVqbJkFaBm5vbbowy1mymoPNLRa52+oadOhJ+K49wsSeSjTA==}
@@ -5605,7 +5606,7 @@ snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
 
-  '@anthropic-ai/claude-code@1.0.24':
+  '@anthropic-ai/claude-code@2.0.0':
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.33.5
       '@img/sharp-darwin-x64': 0.33.5
