@@ -30,7 +30,7 @@
     "@types/glob": "^8.1.0",
     "@types/node": "^22.10.5",
     "fs-extra": "^11.2.0",
-    "glob": "^11.0.0",
+    "glob": "^13.0.0",
     "gray-matter": "^4.0.3",
     "octokit": "^4.0.3",
     "rimraf": "^6.0.1",
