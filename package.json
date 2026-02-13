@@ -17,8 +17,6 @@
     "typecheck": "turbo run typecheck",
     "build": "./scripts/build.sh",
     "test": "turbo run test",
-    "claude": "claude --mcp-config .claude/mcp.json",
-    "claude:allow-all": "pnpm claude --dangerously-skip-permissions",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "lefthook install"
   },

@@ -57,6 +57,30 @@ export const configs = {
       group: "エス・エム・エス テックブログ",
       articles: [
         {
+          url: "https://tech.bm-sms.co.jp/entry/2026/02/10/110000",
+          date: "2026-02-10T02:00:00.000Z",
+        },
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2026/02/10/110100",
+          date: "2026-02-10T02:01:00.000Z",
+        },
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2026/02/04/110000",
+          date: "2026-02-04T02:00:00.000Z",
+        },
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2026/01/20/110000",
+          date: "2026-01-20T02:00:00.000Z",
+        },
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2025/12/23/150000",
+          date: "2025-12-23T06:00:00.000Z",
+        },
+        {
+          url: "https://tech.bm-sms.co.jp/entry/2025/09/02/110000",
+          date: "2025-09-02T02:00:00.000Z",
+        },
+        {
           url: "https://tech.bm-sms.co.jp/entry/2025/04/15/110000",
           date: "2025-04-15T02:00:00.000Z",
         },
@@ -68,6 +92,15 @@ export const configs = {
     },
   ],
   projects: [
+    {
+      url: "https://github.com/d-kimuson/claude-code-viewer",
+    },
+    {
+      url: "https://github.com/d-kimuson/modular-mcp",
+    },
+    {
+      url: "https://github.com/d-kimuson/super-agent",
+    },
     {
       url: "https://github.com/d-kimuson/ts-type-expand",
     },
