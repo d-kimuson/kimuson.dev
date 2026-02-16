@@ -148,7 +148,7 @@ openapi
 こちらの問題が安定版の `4.3.1` で起きてます、とりあえずグローバルに以下の型定義を適用します
 
 ```typescript
-type AnyType = Record<string, unknown>;
+type AnyType = Record<string, unknown>
 ```
 
 また、型チェックオプションによっては生成されたコードには問題があることがあります
@@ -187,7 +187,7 @@ export const endpoints = getEndpoints(config, `http://localhost:8000`, api)
 `endpoints` には、各 API エンドポイントに割当られた関数が定義されていて、
 
 ```typescript
-import { endpoints } from "@scripts/api";
+import { endpoints } from "@scripts/api"
 
 endpoints
   .apiSamplesList()
@@ -195,8 +195,8 @@ endpoints
     // 処理
   })
   .catch((error) => {
-    console.log(error);
-  });
+    console.log(error)
+  })
 
 endpoints
   .apiSamplesRetrieve(id)
@@ -204,8 +204,8 @@ endpoints
     // 処理
   })
   .catch((error) => {
-    console.log(error);
-  });
+    console.log(error)
+  })
 ```
 
 こんな感じで使うことができます
