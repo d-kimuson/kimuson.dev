@@ -61,7 +61,7 @@
     "reg-simple-keygen-plugin": "^0.14.2",
     "reg-suit": "^0.14.4",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2",
+    "typescript": "^7.0.0",
     "ulid": "^3.0.1",
     "wrangler": "^4.20.0"
   }
